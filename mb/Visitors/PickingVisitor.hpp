@@ -5,7 +5,7 @@
 #include <functional>
 #include <algorithm>
 #include <vector>
-#include "../maths/Ray.hpp"
+#include "../Maths/Ray.hpp"
 
 // TODO: Rewrite this code using FindNodes visitor extension.
 

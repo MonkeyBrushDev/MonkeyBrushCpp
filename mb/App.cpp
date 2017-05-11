@@ -1,10 +1,10 @@
 #include "App.hpp"
 #include "Rendering/Renderer.hpp"
 
-#include "visitors/StartComponents.hpp"
-#include "visitors/FetchCameras.hpp"
-#include "visitors/FetchGeometry.hpp"
-#include "visitors/UpdateWorldState.hpp"
+#include "Visitors/StartComponents.hpp"
+#include "Visitors/FetchCameras.hpp"
+#include "Visitors/FetchGeometry.hpp"
+#include "Visitors/UpdateWorldState.hpp"
 
 namespace mb
 {

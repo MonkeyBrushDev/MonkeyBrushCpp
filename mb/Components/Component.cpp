@@ -1,5 +1,5 @@
 #include "Component.hpp"
-#include "../scenegraph/Node.hpp"
+#include "../Scenegraph/Node.hpp"
 #include <string>
 
 namespace mb

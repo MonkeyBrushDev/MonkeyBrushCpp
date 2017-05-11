@@ -1,4 +1,5 @@
 #include "Frustum.hpp"
+#include <cmath>
 
 namespace mb
 {
