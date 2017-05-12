@@ -14,9 +14,17 @@ set( MB_PUBLIC_HEADERS
   Components/OrbitCamera.hpp
   Components/OtherComponent.hpp
 
+
+  Exceptions/Exception.hpp
+  Exceptions/FileNotFoundException.hpp
+  Exceptions/HasParentException.hpp
+  Exceptions/RuntimeException.hpp
+
+
   Maths/Clock.hpp
   Maths/Frustum.hpp
   Maths/Ray.hpp
+
 
   Primitives/Primitive.hpp
   Primitives/CapsulePrimitive.hpp
@@ -24,6 +32,7 @@ set( MB_PUBLIC_HEADERS
   Primitives/PlanePrimitive.hpp
   Primitives/SpherePrimitive.hpp
   Primitives/TorusPrimitive.hpp
+
 
   #Rendering/ImageEffects/BlurImageEffect.hpp
   Rendering/ImageEffects/GreyImageEffect.hpp
@@ -39,6 +48,8 @@ set( MB_PUBLIC_HEADERS
   Rendering/BatchQueue.hpp
   Rendering/Material.hpp
   Rendering/Renderer.hpp
+  Rendering/Texture.hpp
+
 
   Scenegraph/Camera.hpp
   Scenegraph/Geometry.hpp
@@ -47,12 +58,21 @@ set( MB_PUBLIC_HEADERS
   Scenegraph/Node.hpp
   Scenegraph/Switch.hpp
 
+
   Systems/RenderSystem.hpp
   Systems/System.hpp
   Systems/UpdateSystem.hpp
 
+
+  Utils/CustomPingPong.hpp
+  Utils/CustomPingPong.inl
+  #Utils/Easing.hpp
+  Utils/Log.hpp
   Utils/Macros.hpp
+  Utils/MemoryUtils.hpp
+  Utils/NonCopyable.hpp
   ##Utils/Params.hpp
+  Utils/StringUtils.hpp
 
 
   Visitors/ChildrenCounterVisitor.hpp
@@ -84,6 +104,7 @@ set( MB_SOURCES
   Components/MeshRenderer.cpp
   Components/OtherComponent.cpp
 
+
   Maths/Clock.cpp
   Maths/Frustum.cpp
 
@@ -106,6 +127,7 @@ set( MB_SOURCES
   Rendering/BatchQueue.cpp
   Rendering/Renderer.cpp
 
+
   Scenegraph/Camera.cpp
   Scenegraph/Geometry.cpp
   Scenegraph/Group.cpp
@@ -113,9 +135,14 @@ set( MB_SOURCES
   Scenegraph/Node.cpp
   Scenegraph/Switch.cpp
 
+
   Systems/RenderSystem.cpp
   Systems/System.cpp
   Systems/UpdateSystem.cpp
+
+
+  #Utils/Easing.cpp
+  Utils/Log.cpp
 
 
   Visitors/ChildrenCounterVisitor.cpp
@@ -131,6 +158,7 @@ set( MB_SOURCES
   Visitors/UpdateComponents.cpp
   Visitors/UpdateWorldState.cpp
   Visitors/Visitor.cpp
+
 
   App.cpp
   Layer.cpp
