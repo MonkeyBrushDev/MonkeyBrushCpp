@@ -20,34 +20,13 @@ namespace mb
       TRIANGLE_FAN,
       TRIANGLE_STRIP
     };
-    /*explicit Primitive( Primitive::Type type = Primitive::Type::TRIANGLES )
-    {
-
-    }*/
     MB_API
-    Primitive::Type type( void ) const
-    {
-      return _type;
-    }
-
-    /*void setVertexBuffer( VBO* vbo )
-    {
-      _vertexBuffer = vbo;
-    }*/
-
+    Primitive::Type type( void ) const;
     MB_API
-    Primitive( const std::string& name_ )
-      : name( name_ )
-    {
-      _type = Type::TRIANGLES;
-    }
+    Primitive( Primitive::Type type = Primitive::Type::TRIANGLES );
     MB_API
-    void render( )
-    {
-      std::cout << "\t-Primitive '" << name << "'" << std::endl;
-    }
-    Type _type;
-    std::string name;
+    void render( void );
+    Primitive::Type _type;
   };
 }
 

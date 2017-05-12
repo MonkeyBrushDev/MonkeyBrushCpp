@@ -19,6 +19,11 @@ set( MB_PUBLIC_HEADERS
   Maths/Ray.hpp
 
   Primitives/Primitive.hpp
+  Primitives/CapsulePrimitive.hpp
+  Primitives/CubePrimitive.hpp
+  Primitives/PlanePrimitive.hpp
+  Primitives/SpherePrimitive.hpp
+  Primitives/TorusPrimitive.hpp
 
   #Rendering/ImageEffects/BlurImageEffect.hpp
   Rendering/ImageEffects/GreyImageEffect.hpp
@@ -81,6 +86,13 @@ set( MB_SOURCES
 
   Maths/Clock.cpp
   Maths/Frustum.cpp
+
+  Primitives/Primitive.cpp
+  Primitives/CapsulePrimitive.cpp
+  Primitives/CubePrimitive.cpp
+  Primitives/PlanePrimitive.cpp
+  Primitives/SpherePrimitive.cpp
+  Primitives/TorusPrimitive.cpp
 
   Rendering/ImageEffects/GreyImageEffect.cpp
   Rendering/ImageEffects/SepiaImageEffect.cpp
