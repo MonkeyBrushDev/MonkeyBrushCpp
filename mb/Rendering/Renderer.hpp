@@ -25,7 +25,7 @@ namespace mb
   public:
     virtual void bindFBO( unsigned int ) { }
     virtual void unbindFBO( unsigned int ) { }
-    virtual void drawPrimitive( Material* material, Primitive* primitive ) { }
+    virtual void drawPrimitive( MaterialPtr  material, Primitive* primitive ) { }
     // virtual void drawBuffer( Material* material ... ) { }
   };
 
@@ -76,7 +76,7 @@ namespace mb
       }
     }
 
-    virtual void drawPrimitive( Material* material, Primitive* primitive )
+    virtual void drawPrimitive( MaterialPtr  material, Primitive* primitive )
     {
       std::string type;
       switch ( primitive->_type )

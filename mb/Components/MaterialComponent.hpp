@@ -18,15 +18,15 @@ namespace mb
     MB_API
     bool hasMaterials( void ) const { return !_materials.empty( ); }
     MB_API
-    void addMaterial( Material *material );
+    void addMaterial( MaterialPtr material );
     // TODO: void removeMaterial( const unsigned int& idx );
     // TODO: void removeMaterial( const Material* material );
     MB_API
     void removeMaterials( void );
     MB_API
-    void eachMaterial( std::function< void( mb::Material * ) > callback );
+    void eachMaterial( std::function< void( mb::MaterialPtr ) > callback );
   private:
-    std::vector< mb::Material* > _materials;
+    std::vector< mb::MaterialPtr > _materials;
   };
 }
 
