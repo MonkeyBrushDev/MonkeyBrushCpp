@@ -1,4 +1,4 @@
-#include "FetchGeometry.hpp"
+#include "ComputeBatchQueue.hpp"
 #include "../Scenegraph/Camera.hpp"
 #include "../Scenegraph/Group.hpp"
 #include "../Scenegraph/Geometry.hpp"
@@ -6,18 +6,18 @@
 
 namespace mb
 {
-  FetchGeometry::FetchGeometry( Camera* c, BatchQueue *rq_ )
+  ComputeBatchQueue::ComputeBatchQueue( Camera* c, BatchQueuePtr bq_ )
   : Visitor( )
   , camera( c )
-  , rq(rq_)
+  , bq( bq_ )
   {
   }
 
-  FetchGeometry::~FetchGeometry( )
+  ComputeBatchQueue::~ComputeBatchQueue( )
   {
   }
 
-  void FetchGeometry::visitGroup( Group *group )
+  void ComputeBatchQueue::visitGroup( Group *group )
   {
     // No ejecutamos culling de la cámara
     //  sobre los grupos porque los hijos pueden
@@ -25,27 +25,27 @@ namespace mb
     Visitor::visitGroup( group );
   }
 
-  void FetchGeometry::traverse( Node* node )
+  void ComputeBatchQueue::traverse( Node* node )
   {
-    rq->reset( );
-    rq->setCamera( camera );
+    bq->reset( );
+    bq->setCamera( camera );
     // TODO: COMPUTE CULLING
     Visitor::traverse( node );
   }
 
-  void FetchGeometry::visitGeometry( Geometry *geometry )
+  void ComputeBatchQueue::visitGeometry( Geometry *geometry )
   {
     // TODO: Culled camera layer and frustum culling
 
     if ( camera->layer( ).check( geometry->layer( ) ) )
     {
-      rq->pushGeometry( geometry );
+      bq->pushGeometry( geometry );
     }
-    //rq->pushGeometry( geometry );
+    //bq->pushGeometry( geometry );
   }
 
-  void FetchGeometry::visitLight( Light *light )
+  void ComputeBatchQueue::visitLight( Light *light )
   {
-    rq->pushLight( light );
+    bq->pushLight( light );
   }
 }

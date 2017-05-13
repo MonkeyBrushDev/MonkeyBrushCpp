@@ -3,6 +3,8 @@
 
 #include <mb/api.h>
 
+#include "../Boundings/BoundingVolume.hpp"
+
 namespace mb
 {
   class Ray
@@ -17,6 +19,11 @@ namespace mb
     float x;
     float y;
     float z;
+
+    bool intersect( const BoundingVolume* bv )
+    {
+      return true;
+    }
   };
 }
 

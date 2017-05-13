@@ -1,7 +1,7 @@
 source_group(\\ FILES CMakeLists.txt)
 
 set( MB_PUBLIC_HEADERS
-  ##Boundings/BoundingVolume.hpp
+  Boundings/BoundingVolume.hpp
   ##Boundings/BoxBoundingVolume.hpp
   ##Boundings/PlaneBoundingVolume.hpp
   ##Boundings/SphereBoundingVolume.hpp
@@ -21,9 +21,18 @@ set( MB_PUBLIC_HEADERS
   Exceptions/RuntimeException.hpp
 
 
+  Io/Input.hpp
+  Io/Keyboard.hpp
+  Io/Mouse.hpp
+  Io/Window.hpp
+  #Io/GLFWWindow2.hpp
+
+
   Maths/Clock.hpp
   Maths/Frustum.hpp
+  Maths/Mathf.hpp
   Maths/Ray.hpp
+  Maths/Rect.hpp
 
 
   Primitives/Primitive.hpp
@@ -48,6 +57,8 @@ set( MB_PUBLIC_HEADERS
   Rendering/BatchQueue.hpp
   Rendering/Material.hpp
   Rendering/Renderer.hpp
+  Rendering/PipelineState.hpp
+  Rendering/StandardMaterial.hpp
   Rendering/Texture.hpp
 
 
@@ -64,6 +75,7 @@ set( MB_PUBLIC_HEADERS
   Systems/UpdateSystem.hpp
 
 
+  Utils/any.hpp
   Utils/CustomPingPong.hpp
   Utils/CustomPingPong.inl
   #Utils/Easing.hpp
@@ -78,7 +90,7 @@ set( MB_PUBLIC_HEADERS
   Visitors/ChildrenCounterVisitor.hpp
   Visitors/DumpVisitor.hpp
   Visitors/FetchCameras.hpp
-  Visitors/FetchGeometry.hpp
+  Visitors/ComputeBatchQueue.hpp
   Visitors/FetchLights.hpp
   Visitors/FindNodes.hpp
   Visitors/LambdaVisitor.hpp
@@ -92,6 +104,8 @@ set( MB_PUBLIC_HEADERS
   App.hpp
   Layer.hpp
   Scene.hpp
+
+  Includes.hpp
 )
 
 set( MB_HEADERS
@@ -100,13 +114,22 @@ set( MB_HEADERS
 set( MB_SOURCES
   Components/Component.cpp
   Components/CustomComponent.cpp
+  Components/LambdaComponent.cpp
   Components/MaterialComponent.cpp
   Components/MeshRenderer.cpp
   Components/OtherComponent.cpp
 
 
+  Io/Input.cpp
+  Io/Keyboard.cpp
+  Io/Mouse.cpp
+  Io/Window.cpp
+  #Io/GLFWWindow2.cpp
+
+
   Maths/Clock.cpp
   Maths/Frustum.cpp
+  Maths/Mathf.cpp
 
   Primitives/Primitive.cpp
   Primitives/CapsulePrimitive.cpp
@@ -125,6 +148,7 @@ set( MB_SOURCES
   #Rendering/RenderPasses/DeferredRenderingPass.cpp
 
   Rendering/BatchQueue.cpp
+  Rendering/Material.cpp
   Rendering/Renderer.cpp
 
 
@@ -148,7 +172,7 @@ set( MB_SOURCES
   Visitors/ChildrenCounterVisitor.cpp
   Visitors/DumpVisitor.cpp
   Visitors/FetchCameras.cpp
-  Visitors/FetchGeometry.cpp
+  Visitors/ComputeBatchQueue.cpp
   Visitors/FetchLights.cpp
   Visitors/FindNodes.cpp
   Visitors/LambdaVisitor.cpp
@@ -165,6 +189,10 @@ set( MB_SOURCES
 )
 
 set( MB_LINK_LIBRARIES
+  ${OPENGL_LIBRARIES}
+  ${GLEW_LIBRARIES}
+  ${FREEIMAGE_LIBRARIES}
+  ${GLFW3_LIBRARIES}
 )
 
 common_library( mb )

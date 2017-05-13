@@ -6,11 +6,11 @@
 
 #include <vector>
 #include "Material.hpp"
+#include "BatchQueue.hpp"
 
 namespace mb
 {
   class RenderingPass;
-  class BatchQueue;
 
   class Renderer
   {
@@ -20,7 +20,7 @@ namespace mb
     virtual void setViewport ( std::vector< float > ) { }
     virtual void beginRender( void );
     virtual void clearBuffers( void ) = 0;
-    virtual void render( BatchQueue* rq, RenderingPass* rp );
+    virtual void render( BatchQueuePtr bq, RenderingPass* rp );
     virtual void endRender( void );
   public:
     virtual void bindFBO( unsigned int ) { }

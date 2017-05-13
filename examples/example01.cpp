@@ -10,12 +10,17 @@ int main( )
   auto scene = new Scene( "scene" );
 
   auto geom = new Geometry( "geom" );
-  geom->addPrimitive( new Primitive( "cube" ) );
+  geom->addPrimitive( new Primitive( ) );
   scene->addChild( geom );
 
   auto interactiveLight = new Group( "InteractiveLight" );
   auto lightGeometry = new Geometry( "LightGeometry" );
-  lightGeometry->addPrimitive( new Primitive( "sphere" ) );
+  lightGeometry->addPrimitive( new Primitive( ) );
+
+  auto mr = lightGeometry->getComponent<mb::MaterialComponent>( );
+  auto material = mr->first( );
+  material->state( ).culling( ).setEnabled( true );
+
   auto light = new Light( );
   interactiveLight->addChild( lightGeometry );
   interactiveLight->addChild( light );

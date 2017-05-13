@@ -28,12 +28,13 @@ set(COMMON_PROJECT_DOMAIN MonkeyBrushDev)
 include(Common)
 
 # Allow warnings
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 
-#common_find_package( tinyxml2 REQUIRED  )
-#common_find_package( bullet REQUIRED  )
+common_find_package( OpenGL REQUIRED SYSTEM )
+common_find_package( GLEW REQUIRED SYSTEM )
+common_find_package( GLFW3 REQUIRED SYSTEM )
 
-#list ( APPEND MB_DEPENDENT_LIBRARIES bullet )
+list ( APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW3 )
 
 common_find_package_post( )
 

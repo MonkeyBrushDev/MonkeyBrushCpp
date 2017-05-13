@@ -3,19 +3,17 @@
 
 #include "Node.hpp"
 #include "../Maths/Frustum.hpp"
+#include "../Maths/Rect.hpp"
 #include <mb/api.h>
+
+/*
+  TODO: Set projection type (Perspective/Orthographic)
+  TODO: Change Field of View and clipping planes
+*/
 
 namespace mb
 {
   class RenderingPass;
-
-  struct Viewport
-  {
-    float x;
-    float y;
-    float w;
-    float h;
-  };
 
   class Camera:
     public Node
@@ -110,6 +108,7 @@ namespace mb
       }*/
       return false;
     }
+
   private:
     bool _cullingEnabled = true;
     // std::array< Plane, 6 > _cullingPlanes;

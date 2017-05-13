@@ -67,10 +67,10 @@ namespace mb
   {
     std::for_each( _children.begin( ), _children.end( ), [&] ( Node* n )
     {
-      /* TODO if ( n->isEnabled( ) )
-      {*/
-      callback( n );
-      /*}*/
+      if ( n->isEnabled( ) )
+      {
+        callback( n );
+      }
     } );
   }
   void Group::accept( Visitor& v )

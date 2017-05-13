@@ -15,7 +15,7 @@ namespace mb
     MB_API
     PostRenderingPass( RenderingPass* sceneRP );
     MB_API
-    void render( Renderer* renderer, BatchQueue* rq, Camera* c );
+    void render( Renderer* renderer, BatchQueuePtr bq, Camera* c );
   protected:
     RenderingPass *_sceneRenderingPass;
 

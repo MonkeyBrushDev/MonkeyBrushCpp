@@ -1,5 +1,5 @@
-#ifndef __MB_COMPUTE_BATCHQUEUE__
-#define __MB_COMPUTE_BATCHQUEUE__
+#ifndef __MB_FETCH_GEOMETRY__
+#define __MB_FETCH_GEOMETRY__
 
 #include "Visitor.hpp"
 #include "../Rendering/BatchQueue.hpp"
@@ -16,7 +16,7 @@ namespace mb
   {
   public:
     MB_API
-    ComputeBatchQueue( Camera* cam, BatchQueue *rq );
+    ComputeBatchQueue( Camera* cam, BatchQueuePtr bq );
     MB_API
     virtual ~ComputeBatchQueue( );
     MB_API
@@ -31,7 +31,7 @@ namespace mb
     virtual void visitLight( Light* l ) override;
   protected:
     Camera* camera;
-    BatchQueue* rq;
+    BatchQueuePtr bq;
   };
 }
 
@@ -42,4 +42,4 @@ rq->pushGeometry( geometry );
 }
 */
 
-#endif /* __MB_COMPUTE_BATCHQUEUE__ */
+#endif /* __MB_FETCH_GEOMETRY__ */

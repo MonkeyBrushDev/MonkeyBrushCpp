@@ -5,30 +5,19 @@
 
 namespace mb
 {
-  UpdateWorldState::UpdateWorldState( )
-  {
-  }
-
-  UpdateWorldState::~UpdateWorldState( )
-  {
-  }
-
   void UpdateWorldState::visitNode( Node *node )
   {
     if ( node->hasParent( ) )
     {
-      std::cout << "Compute world model (" << node->name( ) << ") from parent ("
-        << node->parent( )->name( ) << ")" << std::endl;
+      // Compute world model of current node from parent
       node->world( ).computeFrom( node->parent( )->getWorld( ), node->getLocal( ) );
     }
     else
     {
-      std::cout << "World model (" << node->name( ) << ") as local matrix"
-        << std::endl;
+      // World model of current node as local matrix
       node->setWorld( node->getLocal( ) );
     }
-    std::cout << "Compute world bound for (" << node->name( ) <<
-      ") to contain to himself" << std::endl;
+    // TODO: Compute world bound for current node to contain to himself
   }
 
   void UpdateWorldState::visitGroup( Group *group )
@@ -39,21 +28,17 @@ namespace mb
     if ( group->hasNodes( ) )
     {
       bool first = true;
-      std::string tabs = "\t";
       group->forEachNode( [&] ( Node *node )
       {
         if ( first )
         {
           first = false;
-          std::cout << tabs << "Compute world bound for (" << group->name( ) <<
-            ") to contain '" << node->name( ) << "'" << std::endl;
+          // TODO: Compute world bound for current group to contain current node.
         }
         else
         {
-          std::cout << tabs << "Expand world bound for (" << group->name( ) <<
-            ") to contain '" << node->name( ) << "'" << std::endl;
+          // TODO: Expand world bound for current group to contain current node
         }
-        tabs += "\t";
       } );
     }
   }

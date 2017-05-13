@@ -77,7 +77,7 @@ namespace mb
   {
     for ( auto& comp : _components )
     {
-      if ( comp.second->activo )
+      if ( comp.second->isEnabled( ) )
       {
         comp.second->update( dt );
       }
