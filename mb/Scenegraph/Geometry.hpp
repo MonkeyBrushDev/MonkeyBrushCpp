@@ -2,7 +2,7 @@
 #define __MB_GEOMETRY__
 
 #include "Node.hpp"
-#include "../components/MeshRenderer.hpp"
+#include "../Components/MeshRenderer.hpp"
 #include "../Primitives/Primitive.hpp"
 
 #include <iostream>

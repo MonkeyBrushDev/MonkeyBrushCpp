@@ -15,11 +15,11 @@ namespace mb
   {
   }
 
-  void OffscreenRenderingPass::render( Renderer* renderer, BatchQueue* rq, Camera* cam )
+  void OffscreenRenderingPass::render( Renderer* renderer, BatchQueuePtr bq, Camera* cam )
   {
     std::cout << "Bind FBO" << std::endl;
     //renderer->bindFBO( targetFBO );
-    _sceneRenderingPass->render( renderer, rq, cam );
+    _sceneRenderingPass->render( renderer, bq, cam );
     //renderer->unbindFBO( );
     std::cout << "Unbind FBO" << std::endl;
     applyImageEffects( renderer, cam );

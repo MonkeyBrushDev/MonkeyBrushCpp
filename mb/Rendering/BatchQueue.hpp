@@ -11,6 +11,7 @@
 #include "../Scenegraph/Camera.hpp"
 
 #include <mb/api.h>
+#include <memory>
 
 namespace mb
 {
@@ -50,6 +51,7 @@ namespace mb
     // TODO std::unordered_map< RenderableType, std::vector< Renderable* >> _renderables;
     std::map< RenderableType, std::vector< Renderable* >> _renderables;
   };
+  typedef std::shared_ptr< BatchQueue > BatchQueuePtr;
 }
 
 #endif /* __MB_BATCH_QUEUE__ */

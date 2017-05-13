@@ -7,7 +7,7 @@ namespace mb
   {
     removeMaterials( );
   }
-  void MaterialComponent::addMaterial( mb::Material* material )
+  void MaterialComponent::addMaterial( mb::MaterialPtr  material )
   {
     _materials.push_back( material );
   }
@@ -15,9 +15,9 @@ namespace mb
   {
     _materials.clear( );
   }
-  void MaterialComponent::eachMaterial( std::function< void ( mb::Material* ) > cb )
+  void MaterialComponent::eachMaterial( std::function< void ( mb::MaterialPtr ) > cb )
   {
-    std::for_each( _materials.begin( ), _materials.end( ), [&] ( Material* m )
+    std::for_each( _materials.begin( ), _materials.end( ), [&] ( MaterialPtr m )
     {
       cb ( m );
     } );

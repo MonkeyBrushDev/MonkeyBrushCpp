@@ -6,7 +6,7 @@ namespace mb
     : _callback( cb )
   {
   }
-  void update( const float& dt )
+  void LambdaComponent::update( const float& dt )
   {
     _callback( node(), dt );
   }

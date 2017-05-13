@@ -2,6 +2,7 @@
 #define __MB_NODE__
 
 #include "../Components/Component.hpp"
+#include "../Boundings/BoundingVolume.hpp"
 #include <unordered_map>
 #include <functional>
 #include "../Visitors/Visitor.hpp"
@@ -146,9 +147,48 @@ namespace mb
     {
       return _world;
     }
+    BoundingVolume *localBound( void )
+    {
+      return _localBound;
+    }
+    const BoundingVolume *getLocalBound( void ) const
+    {
+      return _localBound;
+    }
+    void setLocalBound( BoundingVolume *bound )
+    {
+      _localBound = bound ;
+    }
+    BoundingVolume *worldBound( void )
+    {
+      return _worldBound;
+    }
+    const BoundingVolume *getWorldBound( void ) const
+    {
+      return _worldBound;
+    }
+    void setWorldBound( BoundingVolume *bound )
+    {
+      _worldBound = bound;
+    }
   protected:
     Transformation _local;
     Transformation _world;
+    BoundingVolume* _localBound;
+    BoundingVolume* _worldBound;
+
+  public:
+    void setEnabled( bool enabled )
+    {
+      _enabled = enabled;
+    }
+    bool isEnabled( void )
+    {
+      return _enabled;
+    }
+
+  private:
+    bool _enabled = true;
   };
 
   #include "Node.inl"

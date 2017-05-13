@@ -1,7 +1,7 @@
 #ifndef __MB_SCENE__
 #define __MB_SCENE__
 
-#include "scenegraph/Group.hpp"
+#include "Scenegraph/Group.hpp"
 
 #include <mb/api.h>
 

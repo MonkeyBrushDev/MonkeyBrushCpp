@@ -5,7 +5,7 @@
 #include <functional>
 #include <algorithm>
 #include <vector>
-#include "../maths/Ray.hpp"
+#include "../Maths/Ray.hpp"
 
 // TODO: Rewrite this code using FindNodes visitor extension.
 
@@ -21,26 +21,24 @@ namespace mb
     class Results
     {
     public:
-      Results( void ) {}
-      ~Results( void ) {}
       void reset( void )
       {
         _candidates.clear( );
       }
-      void sortCandidates( std::function< bool( Node *, Node * ) > cb )
+      void sort( std::function< bool( Node *, Node * ) > callback )
       {
-        std::sort( _candidates.begin( ), _candidates.end( ), cb );
+        std::sort( _candidates.begin( ), _candidates.end( ), callback );
       }
-      void addCandidate( Node *candidate )
+      void push( Node *candidate )
       {
         _candidates.push_back( candidate );
       }
-      void eachCandidate( std::function< void( Node * ) > cb )
+      void forEachCandidate( std::function< void( Node * ) > callback )
       {
         auto cs = _candidates;
         for ( auto c : cs )
         {
-          cb( c );
+          callback( c );
         }
       }
       bool hasResults( void )
@@ -58,12 +56,13 @@ namespace mb
     private:
       std::vector< Node* > _candidates;
     };
-    PickingVisitor( const Ray& ray,
-      Results &results, FilterType filter );
-    virtual ~PickingVisitor( );
+    MB_API
+    PickingVisitor( const Ray& ray, Results &results, FilterType filter );
+    MB_API
     virtual void traverse( Node *node ) override;
-
+    MB_API
     virtual void visitNode( Node *node ) override;
+    MB_API
     virtual void visitGroup( Group *node ) override;
   private:
     Ray _ray;

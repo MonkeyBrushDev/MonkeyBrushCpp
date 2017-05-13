@@ -12,10 +12,10 @@ namespace mb
   {
   public:
     MB_API
-    void render( Renderer* renderer, BatchQueue* rq, Camera* c );
+    void render( Renderer* renderer, BatchQueuePtr bq, Camera* c );
   protected:
-    void renderOpaqueObjects( Renderer* renderer, BatchQueue* rq, Camera* c );
-    void renderTransparentObjects( Renderer* renderer, BatchQueue* rq, Camera* c );
+    void renderOpaqueObjects( Renderer* renderer, BatchQueuePtr bq, Camera* c );
+    void renderTransparentObjects( Renderer* renderer, BatchQueuePtr bq, Camera* c );
     void renderStandardGeometry( Renderer* renderer, Renderable* renderable );
   };
 }

@@ -13,8 +13,8 @@ namespace mb
   class RenderingPass
   {
   public:
-    //MB_API
-    virtual void render( Renderer* renderer, BatchQueue* rq, Camera* c ) = 0;
+    MB_API
+    virtual void render( Renderer* renderer, BatchQueuePtr bq, Camera* c ) = 0;
     MB_API
     virtual void applyImageEffects( Renderer *renderer, Camera *camera );
     MB_API

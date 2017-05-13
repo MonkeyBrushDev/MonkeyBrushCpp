@@ -30,3 +30,6 @@
 
 glfw
 build
+Debug
+BuildToQtCreator
+CMakeLists.txt.user

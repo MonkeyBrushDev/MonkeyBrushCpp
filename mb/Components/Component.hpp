@@ -17,7 +17,6 @@ namespace mb
 
   class Node;
 
-  MB_API
   class Component
   {
     friend class Node;
@@ -33,14 +32,25 @@ namespace mb
     MB_API
     virtual void start( void );
     MB_API
+    // Invoked once when component is attached to a node
     virtual void onAttach( void );
     MB_API
+    // Invoked once when component is detached from a node
     virtual void onDetach( void );
-    bool activo = true;
-
+    MB_API
+    bool isEnabled( void ) const;
+    MB_API
+    void enable( void );
+    MB_API
+    void disable( void );
+    MB_API
+    void setEnabled( const bool v );
+    MB_API
+    void toggle( void );
   private:
     void setNode( Node* n );
   protected:
+    bool _enabled;
     MB_API
     Component( );
     Node* _node;

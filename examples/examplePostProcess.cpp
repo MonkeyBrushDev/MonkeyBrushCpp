@@ -8,7 +8,7 @@ int main( )
   auto scene = new Scene( "scene" );
 
   auto geom = new Geometry( "nodeGeom" );
-  geom->addPrimitive( new Primitive( "FirstPrimitive" ) );
+  geom->addPrimitive( new Primitive( ) );
   scene->addChild( geom );
   geom->layer( ).set( 2 );
 
