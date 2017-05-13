@@ -5,6 +5,8 @@
 
 #include "../Boundings/BoundingVolume.hpp"
 
+// TODO: Migrate to original Ray in old MonkeyBrush
+
 namespace mb
 {
   class Ray

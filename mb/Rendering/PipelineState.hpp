@@ -5,7 +5,7 @@ namespace mb
 {
   class PipelineState
   {
-    class State
+    class RenderState
     {
     public:
       bool isEnabled( void ) const
@@ -17,13 +17,13 @@ namespace mb
         _enabled = value;
       }
     protected:
-      State( bool enabled = true )
+      RenderState( bool enabled = true )
         : _enabled( enabled )
       {
       }
       bool _enabled;
     };
-    class CullingState: public State
+    class CullingState : public RenderState
     {
     public:
       enum Mode
@@ -33,7 +33,7 @@ namespace mb
         FRONT_AND_BACK
       };
       CullingState( bool enabled = true, CullingState::Mode mode = CullingState::Mode::BACK )
-        : State( enabled )
+        : RenderState( enabled )
       {
       }
       CullingState::Mode getCullFaceMode( void ) const

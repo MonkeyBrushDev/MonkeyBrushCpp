@@ -13,6 +13,7 @@ set( MB_PUBLIC_HEADERS
   Components/MeshRenderer.hpp
   Components/OrbitCamera.hpp
   Components/OtherComponent.hpp
+  Components/ScriptComponent.hpp
 
 
   Exceptions/Exception.hpp
@@ -68,6 +69,10 @@ set( MB_PUBLIC_HEADERS
   Scenegraph/Light.hpp
   Scenegraph/Node.hpp
   Scenegraph/Switch.hpp
+  
+
+  State/ExampleStates.hpp
+  State/StateMachine.hpp
 
 
   Systems/RenderSystem.hpp
@@ -118,6 +123,7 @@ set( MB_SOURCES
   Components/MaterialComponent.cpp
   Components/MeshRenderer.cpp
   Components/OtherComponent.cpp
+  Components/ScriptComponent.cpp
 
 
   Io/Input.cpp
@@ -158,6 +164,9 @@ set( MB_SOURCES
   Scenegraph/Light.cpp
   Scenegraph/Node.cpp
   Scenegraph/Switch.cpp
+
+
+  State/StateMachine.cpp
 
 
   Systems/RenderSystem.cpp
