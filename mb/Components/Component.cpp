@@ -57,6 +57,13 @@ namespace mb
   void Component::setEnabled( const bool v )
   {
     _enabled = v;
+    if ( _enabled == true )
+    {
+      onEnable( );
+    } else if ( _enabled == false )
+    {
+      onDisable( );
+    }
   }
   void Component::toggle( void )
   {

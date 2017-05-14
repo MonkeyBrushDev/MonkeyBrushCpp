@@ -47,6 +47,10 @@ namespace mb
     void setEnabled( const bool v );
     MB_API
     void toggle( void );
+    MB_API
+    virtual void onEnable( void ) { }
+    MB_API
+    virtual void onDisable( void ) { }
   private:
     void setNode( Node* n );
   protected:
