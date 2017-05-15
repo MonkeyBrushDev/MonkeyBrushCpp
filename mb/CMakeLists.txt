@@ -13,6 +13,7 @@ set( MB_PUBLIC_HEADERS
   Components/MeshRenderer.hpp
   Components/OrbitCamera.hpp
   Components/OtherComponent.hpp
+  Components/ParticleEffectComponent.hpp
   Components/ScriptComponent.hpp
 
 
@@ -131,6 +132,7 @@ set( MB_SOURCES
   Components/MaterialComponent.cpp
   Components/MeshRenderer.cpp
   Components/OtherComponent.cpp
+  Components/ParticleEffectComponent.cpp
   Components/ScriptComponent.cpp
 
 
