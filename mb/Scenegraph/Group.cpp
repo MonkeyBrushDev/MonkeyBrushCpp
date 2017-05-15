@@ -28,7 +28,7 @@ namespace mb
   {
     if ( node->parent( ) == this )
     {
-      return;
+      return; // TODO: throw Exception!!
     }
     if ( node->parent( ) != nullptr )
     {

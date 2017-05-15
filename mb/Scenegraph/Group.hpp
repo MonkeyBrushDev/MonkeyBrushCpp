@@ -21,11 +21,11 @@ namespace mb
     unsigned int numChildren( void ) const;
 
     MB_API
-    void addChild( Node* node );
+    virtual void addChild( Node* node );
     MB_API
-    void removeChild( Node* node );
+    virtual void removeChild( Node* node );
     MB_API
-    void removeChildren( void );
+    virtual void removeChildren( void );
     MB_API
     Node* nodeAt( unsigned int idx );
 

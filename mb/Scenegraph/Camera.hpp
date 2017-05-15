@@ -3,6 +3,7 @@
 
 #include "Node.hpp"
 #include "../Maths/Frustum.hpp"
+#include "../Maths/Ray.hpp"
 #include "../Maths/Rect.hpp"
 #include <mb/api.h>
 
@@ -50,6 +51,24 @@ namespace mb
     MB_API
     RenderingPass* renderPass( );
 
+    /*MB_API
+    Ray& getRay( float portX, float portY ) const
+    {
+      float x = 2.0f * portX - 1.0f;
+      float y = 1.0f - 2.0f * portY;
+
+      Vector4 rayClip( x, y, -1.0f, 1.0f );
+
+      Vector4 rayEye = getProjectionMatrix( ).getInverse( ).getTranspose( ) * rayClip;
+      rayEye = Vector4f( rayEye.x( ), rayEye.y( ), -1.0f, 0.0f );
+
+      Vector4 rayWorld = getWorld( ).computeModelMatrix( ).getTranspose( ) * rayEye;
+
+      Vector3 rayDir( rayWorld.x( ), rayWorld.y( ), rayWorld.z( ) );
+      rayDir.normalize( );
+
+      return Ray( getWorld( ).translate( ), rayDir );
+    }*/
     MB_API
     bool isMainCamera( void ) const
     {

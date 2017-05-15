@@ -12,6 +12,9 @@ namespace mb
   class Ray
   {
   public:
+    Ray( )
+    {
+    }
     Ray( float xx, float yy, float zz )
     {
       this->x = xx;

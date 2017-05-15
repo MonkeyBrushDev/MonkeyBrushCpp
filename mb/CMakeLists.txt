@@ -26,6 +26,7 @@ set( MB_PUBLIC_HEADERS
   Io/Keyboard.hpp
   Io/Mouse.hpp
   Io/Window.hpp
+  Io/os.hpp
   #Io/GLFWWindow2.hpp
 
 
@@ -67,9 +68,10 @@ set( MB_PUBLIC_HEADERS
   Scenegraph/Geometry.hpp
   Scenegraph/Group.hpp
   Scenegraph/Light.hpp
+  Scenegraph/LOD.hpp
   Scenegraph/Node.hpp
   Scenegraph/Switch.hpp
-  
+
 
   State/ExampleStates.hpp
   State/StateMachine.hpp
@@ -111,6 +113,12 @@ set( MB_PUBLIC_HEADERS
   Scene.hpp
 
   Includes.hpp
+
+
+
+
+  OpenGL/Program.hpp
+  OpenGL/ResourceShader.hpp
 )
 
 set( MB_HEADERS
@@ -162,6 +170,7 @@ set( MB_SOURCES
   Scenegraph/Geometry.cpp
   Scenegraph/Group.cpp
   Scenegraph/Light.cpp
+  Scenegraph/LOD.cpp
   Scenegraph/Node.cpp
   Scenegraph/Switch.cpp
 
@@ -195,6 +204,12 @@ set( MB_SOURCES
 
   App.cpp
   Layer.cpp
+
+
+
+
+  OpenGL/Program.cpp
+  OpenGL/ResourceShader.cpp
 )
 
 set( MB_LINK_LIBRARIES
