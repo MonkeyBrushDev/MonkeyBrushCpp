@@ -20,6 +20,9 @@ public:
   }
 };
 
+#include <thread>
+#include <memory>
+
 int main( )
 {
   auto group = new Group( "First group" );
@@ -104,5 +107,6 @@ int main( )
   root->perform( fl );
   assert( fl.lights( ).size( ) == 2 );
 
+  system( "PAUSE" );
   return 0;
 }
