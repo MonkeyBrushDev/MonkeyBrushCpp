@@ -270,46 +270,18 @@ namespace mb
   {
     IMPLEMENT_COMPONENT( ParticleEffectComponent )
   public:
-    ParticleEffectComponent( unsigned int numParticles )
-      : Component( )
-    {
-      textureName = "flare";
-      _particleInfo = std::make_shared<ParticleInfo>( numParticles );
-    }
-    virtual void start( void ) override
-    {
-      for ( auto& gen : _generators )
-      {
-        gen->configure( _particleInfo );
-      }
-      for ( auto& upd : _updaters )
-      {
-        upd->configure( _particleInfo );
-      }
-      for ( auto& ren : _renderers )
-      {
-        ren->configure( _particleInfo );
-      }
-      _particleInfo->generate( );
-    }
-    virtual void update( const float &dt ) override
-    {
-      updateGenerators( dt );
-      updateUpdaters( dt );
-      updateRenderers( dt );
-    }
-    void addGenerator( const ParticleGeneratorPtr& gen )
-    {
-      _generators.push_back( gen );
-    }
-    void addUpdater( const ParticleUpdaterPtr& upd )
-    {
-      _updaters.push_back( upd );
-    }
-    void addRenderer( const ParticleRendererPtr& rnd )
-    {
-      _renderers.push_back( rnd );
-    }
+    MB_API
+    ParticleEffectComponent( unsigned int numParticles );
+    MB_API
+    virtual void start( void ) override;
+    MB_API
+    virtual void update( const float &dt ) override;
+    MB_API
+    void addGenerator( const ParticleGeneratorPtr& gen );
+    MB_API
+    void addUpdater( const ParticleUpdaterPtr& upd );
+    MB_API
+    void addRenderer( const ParticleRendererPtr& rnd );
     std::string textureName;
   protected:
     void updateGenerators( const float& dt )
@@ -341,7 +313,16 @@ namespace mb
         rend->update( dt, _particleInfo );
       }
     }
+    float getWarmTime( void ) const
+    {
+      return _warmTime;
+    }
+    void setWarmTime( const float& time )
+    {
+      _warmTime = time;
+    }
   protected:
+    float _warmTime = 0.0f;
     unsigned int numParticles;
     ParticlesInfoPtr _particleInfo;
     std::vector< ParticleGeneratorPtr > _generators;
