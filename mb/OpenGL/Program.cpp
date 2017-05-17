@@ -5,6 +5,7 @@
 #include "../Includes.hpp"
 
 #include "ResourceShader.hpp"
+#include "../Utils/StringUtils.hpp"
 
 #include <limits>       // std::numeric_limits
 
@@ -89,31 +90,6 @@ namespace mb
 			_loadFromText(fsSource, GL_FRAGMENT_SHADER));
 	}
 
-
-  std::string replace( std::string str, std::string& from, std::string& to )
-  {
-    size_t start_pos = str.find( from );
-    if ( start_pos == std::string::npos )
-      return str;
-    str.replace( start_pos, from.length( ), to );
-    return str;
-  }
-
-  std::vector<std::string> split( const std::string& str, const std::string& delim )
-  {
-    std::vector<std::string> tokens;
-    size_t prev = 0, pos = 0;
-    do
-    {
-      pos = str.find( delim, prev );
-      if ( pos == std::string::npos ) pos = str.length( );
-      std::string token = str.substr( prev, pos - prev );
-      if ( !token.empty( ) ) tokens.push_back( token );
-      prev = pos + delim.length( );
-    } while ( pos < str.length( ) && prev < str.length( ) );
-    return tokens;
-  }
-
   unsigned int matchSize( const std::smatch& match )
   {
     unsigned int i = 0;
@@ -166,7 +142,7 @@ namespace mb
           std::string::size_type loc = indexString.find( ".." );
           if ( loc != std::string::npos )
           {
-            auto indexSplits = split( indexString, ".." );
+            auto indexSplits = StringUtils::split_str( indexString, ".." );
             unsigned int minIndex = std::stoi( indexSplits[ 0 ] );
             unsigned int maxIndex = std::stoi( indexSplits[ 1 ] );
 
@@ -182,10 +158,10 @@ namespace mb
         }
         if ( size == 6 )
         {
-          auto splits = split( match[ 5 ], "," );
+          auto splits = StringUtils::split_str( match[ 5 ], "," );
           for ( unsigned int index = 0; index < splits.size( ); ++index )
           {
-            auto outerSplit = split( trim( splits[ index ] ), "=" );
+            auto outerSplit = StringUtils::split_str( trim( splits[ index ] ), "=" );
             auto source = std::regex( trim( outerSplit[ 0 ] ) );
             auto dest = trim( outerSplit[ 1 ] );
 
@@ -193,9 +169,10 @@ namespace mb
               std::regex( source ), dest );
           }
         }
-
-        returnValue = replace( returnValue, match[ 0 ].str( ),
-          __processShader( includeContent ) );
+        std::string match0 = match[ 0 ].str( );
+        std::string proccStr = __processShader( includeContent );
+        returnValue = StringUtils::replace( returnValue, match0,
+          proccStr );
       }
       else
       {

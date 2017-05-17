@@ -31,7 +31,7 @@ namespace mb
 #if defined(MB_PLATFORM_WINDOWS)
       _mkdir( path.c_str( ) );
 #else
-      mkdir( path.c_str( ), S_IRWXU );
+      mkdir( path.c_str( ) );
 #endif
     }
     MB_API

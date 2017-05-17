@@ -43,7 +43,7 @@ namespace mb
 
     MB_API
     Program( void );
-		MB_API
+	MB_API
     ~Program( void );
 		/**
 		* Method to load and add a vertex and fragment shaders from file
