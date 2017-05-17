@@ -37,16 +37,16 @@ namespace mb
     MB_API
     void insertChild( unsigned int idx, Node* node )
     {
-      // TODO Insert at position (WARNING: CHECK position)
+        _children.insert( _children.begin( ) + idx, node );
     }
     MB_API
     void removeChild( unsigned int idx )
     {
-      // TODO: Same as insertChild warnings
+        if ( _children.size( ) > idx )
+        {
+            _children.erase( _children.begin( ) + idx );
+        }
     }
-
-    // TODO: getNode (string)
-    // TODO: T* getNode<T>(string)
     MB_API
     virtual void forEachNode( std::function< void( Node * ) > callback );
   protected:

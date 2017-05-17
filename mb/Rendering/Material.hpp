@@ -24,7 +24,7 @@ namespace mb
   {
   public:
     MB_API
-    Uniform::Uniform( )
+    Uniform( )
       : _type( Invalid )
       , _value( )
     {

@@ -14,6 +14,29 @@ namespace mb
 	class StringUtils
 	{
 	public:
+		static std::string replace( std::string str, std::string& from, std::string& to )
+	  {
+	    size_t start_pos = str.find( from );
+	    if ( start_pos == std::string::npos )
+	      return str;
+	    str.replace( start_pos, from.length( ), to );
+	    return str;
+	  }
+	  static std::vector<std::string> split_str( const std::string& str, const std::string& delim )
+	  {
+	    std::vector<std::string> tokens;
+	    size_t prev = 0, pos = 0;
+	    do
+	    {
+	      pos = str.find( delim, prev );
+	      if ( pos == std::string::npos ) pos = str.length( );
+	      std::string token = str.substr( prev, pos - prev );
+	      if ( !token.empty( ) ) tokens.push_back( token );
+	      prev = pos + delim.length( );
+	    } while ( pos < str.length( ) && prev < str.length( ) );
+	    return tokens;
+	  }
+
 		template< typename E >
 		static void toValue( std::string input, E& out )
 		{
@@ -38,22 +61,22 @@ namespace mb
 			return res;
 		}
 
-        MB_API
+      MB_API
 		static std::string replaceAll( std::string str, std::string from, std::string to )
 		{
-		    if ( from.empty( ) )
-		    {
-		        return str;
-		    }
+	    if ( from.empty( ) )
+	    {
+        return str;
+	    }
 
-		    size_t start_pos = 0;
-		    while ( ( start_pos = str.find( from, start_pos ) ) != std::string::npos )
-		    {
-		        str.replace( start_pos, from.length(), to );
-		        start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
-		    }
+	    size_t start_pos = 0;
+	    while ( ( start_pos = str.find( from, start_pos ) ) != std::string::npos )
+	    {
+        str.replace( start_pos, from.length(), to );
+        start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
+	    }
 
-		    return str;
+	    return str;
 		}
 
 		static std::string getFileExtension( std::string path )
@@ -71,67 +94,67 @@ namespace mb
 		{
 			std::stringstream out;
 
-            std::stringstream ss( input );
-            std::string buffer;
-            std::vector< std::string > lines;
-            while ( std::getline( ss, buffer, '\n' ) )
-            {
-                lines.push_back( buffer );
-            }
+      std::stringstream ss( input );
+      std::string buffer;
+      std::vector< std::string > lines;
+      while ( std::getline( ss, buffer, '\n' ) )
+      {
+        lines.push_back( buffer );
+      }
 
-            for ( auto line : lines )
-            {
-                std::stringstream str;
-                str << line;
+      for ( auto line : lines )
+      {
+        std::stringstream str;
+        str << line;
 
-                int charCount = 0;
-                while ( !str.eof( ) )
-                {
-                    std::string temp;
-                    str >> temp;
-                    charCount += temp.length() + 1;
-                    if ( charCount >= charsPerLine )
-                    {
-                        out << "\n";
-                        charCount = 0;
-                    }
+        int charCount = 0;
+        while ( !str.eof( ) )
+        {
+          std::string temp;
+          str >> temp;
+          charCount += temp.length() + 1;
+          if ( charCount >= charsPerLine )
+          {
+            out << "\n";
+            charCount = 0;
+          }
 
-                    out << temp << " ";
-                }
-                out << "\n";
-            }
+          out << temp << " ";
+        }
+        out << "\n";
+      }
 
 			return out.str();
 		}
 
-        static std::string toUpper( const std::string &str )
-        {
-            std::string result( str );
-            std::transform( result.begin( ), result.end( ), result.begin( ), ::toupper );
-            return result;
-        }
+    static std::string toUpper( const std::string &str )
+    {
+      std::string result( str );
+      std::transform( result.begin( ), result.end( ), result.begin( ), ::toupper );
+      return result;
+    }
 
-        static std::string toLower( const std::string &str )
-        {
-            std::string result( str );
-            std::transform( result.begin( ), result.end( ), result.begin( ), ::tolower );
-            return result;
-        }
+    static std::string toLower( const std::string &str )
+    {
+      std::string result( str );
+      std::transform( result.begin( ), result.end( ), result.begin( ), ::tolower );
+      return result;
+    }
 
-        template< typename ... Args >
-        static std::string toString( Args &&... args )
-        {
-            std::stringstream ss;
-            ( void ) std::initializer_list< int >
-            {
-                (
-					ss << args,
+    template< typename ... Args >
+    static std::string toString( Args &&... args )
+    {
+      std::stringstream ss;
+      ( void ) std::initializer_list< int >
+      {
+        (
+				ss << args,
 					0
-				)...
-            };
+			)...
+      };
 
-            return ss.str();
-        }
+      return ss.str();
+    }
 	};
 }
 

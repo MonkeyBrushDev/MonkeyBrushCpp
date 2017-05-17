@@ -40,7 +40,6 @@ namespace mb
     }
     void removePrimitive( Primitive *p )
     {
-      // TODO: Worst code in the world xD
       _primitives.erase( std::find( _primitives.begin( ), _primitives.end( ), p ) );
     }
     void forEachPrimitive( std::function< void(Primitive* )> cb );
