@@ -4,6 +4,7 @@ namespace mb
 {
   Light::Light( )
   : Node( std::string("Light") )
+  , shadowType( ShadowType::NO_SHADOW )
   {
   }
 
