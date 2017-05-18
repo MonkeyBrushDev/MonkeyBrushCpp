@@ -15,7 +15,7 @@ namespace mb
     MB_API
     OffscreenRenderingPass( unsigned int fbo, RenderingPass* sceneRenderingPass );
     MB_API
-    void render( Renderer* renderer, BatchQueue* rq, Camera* c );
+    void render( Renderer* renderer, BatchQueuePtr bq, Camera* c );
     MB_API
     unsigned int targetFBO( void )
     {

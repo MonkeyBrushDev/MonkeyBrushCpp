@@ -9,6 +9,7 @@ namespace mb
   {
   public:
     System( const std::string& name );
+    virtual ~System(){}
     virtual bool start( );
     virtual void stop( );
     std::string name( ) const

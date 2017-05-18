@@ -32,7 +32,7 @@ namespace mb
     virtual void visitLight( Light *light ) override;
   private:
     void _dumpNode( Node *node, const std::string& type );
-    int _auxLevel = 0;
+    unsigned int _auxLevel = 0;
   };
 }
 

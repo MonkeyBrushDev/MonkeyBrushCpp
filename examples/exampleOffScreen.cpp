@@ -16,13 +16,13 @@ int main( )
   offScreenView->addChild( offScreenCamera );
 
   auto offGeom = new Geometry( "offGeom" );
-  offGeom->addPrimitive( new Primitive( "OffPrimitive" ) );
+  offGeom->addPrimitive( new Primitive( ) );
   offGeom->layer( ).set( 2 );
   offScreenView->addChild( offGeom );
 
 
   auto geom = new Geometry( "nodeGeom" );
-  geom->addPrimitive( new Primitive( "FirstPrimitive" ) );
+  geom->addPrimitive( new Primitive( ) );
   scene->addChild( geom );
   geom->layer( ).set( 2 );
 

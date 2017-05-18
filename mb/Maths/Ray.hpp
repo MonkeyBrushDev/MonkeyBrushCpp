@@ -3,11 +3,18 @@
 
 #include <mb/api.h>
 
+#include "../Boundings/BoundingVolume.hpp"
+
+// TODO: Migrate to original Ray in old MonkeyBrush
+
 namespace mb
 {
   class Ray
   {
   public:
+    Ray( )
+    {
+    }
     Ray( float xx, float yy, float zz )
     {
       this->x = xx;
@@ -17,6 +24,11 @@ namespace mb
     float x;
     float y;
     float z;
+
+    bool intersect( const BoundingVolume* /*bv*/ )
+    {
+      return true;
+    }
   };
 }
 

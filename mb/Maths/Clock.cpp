@@ -9,7 +9,7 @@ namespace mb
   	reset( );
   }
 
-  Clock::Clock( double dt )
+  Clock::Clock( float dt )
   {
     reset( );
 
@@ -64,15 +64,59 @@ namespace mb
     onTick( );
   }
 
-  void Clock::setTimeout( Clock::TimeoutCallback const &callback,
-  	double timeout, bool repeat )
+  float Clock::currentTime( void ) const
   {
-  	_timeoutCallback = callback;
-  	_timeout = timeout;
-  	_repeat = repeat;
+    return _currentTime;
+  }
+  void Clock::currentTime( float value )
+  {
+    _currentTime = value;
   }
 
-  Clock &Clock::operator+=( double deltaTime )
+  float Clock::lastTime( void ) const
+  {
+    return _lastTime;
+  }
+  void Clock::lastTime( float value )
+  {
+    _lastTime = value;
+  }
+
+  float Clock::deltaTime( void ) const
+  {
+    return _deltaTime;
+  }
+  void Clock::deltaTime( float value )
+  {
+    _deltaTime = value;
+  }
+
+  float Clock::accumTime( void ) const
+  {
+    return _accumTime;
+  }
+  void Clock::accumTime( float value )
+  {
+    _accumTime = value;
+  }
+
+  void Clock::setTimeout( Clock::TimeoutCallback const &callback,
+    float timeout )
+  {
+    _timeoutCallback = callback;
+    _timeout = timeout;
+    _repeat = false;
+  }
+
+  void Clock::setInterval( Clock::TimeoutCallback const &callback,
+    float timeout )
+  {
+    _timeoutCallback = callback;
+    _timeout = timeout;
+    _repeat = true;
+  }
+
+  Clock &Clock::operator+=( float deltaTime )
   {
     _deltaTime = deltaTime;
     _accumTime += _deltaTime;

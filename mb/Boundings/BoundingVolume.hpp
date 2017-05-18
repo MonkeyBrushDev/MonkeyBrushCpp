@@ -3,7 +3,11 @@
 
 namespace mb
 {
-  struct vec3
+  class BoundingVolume
+  {
+  };
+
+  /*struct vec3
   {
     float x;
     float y;
@@ -160,7 +164,7 @@ namespace mb
     {
       return 0;
     }
-  };
+  };*/
 }
 
 #endif /* __MB_BOUNDING_VOLUME__ */

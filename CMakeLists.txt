@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
-project(MB VERSION 1.9.2 )
+project(MB VERSION 1.0.1 )
 set(MB_VERSION_ABI 1)
 
 # Disable in source building
@@ -29,11 +29,46 @@ include(Common)
 
 # Allow warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error")
 
-#common_find_package( tinyxml2 REQUIRED  )
-#common_find_package( bullet REQUIRED  )
 
-#list ( APPEND MB_DEPENDENT_LIBRARIES bullet )
+option( MB_WITH_COMPUTE_SHADERS "enabling/disabling compute shaders" ON )
+option( MB_WITH_GEOMETRY_SHADERS "enabling/disabling geometry shaders" ON )
+option( MB_WITH_TESSELATION_SHADERS
+  "enabling/disabling tesselation shaders" ON )
+option( MB_WITH_SUBPROGRAMS "enabling/disabling subprograms" ON )
+option( MB_WITH_OCC_QUERY "enabling/disabling occlusion query" ON )
+option( MB_WITH_TRANSFORM_FEEDBACK "enabling/disabling transform feedback" ON )
+
+if ( MB_WITH_COMPUTE_SHADERS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_COMPUTE_SHADERS)
+endif( )
+
+if ( MB_WITH_GEOMETRY_SHADERS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_GEOMETRY_SHADERS)
+endif( )
+
+if ( MB_WITH_TESSELATION_SHADERS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_TESSELATION_SHADERS)
+endif( )
+
+if ( MB_WITH_SUBPROGRAMS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_SUBPROGRAMS)
+endif( )
+
+if ( MB_WITH_OCC_QUERY )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_OCC_QUERY)
+endif( )
+
+if ( MB_WITH_TRANSFORM_FEEDBACK )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_TRANSFORM_FEEDBACK)
+endif( )
+
+common_find_package( OpenGL REQUIRED SYSTEM )
+common_find_package( GLEW REQUIRED SYSTEM )
+common_find_package( GLFW3 REQUIRED SYSTEM )
+
+list ( APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW3 )
 
 common_find_package_post( )
 

@@ -3,19 +3,18 @@
 
 #include "Node.hpp"
 #include "../Maths/Frustum.hpp"
+#include "../Maths/Ray.hpp"
+#include "../Maths/Rect.hpp"
 #include <mb/api.h>
+
+/*
+  TODO: Set projection type (Perspective/Orthographic)
+  TODO: Change Field of View and clipping planes
+*/
 
 namespace mb
 {
   class RenderingPass;
-
-  struct Viewport
-  {
-    float x;
-    float y;
-    float w;
-    float h;
-  };
 
   class Camera:
     public Node
@@ -52,6 +51,24 @@ namespace mb
     MB_API
     RenderingPass* renderPass( );
 
+    /*MB_API
+    Ray& getRay( float px, float py ) const
+    {
+      float x = 2.0f * px - 1.0f;
+      float y = 1.0f - 2.0f * py;
+
+      Vector4 rayClip( x, y, -1.0f, 1.0f );
+
+      Vector4 rayEye = getProjection( ).getInverse( ).getTranspose( ) * rayClip;
+      rayEye = Vector4f( rayEye.x( ), rayEye.y( ), -1.0f, 0.0f );
+
+      Vector4 rayW = getWorld( ).computeModel( ).getTranspose( ) * rayEye;
+
+      Vector3 rayDir( rayW.x( ), rayW.y( ), rayW.z( ) );
+      rayDir.normalize( );
+
+      return Ray( getWorld( ).translate( ), rayDir );
+    }*/
     MB_API
     bool isMainCamera( void ) const
     {
@@ -63,15 +80,37 @@ namespace mb
       _isMainCamera = v;
     }
     MB_API
-    Viewport viewport( ) const
+    const Viewport& getViewport( ) const
     {
       return _viewport;
     }
     MB_API
-    void setViewport( Viewport v )
+    void setViewport( const Viewport& v )
     {
       this->_viewport = v;
     }
+
+    MB_API
+    const Frustum& getFrustum( void ) const
+    {
+      return _frustum;
+    }
+    MB_API
+    void setFrustum( const Frustum& frustum )
+    {
+      _frustum = frustum;
+      // TODO: Regenerate ortho and proj matrix
+    }
+
+    // TODO const Matrix4& getProjection( void ) const;
+    // TODO void setProjection( const Matrix4& proj );
+
+    // TODO const Matrix4& getOrthographic( void ) const;
+    // TODO void setOrthographic( const Matrix4& ortho );
+
+    // TODO const Matrix4& getView( void );
+    // TODO void setView( const Matrix4 &view );
+
   private:
     bool _isMainCamera = false;
   protected:
@@ -110,6 +149,7 @@ namespace mb
       }*/
       return false;
     }
+
   private:
     bool _cullingEnabled = true;
     // std::array< Plane, 6 > _cullingPlanes;

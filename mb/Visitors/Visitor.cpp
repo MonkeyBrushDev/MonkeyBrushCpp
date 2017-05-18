@@ -33,7 +33,6 @@ namespace mb
 
   void Visitor::visitNode( Node *node )
   {
-    // do nothing
   }
 
   void Visitor::visitGroup( Group* group )

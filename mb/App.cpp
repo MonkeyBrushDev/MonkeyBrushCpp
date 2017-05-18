@@ -3,7 +3,7 @@
 
 #include "Visitors/StartComponents.hpp"
 #include "Visitors/FetchCameras.hpp"
-#include "Visitors/FetchGeometry.hpp"
+#include "Visitors/ComputeBatchQueue.hpp"
 #include "Visitors/UpdateWorldState.hpp"
 
 namespace mb
@@ -66,16 +66,16 @@ namespace mb
     // TODO: Fixed update
     _scene->perform( UpdateWorldState( ) );
 
-    std::vector<BatchQueue*> rqCollection;
+    std::vector< BatchQueuePtr > bqCollection;
 
     forEachCamera( [ &] ( Camera *c )
     {
-      if ( c != nullptr )
+      if ( c != nullptr && c->isEnabled( ) )
       {
-        BatchQueue* rq = new BatchQueue( );
-        FetchGeometry fg( c, rq );
-        _scene->perform( fg );
-        rqCollection.push_back( rq );
+        BatchQueuePtr bq = std::make_shared<BatchQueue>( );
+        ComputeBatchQueue cbq( c, bq );
+        _scene->perform( cbq );
+        bqCollection.push_back( bq );
       }
     } );
     // \\ UPDATE STEP
@@ -87,21 +87,21 @@ namespace mb
     _renderer->beginRender( );
     _renderer->clearBuffers( );
     std::cout << "~~~~~~~~~~ RENDER SCENE ~~~~~~~~~~" << std::endl;
-    if ( !rqCollection.empty( ) )
+    if ( !bqCollection.empty( ) )
     {
-      BatchQueue *mainQueue = nullptr;
-      std::for_each( rqCollection.begin( ),
-        rqCollection.end( ), [ &] ( BatchQueue* rq )
+      BatchQueuePtr mainQueue = nullptr;
+      std::for_each( bqCollection.begin( ),
+        bqCollection.end( ), [ &] ( BatchQueuePtr bq )
       {
-        if ( rq->camera( ) != Camera::mainCamera( ) )
+        if ( bq->camera( ) != Camera::mainCamera( ) )
         {
-          // Render queue with rq camera
-          std::cout << "Render outscreen (" << rq->camera( )->name( ) << ")" << std::endl;
-          _renderer->render( rq, rq->camera( )->renderPass( ) );
+          // Render queue with bq camera
+          std::cout << "Render outscreen (" << bq->camera( )->name( ) << ")" << std::endl;
+          _renderer->render( bq, bq->camera( )->renderPass( ) );
         }
         else
         {
-          mainQueue = rq;
+          mainQueue = bq;
         }
       } );
 

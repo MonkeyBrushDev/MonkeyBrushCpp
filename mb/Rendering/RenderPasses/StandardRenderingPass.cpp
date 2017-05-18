@@ -2,16 +2,16 @@
 
 namespace mb
 {
-  void StandardRenderingPass::render( Renderer* renderer, BatchQueue* rq, Camera* c )
+  void StandardRenderingPass::render( Renderer* renderer, BatchQueuePtr bq, Camera* c )
   {
     // computeShadows( )
-    renderOpaqueObjects( renderer, rq, c );
-    renderTransparentObjects( renderer, rq, c );
+    renderOpaqueObjects( renderer, bq, c );
+    renderTransparentObjects( renderer, bq, c );
   }
 
-  void StandardRenderingPass::renderOpaqueObjects( Renderer* renderer, BatchQueue* rq, Camera* c )
+  void StandardRenderingPass::renderOpaqueObjects( Renderer* renderer, BatchQueuePtr bq, Camera* /*c*/ )
   {
-    auto renderables = rq->renderables( BatchQueue::RenderableType::OPAQUE );
+    auto renderables = bq->renderables( BatchQueue::RenderableType::OPAQUE );
     if ( renderables.empty( ) )
     {
       return;
@@ -37,9 +37,10 @@ namespace mb
       renderStandardGeometry( renderer, renderable );
     }
   }
-  void StandardRenderingPass::renderTransparentObjects( Renderer* renderer, BatchQueue* rq, Camera* c )
+  void StandardRenderingPass::renderTransparentObjects( Renderer* renderer,
+                                                        BatchQueuePtr bq, Camera* /*c*/ )
   {
-    auto renderables = rq->renderables( BatchQueue::RenderableType::TRANSPARENT );
+    auto renderables = bq->renderables( BatchQueue::RenderableType::TRANSPARENT );
     if ( renderables.empty( ) )
     {
       return;
@@ -52,7 +53,7 @@ namespace mb
       renderStandardGeometry( renderer, renderable );
     }
   }
-  void StandardRenderingPass::renderStandardGeometry( Renderer* renderer, Renderable* renderable )
+  void StandardRenderingPass::renderStandardGeometry( Renderer* /*renderer*/, Renderable* renderable )
   {
     renderable->geom->forEachPrimitive( [] ( Primitive *pr )
     {

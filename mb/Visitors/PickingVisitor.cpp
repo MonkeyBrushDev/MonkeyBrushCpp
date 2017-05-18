@@ -11,20 +11,18 @@ namespace mb
     , _filter( filter )
   {
   }
-
-  PickingVisitor::~PickingVisitor( )
-  {
-  }
-
+  
   void PickingVisitor::traverse( Node* n )
   {
     _results.reset( );
 
     Visitor::traverse( n );
-    _results.sortCandidates( [ &] ( Node* first, Node* second ) -> bool
+    _results.sort( [ &] ( Node* n1, Node* n2 ) -> bool
     {
-      // TODO: Sort candidates using distance(_ray, first->worldBound()->center) < distance(_ray, second->worldBound()->center);
+      // TODO: Sort candidates using distance(_ray, n1->worldBound()->center) < distance(_ray, n2->worldBound()->center);
       return false;
+      // TODO: return distance_ray_bound( _ray, n1->getWorldBound( )->getCenter( ) ) <
+      //  distance_ray_bound( _ray, n2->getWorldBound( )->getCenter( ) );
     } );
   }
 
@@ -32,7 +30,7 @@ namespace mb
   {
     if ( _filter == nullptr || _filter( n ) )
     {
-      _results.addCandidate( n );
+      _results.push( n );
     }
   }
   void PickingVisitor::visitGroup( Group* group )
@@ -40,9 +38,10 @@ namespace mb
     visitNode( group );
     group->forEachNode( [ &] ( Node* n )
     {
-      /*if (n-> )*/
-      n->accept( *this );
-      /*}*/
+      if ( _ray.intersect( n->getWorldBound( ) ) )
+      {
+        n->accept( *this );
+      }
     } );
   }
 }

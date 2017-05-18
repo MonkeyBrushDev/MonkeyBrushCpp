@@ -5,6 +5,8 @@
 namespace mb
 {
   Component::Component( )
+    : _enabled( true )
+    , _node( nullptr )
   {
   }
 
@@ -39,5 +41,32 @@ namespace mb
 
   void Component::onDetach( void )
   {
+  }
+  bool Component::isEnabled( void ) const
+  {
+    return _enabled;
+  }
+  void Component::enable( void )
+  {
+    setEnabled( true );
+  }
+  void Component::disable( void )
+  {
+    setEnabled( false );
+  }
+  void Component::setEnabled( const bool v )
+  {
+    _enabled = v;
+    if ( _enabled == true )
+    {
+      onEnable( );
+    } else if ( _enabled == false )
+    {
+      onDisable( );
+    }
+  }
+  void Component::toggle( void )
+  {
+    setEnabled( !isEnabled( ) );
   }
 }

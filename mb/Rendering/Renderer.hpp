@@ -6,26 +6,26 @@
 
 #include <vector>
 #include "Material.hpp"
+#include "BatchQueue.hpp"
 
 namespace mb
 {
   class RenderingPass;
-  class BatchQueue;
 
   class Renderer
   {
   public:
     Renderer( );
-    ~Renderer( );
+    virtual~Renderer( );
     virtual void setViewport ( std::vector< float > ) { }
     virtual void beginRender( void );
     virtual void clearBuffers( void ) = 0;
-    virtual void render( BatchQueue* rq, RenderingPass* rp );
+    virtual void render( BatchQueuePtr bq, RenderingPass* rp );
     virtual void endRender( void );
   public:
     virtual void bindFBO( unsigned int ) { }
     virtual void unbindFBO( unsigned int ) { }
-    virtual void drawPrimitive( MaterialPtr  material, Primitive* primitive ) { }
+    virtual void drawPrimitive( MaterialPtr  /*material*/, Primitive* /*primitive*/ ) { }
     // virtual void drawBuffer( Material* material ... ) { }
   };
 
@@ -76,7 +76,7 @@ namespace mb
       }
     }
 
-    virtual void drawPrimitive( MaterialPtr  material, Primitive* primitive )
+    virtual void drawPrimitive( MaterialPtr  /*material*/, Primitive* primitive )
     {
       std::string type;
       switch ( primitive->_type )

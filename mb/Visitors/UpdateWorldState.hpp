@@ -11,10 +11,6 @@ namespace mb
   {
   public:
     MB_API
-    UpdateWorldState( );
-    MB_API
-    virtual ~UpdateWorldState( );
-    MB_API
     virtual void visitNode( Node *node ) override;
     MB_API
     virtual void visitGroup( Group *node ) override;

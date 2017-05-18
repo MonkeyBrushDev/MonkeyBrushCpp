@@ -8,7 +8,7 @@ namespace mb
   {
   }
 
-  void SepiaToneEffect::apply( Renderer*,  Camera* camera )
+  void SepiaToneEffect::apply( Renderer*,  Camera* /*camera*/ )
   {
     // bind shader, texture, draw and unbind texture and shader
     //std::cout << "Apply SepiaToneEffect" << std::endl;

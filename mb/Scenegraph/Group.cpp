@@ -1,4 +1,6 @@
 #include "Group.hpp"
+  #include <algorithm>
+#include "../Exceptions/HasParentException.hpp"
 
 namespace mb
 {
@@ -26,11 +28,12 @@ namespace mb
   {
     if ( node->parent( ) == this )
     {
-      return;
+      return; // TODO: throw Exception!!
     }
     if ( node->parent( ) != nullptr )
     {
-      throw "HasParentException";
+      throw HasParentException( node->name( ),
+        name( ), node->parent( )->name( ) );
     }
     node->parent( this );
     _children.push_back( node );
@@ -44,7 +47,7 @@ namespace mb
       n->parent( nullptr );
     }
   }
-  #include <algorithm>
+
   void Group::removeChildren( void )
   {
     std::for_each( _children.begin( ), _children.end( ), [] ( Node* n )
@@ -60,14 +63,28 @@ namespace mb
     return _children.at( idx );
   }
 
+
+  void Group::insertChild( unsigned int idx, Node* node )
+  {
+    _children.insert( _children.begin( ) + idx, node );
+  }
+
+  void Group::removeChild( unsigned int idx )
+  {
+    if ( _children.size( ) > idx )
+    {
+      _children.erase( _children.begin( ) + idx );
+    }
+  }
+
   void Group::forEachNode( std::function< void( Node * ) > callback )
   {
     std::for_each( _children.begin( ), _children.end( ), [&] ( Node* n )
     {
-      /* TODO if ( n->isEnabled( ) )
-      {*/
-      callback( n );
-      /*}*/
+      if ( n->isEnabled( ) )
+      {
+        callback( n );
+      }
     } );
   }
   void Group::accept( Visitor& v )

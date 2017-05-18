@@ -18,9 +18,9 @@ namespace mb
     std::cout << "Set viewport" << std::endl;
   }
 
-  void Renderer::render( BatchQueue* rq, RenderingPass* rp )
+  void Renderer::render( BatchQueuePtr bq, RenderingPass* rp )
   {
-    rp->render( this, rq, rq->camera( ) );
+    rp->render( this, bq, bq->camera( ) );
   }
 
   void Renderer::endRender( void )

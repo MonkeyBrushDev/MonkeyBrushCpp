@@ -13,10 +13,10 @@ namespace mb
     _fbo = ++PostRenderingPass::FBOCOUNTER;
   }
 
-  void PostRenderingPass::render( Renderer* renderer, BatchQueue* rq, Camera* cam )
+  void PostRenderingPass::render( Renderer* renderer, BatchQueuePtr bq, Camera* cam )
   {
     renderer->bindFBO( _fbo );
-    _sceneRenderingPass->render( renderer, rq, cam );
+    _sceneRenderingPass->render( renderer, bq, cam );
     renderer->unbindFBO( _fbo );
 
     applyImageEffects( renderer, cam );

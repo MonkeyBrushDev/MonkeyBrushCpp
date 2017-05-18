@@ -25,6 +25,11 @@ namespace mb
     void removeMaterials( void );
     MB_API
     void eachMaterial( std::function< void( mb::MaterialPtr ) > callback );
+    MB_API
+    mb::MaterialPtr first( void )
+    {
+      return _materials.at( 0 );
+    }
   private:
     std::vector< mb::MaterialPtr > _materials;
   };

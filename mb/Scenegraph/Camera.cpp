@@ -9,7 +9,7 @@ namespace mb
   Camera:: Camera( const float& fov, const float& ar,
     const float& near, const float& far )
     : _frustum( fov, ar, near, far )
-    , _viewport( { 0.0f, 0.0f, 1.0f, 1.0f } )
+    , _viewport( 0.0f, 0.0f, 1.0f, 1.0f )
     , _renderPass( new StandardRenderingPass( ) )
   {
     for ( unsigned int i = 0; i < 32; ++i )

@@ -1,5 +1,5 @@
-#ifndef __MB_FETCH_GEOMETRY__
-#define __MB_FETCH_GEOMETRY__
+#ifndef __MB_COMPUTE_BATCHQUEUE__
+#define __MB_COMPUTE_BATCHQUEUE__
 
 #include "Visitor.hpp"
 #include "../Rendering/BatchQueue.hpp"
@@ -11,18 +11,16 @@ namespace mb
   class Geometry;
   class Light;
 
-  class FetchGeometry :
+  class ComputeBatchQueue :
     public Visitor
   {
   public:
     MB_API
-    FetchGeometry( Camera* cam, BatchQueue *rq );
+    ComputeBatchQueue( Camera* cam, BatchQueue *rq );
     MB_API
-    virtual ~FetchGeometry( );
+    virtual ~ComputeBatchQueue( );
     MB_API
     virtual void traverse( Node* n ) override;
-    //MB_API
-    //virtual void visitNode( Node* n ) override;
     MB_API
     virtual void visitGroup( Group* g ) override;
     MB_API
@@ -42,4 +40,4 @@ rq->pushGeometry( geometry );
 }
 */
 
-#endif /* __MB_FETCH_GEOMETRY__ */
+#endif /* __MB_COMPUTE_BATCHQUEUE__ */
