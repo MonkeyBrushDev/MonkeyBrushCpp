@@ -14,9 +14,11 @@ set( MB_PUBLIC_HEADERS
   Components/OrbitCamera.hpp
   Components/OtherComponent.hpp
 
+  Maths/Vect3.hpp
   Maths/Clock.hpp
   Maths/Frustum.hpp
   Maths/Ray.hpp
+  Maths/Wrapper.hpp
 
   Primitives/Primitive.hpp
 
@@ -79,8 +81,10 @@ set( MB_SOURCES
   Components/MeshRenderer.cpp
   Components/OtherComponent.cpp
 
+  Maths/Vect3.cpp
   Maths/Clock.cpp
   Maths/Frustum.cpp
+  Maths/Wrapper.cpp
 
   Rendering/ImageEffects/GreyImageEffect.cpp
   Rendering/ImageEffects/SepiaImageEffect.cpp
