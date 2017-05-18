@@ -102,6 +102,8 @@ namespace mb
     MB_API
     void forEachComponent( std::function< void( Component * ) > callback );
 
+    template< class T, typename ... Args >
+    T* addComponent( Args&& ... args );
     template <class T>
     bool hasComponent( void );
     template <class T>

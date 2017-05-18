@@ -35,18 +35,9 @@ namespace mb
       return static_cast< T* >( nodeAt( idx ) );
     }
     MB_API
-    void insertChild( unsigned int idx, Node* node )
-    {
-        _children.insert( _children.begin( ) + idx, node );
-    }
+    void insertChild( unsigned int idx, Node* node );
     MB_API
-    void removeChild( unsigned int idx )
-    {
-        if ( _children.size( ) > idx )
-        {
-            _children.erase( _children.begin( ) + idx );
-        }
-    }
+    void removeChild( unsigned int idx );
     MB_API
     virtual void forEachNode( std::function< void( Node * ) > callback );
   protected:

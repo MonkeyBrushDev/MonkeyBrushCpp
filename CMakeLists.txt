@@ -28,7 +28,40 @@ set(COMMON_PROJECT_DOMAIN MonkeyBrushDev)
 include(Common)
 
 # Allow warnings
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+
+
+option( MB_WITH_COMPUTE_SHADERS "enabling/disabling compute shaders" ON )
+option( MB_WITH_GEOMETRY_SHADERS "enabling/disabling geometry shaders" ON )
+option( MB_WITH_TESSELATION_SHADERS
+  "enabling/disabling tesselation shaders" ON )
+option( MB_WITH_SUBPROGRAMS "enabling/disabling subprograms" ON )
+option( MB_WITH_OCC_QUERY "enabling/disabling occlusion query" ON )
+option( MB_WITH_TRANSFORM_FEEDBACK "enabling/disabling transform feedback" ON )
+
+if ( MB_WITH_COMPUTE_SHADERS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_COMPUTE_SHADERS)
+endif( )
+
+if ( MB_WITH_GEOMETRY_SHADERS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_GEOMETRY_SHADERS)
+endif( )
+
+if ( MB_WITH_TESSELATION_SHADERS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_TESSELATION_SHADERS)
+endif( )
+
+if ( MB_WITH_SUBPROGRAMS )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_SUBPROGRAMS)
+endif( )
+
+if ( MB_WITH_OCC_QUERY )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_OCC_QUERY)
+endif( )
+
+if ( MB_WITH_TRANSFORM_FEEDBACK )
+  list(APPEND COMMON_FIND_PACKAGE_DEFINES MB_TRANSFORM_FEEDBACK)
+endif( )
 
 common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )

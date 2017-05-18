@@ -36,6 +36,8 @@ set( MB_PUBLIC_HEADERS
   Maths/Mathf.hpp
   Maths/Ray.hpp
   Maths/Rect.hpp
+  Maths/Vector3.hpp
+  Maths/Transform.hpp
 
 
   Primitives/Primitive.hpp

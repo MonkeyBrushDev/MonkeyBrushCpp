@@ -62,10 +62,10 @@ common_application( mbExampleOffScreen )
 
 
 
-set( MBEXAMPLERAWTRIANGLE_HEADERS )
-set( MBEXAMPLERAWTRIANGLE_SOURCES exampleRawTriangle.cpp )
-set( MBEXAMPLERAWTRIANGLE_LINK_LIBRARIES
-  mb
-)
-common_application( mbExampleRawTriangle )
+#set( MBEXAMPLERAWTRIANGLE_HEADERS )
+#set( MBEXAMPLERAWTRIANGLE_SOURCES exampleRawTriangle.cpp )
+#set( MBEXAMPLERAWTRIANGLE_LINK_LIBRARIES
+#  mb
+#)
+#common_application( mbExampleRawTriangle )
 
