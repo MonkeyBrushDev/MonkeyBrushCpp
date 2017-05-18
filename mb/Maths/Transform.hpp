@@ -25,6 +25,18 @@ namespace mb
         _isIdentity = t2._isIdentity;
         return *this;
       }
+      void translate( float x, float y, float z )
+      {
+        translate( Vector3( x, y, z ) );
+      }
+      void translate( const Vector3& pos )
+      {
+        setPosition( getPosition( ) + pos );
+      }
+      const Vector3& getPosition( void ) const
+      {
+        return _position;
+      }
       void setPosition( const Vector3& pos )
       {
         _position = pos;
@@ -37,9 +49,29 @@ namespace mb
         _position[ 2 ] = z;
         _isIdentity = false;
       }
-      const Vector3& getPosition( void ) const
+      void scale( float x, float y, float z )
       {
-        return _position;
+        scale( Vector3( x, y, z ) );
+      }
+      void scale( const Vector3& sc )
+      {
+        setScale( getScale( ) + sc );
+      }
+      const Vector3& getScale( void ) const
+      {
+        return _scale;
+      }
+      void setScale( const Vector3& sc )
+      {
+        _scale = sc;
+        _isIdentity = false;
+      }
+      void setScale( float x, float y, float z )
+      {
+        _scale[ 0 ] = x;
+        _scale[ 1 ] = y;
+        _scale[ 2 ] = z;
+        _isIdentity = false;
       }
       void computeFrom( const Transform& t1, const Transform& t2 )
       {
@@ -57,6 +89,12 @@ namespace mb
           _scale = t1._scale * t2._scale;
           _isIdentity = false;
         }
+      }
+      void lookAt( const Vector3& target, const Vector3& up = Vector3( 0.0f, 1.0f, 0.0f ) )
+      {
+        Vector3 dir = target - getPosition( );
+        dir.normalize( );
+        // _rotate.lookAt( dir, up );
       }
 
     protected:
