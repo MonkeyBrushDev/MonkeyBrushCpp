@@ -63,6 +63,20 @@ namespace mb
     return _children.at( idx );
   }
 
+
+  void Group::insertChild( unsigned int idx, Node* node )
+  {
+    _children.insert( _children.begin( ) + idx, node );
+  }
+
+  void Group::removeChild( unsigned int idx )
+  {
+    if ( _children.size( ) > idx )
+    {
+      _children.erase( _children.begin( ) + idx );
+    }
+  }
+
   void Group::forEachNode( std::function< void( Node * ) > callback )
   {
     std::for_each( _children.begin( ), _children.end( ), [&] ( Node* n )

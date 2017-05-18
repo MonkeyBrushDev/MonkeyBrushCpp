@@ -36,6 +36,8 @@ set( MB_PUBLIC_HEADERS
   Maths/Mathf.hpp
   Maths/Ray.hpp
   Maths/Rect.hpp
+  Maths/Vector3.hpp
+  Maths/Transform.hpp
 
 
   Primitives/Primitive.hpp
@@ -91,7 +93,7 @@ set( MB_PUBLIC_HEADERS
   Utils/Macros.hpp
   Utils/MemoryUtils.hpp
   Utils/NonCopyable.hpp
-  ##Utils/Params.hpp
+  Utils/Params.hpp
   Utils/StringUtils.hpp
 
 
@@ -146,6 +148,7 @@ set( MB_SOURCES
   Maths/Clock.cpp
   Maths/Frustum.cpp
   Maths/Mathf.cpp
+  Maths/Ray.cpp
 
   Primitives/Primitive.cpp
   Primitives/CapsulePrimitive.cpp

@@ -29,7 +29,7 @@ int main( )
   secondNodeSwitch->addChild( new Node( "RandomNodeFromSecondSwitch" ) );
   //rightNode->addComponent( new MeshRenderer( 2 ) );
 
-  centerSwitch->currentNodeIndex( 0 );
+  centerSwitch->setCurrentNodeIndex( 0 );
 
   /*PrintNameVisitor v;
   v.visitGroup( scene );
@@ -66,7 +66,7 @@ int main( )
     {
       std::cout << std::endl << std::endl << std::endl;
     }
-    centerSwitch->currentNodeIndex( i );
+    centerSwitch->setCurrentNodeIndex( i );
   }
 
   delete scene;
