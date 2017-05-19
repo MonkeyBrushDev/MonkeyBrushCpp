@@ -25,6 +25,8 @@ namespace mb
   public:
     virtual void bindFBO( unsigned int ) { }
     virtual void unbindFBO( unsigned int ) { }
+    virtual void bindProgram( unsigned int ) { }
+    virtual void unbindProgram( unsigned int ) { }
     virtual void drawPrimitive( MaterialPtr  material, Primitive* primitive ) { }
     // virtual void drawBuffer( Material* material ... ) { }
   };

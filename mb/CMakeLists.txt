@@ -36,6 +36,7 @@ set( MB_PUBLIC_HEADERS
   Maths/Mathf.hpp
   Maths/Ray.hpp
   Maths/Rect.hpp
+  Maths/Vector2.hpp
   Maths/Vector3.hpp
   Maths/Transform.hpp
 
@@ -94,6 +95,7 @@ set( MB_PUBLIC_HEADERS
   Utils/MemoryUtils.hpp
   Utils/NonCopyable.hpp
   Utils/Params.hpp
+  Utils/Singleton.hpp
   Utils/StringUtils.hpp
 
 
