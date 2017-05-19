@@ -11,12 +11,15 @@
 #include <vector>
 #include <memory>
 
+#include "../Maths/Vector3.hpp"
+
 namespace mb
 {
   enum ParticleAttrType
   {
     POSITION,
     VELOCITY,
+    ACCELERATION,
     COLOR,
     TIME
   };
@@ -192,12 +195,86 @@ namespace mb
   };
   typedef std::shared_ptr< ParticleGenerator > ParticleGeneratorPtr;
 
+
+  class SphereVelocityParticleGenerator : public ParticleGenerator
+  {
+  public:
+    virtual void configure( ParticlesInfoPtr particles ) override
+    {
+      _velocities = particles->createAttributeArray< Vector3 >( ParticleAttrType::VELOCITY );
+
+      _magnitude = Vector3( 1.0f );
+    }
+    virtual void generate( const float&, ParticlesInfoPtr particles,
+      unsigned int start, unsigned int end ) override
+    {
+      auto vs = _velocities->getData< Vector3 >( );
+
+      const auto posMin = Vector3( -1.0f );
+      const auto posMax = Vector3( 1.0f );
+
+      for ( unsigned int i = start; i < end; ++i )
+      {
+        auto x = RandomFloat( posMin.x( ), posMax.x( ) );
+        auto y = RandomFloat( posMin.y( ), posMax.y( ) );
+        auto z = RandomFloat( posMin.z( ), posMax.z( ) );
+        vs[ i ] = Vector3( x, y, z ).getNormalized( ) * _magnitude;
+      }
+    }
+  protected:
+    float RandomFloat( float min, float max )
+    {
+      float r = ( float ) rand( ) / ( float ) RAND_MAX;
+      return min + r * ( max - min );
+    }
+    Vector3 _magnitude;
+    IParticleAttrArray* _velocities;
+  };
+
+  class SpherePositionParticleGenerator : public ParticleGenerator
+  {
+  public:
+    virtual void configure( ParticlesInfoPtr particles ) override
+    {
+      _positions = particles->createAttributeArray< Vector3 >( ParticleAttrType::POSITION );
+
+      _origin = Vector3( 0.0f );
+      _size = Vector3( 0.1f );
+    }
+    virtual void generate( const float&, ParticlesInfoPtr particles,
+      unsigned int start, unsigned int end ) override
+    {
+      auto ps = _positions->getData< Vector3 >();
+
+      const auto posMin = Vector3( -1.0f );
+      const auto posMax = Vector3( 1.0f );
+
+      for ( unsigned int i = start; i < end; ++i )
+      {
+        auto x = RandomFloat( posMin.x( ), posMax.x( ) );
+        auto y = RandomFloat( posMin.y( ), posMax.y( ) );
+        auto z = RandomFloat( posMin.z( ), posMax.z( ) );
+        ps[ i ] = _origin + Vector3( x, y, z ).getNormalized() * _size;
+      }
+    }
+  protected:
+    float RandomFloat( float min, float max )
+    {
+      float r = ( float ) rand( ) / ( float ) RAND_MAX;
+      return min + r * ( max - min );
+    }
+    Vector3 _origin;
+    Vector3 _size;
+    IParticleAttrArray* _positions;
+  };
+
+
   class TimeParticleGenerator : public ParticleGenerator
   {
   public:
     virtual void configure( ParticlesInfoPtr particles ) override
     {
-      _times = particles->createAttributeArray< float>( ParticleAttrType::TIME );
+      _times = particles->createAttributeArray< float >( ParticleAttrType::TIME );
     }
     virtual void generate( const float&, ParticlesInfoPtr particles,
       unsigned int start, unsigned int end ) override
@@ -218,6 +295,64 @@ namespace mb
     IParticleAttrArray* _times;
   };
 
+  class AccelerationParticleGenerator : public ParticleGenerator
+  {
+  public:
+    virtual void configure( ParticlesInfoPtr particles ) override
+    {
+      _accelerations = particles->createAttributeArray< Vector3 >( ParticleAttrType::ACCELERATION );
+
+      _minAcceleration = Vector3( 0.0f );
+      _maxAcceleration = Vector3( 1.0f );
+    }
+    virtual void generate( const float&, ParticlesInfoPtr particles,
+      unsigned int start, unsigned int end ) override
+    {
+      auto as = _accelerations->getData< Vector3 >( );
+
+      for ( unsigned int i = start; i < end; ++i ) {
+        as[ i ][ 0 ] = RandomFloat( _minAcceleration.x( ), _maxAcceleration.x( ) );
+        as[ i ][ 1 ] = RandomFloat( _minAcceleration.y( ), _maxAcceleration.y( ) );
+        as[ i ][ 2 ] = RandomFloat( _minAcceleration.z( ), _maxAcceleration.z( ) );
+      }
+    }
+  protected:
+    float RandomFloat( float min, float max )
+    {
+      float r = ( float ) rand( ) / ( float ) RAND_MAX;
+      return min + r * ( max - min );
+    }
+    Vector3 _minAcceleration;
+    Vector3 _maxAcceleration;
+    IParticleAttrArray* _accelerations;
+  };
+
+  class PositionVelocityParticleUpdater : public ParticleUpdater
+  {
+  public:
+    virtual void configure( ParticlesInfoPtr particles ) override
+    {
+      _positions = particles->createAttributeArray< Vector3 >( ParticleAttrType::POSITION );
+      _velocities = particles->createAttributeArray< Vector3 >( ParticleAttrType::VELOCITY );
+    }
+    virtual void update( const float& dt, ParticlesInfoPtr particles ) override
+    {
+      const unsigned int count = particles->getNumAliveParticles( );
+
+      auto ps = _positions->getData< Vector3 >( );
+      auto vs = _velocities->getData< Vector3 >( );
+
+      for ( unsigned int i = 0; i < count; ++i )
+      {
+        Vector3 v = vs[ i ] * dt;
+        ps[ i ] += v;
+      }
+    }
+  protected:
+    IParticleAttrArray* _positions;
+    IParticleAttrArray* _velocities;
+  };
+
   class TimeParticleUpdater : public ParticleUpdater
   {
   public:
@@ -231,7 +366,7 @@ namespace mb
 
       float* ts = _times->getData< float >( );
 
-      for ( unsigned int i = 0; i < count; i++ )
+      for ( unsigned int i = 0; i < count; ++i )
       {
         ts[ i ] -= dt;
         if ( ts[ i ] <= 0.0f )
@@ -244,25 +379,38 @@ namespace mb
     IParticleAttrArray* _times;
   };
 
-  class TimePrintRenderer : public ParticleRenderer
+  class PrintRenderer : public ParticleRenderer
   {
   public:
     virtual void configure( ParticlesInfoPtr particles ) override
     {
+      _positions = particles->createAttributeArray< Vector3 >( ParticleAttrType::POSITION );
       _times = particles->createAttributeArray<float>( ParticleAttrType::TIME );
     }
     virtual void update( const float&, ParticlesInfoPtr particles ) override
     {
-      const unsigned int count = particles->getNumAliveParticles( );
+      const unsigned int count = particles->getNumParticles( ); // getNumAliveParticles( );
 
+      Vector3* pts = _positions->getData< Vector3 >( );
       float* ts = _times->getData< float >( );
 
-      for ( unsigned int i = 0; i < count; i++ )
+      for ( unsigned int i = 0; i < count; ++i )
       {
-        std::cout << ( i + 1 ) << ": " << ts[ i ] << std::endl;
+        std::cout << "POSITION: (" << pts[ i ].x( ) << ", " << 
+          pts[ i ].y( ) << ", " << pts[ i ].z( ) << ") ";
+        if ( particles->isAlive( i ) )
+        {
+          std::cout << "\tTIME: " << ts[ i ] << std::endl;
+        }
+        else
+        {
+          std::cout << "\t ... died" << std::endl;
+        }
       }
+      std::cout << " ------ ------ ------ ------ ------ " << std::endl;
     }
   protected:
+    IParticleAttrArray* _positions;
     IParticleAttrArray* _times;
   };
 
