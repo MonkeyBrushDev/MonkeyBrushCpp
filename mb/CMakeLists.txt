@@ -36,7 +36,7 @@ set( MB_PUBLIC_HEADERS
   Maths/Frustum.hpp
   Maths/Mathf.hpp
   Maths/Ray.hpp
-  Maths/Wrapper.hpp
+  Maths/Mat4.hpp
   Maths/Rect.hpp
   Maths/Vector3.hpp
   Maths/Transform.hpp
@@ -149,7 +149,7 @@ set( MB_SOURCES
   Maths/Vect3.cpp
   Maths/Clock.cpp
   Maths/Frustum.cpp
-  Maths/Wrapper.cpp
+  Maths/Mat4.cpp
   Maths/Mathf.cpp
 
   Primitives/Primitive.cpp

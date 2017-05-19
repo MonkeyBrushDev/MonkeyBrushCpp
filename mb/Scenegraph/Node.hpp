@@ -24,15 +24,57 @@ namespace mb
     }
     std::function<void( Quaternion )> _cb;
   };
+
+
   class Quaternion
   {
   public:
+
+    MB_API
+    Quaternion( float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 1.0f );
+
+    MB_API
+    Quaternion( const Quaternion& q );
+
+    MB_API
+    virtual ~Quaternion( void ){}
+
+    MB_API
+    Quaternion& operator=( const Quaternion& q );
+
+    MB_API
+    Quaternion& copy( const Quaternion& q );
+
+    MB_API
     void setOnChangeCallback( const std::function<void( EulerAngles )>& cb )
     {
       _cb = cb;
     }
+
+    MB_API
+    float x( void ) const { return this->_values[0]; }
+    MB_API
+    float y( void ) const { return this->_values[1]; }
+    MB_API
+    float z( void ) const { return this->_values[2]; }
+    MB_API
+    float w( void ) const { return this->_values[3]; }
+
+    MB_API
+    float x( const float& v ){ this->_values[0] = v; }
+    MB_API
+    float y( const float& v ){ this->_values[1] = v; }
+    MB_API
+    float z( const float& v ){ this->_values[2] = v; }
+    MB_API
+    float w( const float& v ){ this->_values[3] = v; }
+
+  protected:
+    std::array<float, 4> _values;
     std::function<void( EulerAngles )> _cb;
   };
+
+
   class Transformation
   {
   public:
