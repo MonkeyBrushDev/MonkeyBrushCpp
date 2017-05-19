@@ -97,7 +97,7 @@ set( MB_PUBLIC_HEADERS
   Utils/Macros.hpp
   Utils/MemoryUtils.hpp
   Utils/NonCopyable.hpp
-  Utils/Params.hpp
+  Utils/Settings.hpp
   Utils/Singleton.hpp
   Utils/StringUtils.hpp
 
