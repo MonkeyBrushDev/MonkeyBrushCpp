@@ -5,11 +5,6 @@
 #include "../ImageEffects/ImageEffect.hpp"
 #include "../../Scenegraph/Camera.hpp"
 
-/*void RenderingPass::render( Renderer* renderer, BatchQueue* rq, Camera* c )
-{
-
-}*/
-
 namespace mb
 {
   void RenderingPass::applyImageEffects( Renderer *renderer, Camera *camera )

@@ -134,7 +134,7 @@ namespace mb
     MB_API
     bool isCullingEnabled( void ) const { return _cullingEnabled; }
 
-    bool culled( /*const BoundingVolume *v*/ ) const
+    bool culled( /*const BoundingVolume* v*/ ) const
     {
       if( !isCullingEnabled( ) )
       {

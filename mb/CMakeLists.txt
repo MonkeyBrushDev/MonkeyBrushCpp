@@ -40,6 +40,9 @@ set( MB_PUBLIC_HEADERS
   Maths/Vector3.hpp
   Maths/Transform.hpp
 
+  Maths/Plane.hpp
+  Maths/Sphere.hpp
+
 
   Primitives/Primitive.hpp
   Primitives/CapsulePrimitive.hpp
