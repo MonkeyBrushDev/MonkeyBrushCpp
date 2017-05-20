@@ -33,7 +33,6 @@ namespace mb
     virtual void drawPrimitive( MaterialPtr  material, Primitive* primitive ) { }
     // virtual void drawBuffer( Material* material ... ) { }
   };
-
 }
 
 #include <gl/glew.h>
