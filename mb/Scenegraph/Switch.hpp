@@ -21,17 +21,17 @@ namespace mb
     Node* currentNode( void );
 
     MB_API
-    int currentNodeIndex( void ) const;
+    unsigned int getCurrentNodeIndex( void ) const;
     MB_API
-    void currentNodeIndex( int idx );
+    void setCurrentNodeIndex( unsigned int idx );
 
     MB_API
     void selectNextNode( void );
     MB_API
-    void selectPrevNode( void );
+    void selectPreviousNode( void );
 
   private:
-    int _currentIdx;
+    unsigned int _currentIdx;
   };
 }
 

@@ -59,3 +59,19 @@ set( MBEXAMPLEOFFSCREEN_LINK_LIBRARIES
 )
 common_application( mbExampleOffScreen )
 
+
+set( MBEXAMPLEPARTICLES_HEADERS )
+set( MBEXAMPLEPARTICLES_SOURCES exampleParticles.cpp )
+set( MBEXAMPLEPARTICLES_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleParticles )
+
+
+#set( MBEXAMPLERAWTRIANGLE_HEADERS )
+#set( MBEXAMPLERAWTRIANGLE_SOURCES exampleRawTriangle.cpp )
+#set( MBEXAMPLERAWTRIANGLE_LINK_LIBRARIES
+#  mb
+#)
+#common_application( mbExampleRawTriangle )
+

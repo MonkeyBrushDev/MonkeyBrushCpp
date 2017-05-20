@@ -5,11 +5,14 @@
 
 namespace mb
 {
+  /**
+   * A class derived from this can't be copied or reassigned
+   */
 	class NonCopyable
 	{
 	protected:
-		NonCopyable() {}
-		~NonCopyable() {}
+    NonCopyable( void ) { }
+		~NonCopyable( void ) { }
 	private:
 		NonCopyable( const NonCopyable& ) = delete;
 		const NonCopyable& operator=( const NonCopyable& ) = delete;

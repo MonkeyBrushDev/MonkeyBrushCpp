@@ -24,7 +24,7 @@ namespace mb
   {
     this->reset( );
     Visitor::traverse( n );
-    --_childrens; // TODO: WHYY??? Remove myself
+    --_childrens;
   }
   void ChildrenCounterVisitor::visitNode( Node* n )
   {

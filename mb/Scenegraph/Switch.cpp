@@ -35,7 +35,7 @@ namespace mb
     _currentIdx = ( _currentIdx + 1 ) % numChildren( );
   }
 
-  void Switch::selectPrevNode( void )
+  void Switch::selectPreviousNode( void )
   {
     if ( !hasNodes( ) )
     {
@@ -50,12 +50,12 @@ namespace mb
     return nodeAt( _currentIdx );
   }
 
-  int Switch::currentNodeIndex( void ) const
+  unsigned int Switch::getCurrentNodeIndex( void ) const
   {
     return _currentIdx;
   }
 
-  void Switch::currentNodeIndex( int idx )
+  void Switch::setCurrentNodeIndex( unsigned int idx )
   {
     _currentIdx = idx;
   }

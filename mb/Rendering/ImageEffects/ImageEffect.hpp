@@ -2,6 +2,7 @@
 #define __MB_IMAGE_EFFECT__
 
 #include <mb/api.h>
+#include <memory>
 
 namespace mb
 {
@@ -21,6 +22,7 @@ namespace mb
   protected:
 
   };
+  typedef std::shared_ptr< ImageEffect > ImageEffectPtr;
 }
 
 #endif /* __MB_IMAGE_EFFECT__ */

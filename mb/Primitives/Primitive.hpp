@@ -10,9 +10,9 @@ namespace mb
   class Primitive
   {
   public:
-    enum Type
+    enum class Type: short
     {
-      POINTS,
+      POINTS = 0,
       LINES,
       LINE_LOOP,
       LINE_STRIP,

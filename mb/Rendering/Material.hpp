@@ -11,7 +11,7 @@
 namespace mb
 {
   MB_API
-  enum UniformType
+  enum class UniformType
   {
     Invalid,
     Float, Integer, Unsigned, Boolean,
@@ -24,8 +24,8 @@ namespace mb
   {
   public:
     MB_API
-    Uniform::Uniform( )
-      : _type( Invalid )
+    Uniform( )
+      : _type( UniformType::Invalid )
       , _value( )
     {
     }

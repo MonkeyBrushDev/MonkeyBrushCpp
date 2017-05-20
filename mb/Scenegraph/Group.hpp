@@ -35,18 +35,9 @@ namespace mb
       return static_cast< T* >( nodeAt( idx ) );
     }
     MB_API
-    void insertChild( unsigned int idx, Node* node )
-    {
-      // TODO Insert at position (WARNING: CHECK position)
-    }
+    void insertChild( unsigned int idx, Node* node );
     MB_API
-    void removeChild( unsigned int idx )
-    {
-      // TODO: Same as insertChild warnings
-    }
-
-    // TODO: getNode (string)
-    // TODO: T* getNode<T>(string)
+    void removeChild( unsigned int idx );
     MB_API
     virtual void forEachNode( std::function< void( Node * ) > callback );
   protected:

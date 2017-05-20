@@ -13,6 +13,7 @@ set( MB_PUBLIC_HEADERS
   Components/MeshRenderer.hpp
   Components/OrbitCamera.hpp
   Components/OtherComponent.hpp
+  Components/ParticleEffectComponent.hpp
   Components/ScriptComponent.hpp
 
 
@@ -35,6 +36,12 @@ set( MB_PUBLIC_HEADERS
   Maths/Mathf.hpp
   Maths/Ray.hpp
   Maths/Rect.hpp
+  Maths/Vector2.hpp
+  Maths/Vector3.hpp
+  Maths/Transform.hpp
+
+  Maths/Plane.hpp
+  Maths/Sphere.hpp
 
 
   Primitives/Primitive.hpp
@@ -90,7 +97,8 @@ set( MB_PUBLIC_HEADERS
   Utils/Macros.hpp
   Utils/MemoryUtils.hpp
   Utils/NonCopyable.hpp
-  ##Utils/Params.hpp
+  Utils/Settings.hpp
+  Utils/Singleton.hpp
   Utils/StringUtils.hpp
 
 
@@ -131,6 +139,7 @@ set( MB_SOURCES
   Components/MaterialComponent.cpp
   Components/MeshRenderer.cpp
   Components/OtherComponent.cpp
+  Components/ParticleEffectComponent.cpp
   Components/ScriptComponent.cpp
 
 
@@ -144,6 +153,7 @@ set( MB_SOURCES
   Maths/Clock.cpp
   Maths/Frustum.cpp
   Maths/Mathf.cpp
+  Maths/Ray.cpp
 
   Primitives/Primitive.cpp
   Primitives/CapsulePrimitive.cpp

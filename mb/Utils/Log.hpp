@@ -26,33 +26,33 @@ namespace mb
 			LOG_LEVEL_DEBUG = 5,		// errors, warnings, informative messages and debug
 			LOG_LEVEL_ALL = 99			// all messages are output
 		};
-		static void setLevel(int level) { _level = level; }
-		static int getLevel(void) { return _level; }
+		static int getLevel( void ) { return _level; }
+		static void setLevel( int level ) { _level = level; }
 	private:
 		static int _level;
 	public:
 		template<typename ... Args>
-		static void error(std::string const &msg, Args && ...args)
+    static void error( const std::string& msg, Args && ...args )
 		{
 			print(LogLevel::LOG_LEVEL_ERROR, "E", msg, std::forward< Args >(args)...);
 		}
 		template<typename ... Args>
-		static void warning(std::string const &msg, Args && ...args)
+    static void warning( const std::string& msg, Args && ...args )
 		{
 			print(LogLevel::LOG_LEVEL_WARNING, "W", msg, std::forward< Args >(args)...);
 		}
 		template<typename ... Args>
-		static void info(std::string const &msg, Args && ...args)
+    static void info( const std::string& msg, Args && ...args )
 		{
 			print(LogLevel::LOG_LEVEL_INFO, "I", msg, std::forward< Args >(args)...);
 		}
 		template<typename ... Args>
-		static void debug(std::string const &msg, Args && ...args)
+    static void debug( const std::string& msg, Args && ...args )
 		{
 			print(LogLevel::LOG_LEVEL_DEBUG, "D", msg, std::forward< Args >(args)...);
 		}
 		template< typename ... Args >
-		static void print(int level, std::string const &levelStr,
+    static void print( int level, const std::string& levelStr,
 			std::string const &TAG, Args &&... args)
 		{
 			if (getLevel() >= level && _outputHandler != nullptr)
@@ -65,7 +65,7 @@ namespace mb
 					levelStr, "/", TAG, " - ",
 					std::forward< Args >(args)...);
 
-				_outputHandler->printLine(str);
+        _outputHandler->print( str );
 			}
 		}
 
@@ -74,7 +74,7 @@ namespace mb
 			{
 				public:
 					virtual ~OutputHandler(void) { }
-					virtual void printLine(std::string const &line) = 0;
+          virtual void print( const std::string& src ) = 0;
 			};
 			class ConsoleOutputHandler : public OutputHandler
 			{
@@ -82,21 +82,16 @@ namespace mb
 				ConsoleOutputHandler(void) { }
 				virtual ~ConsoleOutputHandler(void) { }
 
-				virtual void printLine(std::string const &line) override
-				{
-					std::cout << line << "\n";
-				}
+        virtual void print( const std::string& src ) override;
 			};
 			class FileOutputHandler : public OutputHandler
 			{
 			public:
-				FileOutputHandler(std::string const &path) : _out(path, std::ios::out) { }
+				FileOutputHandler(std::string const &path) 
+          : _out(path, std::ios::out) { }
 				virtual ~FileOutputHandler(void) { }
 
-				virtual void printLine(std::string const &line) override
-				{
-					_out << line << "\n";
-				}
+        virtual void print( const std::string& src ) override;
 			private:
 				std::ofstream _out;
 			};
@@ -106,9 +101,7 @@ namespace mb
 				NullOutputHandler(void) { }
 				virtual ~NullOutputHandler(void) { }
 
-				virtual void printLine(std::string const &) override
-				{
-				}
+        virtual void print( const std::string& ) override;
 			};
 			template< class T, typename ... Args >
 			static void setOutputHandler(Args &&... args)

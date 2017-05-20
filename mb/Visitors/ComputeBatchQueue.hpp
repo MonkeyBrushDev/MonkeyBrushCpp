@@ -21,8 +21,6 @@ namespace mb
     virtual ~ComputeBatchQueue( );
     MB_API
     virtual void traverse( Node* n ) override;
-    //MB_API
-    //virtual void visitNode( Node* n ) override;
     MB_API
     virtual void visitGroup( Group* g ) override;
     MB_API

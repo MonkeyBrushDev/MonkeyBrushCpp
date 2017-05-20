@@ -1,3 +1,11 @@
+template< class T, typename ... Args >
+T* Node::addComponent( Args&& ... args )
+{
+  auto component = new T( std::forward< Args >( args ) ... );
+  addComponent( component );
+  return component;
+}
+
 template<class NodeClass>
 NodeClass* Node::parent( void )
 {

@@ -8,43 +8,14 @@
 #include "../Visitors/Visitor.hpp"
 #include "../Layer.hpp"
 
+#include "../Maths/Transform.hpp"
+
 #include <mb/api.h>
 #include <algorithm>
 #include <string>
 
 namespace mb
 {
-  class Quaternion;
-  class EulerAngles
-  {
-  public:
-    void setOnChangeCallback( const std::function<void( Quaternion )>& cb )
-    {
-      _cb = cb;
-    }
-    std::function<void( Quaternion )> _cb;
-  };
-  class Quaternion
-  {
-  public:
-    void setOnChangeCallback( const std::function<void( EulerAngles )>& cb )
-    {
-      _cb = cb;
-    }
-    std::function<void( EulerAngles )> _cb;
-  };
-  class Transformation
-  {
-  public:
-    void computeFrom( const Transformation&, const Transformation& )
-    {
-      std::cout << "Computing transform" << std::endl;
-    }
-    void translate( const float&, const float&, const float& )
-    {
-    }
-  };
-
   class Node
   {
   public:
@@ -102,6 +73,8 @@ namespace mb
     MB_API
     void forEachComponent( std::function< void( Component * ) > callback );
 
+    template< class T, typename ... Args >
+    T* addComponent( Args&& ... args );
     template <class T>
     bool hasComponent( void );
     template <class T>
@@ -122,58 +95,58 @@ namespace mb
     std::unordered_multimap<std::string, Component*> _components;
 
   public:
-    void setLocal( const Transformation &t )
+    void setLocal( const Transform &t )
     {
       _local = t;
     }
-    const Transformation &getLocal( void ) const
+    const Transform &getLocal( void ) const
     {
       return _local;
     }
-    Transformation &local( void )
+    Transform &local( void )
     {
       return _local;
     }
 
-    void setWorld( const Transformation &t )
+    void setWorld( const Transform &t )
     {
       _world = t;
     }
-    const Transformation &getWorld( void ) const
+    const Transform& getWorld( void ) const
     {
       return _world;
     }
-    Transformation &world( void )
+    Transform& world( void )
     {
       return _world;
     }
-    BoundingVolume *localBound( void )
+    BoundingVolume* localBound( void )
     {
       return _localBound;
     }
-    const BoundingVolume *getLocalBound( void ) const
+    const BoundingVolume* getLocalBound( void ) const
     {
       return _localBound;
     }
-    void setLocalBound( BoundingVolume *bound )
+    void setLocalBound( BoundingVolume* bound )
     {
       _localBound = bound ;
     }
-    BoundingVolume *worldBound( void )
+    BoundingVolume* worldBound( void )
     {
       return _worldBound;
     }
-    const BoundingVolume *getWorldBound( void ) const
+    const BoundingVolume* getWorldBound( void ) const
     {
       return _worldBound;
     }
-    void setWorldBound( BoundingVolume *bound )
+    void setWorldBound( BoundingVolume* bound )
     {
       _worldBound = bound;
     }
   protected:
-    Transformation _local;
-    Transformation _world;
+    Transform _local;
+    Transform _world;
     BoundingVolume* _localBound;
     BoundingVolume* _worldBound;
 
