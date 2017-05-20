@@ -5,6 +5,7 @@ namespace mb
 {
   class PipelineState
   {
+  public:
     class RenderState
     {
     public:
@@ -22,6 +23,35 @@ namespace mb
       {
       }
       bool _enabled;
+    };
+    class ColorMaskState : public RenderState
+    {
+    public:
+      ColorMaskState( bool enabled = true,
+        bool rEnabled = true,
+        bool gEnabled = true,
+        bool bEnabled = true,
+        bool aEnabled = true )
+        : RenderState( enabled )
+        , _rEnabled( rEnabled )
+        , _gEnabled( gEnabled )
+        , _bEnabled( gEnabled )
+        , _aEnabled( aEnabled )
+      {
+      }
+      bool isRMask( ) const { return _rEnabled; }
+      bool isGMask( ) const { return _gEnabled; }
+      bool isBMask( ) const { return _bEnabled; }
+      bool isAMask( ) const { return _aEnabled; }
+      void setRMask( bool enable ) { _rEnabled = enable; }
+      void setGMask( bool enable ) { _gEnabled = enable; }
+      void setBMask( bool enable ) { _bEnabled = enable; }
+      void setAMask( bool enable ) { _aEnabled = enable; }
+    protected:
+      bool _rEnabled;
+      bool _gEnabled;
+      bool _bEnabled;
+      bool _aEnabled;
     };
     class BlendingState : public RenderState
     {
@@ -72,7 +102,7 @@ namespace mb
     class CullFaceState : public RenderState
     {
     public:
-      enum Mode
+      enum class Mode: short
       {
         FRONT,
         BACK,
@@ -106,7 +136,7 @@ namespace mb
         GEQUAL,
         ALWAYS
       };
-      DepthState( bool enabled = true, CompareFunc cmp = CompareFunc::LESS, 
+      DepthState( bool enabled = true, CompareFunc cmp = CompareFunc::LESS,
         bool writable = true )
         : RenderState( enabled )
       {
