@@ -8,6 +8,8 @@
 #include "../Visitors/Visitor.hpp"
 #include "../Layer.hpp"
 
+#include "../Maths/Transform.hpp"
+
 #include <mb/api.h>
 #include <algorithm>
 #include <string>
@@ -166,28 +168,28 @@ namespace mb
     std::unordered_multimap<std::string, Component*> _components;
 
   public:
-    void setLocal( const Transformation &t )
+    void setLocal( const Transform &t )
     {
       _local = t;
     }
-    const Transformation &getLocal( void ) const
+    const Transform &getLocal( void ) const
     {
       return _local;
     }
-    Transformation &local( void )
+    Transform &local( void )
     {
       return _local;
     }
 
-    void setWorld( const Transformation &t )
+    void setWorld( const Transform &t )
     {
       _world = t;
     }
-    const Transformation &getWorld( void ) const
+    const Transform &getWorld( void ) const
     {
       return _world;
     }
-    Transformation &world( void )
+    Transform &world( void )
     {
       return _world;
     }
@@ -216,8 +218,8 @@ namespace mb
       _worldBound = bound;
     }
   protected:
-    Transformation _local;
-    Transformation _world;
+    Transform _local;
+    Transform _world;
     BoundingVolume* _localBound;
     BoundingVolume* _worldBound;
 

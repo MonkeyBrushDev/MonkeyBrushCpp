@@ -2,6 +2,7 @@
 #define __MB_VECTOR3__
 
 #include <array>
+#include <cmath>
 
 namespace mb
 {
@@ -43,6 +44,15 @@ namespace mb
     float& y( void ) { return _data[ 1 ]; }
     float& z( void ) { return _data[ 2 ]; }
   public:
+    bool operator==( const Vector3& v ) const
+    {
+      return std::equal( _data.begin( ), _data.end( ), v._data.begin( ) );
+    }
+
+    bool operator!=( const Vector3& v ) const
+    {
+      return !( *this == v );
+    }
     Vector3& operator=( const Vector3& u )
     {
       std::copy( std::begin( u._data ), std::end( u._data ), std::begin( _data ) );
@@ -127,6 +137,38 @@ namespace mb
       u._data[ 2 ] *= invV;
       return u;
     }
+    float length( void ) const
+    {
+      return std::sqrt( squaredLength( ) );
+    }
+    float squaredLength( void ) const
+    {
+      float
+        x = this->x( ),
+        y = this->y( ),
+        z = this->z( );
+
+      return ( x * x + y * y + z * z );
+    }
+    Vector3 getNormalized( void ) const
+    {
+      float l = length( );
+      if ( l == 1.0f )
+      {
+        return *this;
+      }
+      if ( l == 0.0f )
+      {
+        return Vector3( 0.0f );
+      }
+      return ( *this / l );
+    }
+    Vector3& normalize( void )
+    {
+      *this /= length( );
+      return *this;
+    }
+  protected:
     std::array< float, 3 > _data;
   };
 }

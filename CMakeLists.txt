@@ -67,6 +67,7 @@ endif( )
 common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )
 common_find_package( GLFW3 REQUIRED SYSTEM )
+common_find_package( Boost COMPONENTS unit_test_framework )
 
 list ( APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW3 )
 
@@ -75,6 +76,10 @@ common_find_package_post( )
 add_subdirectory( mb )
 #add_subdirectory( physics )
 add_subdirectory( examples )
+
+if(${Boost_FOUND})
+  add_subdirectory(tests)
+endif()
 
 set(DOXYGEN_MAINPAGE_MD ${PROJECT_SOURCE_DIR}/README.md)
 set(DOXYGEN_EXTRA_INPUT ${DOXYGEN_MAINPAGE_MD})
