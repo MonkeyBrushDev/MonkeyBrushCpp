@@ -24,6 +24,7 @@ namespace mb
       }
       bool _enabled;
     };
+
     class ColorMaskState : public RenderState
     {
     public:
@@ -53,6 +54,8 @@ namespace mb
       bool _bEnabled;
       bool _aEnabled;
     };
+
+
     class BlendingState : public RenderState
     {
     public:
@@ -110,6 +113,7 @@ namespace mb
       };
       CullFaceState( bool enabled = true, CullFaceState::Mode mode = CullFaceState::Mode::BACK )
         : RenderState( enabled )
+        , _cullMode( mode )
       {
       }
       CullFaceState::Mode getCullFaceMode( void ) const

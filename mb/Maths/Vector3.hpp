@@ -2,6 +2,7 @@
 #define __MB_VECTOR3__
 
 #include <array>
+#include <cmath>
 
 namespace mb
 {

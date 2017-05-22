@@ -9,7 +9,7 @@ namespace mb
     renderTransparentObjects( renderer, bq, c );
   }
 
-  void StandardRenderingPass::renderOpaqueObjects( Renderer* renderer, BatchQueuePtr bq, Camera* c )
+  void StandardRenderingPass::renderOpaqueObjects( Renderer* renderer, BatchQueuePtr bq, Camera* /*c*/ )
   {
     auto renderables = bq->renderables( BatchQueue::RenderableType::OPAQUE );
     if ( renderables.empty( ) )
@@ -37,7 +37,8 @@ namespace mb
       renderStandardGeometry( renderer, renderable );
     }
   }
-  void StandardRenderingPass::renderTransparentObjects( Renderer* renderer, BatchQueuePtr bq, Camera* c )
+  void StandardRenderingPass::renderTransparentObjects( Renderer* renderer,
+                                                        BatchQueuePtr bq, Camera* /*c*/ )
   {
     auto renderables = bq->renderables( BatchQueue::RenderableType::TRANSPARENT );
     if ( renderables.empty( ) )
@@ -52,7 +53,7 @@ namespace mb
       renderStandardGeometry( renderer, renderable );
     }
   }
-  void StandardRenderingPass::renderStandardGeometry( Renderer* renderer, Renderable* renderable )
+  void StandardRenderingPass::renderStandardGeometry( Renderer* /*renderer*/, Renderable* renderable )
   {
     renderable->geom->forEachPrimitive( [] ( Primitive *pr )
     {

@@ -18,8 +18,10 @@ namespace mb
   {
   public:
     Renderer( );
-    ~Renderer( );
+
+    virtual ~Renderer( );
     virtual void setViewport( const Viewport& ) { }
+
     virtual void beginRender( void );
     virtual void clearBuffers( void ) = 0;
     virtual void render( BatchQueuePtr bq, RenderingPass* rp );
@@ -31,11 +33,12 @@ namespace mb
     virtual void bindProgram( unsigned int ) { }
     virtual void unbindProgram( unsigned int ) { }
     virtual void drawPrimitive( MaterialPtr  material, Primitive* primitive ) { }
+
     // virtual void drawBuffer( Material* material ... ) { }
   };
 }
 
-#include <gl/glew.h>
+#include <GL/glew.h>
 
 namespace mb
 {
@@ -107,7 +110,7 @@ namespace mb
       }
     }
 
-    virtual void drawPrimitive( MaterialPtr  material, Primitive* primitive )
+    virtual void drawPrimitive( MaterialPtr  /*material*/, Primitive* primitive )
     {
       std::string type;
       switch ( primitive->_type )

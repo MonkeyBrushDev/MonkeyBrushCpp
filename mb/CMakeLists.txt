@@ -13,7 +13,6 @@ set( MB_PUBLIC_HEADERS
   Components/MeshRenderer.hpp
   Components/OrbitCamera.hpp
   Components/OtherComponent.hpp
-  Components/ParticleEffectComponent.hpp
   Components/ScriptComponent.hpp
 
 
@@ -31,19 +30,20 @@ set( MB_PUBLIC_HEADERS
   #Io/GLFWWindow2.hpp
 
 
+  Maths/Vect3.hpp
   Maths/Clock.hpp
   Maths/Frustum.hpp
   Maths/Mathf.hpp
   Maths/Ray.hpp
+  Maths/Mat4.hpp
   Maths/Rect.hpp
   Maths/Vector2.hpp
   Maths/Vector3.hpp
   Maths/Transform.hpp
 
+
   Maths/Plane.hpp
   Maths/Sphere.hpp
-
-
   Primitives/Primitive.hpp
   Primitives/CapsulePrimitive.hpp
   Primitives/CubePrimitive.hpp
@@ -139,7 +139,6 @@ set( MB_SOURCES
   Components/MaterialComponent.cpp
   Components/MeshRenderer.cpp
   Components/OtherComponent.cpp
-  Components/ParticleEffectComponent.cpp
   Components/ScriptComponent.cpp
 
 
@@ -150,8 +149,10 @@ set( MB_SOURCES
   #Io/GLFWWindow2.cpp
 
 
+  Maths/Vect3.cpp
   Maths/Clock.cpp
   Maths/Frustum.cpp
+  Maths/Mat4.cpp
   Maths/Mathf.cpp
   Maths/Ray.cpp
 
