@@ -21,6 +21,8 @@ int main( )
   auto material = mr->first( );
   material->state( ).culling( ).setEnabled( true );
 
+  std::cout << lightGeometry->hasComponent<mb::MaterialComponent>( ) << std::endl;
+
   auto light = new Light( );
   interactiveLight->addChild( lightGeometry );
   interactiveLight->addChild( light );

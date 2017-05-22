@@ -15,8 +15,10 @@ int main( )
   auto camera = new Camera( );
   camera->name( "PPCamera" );
   camera->renderPass( new PostRenderingPass( new StandardRenderingPass( ) ) );
-  camera->renderPass( )->imageEffects( ).push_back( new SepiaToneEffect( ) );
-  camera->renderPass( )->imageEffects( ).push_back( new GreyToneEffect( ) );
+  camera->renderPass( )->imageEffects( ).push_back( 
+    std::make_shared< SepiaToneEffect >( ) );
+  camera->renderPass( )->imageEffects( ).push_back( 
+    std::make_shared<  GreyToneEffect>( ) );
   scene->addChild( camera );
 
   camera->layer( ).enable( 1 );

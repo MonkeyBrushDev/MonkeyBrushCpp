@@ -21,12 +21,12 @@ namespace mb
     MB_API
     virtual void applyImageEffects( Renderer *renderer, Camera *camera );
     MB_API
-    std::vector<ImageEffect*>& imageEffects( void )
+      std::vector<ImageEffectPtr>& imageEffects( void )
     {
       return _imageEffects;
     }
   protected:
-    std::vector< ImageEffect *> _imageEffects;
+    std::vector< ImageEffectPtr > _imageEffects;
 
   private:
     void swapBuffers( Renderer* r );

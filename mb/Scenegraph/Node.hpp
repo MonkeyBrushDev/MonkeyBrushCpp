@@ -185,35 +185,35 @@ namespace mb
     {
       _world = t;
     }
-    const Transform &getWorld( void ) const
+    const Transform& getWorld( void ) const
     {
       return _world;
     }
-    Transform &world( void )
+    Transform& world( void )
     {
       return _world;
     }
-    BoundingVolume *localBound( void )
+    BoundingVolume* localBound( void )
     {
       return _localBound;
     }
-    const BoundingVolume *getLocalBound( void ) const
+    const BoundingVolume* getLocalBound( void ) const
     {
       return _localBound;
     }
-    void setLocalBound( BoundingVolume *bound )
+    void setLocalBound( BoundingVolume* bound )
     {
       _localBound = bound ;
     }
-    BoundingVolume *worldBound( void )
+    BoundingVolume* worldBound( void )
     {
       return _worldBound;
     }
-    const BoundingVolume *getWorldBound( void ) const
+    const BoundingVolume* getWorldBound( void ) const
     {
       return _worldBound;
     }
-    void setWorldBound( BoundingVolume *bound )
+    void setWorldBound( BoundingVolume* bound )
     {
       _worldBound = bound;
     }
