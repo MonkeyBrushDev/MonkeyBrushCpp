@@ -9,7 +9,7 @@ namespace mb
 
   }
 
-  void GreyToneEffect::apply( Renderer*, Camera* camera )
+  void GreyToneEffect::apply( Renderer*, Camera* /*camera*/ )
   {
     // bind shader, texture, draw and unbind texture and shader
     //std::cout << "Aplicando GreyToneEffect" << std::endl;

@@ -2,7 +2,7 @@
 
 namespace mb
 {
-	ScriptComponent::ScriptComponent( const std::string& scriptFile )
+    ScriptComponent::ScriptComponent( const std::string& /*scriptFile*/ )
 		: Component( )
 	{
 

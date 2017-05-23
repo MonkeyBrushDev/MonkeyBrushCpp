@@ -11,6 +11,10 @@ namespace mb
   class ImageEffect
   {
   public:
+
+    MB_API
+    virtual ~ImageEffect( void ){}
+
     MB_API
     // TODO Renderer?
     virtual void apply( Renderer* r, Camera* camera ) = 0;

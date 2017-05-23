@@ -3,6 +3,7 @@
 
 #include <array>
 #include "Mathf.hpp"
+#include <cmath>
 
 namespace mb
 {
