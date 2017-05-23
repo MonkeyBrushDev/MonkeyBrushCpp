@@ -23,7 +23,7 @@ namespace mb
     MB_API
     void direction( const Vector3& dir );
     MB_API
-    Vector3 at( const float& t );
+    Vector3 getPoint( const float& t );
 
     Ray &operator=( const Ray& r )
     {

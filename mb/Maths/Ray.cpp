@@ -23,7 +23,7 @@ namespace mb
   {
     this->_direction = dir;
   }
-  Vector3 Ray::at( const float& t )
+  Vector3 Ray::getPoint( const float& t )
   {
     return Vector3(
       this->_origin.x( ) + t * this->_direction.x( ),

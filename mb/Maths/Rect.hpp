@@ -3,6 +3,7 @@
 
 #include <mb/api.h>
 #include <algorithm>
+#include "Vector2.hpp"
 
 namespace mb
 {
@@ -59,6 +60,19 @@ namespace mb
     void height( const T& v )
     {
       _data[ 3 ] = v;
+    }
+    Vector2 getPosition( void ) const
+    {
+      return Vector2( this._data[ 0 ], this._data[ 1 ] );
+    }
+    Vector2 getCenter( void ) const
+    {
+      return Vector2( x( ) + width( ) / 2.0f, y( ) + height( ) / 2.0f );
+    }
+    void setCenter( const Vector2& center )
+    {
+      x( center.x( ) - width( ) / 2.0f );
+      y( center.y( ) - height( ) / 2.0f );
     }
   protected:
     std::array< T, 4 > _data;

@@ -85,11 +85,17 @@ namespace mb
     void removeComponents( void );
     template <class T>
     T* componentInParent( void );
+    /** TODO: More functions!
+      - GetComponentsInParent<T>(bool includeInactives)
+      - GetComponentsInChildren<T>(bool includeInactives)
+      - FindNodesWithTag(string tag) NOTE: Global? Local?
+    */
 
     MB_API
     Component* getComponentByName( const std::string& name );
     MB_API
-    std::vector<Component*> getComponentsByName( const std::string& name );
+    std::vector<Component*> getComponentsByName( const std::string& name,
+      bool includeInactive = false );
 
   protected:
     std::unordered_multimap<std::string, Component*> _components;

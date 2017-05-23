@@ -20,7 +20,14 @@ namespace mb
       , _radius( sphere._radius )
     {
     }
+    /*
+    TODO: DEFINE VECTOR4
+    Sphere( const Vector4& packedSphere )
+      : _center( Vector3( packedSphere.x( ), packedSphere.y( ), packedSphere.z( ) ) )
+      , _radius( packedSphere.w( ) )
+    {
 
+    }*/
     Sphere& operator= ( const Sphere& sp )
     {
       _center = sp._center;

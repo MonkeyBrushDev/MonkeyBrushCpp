@@ -149,6 +149,33 @@ namespace mb
     */
     MB_API
     static std::string toHex( int n );
+
+    /**
+    * Convert current color from gamma to linear range.
+    */
+    MB_API
+    static float gammaToLinearSpace( const float& v, const float& gammaFactor = 2.2f )
+    {
+      return std::pow( v, gammaFactor );
+    }
+    /**
+    * Convert current color from linear to gamma range.
+    */
+    MB_API
+    static float linearToGammaSpace( const float& v, const float& gammaFactor = 2.2f )
+    {
+      float invGamma = ( gammaFactor > 0.0f ) ? ( 1.0f / gammaFactor ) : 1.0f;
+      return std::pow( v, invGamma );
+    }
+
+    MB_API
+    static bool approximately( float a, float b )
+    {
+      /*return std::abs(b - a) < Mathf.Max(1e-06f * std::max(std::abs(a), std::abs(b)),
+        0.00001 * 8f);*/
+      return std::fabs(a - b) < 0.00001f;
+    }
+
     MB_API
     static unsigned int euclideanModulo(int /*m*/, unsigned int /*n*/);
     MB_API

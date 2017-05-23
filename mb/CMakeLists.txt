@@ -31,6 +31,7 @@ set( MB_PUBLIC_HEADERS
   #Io/GLFWWindow2.hpp
 
 
+  Maths/Color.hpp
   Maths/Clock.hpp
   Maths/Frustum.hpp
   Maths/Mathf.hpp
@@ -38,6 +39,7 @@ set( MB_PUBLIC_HEADERS
   Maths/Rect.hpp
   Maths/Vector2.hpp
   Maths/Vector3.hpp
+  Maths/Vector4.hpp
   Maths/Transform.hpp
 
   Maths/Plane.hpp
@@ -150,10 +152,12 @@ set( MB_SOURCES
   #Io/GLFWWindow2.cpp
 
 
+  Maths/Color.cpp
   Maths/Clock.cpp
   Maths/Frustum.cpp
   Maths/Mathf.cpp
   Maths/Ray.cpp
+  Maths/Vector3.cpp
 
   Primitives/Primitive.cpp
   Primitives/CapsulePrimitive.cpp
