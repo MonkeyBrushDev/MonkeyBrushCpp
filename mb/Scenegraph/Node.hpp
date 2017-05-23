@@ -77,18 +77,6 @@ namespace mb
   };
 
 
-  class Transformation
-  {
-  public:
-    void computeFrom( const Transformation&, const Transformation& )
-    {
-      std::cout << "Computing transform" << std::endl;
-    }
-    void translate( const float&, const float&, const float& )
-    {
-    }
-  };
-
   class Node
   {
   public:
