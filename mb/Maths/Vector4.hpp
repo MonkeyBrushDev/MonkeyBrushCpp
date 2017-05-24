@@ -122,6 +122,13 @@ namespace mb
     {
       return u * v;
     }
+    /*friend float operator*( const Vector4& u, const Vector4& v )
+    {
+      return u._data[ 0 ] * v._data[ 0 ] +
+           u._data[ 1 ] * v._data[ 1 ] +
+           u._data[ 2 ] * v._data[ 2 ] +
+           u._data[ 3 ] * v._data[ 3 ];
+    }*/
     friend Vector4& operator*=( Vector4& u, float v )
     {
       u._data[ 0 ] *= v;

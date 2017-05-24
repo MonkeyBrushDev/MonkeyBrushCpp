@@ -29,7 +29,7 @@ include(Common)
 
 # Allow warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error")
 
 
 option( MB_WITH_COMPUTE_SHADERS "enabling/disabling compute shaders" ON )

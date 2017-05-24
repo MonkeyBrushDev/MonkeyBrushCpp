@@ -35,8 +35,9 @@ set( MB_PUBLIC_HEADERS
   Maths/Frustum.hpp
   Maths/Mathf.hpp
   Maths/Ray.hpp
-  Maths/Mat4.hpp
+  Maths/Matrix4.hpp
   Maths/Rect.hpp
+  Maths/Quaternion.hpp
   Maths/Vector2.hpp
   Maths/Vector3.hpp
   Maths/Vector4.hpp
@@ -153,9 +154,10 @@ set( MB_SOURCES
   Maths/Color.cpp
   Maths/Clock.cpp
   Maths/Frustum.cpp
-  Maths/Mat4.cpp
+  Maths/Matrix4.cpp
   Maths/Mathf.cpp
   Maths/Ray.cpp
+  Maths/Quaternion.cpp
   Maths/Vector3.cpp
 
   Primitives/Primitive.cpp
