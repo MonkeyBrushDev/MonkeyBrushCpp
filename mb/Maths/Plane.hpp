@@ -9,6 +9,8 @@ namespace mb
 {
   class Plane
   {
+  public:
+    Plane( void ) { }
     Plane( const Vector3 &normal, float distance, bool forceNormalize = true )
     {
       setNormal( normal, forceNormalize );
@@ -21,10 +23,12 @@ namespace mb
     }
 
     Plane( const Plane &plane )
-      : _normal( plane._normal ),
-      _distance( plane._distance )
+      : _normal( plane._normal )
+      , _distance( plane._distance )
     {
     }
+
+    virtual ~Plane( void ) { }
 
     Plane& operator=( const Plane &plane )
     {

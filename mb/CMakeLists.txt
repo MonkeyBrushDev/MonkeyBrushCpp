@@ -138,6 +138,9 @@ set( MB_SOURCES
   OpenGL/OpenGLRenderer.cpp
 
 
+  Boundings/SphereBoundingVolume.cpp
+
+
 
   Components/Component.cpp
   Components/CustomComponent.cpp

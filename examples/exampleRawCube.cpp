@@ -12,7 +12,6 @@
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 // Window dimensions
-const unsigned int WIDTH = 800, HEIGHT = 600;
 
 // Shaders
 const char* vertexShaderSource = R"(
@@ -21,7 +20,7 @@ layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 color;
 layout (location = 2) in vec2 texCoord;
 
-flat out vec3 ourColor;
+out vec3 ourColor;
 out vec2 TexCoord;
   
 uniform mat4 transform;
@@ -35,14 +34,14 @@ void main()
 )";
 const char* fragmentShaderSource = R"(
 #version 330 core
-flat in vec3 ourColor;
+in vec3 ourColor;
 in vec2 TexCoord;
 
 out vec4 color;
 
 void main()
 {
-  color = vec4( ourColor, 1.0 );
+  color = vec4( TexCoord, 0.0, 1.0 );
 })";
 #include <mb/mb.h>
 
@@ -59,7 +58,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Create a GLFWwindow object that we can use for GLFW's functions
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
     glfwMakeContextCurrent(window);
 
     // Set the required callback functions
@@ -127,14 +126,23 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        int height, width;
-        glfwGetWindowSize(window, &width, &height);
+        int h, w;
+        glfwGetWindowSize(window, &w, &h);
 
-        glViewport(0, 0, width, height);
+        glViewport(0, 0, w, h);
+
+        mb::Transform ttf;
+        ttf.setScale( 0.5f, 0.5f, 0.5f );
+        //ttf.translate( 0.5f, -0.5f, 0.0f );
+        mb::Matrix4 transform = ttf.computeModel( );
 
         // Draw our first triangle
         program.use();
         glBindVertexArray( VAO );
+
+        int transformLoc = glGetUniformLocation(program.program( ), "transform");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, transform.values( ).data( ) );
+
         glDrawElements( GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0 );
         glBindVertexArray(0);
 
@@ -150,7 +158,7 @@ int main()
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void key_callback(GLFWwindow* window, int key, int, int action, int)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);

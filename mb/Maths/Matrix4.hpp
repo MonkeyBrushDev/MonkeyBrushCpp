@@ -26,7 +26,7 @@ namespace mb
     void copy( const Matrix4& m );
 
     MB_API
-    std::array<float, 16> values( void ){ return _values; }
+    std::array<float, 16> values( void ) const { return _values; }
 
     MB_API
     void compose( const Vector3& position, const Quaternion& quaternion, const Vector3& scale );
@@ -53,7 +53,7 @@ namespace mb
     friend std::ostream& operator<<( std::ostream &out, const Matrix4& m )
     {
       out << std::setiosflags( std::ios::fixed | std::ios::showpoint )
-        << std::setprecision( 10 );
+        << std::setprecision( 2 );
       out << "(";
       for ( unsigned int i = 0; i < 4; ++i )
       {

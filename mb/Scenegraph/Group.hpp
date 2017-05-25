@@ -6,6 +6,8 @@
 
 namespace mb
 {
+  class Group;
+  typedef std::shared_ptr< Group > GroupPtr;
   class Group :
     public Node
   {

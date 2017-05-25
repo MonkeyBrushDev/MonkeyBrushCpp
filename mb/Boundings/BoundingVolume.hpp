@@ -4,6 +4,7 @@
 #include <mb/api.h>
 
 #include "../Maths/Vector3.hpp"
+#include "../Maths/Plane.hpp"
 #include <vector>
 
 namespace mb
@@ -26,6 +27,8 @@ namespace mb
     virtual void expand( const Vector3& point ) = 0;
     // TODO: Use Vector3* points, unsigned int size ??
     virtual void expand( const std::vector<Vector3>& points ) = 0;
+
+    virtual int intersectPlane( const Plane& plane ) const = 0;
   private:
     Vector3 _min;
     Vector3 _max;

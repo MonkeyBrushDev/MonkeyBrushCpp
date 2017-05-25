@@ -3,6 +3,7 @@
 
 #include "Node.hpp"
 #include "../Maths/Frustum.hpp"
+#include "../Maths/Plane.hpp"
 #include "../Maths/Ray.hpp"
 #include "../Maths/Rect.hpp"
 #include <mb/api.h>
@@ -54,23 +55,8 @@ namespace mb
     RenderingPass* renderPass( void );
 
     MB_API
-    Ray getRay( float px, float py ) const
-    {
-      float x = 2.0f * px - 1.0f;
-      float y = 1.0f - 2.0f * py;
+    Ray getRay( float px, float py ) const;
 
-      Vector4 rayClip( x, y, -1.0f, 1.0f );
-
-      Vector4 rayEye = getProjection( ).getInverse( ).getTranspose( ) * rayClip;
-      rayEye = Vector4( rayEye.x( ), rayEye.y( ), -1.0f, 0.0f );
-
-      Vector4 rayW = getWorld( ).computeModel( ).getTranspose( ) * rayEye;
-
-      Vector3 rayDir( rayW );
-      rayDir.normalize( );
-
-      return Ray( getWorld( ).getPosition( ), rayDir );
-    }
     MB_API
     bool isMainCamera( void ) const
     {
@@ -106,7 +92,7 @@ namespace mb
     const Matrix4& getOrthographic( void ) const { return _orthographicMatrix; }
     void setOrthographic( const Matrix4& ortho );
 
-    const Matrix4& getView( void ) { return _viewMatrix; }
+    const Matrix4& getView( void ) const { return _viewMatrix; }
     void setView( const Matrix4& view );
 
   private:
@@ -141,25 +127,25 @@ namespace mb
     MB_API
     bool isCullingEnabled( void ) const { return _cullingEnabled; }
 
-    bool culled( /*const BoundingVolume* v*/ ) const
+    bool culled( const BoundingVolume* v ) const
     {
       if( !isCullingEnabled( ) )
       {
         return false;
       }
-      /*for( auto& plane: _cullingPlanes )
+      for( auto& plane: _cullingPlanes )
       {
-        if ( plane->inside( v ) )
+        if ( v->intersectPlane( plane ) )
         {
           return true;
         }
-      }*/
+      }
       return false;
     }
 
   private:
     bool _cullingEnabled = true;
-    // std::array< Plane, 6 > _cullingPlanes;
+    std::array< Plane, 6 > _cullingPlanes;
   };
 }
 

@@ -3,12 +3,11 @@
 
 #include <mb/api.h>
 
-#include "../Boundings/BoundingVolume.hpp"
-
 #include "Vector3.hpp"
 
 namespace mb
 {
+  class BoundingVolume;
   class Ray
   {
   public:
@@ -41,11 +40,7 @@ namespace mb
       return !( *this == r );
     }
 
-    bool intersect( const BoundingVolume* )
-    {
-      // TODO
-      return true;
-    }
+    bool intersect( const BoundingVolume* );
   protected:
     Vector3 _origin;
     Vector3 _direction;

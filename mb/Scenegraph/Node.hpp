@@ -13,9 +13,12 @@
 #include <mb/api.h>
 #include <algorithm>
 #include <string>
+#include <memory>
 
 namespace mb
 {
+  class Node;
+  typedef std::shared_ptr< Node > NodePtr;
   class Node
   {
   public:

@@ -1,4 +1,5 @@
 #include "Ray.hpp"
+#include "../Boundings/BoundingVolume.hpp"
 
 namespace mb
 {
@@ -30,5 +31,10 @@ namespace mb
       this->_origin.y( ) + t * this->_direction.y( ),
       this->_origin.z( ) + t * this->_direction.z( )
     );
+  }
+  bool Ray::intersect( const BoundingVolume* )
+  {
+    // TODO
+    return true;
   }
 }

@@ -96,10 +96,10 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        int height, width;
-        glfwGetWindowSize(window, &width, &height);
+        int h, w;
+        glfwGetWindowSize(window, &w, &h);
 
-        glViewport(0, 0, width, height);
+        glViewport(0, 0, w, h);
 
         // Draw our first triangle
         program.use();
@@ -119,7 +119,7 @@ int main()
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void key_callback(GLFWwindow* window, int key, int, int action, int)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);

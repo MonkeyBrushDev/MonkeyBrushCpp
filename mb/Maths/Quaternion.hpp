@@ -72,11 +72,34 @@ namespace mb
       return result;
     }
 
-    Quaternion& lookAt( const Vector3&/* dir*/, 
-      const Vector3&/* up = Vector3::up*/ )
+    Quaternion& lookAt( const Vector3& dir, 
+      const Vector3& up = Vector3::UP )
     {
-      // TODO
-      return *this;
+      Vector3 axis = up;
+      Vector3 u = Vector3::cross( Vector3::FORWARD, dir );
+
+      if ( u.squaredLength( ) == 0.0f )
+      {
+        u = Vector3::cross( Vector3::right, dir );
+      }
+      u.normalize( );
+
+      Vector3 v = Vector3::cross( u, up );
+      if ( v.squaredLength( ) == 0.0f )
+      {
+        axis = u;
+      }
+      else
+      {
+        v.normalize( );
+        u = Vector3::cross( v, u );
+
+        axis = Vector3( -up.y( ), up.x( ), up.z( ) );
+      }
+
+      float angle = std::acos( Vector3::FORWARD * dir );
+
+      return fromAxisAngle( axis, angle );
     }
 
     MB_API

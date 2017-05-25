@@ -43,9 +43,28 @@ namespace mb
   {
     _renderPass = rp;
   }
+  
   RenderingPass* Camera::renderPass( )
   {
     return _renderPass;
+  }
+
+  Ray Camera::getRay( float px, float py ) const
+  {
+    float x = 2.0f * px - 1.0f;
+    float y = 1.0f - 2.0f * py;
+
+    Vector4 rayClip( x, y, -1.0f, 1.0f );
+
+    Vector4 rayEye = getProjection( ).getInverse( ).getTranspose( ) * rayClip;
+    rayEye = Vector4( rayEye.x( ), rayEye.y( ), -1.0f, 0.0f );
+
+    Vector4 rayW = getWorld( ).computeModel( ).getTranspose( ) * rayEye;
+
+    Vector3 rayDir( rayW );
+    rayDir.normalize( );
+
+    return Ray( getWorld( ).getPosition( ), rayDir );
   }
 
   void Camera::setFrustum( const Frustum& frustum )

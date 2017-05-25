@@ -32,7 +32,7 @@ namespace mb
   public:
     Transform( void )
     {
-      _position = Vector3( 0.0f );
+      _position = Vector3::ZERO;
       _scale = Vector3( 1.0f );
       _isIdentity = true;
     }
@@ -77,19 +77,19 @@ namespace mb
     }*/
     Vector3 getUp( void ) const
     {
-      return this->getRotation( ) * Vector3::up;
+      return this->getRotation( ) * Vector3::UP;
     }
     /*void setUp( const Vector3& v )
     {
-      setRotation( Quaternion::fromRotation( Vector3::up, v ) );
+      setRotation( Quaternion::fromRotation( Vector3::UP, v ) );
     }*/
     Vector3 getForward( void ) const
     {
-      return this->getRotation( ) * Vector3::forward;
+      return this->getRotation( ) * Vector3::FORWARD;
     }
     /*void setForward( const Vector3& v )
     {
-      setRotation( Quaternion::fromRotation( Vector3::forward, v ) );
+      setRotation( Quaternion::fromRotation( Vector3::FORWARD, v ) );
     }
 
     Vector3 transformDirection( const Vector3& direction )
@@ -206,9 +206,9 @@ namespace mb
     }
     void makeIdentity( void )
     {
-      _position = Vector3::zero;
+      _position = Vector3::ZERO;
       _rotate.makeIdentity( );
-      _scale = Vector3::one;
+      _scale = Vector3::ONE;
       _isIdentity = true;
     }
     void computeFrom( const Transform& t1, const Transform& t2 )
@@ -224,9 +224,9 @@ namespace mb
       else
       {
         // TODO: Complete others variables
-        _position = t1._position + t1._rotate * ( t1._scale * t2._position );
+        // TODO (CRISTIAN) _position = t1._position + t1._rotate * ( t1._scale * t2._position );
         _rotate = t1._rotate * t2._rotate;
-        _scale = t1._scale * t2._scale;
+        // TODO (CRISTIAN) _scale = t1._scale * t2._scale;
         _isIdentity = false;
       }
     }

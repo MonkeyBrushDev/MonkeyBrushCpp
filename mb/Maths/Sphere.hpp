@@ -2,6 +2,8 @@
 #define __MB_SPHERE__
 
 #include "Vector3.hpp"
+#include "Vector4.hpp"
+#include "Plane.hpp"
 
 namespace mb
 {
@@ -20,14 +22,12 @@ namespace mb
       , _radius( sphere._radius )
     {
     }
-    /*
-    TODO: DEFINE VECTOR4
     Sphere( const Vector4& packedSphere )
-      : _center( Vector3( packedSphere.x( ), packedSphere.y( ), packedSphere.z( ) ) )
+      : _center( Vector3( packedSphere.x( ), 
+                packedSphere.y( ), packedSphere.z( ) ) )
       , _radius( packedSphere.w( ) )
     {
-
-    }*/
+    }
     Sphere& operator= ( const Sphere& sp )
     {
       _center = sp._center;
@@ -54,6 +54,20 @@ namespace mb
       float dist = std::sqrt( ( x * x ) + ( y * y ) + ( z * z ) );
 
       return ( this->_radius + s._radius > dist );
+    }
+    MB_API
+    int intersectPlane( const Plane& p ) const
+    {
+      float d = ( p.getNormal( ) * _center ) - p.getDistance( );
+      if ( d < -_radius )
+      {
+        return -1; // behind
+      }
+      else if ( d > _radius )
+      {
+        return 1; // front
+      }
+      return 0; // intersecting
     }
 
     bool operator==( const Sphere &sphere )
