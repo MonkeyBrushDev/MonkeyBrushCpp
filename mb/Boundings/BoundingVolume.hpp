@@ -11,6 +11,7 @@ namespace mb
   class BoundingVolume
   {
   public:
+    virtual ~BoundingVolume( void ) { }
     virtual const Vector3& getCenter( void ) const = 0;
     virtual float getRadius( void ) const = 0;
     MB_API

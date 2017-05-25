@@ -11,7 +11,6 @@
 #include "../Maths/Matrix4.hpp"
 
 /*
-  TODO: Set projection type (Perspective/Orthographic)
   TODO: Change Field of View and clipping planes
 */
 
@@ -29,7 +28,7 @@ namespace mb
       return _mainCamera;
     }
     MB_API
-    static void mainCamera( Camera *camera )
+    static void setMainCamera( Camera *camera )
     {
       _mainCamera = camera;
     }
@@ -55,7 +54,7 @@ namespace mb
     RenderingPass* renderPass( void );
 
     MB_API
-    Ray& getRay( float px, float py ) const
+    Ray getRay( float px, float py ) const
     {
       float x = 2.0f * px - 1.0f;
       float y = 1.0f - 2.0f * py;
@@ -114,8 +113,8 @@ namespace mb
     bool _isMainCamera = false;
   protected:
     Frustum _frustum;
-    RenderingPass* _renderPass;
     Viewport _viewport;
+    RenderingPass* _renderPass;
 
     Matrix4 _projectionMatrix;
     Matrix4 _orthographicMatrix;

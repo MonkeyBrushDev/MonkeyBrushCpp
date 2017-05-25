@@ -14,7 +14,7 @@ namespace mb
   class State
   {
   public:
-    State( StateMachinePtr owner );
+    State( StateMachinePtr owner_ );
     virtual ~State( void );
     virtual void enter( ) = 0;
     virtual void exit( ) = 0;

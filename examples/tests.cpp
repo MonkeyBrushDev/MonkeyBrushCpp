@@ -31,9 +31,9 @@ void debugBV( mb::BoundingVolume* bv )
 
 int main( )
 {
-  mb::BoundingVolume* bv;// = new mb::SphereBoundingVolume( );
+  /*mb::BoundingVolume* bv;// = new mb::SphereBoundingVolume( );
 
-  /*debugBV( bv );
+  debugBV( bv );
   bv->expand( Vector3( 2.0f, 0.0f, 0.0f ) );
   debugBV( bv );
   bv->expand( Vector3( -2.0f, 0.0f, 0.0f ) );
@@ -63,7 +63,7 @@ int main2( )
   assert( lChild->hasParent( ) == true );
 
   unsigned int count = 0;
-  group->forEachNode( [ &] ( Node* n )
+  group->forEachNode( [ &] ( Node* )
   {
     ++count;
   } );
@@ -86,11 +86,12 @@ int main2( )
   assert( group->hasNodes( ) == false );
 
 
-  //		node0
-  //		/   \
-    //	node1	node2
-  //			  /	\
-    //		node3	node4
+  /*		node0
+    		/   \
+    	node1	node2
+    			  /	\
+    		node3	node4
+  */
 
   {
     auto node0 = new Group( "node0" );

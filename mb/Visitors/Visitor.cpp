@@ -25,13 +25,13 @@ namespace mb
   {
   }
 
-  void Visitor::traverse( Node *n )
+  void Visitor::traverse( Node* n )
   {
     reset( );
     n->accept( *this );
   }
 
-  void Visitor::visitNode( Node *node )
+  void Visitor::visitNode( Node* )
   {
   }
 

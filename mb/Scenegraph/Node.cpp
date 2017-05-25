@@ -119,7 +119,6 @@ namespace mb
     return aux->second;
   }
 
-  Component* getComponentByName( const std::string& name );
   std::vector<Component*>Node::getComponentsByName( const std::string& name,
     bool includeInactive )
   {
@@ -127,19 +126,13 @@ namespace mb
 
     auto finds = _components.equal_range( name );
 
-    std::transform( finds.first, finds.second,
-      std::back_inserter( cs ), [&] ( std::pair<std::string, Component*> element )
+    for ( auto element = finds.first; element != finds.second; ++element )
     {
-      /* TODO: includeInactive not used
-      if ( includeInactive )
+      if ( includeInactive || element->second->isEnabled( ) )
       {
-        return element.second;
-      } else if ( element.second->isEnabled( ) )
-      {*/
-        return element.second;
-      //}
-    } );
-
+        cs.push_back( element->second );
+      } 
+    }
     return cs;
   }
 }//NS

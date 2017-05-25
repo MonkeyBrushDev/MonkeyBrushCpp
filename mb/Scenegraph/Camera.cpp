@@ -30,7 +30,7 @@ namespace mb
   {
     if ( Camera::mainCamera( ) == this )
     {
-      setIsMainCamera( nullptr );
+      setMainCamera( nullptr );
     }
   }
 

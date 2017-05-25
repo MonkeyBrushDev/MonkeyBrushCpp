@@ -22,7 +22,7 @@ namespace mb
     }
   }
 
-  void RenderingPass::swapBuffers( Renderer* r )
+  void RenderingPass::swapBuffers( Renderer* )
   {
     //auto source = 1;
     //auto destination = 2;

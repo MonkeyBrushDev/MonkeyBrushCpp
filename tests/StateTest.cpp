@@ -1,13 +1,13 @@
-#pragma once
+#include "mbTests.h"
+#include <mb/mb.h>
 
-#include "StateMachine.hpp"
 using namespace mb;
 
 class AttackingState : public State
 {
 public:
-  AttackingState( StateMachinePtr owner )
-    : State( owner )
+  AttackingState( StateMachinePtr owner_ )
+    : State( owner_ )
   {
   }
   virtual void enter( )
@@ -32,8 +32,8 @@ public:
 class IdleState : public State
 {
 public:
-  IdleState( StateMachinePtr owner )
-    : State( owner )
+  IdleState( StateMachinePtr owner_ )
+    : State( owner_ )
   {
   }
   virtual void enter( )
@@ -55,3 +55,8 @@ public:
     return "Idle";
   }
 };
+
+BOOST_AUTO_TEST_CASE( test_state_construction )
+{
+  // TODO
+}

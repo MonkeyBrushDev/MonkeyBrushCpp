@@ -32,7 +32,7 @@ namespace mb
     virtual void unbindFBO( unsigned int ) { }
     virtual void bindProgram( unsigned int ) { }
     virtual void unbindProgram( unsigned int ) { }
-    virtual void drawPrimitive( MaterialPtr  material, Primitive* primitive ) { }
+    virtual void drawPrimitive( MaterialPtr, Primitive* ) { }
 
     // virtual void drawBuffer( Material* material ... ) { }
   };

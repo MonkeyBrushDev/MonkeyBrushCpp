@@ -36,7 +36,7 @@ namespace mb
         : RenderState( enabled )
         , _rEnabled( rEnabled )
         , _gEnabled( gEnabled )
-        , _bEnabled( gEnabled )
+        , _bEnabled( bEnabled )
         , _aEnabled( aEnabled )
       {
       }
@@ -140,8 +140,8 @@ namespace mb
         GEQUAL,
         ALWAYS
       };
-      DepthState( bool enabled = true, CompareFunc cmp = CompareFunc::LESS,
-        bool writable = true )
+      DepthState( bool enabled = true, CompareFunc /*cmp*/ = CompareFunc::LESS,
+        bool /*writable*/ = true )
         : RenderState( enabled )
       {
       }

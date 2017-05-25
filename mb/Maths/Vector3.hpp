@@ -4,8 +4,9 @@
 #include <array>
 #include "Mathf.hpp"
 #include <cmath>
-#include <iomanip>
 #include "Vector4.hpp"
+#include <iomanip>
+#include <iostream>
 
 namespace mb
 {
@@ -211,7 +212,8 @@ namespace mb
     static float angle( const Vector3& from, const Vector3& to )
     {
       return std::acos(Mathf::clamp(Vector3::dot(
-          from.getNormalized( ), to.getNormalized( ) ), -1.0f, 1.0f)) * 57.29578f;
+          from.getNormalized( ), to.getNormalized( ) ), 
+          -1.0f, 1.0f)) * 57.29578f;
     }
 
     friend std::ostream& operator<<( std::ostream &out, const Vector3& v )

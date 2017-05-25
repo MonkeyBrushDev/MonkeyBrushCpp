@@ -82,7 +82,6 @@ set( MB_PUBLIC_HEADERS
   Scenegraph/Switch.hpp
 
 
-  State/ExampleStates.hpp
   State/StateMachine.hpp
 
 

@@ -3,9 +3,9 @@
 
 namespace mb
 {
-  State::State( StateMachinePtr owner )
+  State::State( StateMachinePtr owner_ )
   {
-    this->owner = owner;
+    this->owner = owner_;
   }
   State::~State( void )
   {

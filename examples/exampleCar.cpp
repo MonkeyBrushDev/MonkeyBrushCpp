@@ -70,7 +70,7 @@ int main( )
 
 
   auto cam = new Camera( );
-  Camera::mainCamera( cam );
+  Camera::setMainCamera( cam );
   scene->addChild( cam );
 
 

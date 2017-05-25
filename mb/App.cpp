@@ -32,7 +32,7 @@ namespace mb
       {
         if ( Camera::mainCamera( ) == nullptr || c->isMainCamera( ) )
         {
-          Camera::mainCamera( c );
+          Camera::setMainCamera( c );
         }
         _cameras.push_back( c );
       } );

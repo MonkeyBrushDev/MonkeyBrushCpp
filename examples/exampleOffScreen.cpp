@@ -28,7 +28,7 @@ int main( )
 
   auto camera = new Camera( );
   camera->name( "PPCamera" );
-  Camera::mainCamera( camera );
+  Camera::setMainCamera( camera );
   scene->addChild( camera );
 
   camera->layer( ).enable( 1 );

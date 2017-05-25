@@ -51,11 +51,12 @@ BOOST_AUTO_TEST_CASE( test_group_detach )
 
 BOOST_AUTO_TEST_CASE( test_group_hierarchy )
 {
-	//		node0
-	//		/   \
-	//	node1	node2
-	//			/	\
-	//		node3	node4
+	/*		node0
+	  		/   \
+	  	node1	node2
+	  			/	\
+	  		node3	node4
+	*/
 
 //  const char* rootName = "root";
 

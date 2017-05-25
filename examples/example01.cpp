@@ -30,7 +30,7 @@ int main( )
   scene->addChild( interactiveLight );
 
   auto cam = new Camera( );
-  Camera::mainCamera( cam );
+  Camera::setMainCamera( cam );
   scene->addChild( cam );
   cam->local( ).translate( 0.0f, 1.0f, 0.0f );
 

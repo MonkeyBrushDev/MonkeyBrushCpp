@@ -17,7 +17,7 @@ namespace mb
     _results.reset( );
 
     Visitor::traverse( n );
-    _results.sort( [ &] ( Node* n1, Node* n2 ) -> bool
+    _results.sort( [ &] ( Node*, Node* ) -> bool
     {
       // TODO: Sort candidates using distance(_ray, n1->worldBound()->center) < distance(_ray, n2->worldBound()->center);
       return false;

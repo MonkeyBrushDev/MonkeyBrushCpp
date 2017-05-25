@@ -72,8 +72,11 @@ namespace mb
       return result;
     }
 
-    Quaternion &lookAt( const Vector3&/* dir*/, const Vector3&/* up = Vector3::up*/ )
+    Quaternion& lookAt( const Vector3&/* dir*/, 
+      const Vector3&/* up = Vector3::up*/ )
     {
+      // TODO
+      return *this;
     }
 
     MB_API
@@ -176,7 +179,8 @@ namespace mb
     MB_API
     static float dot( const Quaternion& a, const Quaternion& b )
     {
-      return a.x( ) * b.x( ) + a.y( ) * b.y( ) + a.z( ) * b.z( ) + a.w( ) * b.w( );
+      return a.x( ) * b.x( ) + a.y( ) * b.y( ) 
+      + a.z( ) * b.z( ) + a.w( ) * b.w( );
     }
 
     MB_API
@@ -190,7 +194,8 @@ namespace mb
     }
 
     MB_API
-    friend Quaternion& operator*( const Quaternion& lhs, const Quaternion& rhs )
+    friend Quaternion operator*( const Quaternion& lhs, 
+      const Quaternion& rhs )
     {
       return Quaternion(
         lhs.w( ) * rhs.x( ) + lhs.x( ) * rhs.w( ) 
@@ -206,12 +211,14 @@ namespace mb
     static float angle( const Quaternion& a, const Quaternion& b)
     {
       float f = Quaternion::dot( a, b );
-      return std::acos( std::min( std::abs( f ), 1.0f ) ) * 2.0f * 57.29578f;
+      return std::acos( std::min( std::abs( f ), 1.0f ) ) 
+      * 2.0f * 57.29578f;
     }
     MB_API
     Quaternion getConjugate( void ) const
     {
-      return Quaternion( -_values[ 0 ], -_values[ 1 ], -_values[ 2 ], _values[ 3 ] );
+      return Quaternion( -_values[ 0 ], -_values[ 1 ], 
+        -_values[ 2 ], _values[ 3 ] );
     }
   protected:
     Vector4 _values;

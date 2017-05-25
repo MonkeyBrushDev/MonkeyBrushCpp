@@ -14,7 +14,7 @@ namespace mb
     {
     }
     MB_API
-    virtual void update( const float &dt ) override
+    virtual void update( const float& ) override
     {
       /* if (left_mouse)
       {

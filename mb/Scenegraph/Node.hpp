@@ -20,15 +20,6 @@ namespace mb
   {
   public:
     MB_API
-    Layer& layer( )
-    {
-      return _layer;
-    }
-  private:
-    Layer _layer;
-
-  public:
-    MB_API
     Node( );
     MB_API
     Node( const std::string& name );
@@ -38,12 +29,12 @@ namespace mb
     std::string name( void ) const;
     MB_API
     void name( const std::string& name );
-    std::string tag;
   protected:
     Node* _parent;
     std::string _name;
 
   public:
+    std::string tag;
     MB_API
     void perform( Visitor &visitor );
     MB_API
@@ -168,6 +159,14 @@ namespace mb
 
   private:
     bool _enabled = true;
+  public:
+    MB_API
+    Layer& layer( )
+    {
+      return _layer;
+    }
+  private:
+    Layer _layer;
   };
 
   #include "Node.inl"
