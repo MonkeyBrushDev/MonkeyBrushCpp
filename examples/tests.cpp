@@ -23,7 +23,27 @@ public:
 #include <thread>
 #include <memory>
 
+void debugBV( mb::BoundingVolume* bv )
+{
+  std::cout << "CENTER AT " << bv->getCenter( ) << " WITH RADIUS " 
+    << bv->getRadius( ) << std::endl;
+}
+
 int main( )
+{
+  mb::BoundingVolume* bv;// = new mb::SphereBoundingVolume( );
+
+  /*debugBV( bv );
+  bv->expand( Vector3( 2.0f, 0.0f, 0.0f ) );
+  debugBV( bv );
+  bv->expand( Vector3( -2.0f, 0.0f, 0.0f ) );
+  debugBV( bv );*/
+
+  system( "PAUSE" );
+  return 0;
+}
+
+int main2( )
 {
   auto group = new Group( "First group" );
   assert( group->name( ) == "First group" );

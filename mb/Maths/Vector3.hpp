@@ -4,6 +4,8 @@
 #include <array>
 #include "Mathf.hpp"
 #include <cmath>
+#include <iomanip>
+#include "Vector4.hpp"
 
 namespace mb
 {
@@ -13,6 +15,13 @@ namespace mb
     Vector3( void )
       : Vector3( 0.0f )
     {
+    }
+    Vector3( const Vector4& v )
+    {
+      for ( unsigned int i = 0; i < 3; ++i )
+      {
+        _data[ i ] = v[ i ];
+      }
     }
     explicit Vector3( float v )
     {
@@ -42,6 +51,23 @@ namespace mb
     float& y( void ) { return _data[ 1 ]; }
     float& z( void ) { return _data[ 2 ]; }
   public:
+    /*friend float operator*( const Vector3& u, const Vector3& v )
+    {
+      return u._data[ 0 ] * v._data[ 0 ] +
+        u._data[ 1 ] * v._data[ 1 ] +
+        u._data[ 2 ] * v._data[ 2 ];
+    }*/
+    float getSquaredMagnitude( void ) const
+    {
+      //return ( *this ) * ( *this );
+      return this->_data[ 0 ] * this->_data[ 0 ] +
+        this->_data[ 1 ] * this->_data[ 1 ] +
+        this->_data[ 2 ] * this->_data[ 2 ];
+    }
+    double getMagnitude( void ) const
+    {
+      return std::sqrt( getSquaredMagnitude( ) );
+    }
     bool operator==( const Vector3& v ) const
     {
       return std::equal( _data.begin( ), _data.end( ), v._data.begin( ) );
@@ -187,13 +213,34 @@ namespace mb
       return std::acos(Mathf::clamp(Vector3::dot(
           from.getNormalized( ), to.getNormalized( ) ), -1.0f, 1.0f)) * 57.29578f;
     }
+
+    friend std::ostream& operator<<( std::ostream &out, const Vector3& v )
+    {
+      out << std::setiosflags( std::ios::fixed | std::ios::showpoint )
+        << std::setprecision( 10 );
+      out << "(" << v[ 0 ];
+      for ( unsigned int i = 1; i < 3; ++i )
+      {
+        out << ", " << v[ i ];
+      }
+      out << ")";
+      return out;
+    }
+    MB_API
     static const Vector3 zero;
+    MB_API
     static const Vector3 one;
+    MB_API
     static const Vector3 forward;
+    MB_API
     static const Vector3 back;
+    MB_API
     static const Vector3 up;
+    MB_API
     static const Vector3 down;
+    MB_API
     static const Vector3 left;
+    MB_API
     static const Vector3 right;
   protected:
     std::array< float, 3 > _data;

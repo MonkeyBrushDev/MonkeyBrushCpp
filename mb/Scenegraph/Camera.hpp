@@ -7,6 +7,9 @@
 #include "../Maths/Rect.hpp"
 #include <mb/api.h>
 
+#include "../Maths/Vector3.hpp"
+#include "../Maths/Matrix4.hpp"
+
 /*
   TODO: Set projection type (Perspective/Orthographic)
   TODO: Change Field of View and clipping planes
@@ -49,9 +52,9 @@ namespace mb
     MB_API
     void renderPass( RenderingPass* rp );
     MB_API
-    RenderingPass* renderPass( );
+    RenderingPass* renderPass( void );
 
-    /*MB_API
+    MB_API
     Ray& getRay( float px, float py ) const
     {
       float x = 2.0f * px - 1.0f;
@@ -60,15 +63,15 @@ namespace mb
       Vector4 rayClip( x, y, -1.0f, 1.0f );
 
       Vector4 rayEye = getProjection( ).getInverse( ).getTranspose( ) * rayClip;
-      rayEye = Vector4f( rayEye.x( ), rayEye.y( ), -1.0f, 0.0f );
+      rayEye = Vector4( rayEye.x( ), rayEye.y( ), -1.0f, 0.0f );
 
       Vector4 rayW = getWorld( ).computeModel( ).getTranspose( ) * rayEye;
 
-      Vector3 rayDir( rayW.x( ), rayW.y( ), rayW.z( ) );
+      Vector3 rayDir( rayW );
       rayDir.normalize( );
 
-      return Ray( getWorld( ).translate( ), rayDir );
-    }*/
+      return Ray( getWorld( ).getPosition( ), rayDir );
+    }
     MB_API
     bool isMainCamera( void ) const
     {
@@ -80,7 +83,7 @@ namespace mb
       _isMainCamera = v;
     }
     MB_API
-    const Viewport& getViewport( ) const
+    const Viewport& getViewport( void ) const
     {
       return _viewport;
     }
@@ -96,20 +99,16 @@ namespace mb
       return _frustum;
     }
     MB_API
-    void setFrustum( const Frustum& frustum )
-    {
-      _frustum = frustum;
-      // TODO: Regenerate ortho and proj matrix
-    }
+    void setFrustum( const Frustum& frustum );
 
-    // TODO const Matrix4& getProjection( void ) const;
-    // TODO void setProjection( const Matrix4& proj );
+    const Matrix4& getProjection( void ) const { return _projectionMatrix; }
+    void setProjection( const Matrix4& proj );
 
-    // TODO const Matrix4& getOrthographic( void ) const;
-    // TODO void setOrthographic( const Matrix4& ortho );
+    const Matrix4& getOrthographic( void ) const { return _orthographicMatrix; }
+    void setOrthographic( const Matrix4& ortho );
 
-    // TODO const Matrix4& getView( void );
-    // TODO void setView( const Matrix4 &view );
+    const Matrix4& getView( void ) { return _viewMatrix; }
+    void setView( const Matrix4& view );
 
   private:
     bool _isMainCamera = false;
@@ -118,9 +117,18 @@ namespace mb
     RenderingPass* _renderPass;
     Viewport _viewport;
 
+    Matrix4 _projectionMatrix;
+    Matrix4 _orthographicMatrix;
+    Matrix4 _viewMatrix;
   public:
     void computeCullingPlanes( void )
     {
+      /*
+      Vector3 normal;
+      float constant;
+
+      Vector3 position = getWorld( ).getPosition( );
+      */
       std::cout << "Computing near plane at _cullingPlanes[0]" << std::endl;
       std::cout << "Computing far plane at _cullingPlanes[1]" << std::endl;
       std::cout << "Computing top plane at _cullingPlanes[2]" << std::endl;

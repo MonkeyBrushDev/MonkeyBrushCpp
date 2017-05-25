@@ -6,6 +6,11 @@ namespace mb
 {
   Camera* Camera::_mainCamera = nullptr;
 
+  Camera::Camera( )
+    : Camera( 45.0f, 1.0f, 0.1f, 1000.0f )
+  {
+  }
+
   Camera:: Camera( const float& fov, const float& ar,
     const float& near, const float& far )
     : _frustum( fov, ar, near, far )
@@ -16,15 +21,17 @@ namespace mb
     {
       this->layer( ).enable( i );
     }
-  }
-
-  Camera::Camera( )
-    : Camera( 45.0f, 1.0f, 0.1f, 1000.0f )
-  {
+    _projectionMatrix = _frustum.computeProjMatrix( );
+    _orthographicMatrix = _frustum.computeOthoMatrix( );
+    _viewMatrix.makeIdentity( );
   }
 
   Camera::~Camera( )
   {
+    if ( Camera::mainCamera( ) == this )
+    {
+      setIsMainCamera( nullptr );
+    }
   }
 
   void Camera::accept( Visitor& v )
@@ -39,5 +46,27 @@ namespace mb
   RenderingPass* Camera::renderPass( )
   {
     return _renderPass;
+  }
+
+  void Camera::setFrustum( const Frustum& frustum )
+  {
+    _frustum = frustum;
+    _projectionMatrix = _frustum.computeProjMatrix( );
+    _orthographicMatrix = _frustum.computeOthoMatrix( );
+  }
+
+  void Camera::setProjection( const Matrix4& proj )
+  {
+    _projectionMatrix = proj;
+  }
+
+  void Camera::setOrthographic( const Matrix4& ortho )
+  {
+    _orthographicMatrix = ortho;
+  }
+
+  void Camera::setView( const Matrix4& view )
+  {
+    _viewMatrix = view;
   }
 }

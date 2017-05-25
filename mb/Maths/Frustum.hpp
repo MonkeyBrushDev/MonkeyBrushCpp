@@ -5,6 +5,8 @@
 #include <array>
 #include <mb/api.h>
 
+#include "Matrix4.hpp"
+
 namespace mb
 {
   class Frustum
@@ -45,7 +47,7 @@ namespace mb
 		float getDMax( void ) const { return _data[ FRUSTUM_DMAX ]; }
 
     // TODO: Replace std::array<float, 16> to Matrix4 projMatrix and orthoMatrix
-    std::array<float, 16> computeProjMatrix( void ) const
+    Matrix4 computeProjMatrix( void ) const
     {
       float left = getRMin( );
       float right = getRMax( );
@@ -75,9 +77,9 @@ namespace mb
       matrix[ 14 ] = -( 2.0f * far * near ) / ( far - near );
       matrix[ 15 ] = 0.0f;
 
-      return matrix;
+      return Matrix4( matrix );
     }
-    std::array<float, 16> computeOthoMatrix( void ) const
+    Matrix4 computeOthoMatrix( void ) const
     {
       float near = getDMin( );
       float far = getDMax( );
@@ -108,7 +110,7 @@ namespace mb
       matrix[ 14 ] = 0.0f;
       matrix[ 15 ] = 1.0f;
 
-      return matrix;
+      return Matrix4( matrix );
     }
   protected:
     std::array< float, 6 > _data;

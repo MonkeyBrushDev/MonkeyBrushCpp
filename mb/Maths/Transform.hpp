@@ -2,6 +2,8 @@
 #define __MB_TRANSFORM__
 
 #include "Vector3.hpp"
+#include "Matrix4.hpp"
+#include "Quaternion.hpp"
 
 namespace mb
 {
@@ -21,42 +23,71 @@ namespace mb
   };
   class Transform
   {
-  public:
+  protected:
     RotationOrder rotationOrder = RotationOrder::OrderXYZ;
     Vector3 _eulerAngles;
     Vector3 _position;
     Vector3 _scale;
-
+    Quaternion _rotate;
+  public:
     Transform( void )
     {
       _position = Vector3( 0.0f );
       _scale = Vector3( 1.0f );
       _isIdentity = true;
     }
+    const Quaternion& getRotation( void ) const
+    {
+      return _rotate;
+    }
+    Quaternion& rotate( void )
+    {
+      _isIdentity = false;
+      return _rotate;
+    }
+    void setRotation( const Quaternion& q )
+    {
+      _rotate = q;
+      _isIdentity = false;
+    }
+    void setRotation( const Vector3& axis, float angle )
+    {
+      _rotate.fromAxisAngle( axis, angle );
+      _isIdentity = false;
+    }
 
-    /*Vector3 getRight( void )
+    Matrix4 computeModel( void ) const
+    {
+      Matrix4 result;
+      result.compose( 
+        this->getPosition( ), 
+        this->getRotation( ),
+        this->getScale( )
+      );
+      return result;
+    }
+
+    Vector3 getRight( void ) const
     {
       return this->getRotation( ) * Vector3::right;
     }
-    void setRight( const Vector3& v )
+    /*void setRight( const Vector3& v )
     {
       setRotation( Quaternion::fromRotation( Vector3::right, v ) );
-    }
-
-    Vector3 getUp( void )
+    }*/
+    Vector3 getUp( void ) const
     {
       return this->getRotation( ) * Vector3::up;
     }
-    void setUp( const Vector3& v )
+    /*void setUp( const Vector3& v )
     {
       setRotation( Quaternion::fromRotation( Vector3::up, v ) );
-    }
-
-    Vector3 getForward( void )
+    }*/
+    Vector3 getForward( void ) const
     {
       return this->getRotation( ) * Vector3::forward;
     }
-    void setForward( const Vector3& v )
+    /*void setForward( const Vector3& v )
     {
       setRotation( Quaternion::fromRotation( Vector3::forward, v ) );
     }
@@ -119,6 +150,7 @@ namespace mb
     Transform& operator= ( const Transform& t2 )
     {
       _position = t2._position;
+      _rotate = t2._rotate;
       _scale = t2._scale;
       // TODO: Complete others variables
       _isIdentity = t2._isIdentity;
@@ -172,6 +204,13 @@ namespace mb
       _scale[ 2 ] = z;
       _isIdentity = false;
     }
+    void makeIdentity( void )
+    {
+      _position = Vector3::zero;
+      _rotate.makeIdentity( );
+      _scale = Vector3::one;
+      _isIdentity = true;
+    }
     void computeFrom( const Transform& t1, const Transform& t2 )
     {
       if ( t1.isIdentity( ) )
@@ -185,6 +224,8 @@ namespace mb
       else
       {
         // TODO: Complete others variables
+        _position = t1._position + t1._rotate * ( t1._scale * t2._position );
+        _rotate = t1._rotate * t2._rotate;
         _scale = t1._scale * t2._scale;
         _isIdentity = false;
       }
@@ -193,7 +234,7 @@ namespace mb
     {
       Vector3 dir = target - getPosition( );
       dir.normalize( );
-      // _rotate.lookAt( dir, up );
+      _rotate.lookAt( dir, up );
     }
   protected:
     // OPTIMIZATION: If identity, discard multiplication on global matrices generation!!

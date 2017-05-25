@@ -4,7 +4,7 @@ set( MB_PUBLIC_HEADERS
   Boundings/BoundingVolume.hpp
   ##Boundings/BoxBoundingVolume.hpp
   ##Boundings/PlaneBoundingVolume.hpp
-  ##Boundings/SphereBoundingVolume.hpp
+  Boundings/SphereBoundingVolume.hpp
 
   Components/Component.hpp
   Components/CustomComponent.hpp
@@ -129,12 +129,17 @@ set( MB_PUBLIC_HEADERS
 
   OpenGL/Program.hpp
   OpenGL/ResourceShader.hpp
+  OpenGL/OpenGLRenderer.hpp
 )
 
 set( MB_HEADERS
 )
 
 set( MB_SOURCES
+  OpenGL/OpenGLRenderer.cpp
+
+
+
   Components/Component.cpp
   Components/CustomComponent.cpp
   Components/LambdaComponent.cpp

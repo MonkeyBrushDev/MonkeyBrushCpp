@@ -67,3 +67,11 @@ common_application( mbExampleOffScreen )
 #)
 #common_application( mbExampleRawTriangle )
 
+
+#set( MBEXAMPLERAWCUBE_HEADERS )
+#set( MBEXAMPLERAWCUBE_SOURCES exampleRawCube.cpp )
+#set( MBEXAMPLERAWCUBE_LINK_LIBRARIES
+#  mb
+#)
+#common_application( mbExampleRawCube )
+

@@ -1,4 +1,5 @@
 #include "App.hpp"
+#include "OpenGL/OpenGLRenderer.hpp"
 #include "Rendering/Renderer.hpp"
 
 #include "Visitors/StartComponents.hpp"

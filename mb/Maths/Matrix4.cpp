@@ -71,7 +71,6 @@ namespace mb
       this->_values[ 12 ] = position.x( );
       this->_values[ 13 ] = position.y( );
       this->_values[ 14 ] = position.z( );
-
     }
 
   Matrix4

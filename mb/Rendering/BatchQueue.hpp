@@ -13,6 +13,8 @@
 #include <mb/api.h>
 #include <memory>
 
+#include "../Maths/Matrix4.hpp"
+
 namespace mb
 {
   struct Renderable
@@ -45,9 +47,15 @@ namespace mb
     void setCamera( Camera* c );
     MB_API
     Camera* camera( );
+    MB_API
+    const Matrix4 &getProjectionMatrix( void ) const { return _projectionMatrix; }
+    MB_API
+    const Matrix4 &getViewMatrix( void ) const { return _viewMatrix; }
   protected:
     Camera* _camera;
     std::vector< Light* > _lights;
+    Matrix4 _projectionMatrix;
+    Matrix4 _viewMatrix;
     // TODO std::unordered_map< RenderableType, std::vector< Renderable* >> _renderables;
     std::map< RenderableType, std::vector< Renderable* >> _renderables;
   };

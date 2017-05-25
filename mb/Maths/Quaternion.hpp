@@ -5,6 +5,7 @@
 #include <mb/api.h>
 #include "Vector3.hpp"
 #include "Vector4.hpp"
+#include <cmath>
 
 namespace mb
 {
@@ -48,6 +49,32 @@ namespace mb
     void z( const float& v ){ this->_values[2] = v; }
     MB_API
     void w( const float& v ){ this->_values[3] = v; }
+
+    friend Vector3 operator*( const Quaternion& q, const Vector3& v )
+    {
+      float x = v[ 0 ];
+      float y = v[ 1 ];
+      float z = v[ 2 ];
+      float qx = q.x( );
+      float qy = q.y( );
+      float qz = q.z( );
+      float qw = q.w( );
+
+      float ix = qw * x + qy * z - qz * y;
+      float iy = qw * y + qz * x - qx * z;
+      float iz = qw * z + qx * y - qy * x;
+      float iw = -qx * x - qy * y - qz * z;
+
+      Vector3 result;
+      result[ 0 ] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+      result[ 1 ] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+      result[ 2 ] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+      return result;
+    }
+
+    Quaternion &lookAt( const Vector3&/* dir*/, const Vector3&/* up = Vector3::up*/ )
+    {
+    }
 
     MB_API
     Quaternion& fromAxisAngle( const Vector3& axis, float angle )
