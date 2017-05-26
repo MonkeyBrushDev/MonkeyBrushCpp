@@ -1,6 +1,9 @@
 source_group(\\ FILES CMakeLists.txt)
 
 set( MB_PUBLIC_HEADERS
+  Core/BufferAttribute.hpp
+  Core/BufferGeometry.hpp
+
   Boundings/BoundingVolume.hpp
   ##Boundings/BoxBoundingVolume.hpp
   ##Boundings/PlaneBoundingVolume.hpp

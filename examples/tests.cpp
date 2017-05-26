@@ -29,7 +29,52 @@ void debugBV( mb::BoundingVolume* bv )
     << bv->getRadius( ) << std::endl;
 }
 
-int main( )
+int main() 
+{
+  unsigned int triangles = 1;
+  unsigned int instances = 65000;
+
+  FloatBufferAttribute* ba = new mb::BufferAttribute<float>( 30, 3 );
+  std::cout << 
+    "SIZE: " << ba->getSize( ) << 
+    ", COUNT: " << ba->getCount( ) << 
+    ", X0: " << ba->getX<float>( 0 ) << 
+    ", Y0: " << ba->getY<float>( 0 ) << 
+    ", Z0: " << ba->getZ<float>( 0 ) << std::endl;
+  std::vector<float> values;
+  for(int i = 0; i < 90; ++i)
+  {
+    values.push_back( (i+1) * 1.5f );
+  }
+  FloatBufferAttribute* ba2 = new mb::BufferAttribute<float>(values, 3);
+  std::cout << 
+    "SIZE: " << ba2->getSize( ) << 
+    ", COUNT: " << ba2->getCount( ) << 
+    ", X0: " << ba2->getX<float>( 0 ) << 
+    ", Y0: " << ba2->getY<float>( 0 ) << 
+    ", Z0: " << ba2->getZ<float>( 0 ) << std::endl;
+
+  ba->setXY<float>( 0, 21.3f, 15.9f );
+  ba2->setXY<float>( 0, 21.3f, 15.9f );
+
+
+  std::cout << 
+    "SIZE: " << ba->getSize( ) << 
+    ", COUNT: " << ba->getCount( ) << 
+    ", X0: " << ba->getX<float>( 0 ) << 
+    ", Y0: " << ba->getY<float>( 0 ) << 
+    ", Z0: " << ba->getZ<float>( 0 ) << std::endl;
+  std::cout << 
+    "SIZE: " << ba2->getSize( ) << 
+    ", COUNT: " << ba2->getCount( ) << 
+    ", X0: " << ba2->getX<float>( 0 ) << 
+    ", Y0: " << ba2->getY<float>( 0 ) << 
+    ", Z0: " << ba2->getZ<float>( 0 ) << std::endl;
+  system( "PAUSE" );
+  return 0;
+}
+
+int main3( )
 {
   /*mb::BoundingVolume* bv;// = new mb::SphereBoundingVolume( );
 
