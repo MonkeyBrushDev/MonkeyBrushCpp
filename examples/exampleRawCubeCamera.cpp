@@ -74,10 +74,6 @@ mb::Program program;
 
 bool glmEnabled = false;
 
-glm::mat4 myView;
-mb::Camera* camera;
-mb::Transform cameraTransform;
-
 class CubeRotate : public mb::Component
 {
   IMPLEMENT_COMPONENT( CubeRotate )
@@ -126,7 +122,6 @@ protected:
 mb::Group* cubes;
 int main()
 {
-  camera = new mb::Camera();
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -222,10 +217,14 @@ int main()
       glm::vec3(-1.3f,  1.0f, -1.5f)
   };
 
-  cameraTransform.setPosition( 0.0f, 0.0f, -6.0f );
+  mb::Camera* camera;
+  camera = new mb::Camera();
+  camera->local().translate( 0.0f, 0.0f, -6.0f);
+  //mb::Transform cameraTransform;
+  //cameraTransform.setPosition( 0.0f, 0.0f, -6.0f );
   //cameraTransform.lookAt( mb::Vector3::ZERO, mb::Vector3::UP );
 
-  camera->setView( cameraTransform.computeModel( ) );
+  //camera->setView( cameraTransform.computeModel( ) );
   camera->setProjection( mb::Matrix4::perspective( 70.0f, 1.0f, 0.01f, 1000.0f ));
 
   std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
@@ -237,11 +236,7 @@ int main()
   int viewLoc = glGetUniformLocation(program.program( ), "view");
   int modelLoc = glGetUniformLocation(program.program( ), "model");
 
-  myView = glm::mat4(1.0f);
-  myView[3].z = -6;
-
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-
 
   mb::Group* scene = new mb::Group("Scene");
   scene->addChild( camera );
@@ -274,7 +269,7 @@ int main()
   _scene->perform( fetchCameras );
   fetchCameras.forEachCamera( [ &] ( Camera* c )
   {
-    if ( Camera::mainCamera( ) == nullptr || c->isMainCamera( ) )
+    if ( Camera::getMainCamera( ) == nullptr || c->isMainCamera( ) )
     {
       Camera::setMainCamera( c );
     }
@@ -295,25 +290,9 @@ int main()
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    /*static float angle = 0.0f;
-    float dt = glfwGetTime() * 5.0f;
-    angle = (angle > 3.141592f * 2.0f) ? 0 : angle + 0.001f*dt;*/
-
     program.use();
     glBindVertexArray( VAO );
 
-    glUniformMatrix4fv(projLoc, 1, GL_FALSE, camProj.data( ) );
-
-    if (glmEnabled)
-    {
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(myView));
-    }
-    else
-    {
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, camera->getView( ).values( ).data());
-    }
-
-    // Calculate deltatime of current frame
     GLfloat currentFrame = glfwGetTime();
     dt = currentFrame - lastFrame;
     lastFrame = currentFrame;
@@ -340,14 +319,14 @@ int main()
       BatchQueuePtr mainQueue = nullptr;
       std::for_each( bqCollection.begin(), bqCollection.end(), [&](BatchQueuePtr bq)
       {
-         if (bq->camera() != Camera::mainCamera())
-         {
-             std::cout << "OUTSCREEN" << std::endl;
-         }
-         else
-         {
-             mainQueue = bq;
-         }
+        if (bq->camera() != Camera::getMainCamera())
+        {
+          std::cout << "OUTSCREEN" << std::endl;
+        }
+        else
+        {
+          mainQueue = bq;
+        }
       });
 
       if(mainQueue.get() != nullptr)
@@ -357,6 +336,9 @@ int main()
         {
           for ( Renderable*& renderable : renderables )
           {
+            glUniformMatrix4fv(projLoc, 1, GL_FALSE, mainQueue->getProjectionMatrix().values().data( ) );
+            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, mainQueue->getViewMatrix().values( ).data());
+
             glBindVertexArray(VAO);
             //renderable->geom->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3(1.0f, 1.0f, 0.0f), angle));
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, renderable->geom->world().computeModel().values().data());
@@ -366,49 +348,10 @@ int main()
         }
       }
     }
-
-    /*
-    mb::Matrix4 model;
-    mb::Transform ttf;
-    for (GLuint i = 0; i < 10; ++i)
-    {
-        glm::mat4 model;
-        model = glm::translate(model, cubePositions[i]);
-        //model = glm::rotate(model, angle, glm::vec3(1.0f, 1.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-        ttf.setPosition(cubePositions[i].x, cubePositions[i].y, cubePositions[i].z);
-        //ttf.setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3(1.0f, 1.0f, 0.0f), angle));
-        ttf.setScale(mb::Vector3(0.5f));
-
-        if (glmEnabled)
-        {
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        }
-        else
-        {
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, ttf.computeModel().values().data());
-        }
-
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-    }*/
-
-    /*cubes->forEachNode([&](mb::Node* node)
-    {
-        glBindVertexArray(VAO);
-        node->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3(1.0f, 1.0f, 0.0f), angle));
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, node->local().computeModel().values().data());
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
-    });*/
-
-
-    // Swap the screen buffers
     glfwSwapBuffers(window);
   }
-  // Properly de-allocate all resources once they've outlived their purpose
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &VBO);
-  // Terminate GLFW, clearing any resources allocated by GLFW.
   glfwTerminate();
   return 0;
 }
@@ -424,104 +367,28 @@ void key_callback(GLFWwindow* window, int key, int, int action, int)
     glfwSetWindowShouldClose(window, GL_TRUE);
   if (action == GLFW_PRESS)
   {
-      if ( key == GLFW_KEY_G)
-      {
-        glmEnabled = true;
-        std::cout << "GLM ON" << std::endl;
-      }
-      if ( key == GLFW_KEY_H)
-      {
-          glmEnabled = false;
-          std::cout << "GLM OFF" << std::endl;
-      }
+    if ( key == GLFW_KEY_G)
+    {
+      glmEnabled = true;
+      std::cout << "GLM ON" << std::endl;
+    }
+    if ( key == GLFW_KEY_H)
+    {
+      glmEnabled = false;
+      std::cout << "GLM OFF" << std::endl;
+    }
   }
   if (action == GLFW_PRESS)
   {
-      if (key == GLFW_KEY_A)
-      {
-          xx += 0.5f;
-          cubes->local().translate( 0.5f, 0.0f, 0.0f );
-      }
-      else if (key == GLFW_KEY_D)
-      {
-          xx -= 0.5f;
-          cubes->local().translate( -0.5f, 0.0f, 0.0f );
-      }
-      /*if (key == GLFW_KEY_A)
-      {
-          xx += 0.5f;
-          cameraTransform.translate( 0.5f, 0.0f, 0.0f );
-          camera->setView( cameraTransform.computeModel( ) );
-
-          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
-
-          myView[3].x = xx;
-      }
-      if (key == GLFW_KEY_D)
-      {
-          xx -= 0.5f;
-          cameraTransform.translate( -0.5f, 0.0f, 0.0f );
-          camera->setView( cameraTransform.computeModel( ) );
-
-          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
-
-          myView[3].x = xx;
-      }
-      if (key == GLFW_KEY_W)
-      {
-          yy += 0.5f;
-          cameraTransform.translate( 0.0f, 0.5f, 0.0f );
-          camera->setView( cameraTransform.computeModel( ) );
-
-          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
-
-          myView[3].y = yy;
-      }
-      if (key == GLFW_KEY_S)
-      {
-          yy -= 0.5f;
-          cameraTransform.translate( 0.0f, -0.5f, 0.0f );
-          camera->setView( cameraTransform.computeModel( ) );
-
-          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
-
-          myView[3].y = yy;
-      }
-      if (key == GLFW_KEY_E)
-      {
-          zz += 0.5f;
-          cameraTransform.translate( 0.0f, 0.0f, 0.5f );
-          camera->setView( cameraTransform.computeModel( ) );
-
-          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
-
-          myView[3].z = zz;
-      }
-      if (key == GLFW_KEY_Q)
-      {
-          zz -= 0.5f;
-          cameraTransform.translate( 0.0f, 0.0f, -0.5f );
-          camera->setView( cameraTransform.computeModel( ) );
-
-          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
-
-          myView[3].z = zz;
-      }
-      if (key == GLFW_KEY_SPACE)
-      {
-          std::vector<float> mV, mV2;
-          wrapArrayInVector( glm::value_ptr(myView), 16, mV);
-          wrapArrayInVector( camera->getView( ).values().data(), 16, mV2);
-          bool equals = true;
-          for(int i = 0; i < 16; ++i)
-          {
-              if (mV[i] != mV2[i])
-              {
-                  equals = false;
-                  break;
-              }
-          }
-          std::cout << (equals? "OK" : "FAIL") << std::endl;
-      }*/
+    if (key == GLFW_KEY_A)
+    {
+      xx += 0.5f;
+      cubes->local().translate( 0.5f, 0.0f, 0.0f );
+    }
+    else if (key == GLFW_KEY_D)
+    {
+      xx -= 0.5f;
+      cubes->local().translate( -0.5f, 0.0f, 0.0f );
+    }
   }
 }

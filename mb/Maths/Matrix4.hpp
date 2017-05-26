@@ -102,6 +102,12 @@ namespace mb
       return result;
     }
     MB_API
+    Matrix4 &makeInverse( void )
+    {
+        *this = getInverse();
+        return *this;
+    }
+    MB_API
     Matrix4 getInverse( void ) const
     {
       Matrix4 result;

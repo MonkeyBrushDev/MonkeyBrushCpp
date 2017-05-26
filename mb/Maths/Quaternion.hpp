@@ -85,7 +85,7 @@ namespace mb
 
       if ( u.squaredLength( ) == 0.0f )
       {
-        u = Vector3::cross( Vector3::right, dir );
+        u = Vector3::cross( Vector3::RIGHT, dir );
       }
       u.normalize( );
 

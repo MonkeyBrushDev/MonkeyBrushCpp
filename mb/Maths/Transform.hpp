@@ -66,10 +66,17 @@ namespace mb
       );
       return result;
     }
-
     Vector3 getRight( void ) const
     {
-      return this->getRotation( ) * Vector3::right;
+      //return this->getRotation( ) * Vector3::RIGHT;
+
+      Vector3 input = Vector3::RIGHT;
+      Vector3 aux = Vector3::ZERO;
+      for( unsigned int i = 0; i < 3; ++i )
+      {
+        aux[ i ] = _scale[ i ] * input[ i ];
+      }
+      return _rotate * aux;
     }
     /*void setRight( const Vector3& v )
     {
@@ -77,12 +84,30 @@ namespace mb
     }*/
     Vector3 getUp( void ) const
     {
-      return this->getRotation( ) * Vector3::UP;
+      Vector3 input = Vector3::UP;
+      Vector3 aux = Vector3::ZERO;
+      for( unsigned int i = 0; i < 3; ++i )
+      {
+        aux[ i ] = _scale[ i ] * input[ i ];
+      }
+      return _rotate * aux;
+      //return this->getRotation( ) * Vector3::UP;
     }
     /*void setUp( const Vector3& v )
     {
       setRotation( Quaternion::fromRotation( Vector3::UP, v ) );
     }*/
+
+    Vector3 computeDirection( void ) const
+    {
+      Vector3 input(0.0f, 0.0f, -1.0f);
+      Vector3 aux = Vector3::ZERO;
+      for( unsigned int i = 0; i < 3; ++i )
+      {
+        aux[ i ] = _scale[ i ] * input[ i ];
+      }
+      return _rotate * aux;
+    }
     Vector3 getForward( void ) const
     {
       return this->getRotation( ) * Vector3::FORWARD;
@@ -244,6 +269,7 @@ namespace mb
       dir.normalize( );
       _rotate.lookAt( dir, up );
     }
+
   protected:
     // OPTIMIZATION: If identity, discard multiplication on global matrices generation!!
     bool _isIdentity;

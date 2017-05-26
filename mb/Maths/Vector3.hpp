@@ -256,7 +256,7 @@ namespace mb
     MB_API
     static const Vector3 LEFT;
     MB_API
-    static const Vector3 right;
+    static const Vector3 RIGHT;
   protected:
     std::array< float, 3 > _data;
   };

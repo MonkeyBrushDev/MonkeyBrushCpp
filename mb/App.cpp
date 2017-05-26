@@ -30,7 +30,7 @@ namespace mb
       _scene->perform( fetchCameras );
       fetchCameras.forEachCamera( [ &] ( Camera* c )
       {
-        if ( Camera::mainCamera( ) == nullptr || c->isMainCamera( ) )
+        if ( Camera::getMainCamera( ) == nullptr || c->isMainCamera( ) )
         {
           Camera::setMainCamera( c );
         }
@@ -95,7 +95,7 @@ namespace mb
       std::for_each( bqCollection.begin( ),
         bqCollection.end( ), [ &] ( BatchQueuePtr bq )
       {
-        if ( bq->camera( ) != Camera::mainCamera( ) )
+        if ( bq->camera( ) != Camera::getMainCamera( ) )
         {
           // Render queue with bq camera
           std::cout << "Render outscreen (" << bq->camera( )->name( ) << ")" << std::endl;

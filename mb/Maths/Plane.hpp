@@ -21,6 +21,11 @@ namespace mb
       setNormal( Vector3( v.x( ), v.y( ), v.z( ) ) );
       setDistance( v.w( ) );
     }
+    Plane( const Vector3& normal, const Vector3& point, bool forceNormalize = true )
+    {
+      setNormal( normal, forceNormalize );
+      setDistance( _normal * point );
+    }
 
     Plane( const Plane &plane )
       : _normal( plane._normal )

@@ -24,7 +24,7 @@ namespace mb
   {
   public:
     MB_API
-    static Camera *mainCamera( void )
+    static Camera *getMainCamera( void )
     {
       return _mainCamera;
     }
@@ -86,13 +86,19 @@ namespace mb
     MB_API
     void setFrustum( const Frustum& frustum );
 
+    MB_API
     const Matrix4& getProjection( void ) const { return _projectionMatrix; }
+    MB_API
     void setProjection( const Matrix4& proj );
 
+    MB_API
     const Matrix4& getOrthographic( void ) const { return _orthographicMatrix; }
+    MB_API
     void setOrthographic( const Matrix4& ortho );
 
-    const Matrix4& getView( void ) const { return _viewMatrix; }
+    MB_API
+    const Matrix4& getView( void );
+    MB_API
     void setView( const Matrix4& view );
 
   private:
@@ -106,21 +112,7 @@ namespace mb
     Matrix4 _orthographicMatrix;
     Matrix4 _viewMatrix;
   public:
-    void computeCullingPlanes( void )
-    {
-      /*
-      Vector3 normal;
-      float constant;
-
-      Vector3 position = getWorld( ).getPosition( );
-      */
-      std::cout << "Computing near plane at _cullingPlanes[0]" << std::endl;
-      std::cout << "Computing far plane at _cullingPlanes[1]" << std::endl;
-      std::cout << "Computing top plane at _cullingPlanes[2]" << std::endl;
-      std::cout << "Computing bottom plane at _cullingPlanes[3]" << std::endl;
-      std::cout << "Computing left plane at _cullingPlanes[4]" << std::endl;
-      std::cout << "Computing right plane at _cullingPlanes[5]" << std::endl;
-    }
+    void computeCullingPlanes( void );
 
     MB_API
     void setCullingEnabled( bool value ) { _cullingEnabled = value; }
