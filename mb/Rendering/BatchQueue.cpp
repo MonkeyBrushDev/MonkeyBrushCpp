@@ -25,9 +25,18 @@ namespace mb
   }
   void BatchQueue::setCamera( Camera* c )
   {
-    _camera = c;
-    _projectionMatrix = _camera->getProjection( );
-    _viewMatrix = _camera->getView( );
+    if ( c!= nullptr)
+    {
+      _camera = c;
+      _projectionMatrix = _camera->getProjection( );
+      _viewMatrix = _camera->getView( );
+    }
+    else
+    {
+      _camera = nullptr;
+      _projectionMatrix.makeIdentity( );
+      _viewMatrix.makeIdentity( );
+    }
   }
   Camera* BatchQueue::camera( )
   {

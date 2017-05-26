@@ -65,11 +65,16 @@ namespace mb
       float iz = qw * z + qx * y - qy * x;
       float iw = -qx * x - qy * y - qz * z;
 
-      Vector3 result;
-      result[ 0 ] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
-      result[ 1 ] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
-      result[ 2 ] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
-      return result;
+      return Vector3(
+        ix * qw + iw * -qx + iy * -qz - iz * -qy,
+        iy * qw + iw * -qy + iz * -qx - ix * -qz,
+        iz * qw + iw * -qz + ix * -qy - iy * -qx
+      );
+    }
+
+    friend Vector3 operator*( const Vector3& v, const Quaternion& q )
+    {
+      return q * v;
     }
 
     Quaternion& lookAt( const Vector3& dir, 
@@ -103,21 +108,34 @@ namespace mb
     }
 
     MB_API
-    Quaternion& fromAxisAngle( const Vector3& axis, float angle )
+    static Quaternion createFromAxisAngle( const Vector3& axis, float angle )
     {
-      float sinTheta = std::sin( 0.5f * angle );
-      float cosTheta = std::cos( 0.5f * angle );
-
-      _values[ 0 ] = axis[ 0 ] * sinTheta;
-      _values[ 1 ] = axis[ 1 ] * sinTheta;
-      _values[ 2 ] = axis[ 2 ] * sinTheta;
-      _values[ 3 ] = cosTheta;
-
-      return *this;
+        Quaternion q;
+        q.fromAxisAngle(axis, angle);
+        return q;
     }
 
     MB_API
-    void reset()
+    Quaternion& fromAxisAngle( const Vector3& axis, float angle )
+    {
+        // http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm
+        //     Assumes axis is normalized
+        float
+          halfAngle = angle / 2.0f,
+          s = std::sin(halfAngle);
+
+        this->_values[0] = axis.x() * s;
+        this->_values[1] = axis.y() * s;
+        this->_values[2] = axis.z() * s;
+        this->_values[3] = std::cos(halfAngle);
+
+        //if (_onChange)  _onChange();
+
+        return *this;
+    }
+
+    MB_API
+    void reset( void )
     {
       this->_values[0] = 0.0f;
       this->_values[1] = 0.0f;
@@ -127,25 +145,7 @@ namespace mb
       //if (_onChange)  _onChange();
     }
     MB_API
-    Quaternion& setFromAxisAngle(const Vector3& axis, float angle)
-    {
-      // http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm
-      //     Assumes axis is normalized
-      float
-        halfAngle = angle / 2.0f,
-        s = std::sin(halfAngle);
-
-      this->_values[0] = axis.x() * s;
-      this->_values[1] = axis.y() * s;
-      this->_values[2] = axis.z() * s;
-      this->_values[3] = std::cos(halfAngle);
-
-      //if (_onChange)  _onChange();
-
-      return *this;
-    }
-    MB_API
-    Quaternion& inverse()
+    Quaternion& inverse( void )
     {
       float dot = Quaternion::dot(*this, *this);
 

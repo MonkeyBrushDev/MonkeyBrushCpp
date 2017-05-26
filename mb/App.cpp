@@ -64,7 +64,8 @@ namespace mb
     std::cout << "Engine will update" << std::endl;
     std::cout << "~~~~~~~~~~ BEGIN UPDATE ~~~~~~~~~~" << std::endl;
     // UPDATE STEP
-    // TODO: Fixed update
+    // TODO: Fixed update _scene->perform( UpdateComponents( dt ) );
+
     _scene->perform( UpdateWorldState( ) );
 
     std::vector< BatchQueuePtr > bqCollection;
@@ -106,7 +107,7 @@ namespace mb
         }
       } );
 
-      if ( mainQueue != nullptr )
+      if ( mainQueue != nullptr ) // TODO: CORRECT COMPARISON??
       {
         // Render main queue
         std::cout << "render main queue (" << mainQueue->camera( )->name( ) << ")" << std::endl;

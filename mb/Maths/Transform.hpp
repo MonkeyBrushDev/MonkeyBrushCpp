@@ -33,7 +33,7 @@ namespace mb
     Transform( void )
     {
       _position = Vector3::ZERO;
-      _scale = Vector3( 1.0f );
+      _scale = Vector3::ONE;
       _isIdentity = true;
     }
     const Quaternion& getRotation( void ) const
@@ -223,10 +223,18 @@ namespace mb
       }
       else
       {
-        // TODO: Complete others variables
-        // TODO (CRISTIAN) _position = t1._position + t1._rotate * ( t1._scale * t2._position );
+        Vector3 aux = Vector3::ZERO;
+        for( unsigned int i = 0; i < 3; ++i )
+        {
+          aux[ i ] = t1._scale[ i ] * t2._position[ i ];
+        }
+
+        _position = t1._position + t1._rotate * aux;
         _rotate = t1._rotate * t2._rotate;
-        // TODO (CRISTIAN) _scale = t1._scale * t2._scale;
+        for( unsigned int i = 0; i < 3; ++i )
+        {
+          _scale[ i ] = t1._scale[ i ] * t2._scale[ i ];
+        }
         _isIdentity = false;
       }
     }

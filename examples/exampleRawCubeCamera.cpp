@@ -1,11 +1,36 @@
 #include <iostream>
 
+#include <vector>
+#include <iostream>
+
+#define GLM_FORCE_RADIANS
+
+template <class T>
+void wrapArrayInVector( T *sourceArray, size_t arraySize, std::vector<T, std::allocator<T> > &targetVector ) {
+  typename std::_Vector_base<T, std::allocator<T> >::_Vector_impl *vectorPtr =
+    (typename std::_Vector_base<T, std::allocator<T> >::_Vector_impl *)((void *) &targetVector);
+  vectorPtr->_M_start = sourceArray;
+  vectorPtr->_M_finish = vectorPtr->_M_end_of_storage = vectorPtr->_M_start + arraySize;
+}
+
+template <class T>
+void releaseVectorWrapper( std::vector<T, std::allocator<T> > &targetVector ) {
+  typename std::_Vector_base<T, std::allocator<T> >::_Vector_impl *vectorPtr =
+        (typename std::_Vector_base<T, std::allocator<T> >::_Vector_impl *)((void *) &targetVector);
+  vectorPtr->_M_start = vectorPtr->_M_finish = vectorPtr->_M_end_of_storage = NULL;
+}
+
 // GLEW
 #define GLEW_STATIC
 #include <GL/glew.h>
 
 // GLFW
 #include <GLFW/glfw3.h>
+
+// GLM Mathematics
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 
 // Function prototypes
@@ -27,8 +52,8 @@ uniform mat4 projection;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(position, 1.0f);
-    TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
+  gl_Position = projection * view * model * vec4(position, 1.0f);
+  TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
 } 
 )";
 const char* fragmentShaderSource = R"(
@@ -43,187 +68,460 @@ void main()
 })";
 #include <mb/mb.h>
 
+using namespace mb;
+
 mb::Program program;
 
-// The MAIN function, from here we start the application and run the game loop
+bool glmEnabled = false;
+
+glm::mat4 myView;
+mb::Camera* camera;
+mb::Transform cameraTransform;
+
+class CubeRotate : public mb::Component
+{
+  IMPLEMENT_COMPONENT( CubeRotate )
+public:
+  virtual void start( ) override
+  {
+    id = ID++;
+  }
+  virtual void update(const float &dt_) override
+  {
+    time += dt_;
+    float dt = time * 5.0f;
+    angle = (angle > 3.141592f * 2.0f) ? 0 : angle + 0.001f*dt;
+    if (id % 2 == 0)
+    {
+      node()->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3::ONE, angle));
+    }
+    else
+    {
+      node()->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3::ONE, -angle));
+    }
+  }
+protected:
+  float time;
+  static int ID;
+  int id;
+  float angle = 0.0f;
+};
+
+int CubeRotate::ID = 0;
+
+class GroupExplode : public mb::Component
+{
+  IMPLEMENT_COMPONENT( GroupExplode )
+public:
+  virtual void update(const float &dt_) override
+  {
+    time += dt_;
+    float dt = std::sin(time);
+    node()->local().setScale(Vector3((std::sin(dt) + 1.0f) * 0.5f));
+    //node()->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3(1.0f, 1.0f, 0.0f), angle));
+  }
+protected:
+  float time;
+};
+mb::Group* cubes;
 int main()
 {
-    // Init GLFW
-    glfwInit();
-    // Set all the required options for GLFW
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  camera = new mb::Camera();
+  glfwInit();
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  GLFWwindow* window = glfwCreateWindow(500, 500, "LearnOpenGL", nullptr, nullptr);
+  glfwMakeContextCurrent(window);
+  glfwSetKeyCallback(window, key_callback);
+  glewExperimental = GL_TRUE;
+  glewInit();
 
-    // Create a GLFWwindow object that we can use for GLFW's functions
-    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
-    glfwMakeContextCurrent(window);
+  int width, height;
+  glfwGetFramebufferSize(window, &width, &height);
+  glViewport(0, 0, width, height);
 
-    // Set the required callback functions
-    glfwSetKeyCallback(window, key_callback);
+  glEnable(GL_DEPTH_TEST);
 
-    // Set this to true so GLEW knows to use a modern approach to retrieving function pointers and extensions
-    glewExperimental = GL_TRUE;
-    // Initialize GLEW to setup the OpenGL Function pointers
-    glewInit();
+  program.loadVertexShaderFromText(vertexShaderSource);
+  program.loadFragmentShaderFromText(fragmentShaderSource);
+  program.compileAndLink();
 
-    // Define the viewport dimensions
-    int width, height;
-    glfwGetFramebufferSize(window, &width, &height);
-    glViewport(0, 0, width, height);
+  // Set up vertex data (and buffer(s)) and attribute pointers
+  float vertices[] = {
+    -1.0f, -1.0f, -1.0f,  0.0f, 0.0f,
+     1.0f, -1.0f, -1.0f,  1.0f, 0.0f,
+     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
+     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
+    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f,  0.0f, 0.0f,
 
-    glEnable(GL_DEPTH_TEST);
+    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
+     1.0f, -1.0f,  1.0f,  1.0f, 0.0f,
+     1.0f,  1.0f,  1.0f,  1.0f, 1.0f,
+     1.0f,  1.0f,  1.0f,  1.0f, 1.0f,
+    -1.0f,  1.0f,  1.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
 
-    program.loadVertexShaderFromText(vertexShaderSource);
-    program.loadFragmentShaderFromText(fragmentShaderSource);
-    program.compileAndLink();
+    -1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
+    -1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
+    -1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
 
-    // Set up vertex data (and buffer(s)) and attribute pointers
-    GLfloat vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
+     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
+     1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
+     1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
+     1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
+     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
 
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
+     1.0f, -1.0f, -1.0f,  1.0f, 1.0f,
+     1.0f, -1.0f,  1.0f,  1.0f, 0.0f,
+     1.0f, -1.0f,  1.0f,  1.0f, 0.0f,
+    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
+    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
 
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f,
+     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
+     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
+     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
+    -1.0f,  1.0f,  1.0f,  0.0f, 0.0f,
+    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f
+  };
+  GLuint VBO, VAO;
+  glGenVertexArrays(1, &VAO);
+  glGenBuffers(1, &VBO);
 
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+  glBindVertexArray(VAO);
 
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-    };
-    GLuint VBO, VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
+  // Position attribute
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+  glEnableVertexAttribArray(0);
+  // TexCoord attribute
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+  glEnableVertexAttribArray(2);
 
-    glBindVertexArray(VAO);
+  glBindVertexArray(0); // Unbind VAO
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  glm::vec3 cubePositions[] = {
+      glm::vec3( 2.0f,  5.0f, -15.0f),
+      glm::vec3( 0.0f,  0.0f,  0.0f),
+      glm::vec3(-1.5f, -2.2f, -2.5f),
+      glm::vec3(-3.8f, -2.0f, -12.3f),
+      glm::vec3( 2.4f, -0.4f, -3.5f),
+      glm::vec3(-1.7f,  3.0f, -7.5f),
+      glm::vec3( 1.3f, -2.0f, -2.5f),
+      glm::vec3( 1.5f,  2.0f, -2.5f),
+      glm::vec3( 1.5f,  0.2f, -1.5f),
+      glm::vec3(-1.3f,  1.0f, -1.5f)
+  };
 
-    // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
-    // TexCoord attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(2);
+  cameraTransform.setPosition( 0.0f, 0.0f, -6.0f );
+  //cameraTransform.lookAt( mb::Vector3::ZERO, mb::Vector3::UP );
 
-    glBindVertexArray(0); // Unbind VAO
+  camera->setView( cameraTransform.computeModel( ) );
+  camera->setProjection( mb::Matrix4::perspective( 70.0f, 1.0f, 0.01f, 1000.0f ));
 
-    mb::Camera camera;
+  std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
+  //std::cout << "PROJECTION:\n" << camera->getProjection( ) << std::endl;
 
-    mb::Transform cameraTransform;
-    cameraTransform.setPosition( 0.0f, 0.0f, 3.0f );
-    cameraTransform.lookAt( mb::Vector3::ZERO, mb::Vector3::UP );
+  auto camProj = camera->getProjection( ).values( );
 
-    camera.setView( cameraTransform.computeModel( ) );
-    camera.setProjection( mb::Matrix4::perspective( 45.0f, 800/600, 0.1f, 1000.0f ));
+  int projLoc = glGetUniformLocation(program.program( ), "projection");
+  int viewLoc = glGetUniformLocation(program.program( ), "view");
+  int modelLoc = glGetUniformLocation(program.program( ), "model");
 
-    std::cout << "VIEW:\n" << camera.getView( ) << std::endl;
-    std::cout << "PROJECTION:\n" << camera.getProjection( ) << std::endl;
+  myView = glm::mat4(1.0f);
+  myView[3].z = -6;
 
-    mb::Vector3 cubePositions[] = {
-        mb::Vector3( 0.0f,  0.0f,  0.0f),
-        mb::Vector3( 2.0f,  5.0f, -15.0f),
-        mb::Vector3(-1.5f, -2.2f, -2.5f),
-        mb::Vector3(-3.8f, -2.0f, -12.3f),
-        mb::Vector3( 2.4f, -0.4f, -3.5f),
-        mb::Vector3(-1.7f,  3.0f, -7.5f),
-        mb::Vector3( 1.3f, -2.0f, -2.5f),
-        mb::Vector3( 1.5f,  2.0f, -2.5f),
-        mb::Vector3( 1.5f,  0.2f, -1.5f),
-        mb::Vector3(-1.3f,  1.0f, -1.5f)
-    };
+  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-    // Game loop
-    while (!glfwWindowShouldClose(window))
+
+  mb::Group* scene = new mb::Group("Scene");
+  scene->addChild( camera );
+
+  cubes = new mb::Group("Cubes");
+
+  for ( unsigned int i = 0; i < 10; ++i)
+  {
+    auto group = new mb::Group(std::string("Cube") + std::to_string(i+1));
+    auto geom = new mb::Geometry(std::string("CubeGeom") + std::to_string(i + 1));
+    geom->local().setPosition(cubePositions[i].x, cubePositions[i].y, cubePositions[i].z);
+    geom->local().setScale(mb::Vector3(0.5f));
+
+    geom->addComponent(new CubeRotate( ));
+
+    group->addChild(geom);
+    cubes->addChild(group);
+  }
+
+  cubes->addComponent(new GroupExplode( ));
+
+  scene->addChild(cubes);
+
+
+  mb::Group* _scene = scene;
+
+  std::vector<Camera*> _cameras;
+
+  FetchCameras fetchCameras;
+  _scene->perform( fetchCameras );
+  fetchCameras.forEachCamera( [ &] ( Camera* c )
+  {
+    if ( Camera::mainCamera( ) == nullptr || c->isMainCamera( ) )
     {
-        // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-        glfwPollEvents();
-
-        // Render
-        // Clear the colorbuffer
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        int h, w;
-        glfwGetWindowSize(window, &w, &h);
-
-        glViewport(0, 0, w, h);
-
-        mb::Transform ttf;
-        mb::Matrix4 model;
-
-        // Draw our first triangle
-        program.use();
-        glBindVertexArray( VAO );
-
-        int projLoc = glGetUniformLocation(program.program( ), "projection");
-        int viewLoc = glGetUniformLocation(program.program( ), "view");
-        int modelLoc = glGetUniformLocation(program.program( ), "model");
-
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, camera.getProjection( ).values( ).data( ) );
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, camera.getView( ).values( ).data( ) );
-
-        for (GLuint i = 0; i < 10; i++)
-        {
-            // Calculate the model matrix for each object and pass it to shader before drawing
-            ttf.setPosition( cubePositions[ i ] );
-            model = ttf.computeModel( );
-            //GLfloat angle = 20.0f * i;
-            //model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model.values( ).data( ) );
-
-            std::cout << "MODEL(" << i << "):\n" << model << std::endl;
-
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
-        glBindVertexArray(0);
-
-        // Swap the screen buffers
-        glfwSwapBuffers(window);
+      Camera::setMainCamera( c );
     }
-    // Properly de-allocate all resources once they've outlived their purpose
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    // Terminate GLFW, clearing any resources allocated by GLFW.
-    glfwTerminate();
-    return 0;
+    _cameras.push_back( c );
+  } );
+
+  _scene->perform( StartComponents( ) );
+
+  // Deltatime
+  GLfloat dt = 0.0f;	// Time between current frame and last frame
+  GLfloat lastFrame = 0.0f;  	// Time of last frame
+
+
+  // Game loop
+  while (!glfwWindowShouldClose(window))
+  {
+    glfwPollEvents();
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    /*static float angle = 0.0f;
+    float dt = glfwGetTime() * 5.0f;
+    angle = (angle > 3.141592f * 2.0f) ? 0 : angle + 0.001f*dt;*/
+
+    program.use();
+    glBindVertexArray( VAO );
+
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, camProj.data( ) );
+
+    if (glmEnabled)
+    {
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(myView));
+    }
+    else
+    {
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, camera->getView( ).values( ).data());
+    }
+
+    // Calculate deltatime of current frame
+    GLfloat currentFrame = glfwGetTime();
+    dt = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+
+    _scene->perform(UpdateComponents( dt ));
+
+    _scene->perform( UpdateWorldState( ) );
+
+    std::vector< BatchQueuePtr > bqCollection;
+
+    for( Camera* c: _cameras)
+    {
+      if ( c != nullptr && c->isEnabled( ) )
+      {
+        BatchQueuePtr bq = std::make_shared<BatchQueue>( );
+        ComputeBatchQueue cbq( c, bq );
+        _scene->perform( cbq );
+        bqCollection.push_back( bq );
+      }
+    };
+
+    if (!bqCollection.empty())
+    {
+      BatchQueuePtr mainQueue = nullptr;
+      std::for_each( bqCollection.begin(), bqCollection.end(), [&](BatchQueuePtr bq)
+      {
+         if (bq->camera() != Camera::mainCamera())
+         {
+             std::cout << "OUTSCREEN" << std::endl;
+         }
+         else
+         {
+             mainQueue = bq;
+         }
+      });
+
+      if(mainQueue.get() != nullptr)
+      {
+        auto renderables = mainQueue->renderables( BatchQueue::RenderableType::OPAQUE );
+        if ( !renderables.empty( ) )
+        {
+          for ( Renderable*& renderable : renderables )
+          {
+            glBindVertexArray(VAO);
+            //renderable->geom->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3(1.0f, 1.0f, 0.0f), angle));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, renderable->geom->world().computeModel().values().data());
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+            glBindVertexArray(0);
+          }
+        }
+      }
+    }
+
+    /*
+    mb::Matrix4 model;
+    mb::Transform ttf;
+    for (GLuint i = 0; i < 10; ++i)
+    {
+        glm::mat4 model;
+        model = glm::translate(model, cubePositions[i]);
+        //model = glm::rotate(model, angle, glm::vec3(1.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        ttf.setPosition(cubePositions[i].x, cubePositions[i].y, cubePositions[i].z);
+        //ttf.setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3(1.0f, 1.0f, 0.0f), angle));
+        ttf.setScale(mb::Vector3(0.5f));
+
+        if (glmEnabled)
+        {
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        }
+        else
+        {
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, ttf.computeModel().values().data());
+        }
+
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+    }*/
+
+    /*cubes->forEachNode([&](mb::Node* node)
+    {
+        glBindVertexArray(VAO);
+        node->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3(1.0f, 1.0f, 0.0f), angle));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, node->local().computeModel().values().data());
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
+    });*/
+
+
+    // Swap the screen buffers
+    glfwSwapBuffers(window);
+  }
+  // Properly de-allocate all resources once they've outlived their purpose
+  glDeleteVertexArrays(1, &VAO);
+  glDeleteBuffers(1, &VBO);
+  // Terminate GLFW, clearing any resources allocated by GLFW.
+  glfwTerminate();
+  return 0;
 }
+
+float xx = 0.0f;
+float yy = 0.0f;
+float zz = -6.0f;
 
 // Is called whenever a key is pressed/released via GLFW
 void key_callback(GLFWwindow* window, int key, int, int action, int)
 {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GL_TRUE);
+  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    glfwSetWindowShouldClose(window, GL_TRUE);
+  if (action == GLFW_PRESS)
+  {
+      if ( key == GLFW_KEY_G)
+      {
+        glmEnabled = true;
+        std::cout << "GLM ON" << std::endl;
+      }
+      if ( key == GLFW_KEY_H)
+      {
+          glmEnabled = false;
+          std::cout << "GLM OFF" << std::endl;
+      }
+  }
+  if (action == GLFW_PRESS)
+  {
+      if (key == GLFW_KEY_A)
+      {
+          xx += 0.5f;
+          cubes->local().translate( 0.5f, 0.0f, 0.0f );
+      }
+      else if (key == GLFW_KEY_D)
+      {
+          xx -= 0.5f;
+          cubes->local().translate( -0.5f, 0.0f, 0.0f );
+      }
+      /*if (key == GLFW_KEY_A)
+      {
+          xx += 0.5f;
+          cameraTransform.translate( 0.5f, 0.0f, 0.0f );
+          camera->setView( cameraTransform.computeModel( ) );
+
+          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
+
+          myView[3].x = xx;
+      }
+      if (key == GLFW_KEY_D)
+      {
+          xx -= 0.5f;
+          cameraTransform.translate( -0.5f, 0.0f, 0.0f );
+          camera->setView( cameraTransform.computeModel( ) );
+
+          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
+
+          myView[3].x = xx;
+      }
+      if (key == GLFW_KEY_W)
+      {
+          yy += 0.5f;
+          cameraTransform.translate( 0.0f, 0.5f, 0.0f );
+          camera->setView( cameraTransform.computeModel( ) );
+
+          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
+
+          myView[3].y = yy;
+      }
+      if (key == GLFW_KEY_S)
+      {
+          yy -= 0.5f;
+          cameraTransform.translate( 0.0f, -0.5f, 0.0f );
+          camera->setView( cameraTransform.computeModel( ) );
+
+          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
+
+          myView[3].y = yy;
+      }
+      if (key == GLFW_KEY_E)
+      {
+          zz += 0.5f;
+          cameraTransform.translate( 0.0f, 0.0f, 0.5f );
+          camera->setView( cameraTransform.computeModel( ) );
+
+          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
+
+          myView[3].z = zz;
+      }
+      if (key == GLFW_KEY_Q)
+      {
+          zz -= 0.5f;
+          cameraTransform.translate( 0.0f, 0.0f, -0.5f );
+          camera->setView( cameraTransform.computeModel( ) );
+
+          std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
+
+          myView[3].z = zz;
+      }
+      if (key == GLFW_KEY_SPACE)
+      {
+          std::vector<float> mV, mV2;
+          wrapArrayInVector( glm::value_ptr(myView), 16, mV);
+          wrapArrayInVector( camera->getView( ).values().data(), 16, mV2);
+          bool equals = true;
+          for(int i = 0; i < 16; ++i)
+          {
+              if (mV[i] != mV2[i])
+              {
+                  equals = false;
+                  break;
+              }
+          }
+          std::cout << (equals? "OK" : "FAIL") << std::endl;
+      }*/
+  }
 }

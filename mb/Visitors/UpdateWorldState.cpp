@@ -9,13 +9,11 @@ namespace mb
   {
     if ( node->hasParent( ) )
     {
-      // Compute world model of current node from parent
-      node->world( ).computeFrom( node->parent( )->getWorld( ), node->getLocal( ) );
+      node->world( ).computeFrom( node->parent( )->getWorld( ), node->getLocal( ) ); // Compute world model of current node from parent
     }
     else
     {
-      // World model of current node as local matrix
-      node->setWorld( node->getLocal( ) );
+      node->setWorld( node->getLocal( ) ); // World model of current node as local matrix
     }
     // TODO: Compute world bound for current node to contain to himself
   }
@@ -28,7 +26,7 @@ namespace mb
     if ( group->hasNodes( ) )
     {
       bool first = true;
-      group->forEachNode( [&] ( Node */*node*/ )
+      group->forEachNode( [&] ( Node* node )
       {
         if ( first )
         {
@@ -38,6 +36,7 @@ namespace mb
         else
         {
           // TODO: Expand world bound for current group to contain current node
+          //group->worldBound()->expand( node->getWorldBound( ) );
         }
       } );
     }

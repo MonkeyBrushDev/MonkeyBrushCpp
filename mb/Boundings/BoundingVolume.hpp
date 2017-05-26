@@ -23,10 +23,12 @@ namespace mb
     void setMin( const Vector3& min ) { _min = min; }
     void setMax( const Vector3& max ) { _max = max; }
   public:
+    virtual void computeFrom( const BoundingVolume *volume ) = 0;
     virtual bool contains( const Vector3& point ) = 0;
     virtual void expand( const Vector3& point ) = 0;
     // TODO: Use Vector3* points, unsigned int size ??
     virtual void expand( const std::vector<Vector3>& points ) = 0;
+    virtual void expand( const BoundingVolume *other ) = 0;
 
     virtual int intersectPlane( const Plane& plane ) const = 0;
   private:

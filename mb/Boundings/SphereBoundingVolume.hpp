@@ -27,9 +27,13 @@ namespace mb
     MB_API
     virtual bool contains( const Vector3& point );
     MB_API
+    virtual void computeFrom( const BoundingVolume *volume ) override;
+    MB_API
     virtual void expand( const std::vector<Vector3>& points );
     MB_API
     virtual void expand( const Vector3& point );
+    MB_API
+    virtual void expand( const BoundingVolume *input );
     MB_API
     virtual int intersect( const Plane& plane ) const;
   protected:

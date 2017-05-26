@@ -28,6 +28,11 @@ namespace mb
     float radiusSqr = _sphere.getRadius( ) * _sphere.getRadius( );
     return ( centerDiffSqr < radiusSqr );
   }
+  void SphereBoundingVolume::computeFrom( const BoundingVolume* )
+  {
+    //computeFrom( volume->getCenter() + 
+    //  volume->getMin(), volume->getCenter() + volume->getMax() );
+  }
   void SphereBoundingVolume::expand( const std::vector<Vector3>& points )
   {
     if ( points.empty( ) )
@@ -52,6 +57,13 @@ namespace mb
       expand( min );
       expand( max );
     }
+  }
+  void SphereBoundingVolume::expand( const BoundingVolume *input )
+  {
+    _sphere.expand( Sphere( input->getCenter(), input->getRadius() ) );
+
+    setMin( -getRadius() * Vector3::ONE );
+    setMax(  getRadius() * Vector3::ONE );
   }
   void SphereBoundingVolume::expand( const Vector3& point )
   {

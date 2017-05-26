@@ -87,5 +87,7 @@ namespace mb
   void Camera::setView( const Matrix4& view )
   {
     _viewMatrix = view;
+    // world().fromMatrix( view.getInverse() );
+    //_viewMatrix = view.getInverse();
   }
 }
