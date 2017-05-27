@@ -2,7 +2,7 @@ source_group(\\ FILES CMakeLists.txt)
 
 set( MB_PUBLIC_HEADERS
   Boundings/BoundingVolume.hpp
-  ##Boundings/BoxBoundingVolume.hpp
+  Boundings/BoxBoundingVolume.hpp
   ##Boundings/PlaneBoundingVolume.hpp
   Boundings/SphereBoundingVolume.hpp
 
@@ -138,6 +138,7 @@ set( MB_SOURCES
   OpenGL/OpenGLRenderer.cpp
 
 
+  Boundings/BoxBoundingVolume.cpp
   Boundings/SphereBoundingVolume.cpp
 
 

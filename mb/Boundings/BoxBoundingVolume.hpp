@@ -17,3 +17,42 @@
  *
  **/
 
+#ifndef __MB_BOX_BOUNDING_VOLUME__
+#define __MB_BOX_BOUNDING_VOLUME__
+
+#include <mb/api.h>
+
+#include "../Maths/Vector3.hpp"
+#include <vector>
+
+#include "BoundingVolume.hpp"
+
+namespace mb
+{
+  class BoxBoundingVolume : public BoundingVolume
+  {
+  public:
+    MB_API
+    BoxBoundingVolume( void );
+    MB_API
+    virtual BoundingVolume* clone( void );
+    MB_API
+    virtual const Vector3& getCenter( void ) const override;
+    MB_API
+    virtual float getRadius( void ) const override;
+    MB_API
+    virtual bool contains( const Vector3& point );
+    MB_API
+    virtual void computeFrom( const BoundingVolume *volume ) override;
+    MB_API
+    virtual void expand( const std::vector<Vector3>& points );
+    MB_API
+    virtual void expand( const Vector3& point );
+    MB_API
+    virtual void expand( const BoundingVolume *input );
+    MB_API
+    virtual int intersect( const Plane& plane ) const;
+  };
+}
+
+#endif /* __MB_BOX_BOUNDING_VOLUME__ */

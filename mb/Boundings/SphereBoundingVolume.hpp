@@ -40,6 +40,8 @@ namespace mb
     MB_API
     SphereBoundingVolume( const Sphere& sphere );
     MB_API
+    virtual BoundingVolume* clone( void );
+    MB_API
     virtual const Vector3& getCenter( void ) const override;
     MB_API
     virtual float getRadius( void ) const override;

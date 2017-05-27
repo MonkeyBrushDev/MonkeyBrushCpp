@@ -72,6 +72,7 @@ using namespace mb;
 
 mb::Program program;
 
+mb::Switch* sw;
 bool glmEnabled = false;
 
 class CubeRotate : public mb::Component
@@ -119,6 +120,7 @@ public:
 protected:
   float time;
 };
+mb::Camera* camera;
 mb::Group* cubes;
 int main()
 {
@@ -217,7 +219,6 @@ int main()
       glm::vec3(-1.3f,  1.0f, -1.5f)
   };
 
-  mb::Camera* camera;
   camera = new mb::Camera();
   camera->local().translate( 0.0f, 0.0f, -6.0f);
   //mb::Transform cameraTransform;
@@ -243,18 +244,45 @@ int main()
 
   cubes = new mb::Group("Cubes");
 
-  for ( unsigned int i = 0; i < 10; ++i)
+  sw = new mb::Switch("Switch");
+
+  mb::Group* g1 = new mb::Group("MyGroup1");
+  mb::Group* g2 = new mb::Group("MyGroup2");
+
+  for ( unsigned int i = 0; i < 5; ++i)
   {
     auto group = new mb::Group(std::string("Cube") + std::to_string(i+1));
     auto geom = new mb::Geometry(std::string("CubeGeom") + std::to_string(i + 1));
     geom->local().setPosition(cubePositions[i].x, cubePositions[i].y, cubePositions[i].z);
     geom->local().setScale(mb::Vector3(0.5f));
 
+    geom->layer().set(i);
+
     geom->addComponent(new CubeRotate( ));
 
     group->addChild(geom);
-    cubes->addChild(group);
+    g1->addChild(group);
   }
+  sw->addChild(g1);
+  for ( unsigned int i = 5; i < 10; ++i)
+  {
+    auto group = new mb::Group(std::string("Cube") + std::to_string(i+1));
+    auto geom = new mb::Geometry(std::string("CubeGeom") + std::to_string(i + 1));
+    geom->local().setPosition(cubePositions[i].x, cubePositions[i].y, cubePositions[i].z);
+    geom->local().setScale(mb::Vector3(0.5f));
+
+    geom->layer().set(i);
+
+    geom->addComponent(new CubeRotate( ));
+
+    group->addChild(geom);
+    g2->addChild(group);
+  }
+  sw->addChild(g2);
+
+  sw->setCurrentNodeIndex(1);
+
+  cubes->addChild(sw);
 
   cubes->addComponent(new GroupExplode( ));
 
@@ -389,6 +417,47 @@ void key_callback(GLFWwindow* window, int key, int, int action, int)
     {
       xx -= 0.5f;
       cubes->local().translate( -0.5f, 0.0f, 0.0f );
+    }
+
+    if (key == GLFW_KEY_0)
+    {
+      camera->layer().toggle(0);
+    } else if (key == GLFW_KEY_1)
+    {
+      camera->layer().toggle(1);
+    } else if (key == GLFW_KEY_2)
+    {
+      camera->layer().toggle(2);
+    } else if (key == GLFW_KEY_3)
+    {
+      camera->layer().toggle(3);
+    } else if (key == GLFW_KEY_4)
+    {
+      camera->layer().toggle(4);
+    } else if (key == GLFW_KEY_5)
+    {
+      camera->layer().toggle(5);
+    } else if (key == GLFW_KEY_6)
+    {
+      camera->layer().toggle(6);
+    } else if (key == GLFW_KEY_7)
+    {
+      camera->layer().toggle(7);
+    } else if (key == GLFW_KEY_8)
+    {
+      camera->layer().toggle(8);
+    } else if (key == GLFW_KEY_9)
+    {
+      camera->layer().toggle(9);
+    }
+
+    if( key == GLFW_KEY_N)
+    {
+      sw->setCurrentNodeIndex(0);
+    }
+    else if( key == GLFW_KEY_M)
+    {
+      sw->setCurrentNodeIndex(1);
     }
   }
 }

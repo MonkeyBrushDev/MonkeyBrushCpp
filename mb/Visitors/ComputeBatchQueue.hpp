@@ -47,7 +47,7 @@ namespace mb
     MB_API
     virtual void visitLight( Light* l ) override;
   protected:
-    Camera* camera;
+    Camera* _camera;
     BatchQueuePtr bq;
   };
 }

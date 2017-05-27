@@ -33,6 +33,11 @@ namespace mb
     : _sphere( sphere )
   {
   }
+  BoundingVolume* SphereBoundingVolume::clone( void )
+  {
+    // TODO
+    return nullptr;
+  }
   const Vector3& SphereBoundingVolume::getCenter( void ) const
   {
     return _sphere.getCenter( );

@@ -27,7 +27,7 @@ namespace mb
 {
   ComputeBatchQueue::ComputeBatchQueue( Camera* c, BatchQueuePtr bq_ )
   : Visitor( )
-  , camera( c )
+  , _camera( c )
   , bq( bq_ )
   {
   }
@@ -47,20 +47,24 @@ namespace mb
   void ComputeBatchQueue::traverse( Node* node )
   {
     bq->reset( );
-    bq->setCamera( camera );
-    // TODO: COMPUTE CULLING
+    bq->setCamera( _camera );
+
+    /*if ( _camera != nullpr )
+    {
+      _camera->computeCullingPlanes( );
+    }*/
+    
     Visitor::traverse( node );
   }
 
   void ComputeBatchQueue::visitGeometry( Geometry *geometry )
   {
-    // TODO: Culled camera layer and frustum culling
+    // TODO: Culled _camera layer and frustum culling
 
-    if ( camera->layer( ).check( geometry->layer( ) ) )
+    if ( _camera->layer( ).check( geometry->layer( ) ) )
     {
       bq->pushGeometry( geometry );
     }
-    //bq->pushGeometry( geometry );
   }
 
   void ComputeBatchQueue::visitLight( Light *light )
