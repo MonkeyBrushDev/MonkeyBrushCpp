@@ -47,8 +47,11 @@ layout (location = 2) in vec2 texCoord;
 out vec2 TexCoord;
 
 uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
+layout (std140) uniform Matrices
+{
+  mat4 projection;
+  mat4 view;
+};
 
 void main()
 {
@@ -286,6 +289,20 @@ int main()
   GLfloat lastFrame = 0.0f;  	// Time of last frame
 
 
+
+  GLuint uniformBlockIndexRed = glGetUniformBlockIndex(program.program( ), "Matrices");
+  glUniformBlockBinding(program.program( ), uniformBlockIndexRed, 0);
+
+  GLuint uboMatrices;
+  glGenBuffers(1, &uboMatrices);
+  glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
+  glBufferData(GL_UNIFORM_BUFFER, 2 * 16 * sizeof(float), nullptr, GL_STATIC_DRAW);
+  glBindBuffer(GL_UNIFORM_BUFFER, 0);
+  // Define the range of the buffer that links to a uniform binding point
+  glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboMatrices, 0, 2 * 16 * sizeof(float) );
+
+
+
   // Game loop
   while (!glfwWindowShouldClose(window))
   {
@@ -337,10 +354,19 @@ int main()
         auto renderables = mainQueue->renderables( BatchQueue::RenderableType::OPAQUE );
         if ( !renderables.empty( ) )
         {
+
+          // Store the projection matrix (we only have to do this once) (note: we're not using zoom anymore by changing the FoV. We only create the projection matrix once now)
+          glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
+          glBufferSubData(GL_UNIFORM_BUFFER, 0, 16 * sizeof(float), mainQueue->getProjectionMatrix().values( ).data( ) );
+          glBufferSubData(GL_UNIFORM_BUFFER, 16 * sizeof(float), 16 * sizeof(float), mainQueue->getViewMatrix().values( ).data( ));
+          glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+
           for ( Renderable*& renderable : renderables )
           {
-            glUniformMatrix4fv(projLoc, 1, GL_FALSE, mainQueue->getProjectionMatrix().values( ).data( ) );
-            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, mainQueue->getViewMatrix().values( ).data( ) );
+
+            //glUniformMatrix4fv(projLoc, 1, GL_FALSE, mainQueue->getProjectionMatrix().values( ).data( ) );
+            //glUniformMatrix4fv(viewLoc, 1, GL_FALSE, mainQueue->getViewMatrix().values( ).data( ) );
 
             tex->bind( 0 );
             glUniform1i(texLoc, 0);
