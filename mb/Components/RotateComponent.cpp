@@ -17,24 +17,20 @@
  *
  **/
 
-#ifndef __MB_MESH_RENDERER__
-#define __MB_MESH_RENDERER__
-
-#include "Component.hpp"
-#include <mb/api.h>
+#include "RotateComponent.hpp"
+#include "../Scenegraph/Node.hpp"
 
 namespace mb
 {
-  class MeshRenderer :
-    public Component
+  RotateComponent::RotateComponent( const Vector3& axis, float speed )
+    : _axis( axis )
+    ,  _speed( speed )
+    , _time( 0.0f )
   {
-    IMPLEMENT_COMPONENT( MeshRenderer )
-  public:
-    MB_API
-    MeshRenderer( void );
-    MB_API
-    virtual ~MeshRenderer( void );
-  };
+  }
+  void RotateComponent::update(const float &dt)
+  {
+    node()->local().rotate().fromAxisAngle( _axis, _time * 2.0f * mb::Mathf::PI );
+    _time += _speed * dt;
+  }
 }
-
-#endif /* __MB_MESH_RENDERER__ */

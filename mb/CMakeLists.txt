@@ -14,6 +14,7 @@ set( MB_PUBLIC_HEADERS
   Components/OrbitCamera.hpp
   Components/OtherComponent.hpp
   Components/ScriptComponent.hpp
+  Components/RotateComponent.hpp
 
 
   Exceptions/Exception.hpp
@@ -150,6 +151,7 @@ set( MB_SOURCES
   Components/MeshRenderer.cpp
   Components/OtherComponent.cpp
   Components/ScriptComponent.cpp
+  Components/RotateComponent.cpp
 
 
   Io/Input.cpp

@@ -21,13 +21,12 @@
 
 namespace mb
 {
-  MeshRenderer::MeshRenderer( int v )
+  MeshRenderer::MeshRenderer( void )
   : Component( )
-  , vao( v )
   {
   }
 
-  MeshRenderer::~MeshRenderer( )
+  MeshRenderer::~MeshRenderer( void )
   {
   }
 }

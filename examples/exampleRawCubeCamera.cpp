@@ -62,9 +62,12 @@ in vec2 TexCoord;
 
 out vec4 color;
 
+uniform sampler2D myTexture;
+
 void main()
 {
   color = vec4( TexCoord, 0.0, 1.0 );
+  color = texture( myTexture, TexCoord );
 })";
 #include <mb/mb.h>
 
@@ -74,37 +77,6 @@ mb::Program program;
 
 mb::Switch* sw;
 bool glmEnabled = false;
-
-class CubeRotate : public mb::Component
-{
-  IMPLEMENT_COMPONENT( CubeRotate )
-public:
-  virtual void start( ) override
-  {
-    id = ID++;
-  }
-  virtual void update(const float &dt_) override
-  {
-    time += dt_;
-    float dt = time * 5.0f;
-    angle = (angle > 3.141592f * 2.0f) ? 0 : angle + 0.001f*dt;
-    if (id % 2 == 0)
-    {
-      node()->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3::ONE, angle));
-    }
-    else
-    {
-      node()->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3::ONE, -angle));
-    }
-  }
-protected:
-  float time;
-  static int ID;
-  int id;
-  float angle = 0.0f;
-};
-
-int CubeRotate::ID = 0;
 
 class GroupExplode : public mb::Component
 {
@@ -236,6 +208,9 @@ int main()
   int projLoc = glGetUniformLocation(program.program( ), "projection");
   int viewLoc = glGetUniformLocation(program.program( ), "view");
   int modelLoc = glGetUniformLocation(program.program( ), "model");
+  int texLoc = glGetUniformLocation(program.program( ), "myTexture");
+
+  mb::Texture* tex = new mb::Texture( "/home/maldicion069/Imágenes/unnamed (1).jpg" );
 
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
@@ -258,7 +233,7 @@ int main()
 
     geom->layer().set(i);
 
-    geom->addComponent(new CubeRotate( ));
+    geom->addComponent(new RotateComponent( mb::Vector3(1.0f, 1.0f,  0.0f), 0.1f ));
 
     group->addChild(geom);
     g1->addChild(group);
@@ -273,7 +248,7 @@ int main()
 
     geom->layer().set(i);
 
-    geom->addComponent(new CubeRotate( ));
+    geom->addComponent(new RotateComponent( mb::Vector3(-1.0f, -1.0f,  0.0f), 0.1f ));
 
     group->addChild(geom);
     g2->addChild(group);
@@ -284,7 +259,7 @@ int main()
 
   cubes->addChild(sw);
 
-  cubes->addComponent(new GroupExplode( ));
+  //cubes->addComponent(new GroupExplode( ));
 
   scene->addChild(cubes);
 
@@ -364,12 +339,15 @@ int main()
         {
           for ( Renderable*& renderable : renderables )
           {
-            glUniformMatrix4fv(projLoc, 1, GL_FALSE, mainQueue->getProjectionMatrix().values().data( ) );
-            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, mainQueue->getViewMatrix().values( ).data());
+            glUniformMatrix4fv(projLoc, 1, GL_FALSE, mainQueue->getProjectionMatrix().values( ).data( ) );
+            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, mainQueue->getViewMatrix().values( ).data( ) );
+
+            tex->bind( 0 );
+            glUniform1i(texLoc, 0);
 
             glBindVertexArray(VAO);
             //renderable->geom->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3(1.0f, 1.0f, 0.0f), angle));
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, renderable->geom->world().computeModel().values().data());
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, renderable->geom->world().computeModel().values( ).data( ) );
             glDrawArrays(GL_TRIANGLES, 0, 36);
             glBindVertexArray(0);
           }
@@ -417,6 +395,24 @@ void key_callback(GLFWwindow* window, int key, int, int action, int)
     {
       xx -= 0.5f;
       cubes->local().translate( -0.5f, 0.0f, 0.0f );
+    } else if (key == GLFW_KEY_W)
+    {
+      yy += 0.5f;
+      cubes->local().translate( 0.50, 0.5f, 0.0f );
+    }
+    else if (key == GLFW_KEY_S)
+    {
+      yy -= 0.5f;
+      cubes->local().translate( 0.5f, -0.5f, 0.0f );
+    } else if (key == GLFW_KEY_E)
+    {
+      zz += 0.5f;
+      cubes->local().translate( 0.50, 0.0f, 0.5f );
+    }
+    else if (key == GLFW_KEY_Q)
+    {
+      zz -= 0.5f;
+      cubes->local().translate( 0.5f, 0.0f, -0.5f );
     }
 
     if (key == GLFW_KEY_0)

@@ -34,7 +34,7 @@ namespace mb
   {
   public:
     MB_API
-      Geometry( const std::string& name = "Geometry" );
+    Geometry( const std::string& name = "Geometry" );
     MB_API
     virtual ~Geometry( void );
     MB_API

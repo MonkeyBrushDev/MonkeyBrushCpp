@@ -17,24 +17,29 @@
  *
  **/
 
-#ifndef __MB_MESH_RENDERER__
-#define __MB_MESH_RENDERER__
+#ifndef __MB_ROTATE_COMPONENT__
+#define __MB_ROTATE_COMPONENT__
 
 #include "Component.hpp"
 #include <mb/api.h>
 
+#include "../Maths/Vector3.hpp"
+
 namespace mb
 {
-  class MeshRenderer :
-    public Component
+  class RotateComponent : public Component
   {
-    IMPLEMENT_COMPONENT( MeshRenderer )
+    IMPLEMENT_COMPONENT( RotateComponent )
   public:
     MB_API
-    MeshRenderer( void );
+	  RotateComponent( const Vector3& axis, float speed );
     MB_API
-    virtual ~MeshRenderer( void );
+  	virtual void update(const float &dt) override;
+	protected:
+	  Vector3 _axis;
+	  float _speed;
+	  float _time;
   };
 }
 
-#endif /* __MB_MESH_RENDERER__ */
+#endif /* __MB_ROTATE_COMPONENT__ */

@@ -25,7 +25,7 @@ namespace mb
   Geometry::Geometry( const std::string& name )
     : Node( name )
   {
-    addComponent( new MeshRenderer( 1 ) );
+    addComponent( new MeshRenderer( ) );
   }
   Geometry::~Geometry( void )
   {

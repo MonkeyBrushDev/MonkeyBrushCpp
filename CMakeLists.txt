@@ -66,12 +66,13 @@ endif( )
 
 common_find_package( OpenGL REQUIRED SYSTEM )
 common_find_package( GLEW REQUIRED SYSTEM )
+common_find_package( FreeImage REQUIRED SYSTEM )
 common_find_package( GLFW3 REQUIRED SYSTEM )
 common_find_package( Boost COMPONENTS unit_test_framework )
 
-common_find_package( GLM REQUIRED SYSTEM )
+common_find_package( GLM REQUIRED SYSTEM ) # TODO: REMOVE!!
 
-list ( APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW3 GLM )
+list ( APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW3 GLM FreeImage )
 
 common_find_package_post( )
 

@@ -24,8 +24,8 @@ int main( )
   centerSwitch->addChild( secondNodeSwitch );
   centerSwitch->addChild( thirdNodeSwitch );
 
-  leftNode->addComponent( new MeshRenderer( 3 ) );
-  secondNodeSwitch->addComponent( new MeshRenderer( 12 ) );
+  leftNode->addComponent( new MeshRenderer( ) );
+  secondNodeSwitch->addComponent( new MeshRenderer( ) );
   secondNodeSwitch->addChild( new Node( "RandomNodeFromSecondSwitch" ) );
   //rightNode->addComponent( new MeshRenderer( 2 ) );
 
