@@ -91,7 +91,7 @@ namespace mb
      _deltaTime. Callbacks get executed if timeout is over
      */
     MB_API
-      Clock &operator+=( float delta );
+    Clock &operator+=( float delta );
 
     /**
      Ticks the clock by another clock's delta time
@@ -99,7 +99,7 @@ namespace mb
      _deltaTime. Callbacks get executed if timeout is over
      */
     MB_API
-      Clock &operator+=( const Clock &other );
+    Clock &operator+=( const Clock &other );
 
   private:
     void onTick( void );

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include <mb/mb.h>
 
@@ -149,6 +150,10 @@ int main( )
   camera->local( ).translate( 0.0f, 0.0f, -6.0f );
 
   camera->addComponent( new ToggleDepthTest( ) );
+
+  //std::cout << "FOV: " << camera->getFrustum().getFOV() << std::endl;
+  //std::cout << "ASPECT: " << camera->getFrustum().getAspect() << std::endl;
+  //std::cout << "LINEAR DEPTH: " << camera->getFrustum().getLinearDepth() << std::endl;
 
   scene->addChild( camera );
 

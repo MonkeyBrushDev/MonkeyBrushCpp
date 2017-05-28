@@ -37,39 +37,6 @@ namespace mb
     }
 
     MB_API
-    const static Color AQUA;
-    MB_API
-    const static Color BEIGE;
-    MB_API
-    const static Color BLACK;
-    MB_API
-    const static Color BLUE;
-    MB_API
-    const static Color BROWN;
-    MB_API
-    const static Color CYAN;
-    MB_API
-    const static Color GOLD;
-    MB_API
-    const static Color GREEN;
-    MB_API
-    const static Color INDIGO;
-    MB_API
-    const static Color LAVENDER;
-    MB_API
-    const static Color ORANGE;
-    MB_API
-    const static Color PINK;
-    MB_API
-    const static Color PURPLE;
-    MB_API
-    const static Color RED;
-    MB_API
-    const static Color YELLOW;
-    MB_API
-    const static Color WHITE;
-
-    MB_API
     Color linear( void );
     MB_API
     Color gamma( void );
@@ -179,6 +146,40 @@ namespace mb
     static Color HSVToRGB( float H, float S, float V, bool hdr );
     MB_API
     static Color createFromHex( int hex );
+
+  public:
+    MB_API
+    const static Color AQUA;
+    MB_API
+    const static Color BEIGE;
+    MB_API
+    const static Color BLACK;
+    MB_API
+    const static Color BLUE;
+    MB_API
+    const static Color BROWN;
+    MB_API
+    const static Color CYAN;
+    MB_API
+    const static Color GOLD;
+    MB_API
+    const static Color GREEN;
+    MB_API
+    const static Color INDIGO;
+    MB_API
+    const static Color LAVENDER;
+    MB_API
+    const static Color ORANGE;
+    MB_API
+    const static Color PINK;
+    MB_API
+    const static Color PURPLE;
+    MB_API
+    const static Color RED;
+    MB_API
+    const static Color YELLOW;
+    MB_API
+    const static Color WHITE;
   };
 }
 

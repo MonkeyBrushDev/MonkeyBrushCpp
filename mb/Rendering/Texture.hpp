@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -32,6 +32,10 @@
 
 namespace mb
 {
+  class Texture
+  {
+
+  };
   /*class Texture
   {
   public:
@@ -75,12 +79,12 @@ namespace mb
   class Texture2DArray: public Texture
   {
   public:
-    Texture2DArray( unsigned int width, unsigned int height, unsigned int depth, 
+    Texture2DArray( unsigned int width, unsigned int height, unsigned int depth,
       unsigned int format, bool mipmap )
     {
       Texture2DArray( width, height, depth, format, mipmap, false );
     }
-    Texture2DArray( unsigned int width, unsigned int height, unsigned int depth, 
+    Texture2DArray( unsigned int width, unsigned int height, unsigned int depth,
       unsigned int format, bool mipmap, bool linear )
       : Texture( width, height, format, mipmap, linear )
       , _depth( depth )
@@ -95,12 +99,12 @@ namespace mb
   class Texture3D: public Texture
   {
   public:
-    Texture3D( unsigned int width, unsigned int height, unsigned int depth, 
+    Texture3D( unsigned int width, unsigned int height, unsigned int depth,
       unsigned int format, bool mipmap )
     {
       Texture3D( width, height, depth, format, mipmap, false );
     }
-    Texture3D( unsigned int width, unsigned int height, unsigned int depth, 
+    Texture3D( unsigned int width, unsigned int height, unsigned int depth,
       unsigned int format, bool mipmap, bool linear )
       : Texture( width, height, format, mipmap, linear )
       , _depth( depth )

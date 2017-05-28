@@ -72,6 +72,8 @@ set( MB_PUBLIC_HEADERS
   Rendering/PipelineState.hpp
   Rendering/StandardMaterial.hpp
   Rendering/Texture.hpp
+  Rendering/FramebufferObject.hpp
+  Rendering/RenderTarget.hpp
 
 
   Scenegraph/Camera.hpp
@@ -189,6 +191,7 @@ set( MB_SOURCES
   Rendering/BatchQueue.cpp
   Rendering/Material.cpp
   Rendering/Renderer.cpp
+  Rendering/FramebufferObject.cpp
 
 
   Scenegraph/Camera.cpp

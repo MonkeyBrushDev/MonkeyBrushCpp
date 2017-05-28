@@ -173,7 +173,8 @@ namespace mb
     * Convert current color from gamma to linear range.
     */
     MB_API
-    static float gammaToLinearSpace( const float& v, const float& gammaFactor = 2.2f )
+    static float gammaToLinearSpace( const float& v, 
+      const float& gammaFactor = 2.2f )
     {
       return std::pow( v, gammaFactor );
     }
@@ -181,7 +182,8 @@ namespace mb
     * Convert current color from linear to gamma range.
     */
     MB_API
-    static float linearToGammaSpace( const float& v, const float& gammaFactor = 2.2f )
+    static float linearToGammaSpace( const float& v, 
+      const float& gammaFactor = 2.2f )
     {
       float invGamma = ( gammaFactor > 0.0f ) ? ( 1.0f / gammaFactor ) : 1.0f;
       return std::pow( v, invGamma );
@@ -190,13 +192,16 @@ namespace mb
     MB_API
     static bool approximately( float a, float b )
     {
-      /*return std::abs(b - a) < Mathf.Max(1e-06f * std::max(std::abs(a), std::abs(b)),
-        0.00001 * 8f);*/
       return std::fabs(a - b) < 0.00001f;
     }
 
+    // compute euclidian modulo of m % n
+    // https://en.wikipedia.org/wiki/Modulo_operation
     MB_API
-    static unsigned int euclideanModulo(int /*m*/, unsigned int /*n*/);
+    static unsigned int euclideanModulo( unsigned int m, unsigned int n )
+    {
+      return ( ( n % m ) + m ) % m;
+    }
     MB_API
     static const float PI_2;
     MB_API
