@@ -54,8 +54,7 @@ void main()
 {
   gl_Position = projection * view * model * vec4(position, 1.0f);
   TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
-} 
-)";
+})";
 const char* fragmentShaderSource = R"(
 #version 330 core
 in vec2 TexCoord;
@@ -75,7 +74,7 @@ using namespace mb;
 
 mb::Program program;
 
-mb::Switch* sw;
+mb::Group* sw;
 bool glmEnabled = false;
 
 class GroupExplode : public mb::Component
@@ -178,39 +177,37 @@ int main()
 
   glBindVertexArray(0); // Unbind VAO
 
-  glm::vec3 cubePositions[] = {
-      glm::vec3( 2.0f,  5.0f, -15.0f),
-      glm::vec3( 0.0f,  0.0f,  0.0f),
-      glm::vec3(-1.5f, -2.2f, -2.5f),
-      glm::vec3(-3.8f, -2.0f, -12.3f),
-      glm::vec3( 2.4f, -0.4f, -3.5f),
-      glm::vec3(-1.7f,  3.0f, -7.5f),
-      glm::vec3( 1.3f, -2.0f, -2.5f),
-      glm::vec3( 1.5f,  2.0f, -2.5f),
-      glm::vec3( 1.5f,  0.2f, -1.5f),
-      glm::vec3(-1.3f,  1.0f, -1.5f)
+  mb::Vector3 cubePositions[] = {
+    mb::Vector3( 2.0f,  5.0f, -15.0f),
+    mb::Vector3( 0.0f,  0.0f,  0.0f),
+    mb::Vector3(-1.5f, -2.2f, -2.5f),
+    mb::Vector3(-3.8f, -2.0f, -12.3f),
+    mb::Vector3( 2.4f, -0.4f, -3.5f),
+    mb::Vector3(-1.7f,  3.0f, -7.5f),
+    mb::Vector3( 1.3f, -2.0f, -2.5f),
+    mb::Vector3( 1.5f,  2.0f, -2.5f),
+    mb::Vector3( 1.5f,  0.2f, -1.5f),
+    mb::Vector3(-1.3f,  1.0f, -1.5f)
   };
 
-  camera = new mb::Camera();
+  camera = new mb::Camera( 70.0f, 1.0f, 0.01f, 1000.0f );
   camera->local().translate( 0.0f, 0.0f, -6.0f);
   //mb::Transform cameraTransform;
   //cameraTransform.setPosition( 0.0f, 0.0f, -6.0f );
   //cameraTransform.lookAt( mb::Vector3::ZERO, mb::Vector3::UP );
 
   //camera->setView( cameraTransform.computeModel( ) );
-  camera->setProjection( mb::Matrix4::perspective( 70.0f, 1.0f, 0.01f, 1000.0f ));
+  //camera->setProjection( mb::Matrix4::perspective( 70.0f, 1.0f, 0.01f, 1000.0f ));
 
-  std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
-  //std::cout << "PROJECTION:\n" << camera->getProjection( ) << std::endl;
-
-  auto camProj = camera->getProjection( ).values( );
+  // std::cout << "VIEW:\n" << camera->getView( ) << std::endl;
+  // std::cout << "PROJECTION:\n" << camera->getProjection( ) << std::endl;
 
   int projLoc = glGetUniformLocation(program.program( ), "projection");
   int viewLoc = glGetUniformLocation(program.program( ), "view");
   int modelLoc = glGetUniformLocation(program.program( ), "model");
   int texLoc = glGetUniformLocation(program.program( ), "myTexture");
 
-  mb::Texture* tex = new mb::Texture( "/home/maldicion069/Imágenes/unnamed (1).jpg" );
+  mb::Texture2D* tex = new mb::Texture2D( "/home/maldicion069/Imágenes/unnamed (1).jpg" );
 
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
@@ -228,7 +225,7 @@ int main()
   {
     auto group = new mb::Group(std::string("Cube") + std::to_string(i+1));
     auto geom = new mb::Geometry(std::string("CubeGeom") + std::to_string(i + 1));
-    geom->local().setPosition(cubePositions[i].x, cubePositions[i].y, cubePositions[i].z);
+    geom->local().setPosition( cubePositions[i] );
     geom->local().setScale(mb::Vector3(0.5f));
 
     geom->layer().set(i);
@@ -243,7 +240,7 @@ int main()
   {
     auto group = new mb::Group(std::string("Cube") + std::to_string(i+1));
     auto geom = new mb::Geometry(std::string("CubeGeom") + std::to_string(i + 1));
-    geom->local().setPosition(cubePositions[i].x, cubePositions[i].y, cubePositions[i].z);
+    geom->local().setPosition( cubePositions[i] );
     geom->local().setScale(mb::Vector3(0.5f));
 
     geom->layer().set(i);
@@ -255,7 +252,7 @@ int main()
   }
   sw->addChild(g2);
 
-  sw->setCurrentNodeIndex(1);
+  ((mb::Switch*)sw)->setCurrentNodeIndex(1);
 
   cubes->addChild(sw);
 
@@ -281,12 +278,9 @@ int main()
 
   _scene->perform( StartComponents( ) );
 
-  // Deltatime
-  GLfloat dt = 0.0f;	// Time between current frame and last frame
-  GLfloat lastFrame = 0.0f;  	// Time of last frame
+  GLfloat dt = 0.0f;
+  GLfloat lastFrame = 0.0f;
 
-
-  // Game loop
   while (!glfwWindowShouldClose(window))
   {
     glfwPollEvents();
@@ -346,7 +340,6 @@ int main()
             glUniform1i(texLoc, 0);
 
             glBindVertexArray(VAO);
-            //renderable->geom->local().setRotation(mb::Quaternion::createFromAxisAngle(mb::Vector3(1.0f, 1.0f, 0.0f), angle));
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, renderable->geom->world().computeModel().values( ).data( ) );
             glDrawArrays(GL_TRIANGLES, 0, 36);
             glBindVertexArray(0);
@@ -449,11 +442,11 @@ void key_callback(GLFWwindow* window, int key, int, int action, int)
 
     if( key == GLFW_KEY_N)
     {
-      sw->setCurrentNodeIndex(0);
+      ((mb::Switch*)sw)->setCurrentNodeIndex(0);
     }
     else if( key == GLFW_KEY_M)
     {
-      sw->setCurrentNodeIndex(1);
+      ((mb::Switch*)sw)->setCurrentNodeIndex(1);
     }
   }
 }

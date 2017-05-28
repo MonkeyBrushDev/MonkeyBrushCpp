@@ -20,21 +20,21 @@
 #ifndef __MB_SCENE__
 #define __MB_SCENE__
 
-#include "Scenegraph/Group.hpp"
-
-#include <mb/api.h>
+#include "Node.hpp"
 
 namespace mb
 {
   class Scene
-    : public Group
   {
   public:
     MB_API
-    Scene( const std::string& name )
-      : Group( name )
-    {
-    }
+    Scene( Node* root );
+    MB_API
+    Node* getRoot( void ) const;
+    MB_API
+    void setRoot( Node* root );
+  protected:
+    Node* _root;
   };
 }
 

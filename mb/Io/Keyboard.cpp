@@ -21,7 +21,7 @@
 
 namespace mb
 {
-  Keyboard::~Keyboard() { };
+  Keyboard::~Keyboard( ) { }
 
   void GLFWKeyboard::onKeyUp(int code)
   {
@@ -36,10 +36,12 @@ namespace mb
     int code = ConvertFromKey(k);
     return _isKeyPressed[code];
   }
-  bool GLFWKeyboard::keyRelease(const Key& /*k*/)
+  bool GLFWKeyboard::keyRelease(const Key& k)
   {
+    int code = ConvertFromKey( k );
+    return _isKeyPressed[code];
     //int code = ConvertFromKey(k);
-    return false; //_current[code] && _previous[code];
+    //return true; // TODO _current[code] && _previous[code];
   }
   bool GLFWKeyboard::singleKeyPress(const Key& k)
   {
@@ -50,8 +52,8 @@ namespace mb
   {
     for (unsigned i = 0; i < GLFW_KEY_LAST; ++i)
     {
-            _isKeyClicked[i] = (!_keyPreviusState[i]) && _isKeyPressed[i];
-            _keyPreviusState[i] = _isKeyPressed[i];
+      _isKeyClicked[i] = (!_keyPreviousState[i]) && _isKeyPressed[i];
+      _keyPreviousState[i] = _isKeyPressed[i];
     }
   }
   int GLFWKeyboard::ConvertFromKey(Keyboard::Key k)

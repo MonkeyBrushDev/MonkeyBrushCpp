@@ -21,14 +21,17 @@
 #include "Input.hpp"
 #include <string>
 
+#include "../Exceptions/RuntimeException.hpp"
+
 namespace mb
 {
   bool GLFWWindow2::init( )
   {
-	mb::Log::info("Initializing GLFW");
+	  mb::Log::debug("Initializing GLFW");
+
     if ( !glfwInit( ) )
     {
-      throw "Failed to initialise GLFW";
+      throw RuntimeException( "Failed to initialise GLFW" );
     }
     glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, _params.maxVersion );
     glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, _params.minVersion );
@@ -48,7 +51,7 @@ namespace mb
     if ( _handle == nullptr )
     {
       glfwTerminate( );
-      throw "Failed to create window with GLFW.";
+      throw RuntimeException( "Failed to create window with GLFW." );
     }
 
     glfwSetKeyCallback( _handle, []( GLFWwindow*, int key, int, int act, int )
@@ -87,25 +90,27 @@ namespace mb
     glfwSetInputMode( _handle, GLFW_STICKY_KEYS, GL_TRUE );
     glfwMakeContextCurrent( _handle );
 
-	mb::Log::info("GLFW initialized");
+	  mb::Log::debug("GLFW initialized");
 
-
-	mb::Log::info("Initializing GLEW");
+	  mb::Log::debug("Initializing GLEW");
     // Initialize GLEW to setup the OpenGL Function pointers
     glewExperimental = ( GLboolean ) true;
     if ( glewInit( ) != GLEW_OK )
     {
       glfwTerminate( );
-      throw "Failed to initialise GLEW";
+      throw RuntimeException( "Failed to initialise GLEW" );
     }
 
-	mb::Log::info("OpenGL functions succesfully loaded.");
-	mb::Log::info("Version - Major: ", std::to_string(_params.maxVersion),
-		" Minor: ", std::to_string( _params.minVersion ));
-	mb::Log::info("Driver: ", (char*)glGetString(GL_VENDOR),
-		" Renderer: ", (char*)glGetString(GL_RENDERER));
+  	mb::Log::debug("OpenGL functions succesfully loaded.");
+  	mb::Log::debug("Version - Major: ", std::to_string(_params.maxVersion),
+  		" Minor: ", std::to_string( _params.minVersion ));
+  	mb::Log::debug("Driver: ", (char*)glGetString(GL_VENDOR),
+  		" Renderer: ", (char*)glGetString(GL_RENDERER));
 
-	mb::Log::info("GLEW initialized");
+  	mb::Log::debug("GLEW initialized");
+
+    Input::initialize( );
+    mb::Log::debug("Input initialized");
 
     return true;
   }

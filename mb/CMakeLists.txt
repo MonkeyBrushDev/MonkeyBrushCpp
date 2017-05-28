@@ -28,7 +28,7 @@ set( MB_PUBLIC_HEADERS
   Io/Mouse.hpp
   Io/Window.hpp
   Io/os.hpp
-  #Io/GLFWWindow2.hpp
+  Io/GLFWWindow2.hpp
 
 
   Maths/Color.hpp
@@ -81,6 +81,7 @@ set( MB_PUBLIC_HEADERS
   Scenegraph/LOD.hpp
   Scenegraph/Node.hpp
   Scenegraph/Switch.hpp
+  Scenegraph/Scene.hpp
 
 
   State/StateMachine.hpp
@@ -118,9 +119,8 @@ set( MB_PUBLIC_HEADERS
   Visitors/UpdateWorldState.hpp
   Visitors/Visitor.hpp
 
-  App.hpp
+  ##App.hpp
   Layer.hpp
-  Scene.hpp
 
   Includes.hpp
 
@@ -158,7 +158,7 @@ set( MB_SOURCES
   Io/Keyboard.cpp
   Io/Mouse.cpp
   Io/Window.cpp
-  #Io/GLFWWindow2.cpp
+  Io/GLFWWindow2.cpp
 
 
   Maths/Color.cpp
@@ -198,6 +198,7 @@ set( MB_SOURCES
   Scenegraph/LOD.cpp
   Scenegraph/Node.cpp
   Scenegraph/Switch.cpp
+  Scenegraph/Scene.cpp
 
 
   State/StateMachine.cpp
@@ -227,7 +228,7 @@ set( MB_SOURCES
   Visitors/Visitor.cpp
 
 
-  App.cpp
+  ##App.cpp
   Layer.cpp
 
 

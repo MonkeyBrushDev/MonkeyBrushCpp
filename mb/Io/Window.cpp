@@ -34,5 +34,6 @@ namespace mb
     this->resizable = true;
     this->depthBufferBit = 24;
     this->multiSample = 4;
+    this->title = "Foo title";
   }
 }

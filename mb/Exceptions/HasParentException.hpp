@@ -26,19 +26,19 @@
 
 namespace mb
 {
-	class HasParentException: public Exception
-	{
-	public:
-	    MB_API
-		HasParentException( std::string childName,
-			std::string parentName, std::string targetName )
-			: Exception( "Cannot attach node (\"" + childName +
-				"\") to (\"" + targetName +
-				"\") because it already has a parent (\"" +
-				parentName + "\")" )
-		{
-		}
-	};
+  class HasParentException: public Exception
+  {
+  public:
+      MB_API
+    HasParentException( std::string childName,
+      std::string parentName, std::string targetName )
+      : Exception( "Cannot attach node (\"" + childName +
+        "\") to (\"" + targetName +
+        "\") because it already has a parent (\"" +
+        parentName + "\")" )
+    {
+    }
+  };
 }
 
 #endif /* __MB_HAS_PARENT_EXCEPTION__ */

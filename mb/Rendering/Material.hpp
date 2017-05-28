@@ -27,6 +27,8 @@
 #include "../Utils/any.hpp"
 #include "PipelineState.hpp"
 
+#include "../OpenGL/Program.hpp"
+
 namespace mb
 {
   MB_API
@@ -108,6 +110,9 @@ namespace mb
     PipelineState &state( void );
     MB_API
     void state( const PipelineState &ps );
+
+
+    mb::Program program;
   protected:
     TUniforms _uniforms;
     PipelineState _state;

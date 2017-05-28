@@ -72,41 +72,41 @@ namespace mb
       _shininess = v;
     }
     MB_API
-    Texture* getColorMap( void )
+    mb::Texture2D* getColorMap( void )
     {
       return _colorMap;
     }
     MB_API
-    void setColorMap( Texture *texture )
+    void setColorMap( mb::Texture2D *texture )
     {
       _colorMap = texture;
     }
     MB_API
-    Texture* getSpecularMap( void )
+    mb::Texture2D* getSpecularMap( void )
     {
       return _specularMap;
     }
     MB_API
-    void setSpecularMap( Texture *texture )
+    void setSpecularMap( mb::Texture2D *texture )
     {
       _specularMap = texture;
     }
     MB_API
-    Texture* getNormalMap( void )
+    mb::Texture2D* getNormalMap( void )
     {
       return _normalMap;
     }
     MB_API
-    void setNormalMap( Texture *texture )
+    void setNormalMap( mb::Texture2D *texture )
     {
       _normalMap = texture;
     }
   protected:
     Color4 _diffuse;
     float _shininess;
-    Texture* _colorMap;
-    Texture* _specularMap;
-    Texture* _normalMap;
+    mb::Texture2D* _colorMap;
+    mb::Texture2D* _specularMap;
+    mb::Texture2D* _normalMap;
   };
 }
 

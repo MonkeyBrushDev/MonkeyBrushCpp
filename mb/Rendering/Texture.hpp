@@ -28,12 +28,94 @@
 #include <iostream>
 #include <fstream>
 
+#include "../Maths/Color.hpp"
+
 namespace mb
 {
-  class Texture
+  /*class Texture
   {
   public:
-    Texture( const std::string fileName )
+    bool _anisotropicFiltering;
+    unsigned int _width; // ONLY GET
+    unsigned int _height; // ONLY GET
+    unsigned int _filterMode;
+    unsigned int _anisoLevel;
+    unsigned int _wrapMode;
+    unsigned int _filter;
+  protected:
+    Texture( unsigned int width, unsigned int height, unsigned int format, bool mipmap, bool linear )
+      : _width( width )
+      , _height( height )
+      , _filter
+    {
+      _filter = linear ? GL_LINEAR : GL_NEAREST;
+    }
+  };
+  class Texture2D: public Texture
+  {
+  public:
+    Texture2D( unsigned int width, unsigned int height )
+    {
+      Texture2D( width, height, GL_RGBA32F, true, false );
+    }
+    Texture2D( unsigned int width, unsigned int height, unsigned int format, bool mipmap )
+    {
+      Texture2D( width, height, format, mipmap, false );
+    }
+    Texture2D( unsigned int width, unsigned int height, unsigned int format, bool mipmap, bool linear )
+      : Texture( width, height, format, mipmap, linear )
+    {
+      _filter = linear ? GL_LINEAR : GL_NEAREST;
+    }
+    // void setPixel( unsigned int x, unsigned int y, const mb::Color& color )
+    // mb::Color getPixel( unsigned int x, unsigned int y )
+    // void loadRawTexture( unsigned char * data )
+    // void loadRawTexture( unsigned char * data, unsigned int size )}
+  };
+  class Texture2DArray: public Texture
+  {
+  public:
+    Texture2DArray( unsigned int width, unsigned int height, unsigned int depth, 
+      unsigned int format, bool mipmap )
+    {
+      Texture2DArray( width, height, depth, format, mipmap, false );
+    }
+    Texture2DArray( unsigned int width, unsigned int height, unsigned int depth, 
+      unsigned int format, bool mipmap, bool linear )
+      : Texture( width, height, format, mipmap, linear )
+      , _depth( depth )
+    {
+    }
+    void apply( bool updateMipmaps = true )
+    {
+
+    }
+    unsigned int _depth;
+  };
+  class Texture3D: public Texture
+  {
+  public:
+    Texture3D( unsigned int width, unsigned int height, unsigned int depth, 
+      unsigned int format, bool mipmap )
+    {
+      Texture3D( width, height, depth, format, mipmap, false );
+    }
+    Texture3D( unsigned int width, unsigned int height, unsigned int depth, 
+      unsigned int format, bool mipmap, bool linear )
+      : Texture( width, height, format, mipmap, linear )
+      , _depth( depth )
+    {
+    }
+    void apply( bool updateMipmaps = true )
+    {
+
+    }
+    unsigned int _depth;
+  };*/
+  class Texture2D
+  {
+  public:
+    Texture2D( const std::string fileName )
     {
       const char* fileName_ = fileName.c_str();
       FreeImage_Initialise( TRUE );

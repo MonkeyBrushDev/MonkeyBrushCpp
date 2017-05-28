@@ -17,24 +17,20 @@
  *
  **/
 
-#ifndef __MB_FILE_NOT_FOUND_EXCEPTION__
-#define __MB_FILE_NOT_FOUND_EXCEPTION__
-
-#include <mb/api.h>
-
-#include "Exception.hpp"
+#include "Scene.hpp"
 
 namespace mb
 {
-  class FileNotFoundException: public Exception
+  Scene::Scene( Node* root = nullptr )
+    : _root ( root )
   {
-  public:
-    MB_API
-    FileNotFoundException( std::string filePath )
-    : Exception( "Cannot find file " + filePath )
-    {
-    }
-  };
+  }
+  Node* Scene::getRoot( void ) const
+  {
+    return _root;
+  }
+  void Scene::setRoot( Node* root )
+  {
+    this->_root = root;
+  }
 }
-
-#endif /* __MB_FILE_NOT_FOUND_EXCEPTION__ */

@@ -21,6 +21,7 @@
 #define __MB_GLFWWINDOW2__
 
 #include <mb/api.h>
+#include "../Includes.hpp"
 
 #include "Window.hpp"
 

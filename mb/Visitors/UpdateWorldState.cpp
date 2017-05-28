@@ -45,7 +45,7 @@ namespace mb
     if ( group->hasNodes( ) )
     {
       bool first = true;
-      group->forEachNode( [&] ( Node* node )
+      group->forEachNode( [&] ( Node* )
       {
         if ( first )
         {

@@ -41,7 +41,7 @@ namespace mb
     // TODO
     return 0.0f;
   }
-  bool BoxBoundingVolume::contains( const Vector3& point )
+  bool BoxBoundingVolume::contains( const Vector3& )
   {
     // TODO
     return false;

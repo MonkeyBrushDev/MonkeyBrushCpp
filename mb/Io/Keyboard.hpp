@@ -119,7 +119,7 @@ namespace mb
     MB_API
     virtual void update( );
   private:
-    std::bitset<GLFW_KEY_LAST> _keyPreviusState;
+    std::bitset<GLFW_KEY_LAST> _keyPreviousState;
     std::bitset<GLFW_KEY_LAST> _isKeyPressed;
     std::bitset<GLFW_KEY_LAST> _isKeyClicked;
 

@@ -18,6 +18,7 @@
  **/
 
 #include "Material.hpp"
+#include "../Maths/Matrix4.hpp"
 
 namespace mb
 {
@@ -46,25 +47,36 @@ namespace mb
   }
   void Material::use( void )
   {
+    program.use( );
     for ( const auto& uniform: _uniforms )
     {
       auto type = uniform.second->type( );
       if ( type == UniformType::Float )
       {
-
+        program.sendUniformf(
+          uniform.first, 
+          uniform.second->value( ).cast< float >( )
+        );
       }
       else if ( type == UniformType::Integer )
       {
-
+        program.sendUniformi(
+          uniform.first, 
+          uniform.second->value( ).cast< int >( )
+        );
       }
       else if ( type == UniformType::Matrix4 )
       {
-
+        program.sendUniform4m(
+          uniform.first, 
+          uniform.second->value( ).cast<Matrix4>( ).values( ).data( )
+        );
       }
     }
   }
   void Material::unuse( void )
   {
+    program.unuse( );
   }
   PipelineState& Material::state( void )
   {

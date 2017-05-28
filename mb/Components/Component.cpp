@@ -21,6 +21,8 @@
 #include "../Scenegraph/Node.hpp"
 #include <string>
 
+#include "../Utils/Log.hpp"
+
 namespace mb
 {
   Component::Component( )
@@ -31,7 +33,7 @@ namespace mb
 
   Component::~Component( )
   {
-    std::cout << "[D] Component" << std::endl;
+    mb::Log::info("[D] Component");
   }
 
   Node* Component::node( )
@@ -50,12 +52,13 @@ namespace mb
 
   void Component::start( void )
   {
-    std::cout << "Init " << GetUID( ) << " component" << std::endl;
+    mb::Log::info("Init ", GetUID( ), " component");
   }
 
   void Component::onAttach( void )
   {
-    std::cout << "Attached " << this->GetUID( ) << " to node '" << this->node( )->name( ) << "'" << std::endl;
+    mb::Log::info("Attached ", this->GetUID( ), " to node '", 
+      this->node( )->name( ), "'");
   }
 
   void Component::onDetach( void )
@@ -79,7 +82,8 @@ namespace mb
     if ( _enabled == true )
     {
       onEnable( );
-    } else if ( _enabled == false )
+    }
+    else if ( _enabled == false )
     {
       onDisable( );
     }

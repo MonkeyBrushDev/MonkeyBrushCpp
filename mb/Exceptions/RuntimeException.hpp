@@ -26,15 +26,15 @@
 
 namespace mb
 {
-	class RuntimeException: public Exception
-	{
-	public:
-	    MB_API
-		RuntimeException( std::string message )
-		: Exception( "PROGRAM TERMINATED BECAUSE OF AN ERROR: " + message )
-		{
-		}
-	};
+  class RuntimeException: public Exception
+  {
+  public:
+      MB_API
+    RuntimeException( std::string message )
+    : Exception( "PROGRAM TERMINATED BECAUSE OF AN ERROR: " + message )
+    {
+    }
+  };
 }
 
 #endif /* __MB_RUNTIME_EXCEPTION__ */
