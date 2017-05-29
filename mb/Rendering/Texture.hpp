@@ -123,7 +123,7 @@ namespace mb
   public:
     Texture2D( const std::string& fileName )
     {
-      std::string auxName = mb::FileSystem::getPathForResource( fileName );
+      std::string auxName = mb::FileSystem::getInstance()->getPathForResource( fileName );
       const char* fileName_ = auxName.c_str( );
 
       FreeImage_Initialise( TRUE );

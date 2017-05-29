@@ -1,0 +1,10 @@
+#ifndef __MB_EXAMPLES_ROUTES__
+#define __MB_EXAMPLES_ROUTES__
+
+#define MB_EXAMPLES_RESOURCES_ROUTE\
+  "@PROJECT_SOURCE_DIR@/resources"
+
+#define MB_EXAMPLES_SHADERS_ROUTE\
+  "@PROJECT_SOURCE_DIR@/resources/shaders"
+
+#endif /* __MB_EXAMPLES_ROUTES__ */

@@ -4,6 +4,10 @@ include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
 )
 
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/routes.h.in
+  ${CMAKE_CURRENT_BINARY_DIR}/routes.h)
+
 ## set( MBEXAMPLE01_HEADERS )
 ## set( MBEXAMPLE01_SOURCES example01.cpp )
 ## set( MBEXAMPLE01_LINK_LIBRARIES

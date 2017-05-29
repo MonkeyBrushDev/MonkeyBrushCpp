@@ -127,8 +127,12 @@ public:
   }
 };
 
+#include <routes.h>
+
 int main( )
 {
+  mb::FileSystem::getInstance()->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
+
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
 
@@ -198,8 +202,6 @@ int main( )
   cubes->addChild( g2 );
 
   scene->addChild( cubes );
-
-  mb::FileSystem::setBaseDirectory( "../../resources" );
 
   mb::Texture2D* tex = new mb::Texture2D( "texture.jpg" );
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
