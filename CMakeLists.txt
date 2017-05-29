@@ -74,6 +74,13 @@ common_find_package( GLM REQUIRED SYSTEM ) # TODO: REMOVE!!
 
 list ( APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW3 GLM FreeImage )
 
+
+# TODO( FIXED GLFW LINUX )
+IF (NOT WIN32)
+  link_libraries( -lX11 -lXi -lXrandr -lXxf86vm -lXinerama -lXcursor -lrt -lm -pthread )
+endif()
+
+
 common_find_package_post( )
 
 add_subdirectory( mb )
