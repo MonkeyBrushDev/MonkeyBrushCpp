@@ -267,7 +267,7 @@ int main()
 
   FetchCameras fetchCameras;
   _scene->perform( fetchCameras );
-  fetchCameras.forEachCamera( [ &] ( Camera* c )
+  fetchCameras.forEachCameras( [ &] ( Camera* c )
   {
     if ( Camera::getMainCamera( ) == nullptr || c->isMainCamera( ) )
     {

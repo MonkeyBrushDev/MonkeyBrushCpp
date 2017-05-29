@@ -30,6 +30,8 @@
 
 #include "../Maths/Color.hpp"
 
+#include "../Utils/FileSystem.hpp"
+
 namespace mb
 {
   class Texture
@@ -119,9 +121,11 @@ namespace mb
   class Texture2D
   {
   public:
-    Texture2D( const std::string fileName )
+    Texture2D( const std::string& fileName )
     {
-      const char* fileName_ = fileName.c_str();
+      std::string auxName = mb::FileSystem::getPathForResource( fileName );
+      const char* fileName_ = auxName.c_str( );
+
       FreeImage_Initialise( TRUE );
       FREE_IMAGE_FORMAT format = FreeImage_GetFileType( fileName_, 0 );
       if ( format == FIF_UNKNOWN )
@@ -130,7 +134,7 @@ namespace mb
         throw;
       FIBITMAP* img = FreeImage_Load( format, fileName_ );
       if ( img == nullptr )
-        throw;
+        throw "IMG UNDEFINED";
       FIBITMAP* tempImg = img;
       img = FreeImage_ConvertTo32Bits( img );
       FreeImage_Unload( tempImg );

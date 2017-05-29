@@ -51,6 +51,15 @@ namespace mb
     MB_API
     virtual ~StandardFramebuffer( void );
   };
+
+  class GBuffer: public FramebufferObject
+  {
+  public:
+    MB_API
+    GBuffer( unsigned int w, unsigned int h );
+    MB_API
+    virtual ~GBuffer( void );
+  };
 }
 
 #endif /* __MB_FRAMEBUFFER_OBJECT__ */

@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -78,7 +78,7 @@ namespace mb
         this->_data[ 1 ] * this->_data[ 1 ] +
         this->_data[ 2 ] * this->_data[ 2 ];
     }
-    double getMagnitude( void ) const
+    float getMagnitude( void ) const
     {
       return std::sqrt( getSquaredMagnitude( ) );
     }
@@ -96,7 +96,7 @@ namespace mb
       std::copy( std::begin( u._data ), std::end( u._data ), std::begin( _data ) );
       return *this;
     }
-    friend Vector3 operator-( const Vector3& u ) 
+    friend Vector3 operator-( const Vector3& u )
     {
       Vector3 result;
       result._data[ 0 ] = -u._data[ 0 ];
@@ -211,6 +211,10 @@ namespace mb
 
       return ( x * x + y * y + z * z );
     }
+    void times( float v )
+    {
+      *this = *this * v;
+    }
     Vector3 getNormalized( void ) const
     {
       float l = length( );
@@ -244,7 +248,7 @@ namespace mb
     static float angle( const Vector3& from, const Vector3& to )
     {
       return std::acos(Mathf::clamp(Vector3::dot(
-          from.getNormalized( ), to.getNormalized( ) ), 
+          from.getNormalized( ), to.getNormalized( ) ),
           -1.0f, 1.0f)) * 57.29578f;
     }
 

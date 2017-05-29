@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -49,6 +49,14 @@ namespace mb
     Vector3 _scale;
     Quaternion _rotate;
   public:
+    /*Transform& fromMatrix( const mb:Matrix4& m )
+    {
+      Matrox4f
+    }
+    Transform( const mb::Matrix4& m )
+    {
+      *this = fromMatrix( m );
+    }*/
     Transform( void )
     {
       _position = Vector3::ZERO;
@@ -78,8 +86,8 @@ namespace mb
     Matrix4 computeModel( void ) const
     {
       Matrix4 result;
-      result.compose( 
-        this->getPosition( ), 
+      result.compose(
+        this->getPosition( ),
         this->getRotation( ),
         this->getScale( )
       );
@@ -173,7 +181,7 @@ namespace mb
     }
     void rotate( const Vector3& eulerAngles, Space relativeTo = Space::Self )
     {
-      Quaternion rhs = Quaternion::fromEuler( 
+      Quaternion rhs = Quaternion::fromEuler(
         eulerAngles.x( ), eulerAngles.y( ), eulerAngles.z( ) );
       if ( relativeTo == Space::Self )
       {

@@ -146,14 +146,10 @@ int main( )
         std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );*/
 
   auto scene = new mb::Group( "scene" );
-  auto camera = new mb::Camera( 70.0f, 500/500, 0.01f, 1000.0f );
-  camera->local( ).translate( 0.0f, 0.0f, -6.0f );
+  auto camera = new mb::Camera( 45.0f, 500/500, 0.01f, 1000.0f );
+  camera->local( ).translate( 0.0f, 0.0f, -8.0f );
 
   camera->addComponent( new ToggleDepthTest( ) );
-
-  //std::cout << "FOV: " << camera->getFrustum().getFOV() << std::endl;
-  //std::cout << "ASPECT: " << camera->getFrustum().getAspect() << std::endl;
-  //std::cout << "LINEAR DEPTH: " << camera->getFrustum().getLinearDepth() << std::endl;
 
   scene->addChild( camera );
 
@@ -193,7 +189,7 @@ int main( )
     geom->local( ).setPosition( cubePositions[ i ] );
     geom->local( ).setScale( mb::Vector3( 0.5f ) );
 
-    geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ), 0.1f ) );
+    //geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ), 0.1f ) );
 
     geom->layer( ).set( i );
 
@@ -203,7 +199,9 @@ int main( )
 
   scene->addChild( cubes );
 
-  mb::Texture2D* tex = new mb::Texture2D( "/home/maldicion069/Imágenes/unnamed (1).jpg" );
+  mb::FileSystem::setBaseDirectory( "../../resources" );
+
+  mb::Texture2D* tex = new mb::Texture2D( "texture.jpg" );
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
   mb::Group* _scene = scene;
@@ -212,7 +210,7 @@ int main( )
 
   mb::FetchCameras fetchCameras;
   _scene->perform( fetchCameras );
-  fetchCameras.forEachCamera( [ &] ( mb::Camera* c )
+  fetchCameras.forEachCameras( [ &] ( mb::Camera* c )
   {
     if ( mb::Camera::getMainCamera( ) == nullptr || c->isMainCamera( ) )
     {
@@ -229,12 +227,13 @@ int main( )
 
   //int projLoc = glGetUniformLocation(program.program( ), "projection");
   //int viewLoc = glGetUniformLocation(program.program( ), "view");
-  int modelLoc = glGetUniformLocation(program.program( ), "model");
   int texLoc = glGetUniformLocation(program.program( ), "myTexture");
 
 
   glEnable( GL_DEPTH_TEST );
 
+  mb::Clock clockTime;
+  clockTime.reset( );
 
   while( window->isRunning( ) )
   {
@@ -251,6 +250,11 @@ int main( )
     float currentFrame = glfwGetTime();
     dt = currentFrame - lastFrame;
     lastFrame = currentFrame;
+
+    // TODO: float dt2 = clockTime.deltaTime( );
+    // TODO: clockTime.tick( );
+
+    // TODO: std::cout << "DT1: " << dt << " - DT2: " << dt2 << std::endl;
 
     _scene->perform( mb::UpdateComponents( dt ) );
 
@@ -305,7 +309,7 @@ int main( )
             glUniform1i(texLoc, 0);
 
             glBindVertexArray(vao);
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, renderable->geom->world().computeModel().values( ).data( ) );
+            customMaterial.program.sendUniform4m( "model", renderable->geom->world().computeModel().values( ).data( ));
             glDrawArrays(GL_TRIANGLES, 0, 36);
             glBindVertexArray(0);
             //program.unuse();

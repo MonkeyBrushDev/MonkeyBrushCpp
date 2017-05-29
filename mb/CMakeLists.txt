@@ -15,6 +15,7 @@ set( MB_PUBLIC_HEADERS
   Components/OtherComponent.hpp
   Components/ScriptComponent.hpp
   Components/RotateComponent.hpp
+  Components/OrbitComponent.hpp
 
 
   Exceptions/Exception.hpp
@@ -43,6 +44,8 @@ set( MB_PUBLIC_HEADERS
   Maths/Vector3.hpp
   Maths/Vector4.hpp
   Maths/Transform.hpp
+  Maths/Spherical.hpp
+  Maths/Random.hpp
 
 
   Maths/Plane.hpp
@@ -127,6 +130,7 @@ set( MB_PUBLIC_HEADERS
   Includes.hpp
 
 
+  Utils/FileSystem.hpp
 
 
   OpenGL/Program.hpp
@@ -171,6 +175,8 @@ set( MB_SOURCES
   Maths/Ray.cpp
   Maths/Quaternion.cpp
   Maths/Vector3.cpp
+  Maths/Spherical.cpp
+  Maths/Random.cpp
 
   Primitives/Primitive.cpp
   Primitives/CapsulePrimitive.cpp
