@@ -82,12 +82,12 @@ configure_file(
 
 
 
-set( MBEXAMPLERAWCUBECAMERA_HEADERS )
-set( MBEXAMPLERAWCUBECAMERA_SOURCES exampleRawCubeCamera.cpp )
-set( MBEXAMPLERAWCUBECAMERA_LINK_LIBRARIES
-  mb
-)
-common_application( mbExampleRawCubeCamera )
+## set( MBEXAMPLERAWCUBECAMERA_HEADERS )
+## set( MBEXAMPLERAWCUBECAMERA_SOURCES exampleRawCubeCamera.cpp )
+## set( MBEXAMPLERAWCUBECAMERA_LINK_LIBRARIES
+##   mb
+## )
+## common_application( mbExampleRawCubeCamera )
 
 
 
