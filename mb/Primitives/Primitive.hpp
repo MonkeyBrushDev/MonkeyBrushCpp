@@ -24,6 +24,9 @@
 #include <iostream>
 #include <mb/api.h>
 
+#include "../Maths/Vector2.hpp"
+#include "../Maths/Vector3.hpp"
+
 namespace mb
 {
   class Primitive
@@ -37,16 +40,28 @@ namespace mb
       LINE_STRIP,
       TRIANGLES,
       TRIANGLE_FAN,
-      TRIANGLE_STRIP
+      TRIANGLE_STRIP, 
+      QUADS,
+      QUAD_STRIP
     };
+
     MB_API
     Primitive( Primitive::Type type = Primitive::Type::TRIANGLES );
     MB_API
     Primitive::Type getType( void ) const;
     MB_API
+    void setupRender( void );
+    MB_API
     void render( void );
+
   protected:
     Primitive::Type _type;
+
+    std::vector<Vector3> vertices;
+    std::vector<unsigned int> indices;
+    std::vector<Vector3> normals;
+    std::vector<Vector2> texCoords;
+    std::vector<Vector3> color;
   };
 }
 

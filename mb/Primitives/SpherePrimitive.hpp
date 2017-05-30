@@ -27,7 +27,23 @@ namespace mb
   class SpherePrimitive: public Primitive
   {
 
+  	MB_API
+  	SpherePrimitive( float radius = 1.0f,
+			               unsigned int width = 1, 
+			               unsigned int height = 1 );
+
+  	MB_API
+  	virtual ~SpherePrimitive(){}
+
+
+protected:
+
+	float _radius;
+    unsigned int _width;
+    unsigned int _height;
+
   };
-}
+
+}//NS
 
 #endif /* __MB_SPHERE_PRIMITIVE__ */

@@ -29,6 +29,10 @@ namespace mb
   {
     return _type;
   }
+  void Primitive::setupRender( void )
+  {
+    //TODO: binds buffers
+  }
   void Primitive::render( void )
   {
     //std::cout << "\t-Primitive '" << name << "'" << std::endl;

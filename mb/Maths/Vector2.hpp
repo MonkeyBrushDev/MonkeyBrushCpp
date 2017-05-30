@@ -21,6 +21,7 @@
 #define __MB_VECTOR2__
 
 #include <array>
+#include <cmath>
 
 namespace mb
 {
