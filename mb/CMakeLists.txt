@@ -16,6 +16,7 @@ set( MB_PUBLIC_HEADERS
   Components/ScriptComponent.hpp
   Components/RotateComponent.hpp
   Components/OrbitComponent.hpp
+  Components/FreeCameraComponent.hpp
 
 
   Exceptions/Exception.hpp
@@ -158,6 +159,7 @@ set( MB_SOURCES
   Components/OtherComponent.cpp
   Components/ScriptComponent.cpp
   Components/RotateComponent.cpp
+  Components/FreeCameraComponent.cpp
 
 
   Io/Input.cpp

@@ -153,6 +153,7 @@ int main( )
   auto camera = new mb::Camera( 45.0f, 500/500, 0.01f, 1000.0f );
   camera->local( ).translate( 0.0f, 0.0f, -8.0f );
 
+  camera->addComponent( new mb::FreeCameraComponent( ) );
   camera->addComponent( new ToggleDepthTest( ) );
 
   scene->addChild( camera );
@@ -207,6 +208,8 @@ int main( )
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
   mb::Group* _scene = scene;
+
+  _scene->perform( mb::UpdateWorldState( ) );
 
   std::vector< mb::Camera* > _cameras;
 
@@ -280,7 +283,7 @@ int main( )
       mb::BatchQueuePtr mainQueue = nullptr;
       std::for_each( bqCollection.begin(), bqCollection.end(), [&](mb::BatchQueuePtr bq)
       {
-        if (bq->camera() != mb::Camera::getMainCamera())
+        if (bq->getCamera( ) != mb::Camera::getMainCamera( ))
         {
           std::cout << "OUTSCREEN" << std::endl;
         }
@@ -295,12 +298,13 @@ int main( )
         auto renderables = mainQueue->renderables( mb::BatchQueue::RenderableType::OPAQUE );
         if ( !renderables.empty( ) )
         {
-          for ( mb::Renderable*& renderable : renderables )
+          for ( mb::Renderable& renderable : renderables )
           {
             //program.use();
             //glUniformMatrix4fv(projLoc, 1, GL_FALSE, mainQueue->getProjectionMatrix().values( ).data( ) );
             //glUniformMatrix4fv(viewLoc, 1, GL_FALSE, mainQueue->getViewMatrix().values( ).data( ) );
 
+            //std::cout << "ZDIST: " << renderable->zDistance << std::endl;
 
             customMaterial.uniform("projection")->value(mainQueue->getProjectionMatrix());
             customMaterial.uniform("view")->value(mainQueue->getViewMatrix());
@@ -311,13 +315,17 @@ int main( )
             glUniform1i(texLoc, 0);
 
             glBindVertexArray(vao);
-            customMaterial.program.sendUniform4m( "model", renderable->geom->world().computeModel().values( ).data( ));
+            customMaterial.program.sendUniform4m( "model", renderable.modelTransform.values( ).data( ));
             glDrawArrays(GL_TRIANGLES, 0, 36);
             glBindVertexArray(0);
             //program.unuse();
 
             customMaterial.unuse( );
           }
+
+          /*std::cout << " ---------------- " << std::endl;
+          std::cout << " ---------------- " << std::endl;
+          std::cout << " ---------------- " << std::endl;*/
         }
       }
     }
