@@ -26,7 +26,8 @@ namespace mb
     , _type( t )
     , _diffuseColor( mb::Color::WHITE )
     , _ambientColor( mb::Color::BLACK )
-    , shadowType( ShadowType::NO_SHADOW )
+    , _groundColor( mb::Color::BLACK )
+    , _shadowType( ShadowType::NONE )
   {
   }
 

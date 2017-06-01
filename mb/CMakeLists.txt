@@ -76,6 +76,7 @@ set( MB_PUBLIC_HEADERS
   Rendering/Texture.hpp
   Rendering/FramebufferObject.hpp
   Rendering/RenderTarget.hpp
+  Rendering/RenderBuffer.hpp
 
 
   Scenegraph/Camera.hpp
@@ -197,6 +198,7 @@ set( MB_SOURCES
   Rendering/Renderer.cpp
   Rendering/FramebufferObject.cpp
   Rendering/Texture.cpp
+  Rendering/RenderBuffer.cpp
 
 
   Scenegraph/Camera.cpp

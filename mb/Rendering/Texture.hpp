@@ -65,18 +65,26 @@ namespace mb
     void bind( int slot = -1 );
     MB_API
     void unbind( void );
+    MB_API
+    virtual void loadRawTexture( unsigned char* data )
+    {
+      _data = data;
+    }
+    MB_API
+    virtual void apply( void ) = 0;
   protected:
     Texture(unsigned int w, unsigned int h, FormatTexture format,
-      bool linear, unsigned int target );
+      bool linear, unsigned int target ); // TODO: bool mipmap
   protected:
     WrapMode _wrapMode;
-    FilterMode _minFilter; // = FilterMode::LINEAR;
-    FilterMode _magFilter; // = FilterMode::LINEAR;
+    FilterMode _minFilter;
+    FilterMode _magFilter;
     unsigned int _width;
     unsigned int _height;
-    unsigned int _anisoLevel;
+    unsigned int _anisoLevel; // TODO: unused
     unsigned int _target;
     unsigned int _handler;
+    unsigned char* _data;
   };
   class Texture1D: public Texture
   {
@@ -87,8 +95,28 @@ namespace mb
     Texture1D( unsigned int w, Texture::FormatTexture format );
     MB_API
     Texture1D( unsigned int w, FormatTexture format, bool linear );
+    MB_API
+    virtual void apply( void ); // bool updateMipMaps = true
   };
-
+  class Texture2D: public Texture
+  {
+  public:
+    MB_API
+    Texture2D( unsigned int w, unsigned int h );
+    MB_API
+    Texture2D( unsigned int w, unsigned int h, FormatTexture format );
+    MB_API
+    Texture2D( unsigned int w, unsigned int h, FormatTexture format,
+      bool linear );
+    MB_API
+    void loadImageTexture( const std::string& fileName );
+    MB_API
+    virtual void apply( void ); // bool updateMipMaps = true
+    MB_API
+    static mb::Texture2D* loadFromImage( const std::string& fileName );
+  protected:
+    Texture2D( void ) : Texture2D( 0, 0 ) { }
+  };
   class Texture2DArray: public Texture
   {
   public:
@@ -125,51 +153,6 @@ namespace mb
   protected:
     unsigned int _depth;
   };
-  class Texture2D: public Texture
-  {
-  public:
-    MB_API
-    Texture2D( unsigned int w, unsigned int h );
-    MB_API
-    Texture2D( unsigned int w, unsigned int h, FormatTexture format );
-    MB_API
-    Texture2D( unsigned int w, unsigned int h, FormatTexture format,
-      bool linear );
-    MB_API
-    void loadRawTexture( unsigned char* data );
-    MB_API
-    void loadImageTexture( const std::string& fileName );
-    MB_API
-    void apply( void ); // bool updateMipMaps = true
-    MB_API
-    static mb::Texture2D* loadFromImage( const std::string& fileName );
-  protected:
-    Texture2D( void ) : Texture2D( 0, 0 ) { }
-    unsigned char* _data;
-  };
-
-  /*
-  class Texture2D: public Texture
-  {
-  public:
-    Texture2D( unsigned int width, unsigned int height )
-    {
-      Texture2D( width, height, GL_RGBA32F, true, false );
-    }
-    Texture2D( unsigned int width, unsigned int height, unsigned int format, bool mipmap )
-    {
-      Texture2D( width, height, format, mipmap, false );
-    }
-    Texture2D( unsigned int width, unsigned int height, unsigned int format, bool mipmap, bool linear )
-      : Texture( width, height, format, mipmap, linear )
-    {
-      _filter = linear ? GL_LINEAR : GL_NEAREST;
-    }
-    // void setPixel( unsigned int x, unsigned int y, const mb::Color& color )
-    // mb::Color getPixel( unsigned int x, unsigned int y )
-    // void loadRawTexture( unsigned char * data )
-    // void loadRawTexture( unsigned char * data, unsigned int size )}
-  };*/
 }
 
 #endif /* __MB_TEXTURE__ */

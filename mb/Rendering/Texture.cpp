@@ -51,44 +51,29 @@ namespace mb
     : Texture( w, 1, format, linear, GL_TEXTURE_1D )
   {
   }
+  void Texture1D::apply( void )
+  {
+    this->bind( );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_S, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_T, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER, getMinFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER, getMagFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
+
+    glTexImage1D(
+      this->_target,
+      0, // level
+      GL_RGBA,    // internalFormat
+      this->getWidth( ),
+      0, // border
+      GL_RGBA, // format
+      GL_UNSIGNED_BYTE, // type
+      _data
+    );
+
+    this->unbind( );
+  }
 }
 
-namespace mb
-{
-  Texture2DArray::Texture2DArray( unsigned int w, unsigned int h,
-    unsigned int d, FormatTexture format )
-    : Texture2DArray( w, h, d, format, false )
-  {
-  }
-  Texture2DArray::Texture2DArray( unsigned int w, unsigned int h,
-    unsigned int d, FormatTexture format, bool linear )
-    : Texture( w, h, format, linear, GL_TEXTURE_2D_ARRAY )
-    , _depth( d )
-  {
-  }
-  void Texture2DArray::apply( void ) // bool updateMipMaps = true
-  {
-  }
-}
-
-namespace mb
-{
-  Texture3D::Texture3D( unsigned int w, unsigned int h, unsigned int d,
-    FormatTexture format )
-    : Texture3D( w, h, d, format, false )
-  {
-
-  }
-  Texture3D::Texture3D( unsigned int w, unsigned int h, unsigned int d,
-    FormatTexture format, bool linear )
-    : Texture( w, h, format, linear, GL_TEXTURE_3D )
-    , _depth( d )
-  {
-  }
-  void Texture3D::apply( void ) // bool updateMipMaps = true
-  {
-  }
-}
 
 namespace mb
 {
@@ -105,10 +90,6 @@ namespace mb
     FormatTexture format, bool linear )
     : Texture( w, h, format, linear, GL_TEXTURE_2D )
   {
-  }
-  void Texture2D::loadRawTexture( unsigned char* data )
-  {
-    this->_data = data;
   }
   void Texture2D::apply( void ) // bool updateMipMaps = true
   {
@@ -175,5 +156,86 @@ namespace mb
     tex->loadImageTexture( fileName );
     tex->apply();
     return tex;
+  }
+}
+
+namespace mb
+{
+  Texture2DArray::Texture2DArray( unsigned int w, unsigned int h,
+    unsigned int d, FormatTexture format )
+    : Texture2DArray( w, h, d, format, false )
+  {
+  }
+  Texture2DArray::Texture2DArray( unsigned int w, unsigned int h,
+    unsigned int d, FormatTexture format, bool linear )
+    : Texture( w, h, format, linear, GL_TEXTURE_2D_ARRAY )
+    , _depth( d )
+  {
+  }
+  void Texture2DArray::apply( void ) // bool updateMipMaps = true
+  {
+    this->bind( );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_S, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_T, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_R, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER, getMinFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER, getMagFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
+
+    /*
+    TODO
+    glTexImage3D(this->_target, this->_level, this->_internalFormat,
+      width, height, data.size(), 0, this->_format, this->_type, nullptr);
+
+    unsigned int i = 0;
+    for (const auto& layer : data)
+    {
+      glTexSubImage3D(
+        this->_target, 0, 0, 0, i, width, height, 1,
+        this->_format, this->_type, layer
+      );
+      ++i;
+    }*/
+
+    this->unbind( );
+  }
+}
+
+namespace mb
+{
+  Texture3D::Texture3D( unsigned int w, unsigned int h, unsigned int d,
+    FormatTexture format )
+    : Texture3D( w, h, d, format, false )
+  {
+
+  }
+  Texture3D::Texture3D( unsigned int w, unsigned int h, unsigned int d,
+    FormatTexture format, bool linear )
+    : Texture( w, h, format, linear, GL_TEXTURE_3D )
+    , _depth( d )
+  {
+  }
+  void Texture3D::apply( void ) // bool updateMipMaps = true
+  {
+    this->bind( );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_S, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_T, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_R, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER, getMinFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER, getMagFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
+
+    glTexImage3D(
+      this->_target,
+      0, // level
+      GL_RGBA,    // internalFormat
+      this->getWidth( ),
+      this->getHeight( ),
+      this->getDepth( ),
+      0, // border
+      GL_RGBA, // format
+      GL_UNSIGNED_BYTE, // type
+      _data
+    );
+
+    this->unbind( );
   }
 }

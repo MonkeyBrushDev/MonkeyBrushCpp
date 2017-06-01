@@ -20,11 +20,11 @@
 #ifndef __MB_LOD__
 #define __MB_LOD__
 
-#include "Group.hpp"
+#include "Switch.hpp"
 
 namespace mb
 {
-  class LOD : public Group
+  class LOD : public Switch
   {
   public:
     MB_API
