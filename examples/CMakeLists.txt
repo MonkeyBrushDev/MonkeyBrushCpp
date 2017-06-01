@@ -100,3 +100,10 @@ set( MBEXAMPLEWINDOW_LINK_LIBRARIES
 )
 common_application( mbExampleWindow )
 
+set( MBEXAMPLESPHERE_HEADERS )
+set( MBEXAMPLESPHERE_SOURCES exampleSphereMesh.cpp )
+set( MBEXAMPLESPHERE_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleSphere )
+

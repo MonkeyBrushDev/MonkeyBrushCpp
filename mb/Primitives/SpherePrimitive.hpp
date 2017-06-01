@@ -27,6 +27,7 @@ namespace mb
   class SpherePrimitive: public Primitive
   {
 
+  public:
   	MB_API
   	SpherePrimitive( float radius = 1.0f,
 			               unsigned int width = 1, 

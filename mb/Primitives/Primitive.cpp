@@ -24,17 +24,142 @@ namespace mb
   Primitive::Primitive( Primitive::Type type )
     : _type( type )
   {
+    for( unsigned int i=0; i<VBO_LEN; ++i )
+    {
+      shaderDescriptors[i] = -1;
+      VBO[i] = -1;
+    }
+
+    VAO = -1;
   }
+
+  Primitive::~Primitive( void )
+  {
+    destroy();
+  }
+
+
   Primitive::Type Primitive::getType( void ) const
   {
     return _type;
   }
+
+  void Primitive::bindShaderAttrib( int vboIndex, GLint attrId )
+  {
+    shaderDescriptors[vboIndex] = attrId;
+  }
+
   void Primitive::setupRender( void )
   {
-    //TODO: binds buffers
+    if( VAO == -1 )
+    {
+      glGenVertexArrays( 1, &VAO );
+      glBindVertexArray( VAO );
+      glGenBuffers( VBO_LEN, VBO );
+      glBindVertexArray( NULL );
+    }
+
+    glBindVertexArray( VAO );
+
+    //Vertices
+    glBindBuffer( GL_ARRAY_BUFFER, VBO[VERTEX] );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(Vector3)*vertices.size(), vertices.data(), GL_STATIC_DRAW);
+    if(shaderDescriptors[VERTEX] != -1)
+    {
+      glVertexAttribPointer( shaderDescriptors[VERTEX], VBO_LEN, GL_FLOAT, GL_FALSE, 0, 0);
+      glEnableVertexAttribArray(shaderDescriptors[VERTEX]);
+    }
+
+    //Color
+    glBindBuffer( GL_ARRAY_BUFFER, VBO[COLOR] );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(Vector3)*color.size(), color.data(), GL_STATIC_DRAW);
+    if(shaderDescriptors[COLOR] != -1)
+    {
+      glVertexAttribPointer( shaderDescriptors[COLOR], VBO_LEN, GL_FLOAT, GL_FALSE, 0, 0);
+      glEnableVertexAttribArray(shaderDescriptors[COLOR]);
+    }
+
+    //Strips
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[INDEX]); 
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*indices.size(), indices.data(), GL_STATIC_DRAW);
+
+    //Normals
+    glBindBuffer( GL_ARRAY_BUFFER, VBO[NORMAL] );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(Vector3)*normals.size(), normals.data(), GL_STATIC_DRAW);
+    if(shaderDescriptors[NORMAL] != -1)
+    {
+      glVertexAttribPointer( shaderDescriptors[NORMAL], VBO_LEN, GL_FLOAT, GL_FALSE, 0, 0);
+      glEnableVertexAttribArray(shaderDescriptors[NORMAL]);
+    }
+
+    //Texture coordinates
+    glBindBuffer( GL_ARRAY_BUFFER, VBO[TEXCOORD] );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(Vector2)*texCoords.size(), texCoords.data(), GL_STATIC_DRAW);
+    if(shaderDescriptors[TEXCOORD] != -1)
+    {
+      glVertexAttribPointer( shaderDescriptors[TEXCOORD], VBO_LEN, GL_FLOAT, GL_FALSE, 0, 0);
+      glEnableVertexAttribArray(shaderDescriptors[TEXCOORD]);
+    }
+
+
+    glBindVertexArray(NULL);
+
   }
+
   void Primitive::render( void )
   {
     //std::cout << "\t-Primitive '" << name << "'" << std::endl;
+    glBindVertexArray(VAO);
+
+    switch (_type)
+    {
+        case Type::POINTS:
+            glDrawElements( GL_POINTS, sizeof(GLushort)*indices.size(),
+                            GL_UNSIGNED_SHORT, 0);
+            break;
+        case Type::LINES:
+            glDrawElements( GL_LINES, sizeof(GLushort)*indices.size(),
+                        GL_UNSIGNED_SHORT, 0);
+            break;
+        case Type::LINE_LOOP:
+            glDrawElements( GL_LINE_LOOP, sizeof(GLushort)*indices.size(),
+                        GL_UNSIGNED_SHORT, 0);
+            break;
+        case Type::LINE_STRIP:
+            glDrawElements( GL_LINE_STRIP, sizeof(GLushort)*indices.size(),
+                        GL_UNSIGNED_SHORT, 0);
+            break;
+        case Type::TRIANGLE_FAN:
+            glDrawElements( GL_TRIANGLE_FAN, sizeof(GLushort)*indices.size(),
+                        GL_UNSIGNED_SHORT, 0);
+            break;
+        case Type::TRIANGLE_STRIP:
+            glDrawElements( GL_TRIANGLE_STRIP, sizeof(GLushort)*indices.size(),
+                        GL_UNSIGNED_SHORT, 0);
+            break;
+        case Type::QUADS:
+            glDrawElements( GL_QUADS, sizeof(GLushort)*indices.size(),
+                        GL_UNSIGNED_SHORT, 0);
+            break;
+        case Type::QUAD_STRIP:
+            glDrawElements( GL_QUAD_STRIP, sizeof(GLushort)*indices.size(),
+                        GL_UNSIGNED_SHORT, 0);
+            break;
+        default:
+            break;
+    }
+
+    glBindVertexArray(NULL);
+  }
+
+  void Primitive::destroy( void )
+  {
+    glBindBuffer(GL_ARRAY_BUFFER, NULL);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NULL);
+    glDeleteBuffers(VBO_LEN, VBO);
+
+    glBindVertexArray(NULL);
+    glDeleteVertexArrays(1, &VAO);
+    VAO = -1;
   }
 }

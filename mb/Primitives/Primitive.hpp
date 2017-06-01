@@ -24,6 +24,9 @@
 #include <iostream>
 #include <mb/api.h>
 
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+
 #include "../Maths/Vector2.hpp"
 #include "../Maths/Vector3.hpp"
 
@@ -45,24 +48,55 @@ namespace mb
       QUAD_STRIP
     };
 
+    typedef enum VBOAttrib
+    {
+      VERTEX = 0,
+      COLOR,
+      INDEX,
+      NORMAL,
+      TEXCOORD,
+      VBO_LEN
+
+    } TVBOAttrib;
+
     MB_API
     Primitive( Primitive::Type type = Primitive::Type::TRIANGLES );
+
+    MB_API
+    virtual ~Primitive( void );
+
     MB_API
     Primitive::Type getType( void ) const;
+
+    MB_API
+    GLuint getVAO( void ) const { return VAO; }
+
+    MB_API
+    void bindShaderAttrib( int vboIndex, GLint attrId );
+
     MB_API
     void setupRender( void );
+
     MB_API
     void render( void );
 
+    MB_API
+    void destroy( void );
+
   protected:
+    
+    GLuint VBO[VBO_LEN];
+    GLuint VAO;
+    GLint shaderDescriptors[VBO_LEN];
+
     Primitive::Type _type;
 
     std::vector<Vector3> vertices;
-    std::vector<unsigned int> indices;
+    std::vector<GLushort> indices;
     std::vector<Vector3> normals;
     std::vector<Vector2> texCoords;
     std::vector<Vector3> color;
   };
-}
+}//NS
 
 #endif /* __MB_PRIMITIVE__ */
