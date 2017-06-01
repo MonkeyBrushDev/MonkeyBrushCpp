@@ -128,14 +128,16 @@ mb::Program* initProgram( )
     #version 330 core
     in vec2 TexCoord;
 
-    out vec4 color;
+    out vec4 fragColor;
 
     uniform sampler2D myTexture;
+    uniform vec3 color;
 
     void main()
     {
-      color = vec4( TexCoord, 0.0, 1.0 );
-      color = texture( myTexture, TexCoord );
+      fragColor = vec4( TexCoord, 0.0, 1.0 );
+      fragColor = texture( myTexture, TexCoord );
+      fragColor *= vec4(color, 1.0);
     })");
   program->compileAndLink( );
   program->autocatching();
@@ -171,7 +173,7 @@ int main( )
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
 
-  mb::Material customMaterial;
+  mb::Material* customMaterial = new mb::Material;
   mb::Material customPPMaterial;
   customPPMaterial.addUniform("tex",
         std::make_shared< mb::Uniform >(mb::UniformType::Integer, 0 ));
@@ -179,13 +181,17 @@ int main( )
 
   unsigned int vao = createVAO( );
 
-  customMaterial.program = initProgram( );
-  customMaterial.addUniform("projection",
+  customMaterial->program = initProgram( );
+  customMaterial->addUniform("projection",
         std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
-  customMaterial.addUniform("view",
+  customMaterial->addUniform("view",
         std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
-  customMaterial.addUniform("model",
+  customMaterial->addUniform("model",
         std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+  customMaterial->addUniform("myTexture",
+        std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler ) );
+  customMaterial->addUniform("color",
+        std::make_shared< mb::Uniform >( mb::UniformType::Vector3, mb::Vector3(1.0f, 0.0f, 0.0f) ) );
 
   auto scene = new mb::Group( "scene" );
   auto camera = new mb::Camera( 45.0f, 500/500, 0.01f, 1000.0f );
@@ -213,55 +219,7 @@ int main( )
     mb::Vector3( -1.3f,  1.0f,  -1.5f )
   };
 
-  size_t numCubes = cubePositions.size( );
-  size_t middleCubes = numCubes / 2;
 
-  for ( unsigned int i = 0; i < middleCubes; ++i )
-  {
-    auto geom = new mb::Geometry( std::string( "CubeGeom" ) + std::to_string( i + 1 ) );
-    //geom->local( ).setPosition( cubePositions[ i ] );
-    geom->local( ).position( ) = cubePositions[ i ];
-    geom->local( ).setScale( mb::Vector3( 0.5f ) );
-
-    // TODO: HARDCODED
-    if ( i % 3 == 0 ) { geom->setCastShadows( false ); }
-
-    geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ), 0.1f ) );
-
-    geom->layer( ).set( i );
-
-    g1->addChild( geom );
-  }
-  cubes->addChild( g1 );
-  for ( unsigned int i = middleCubes; i < numCubes; ++i )
-  {
-    auto geom = new mb::Geometry( std::string( "CubeGeom" ) + std::to_string( i + 1 ) );
-    geom->local( ).setPosition( cubePositions[ i ] );
-    geom->local( ).setScale( mb::Vector3( 0.5f ) );
-
-    // if ( i % 3 == 0 ) { geom->setCastShadows( false ); } // TODO: HARDCODED
-
-    geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ) * -1.0f, 0.1f ) );
-
-    geom->layer( ).set( i );
-
-    g2->addChild( geom );
-  }
-  cubes->addChild( g2 );
-  std::cout << (g1->getNumChildren( ) + g2->getNumChildren( )) << std::endl;
-
-  /*auto geom = new mb::Geometry( std::string( "CubeGeom" ) );
-  geom->local( ).setPosition( mb::Vector3::ZERO );
-  //geom->local( ).setRotation( mb::Vector3( -1.0f, -1.0f, 0.0f ), mb::Mathf::degToRad( 260.0f ) );
-  geom->local( ).setScale( mb::Vector3( 0.5f ) );
-
-  std::cout << geom->local( ).getRotation( ) << std::endl;
-
-  geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ) * -1.0f, 0.1f ) );
-
-  g2->addChild( geom );*/
-
-  scene->addChild( cubes );
 
   mb::Texture* tex = mb::Texture2D::loadFromImage( "texture.jpg" );
   mb::Texture* tex2 = mb::Texture2D::loadFromImage( "tex_metal_005_t.jpg" );
@@ -286,9 +244,63 @@ int main( )
   tex3->apply( );
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
+  customMaterial->uniform("myTexture")->value(tex3);
 
-  int texLoc = glGetUniformLocation(customMaterial.program->program( ), "myTexture");
+  size_t numCubes = cubePositions.size( );
+  size_t middleCubes = numCubes / 2;
 
+  for ( unsigned int i = 0; i < middleCubes; ++i )
+  {
+    auto geom = new mb::Geometry( std::string( "CubeGeom" ) + std::to_string( i + 1 ) );
+    //geom->local( ).setPosition( cubePositions[ i ] );
+    geom->local( ).position( ) = cubePositions[ i ];
+    geom->local( ).setScale( mb::Vector3( 0.5f ) );
+
+    mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>();
+    mc->addMaterial( mb::MaterialPtr( customMaterial ) );
+
+    // TODO: HARDCODED
+    if ( i % 3 == 0 ) { geom->setCastShadows( false ); }
+
+    geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ), 0.1f ) );
+
+    geom->layer( ).set( i );
+
+    g1->addChild( geom );
+  }
+  cubes->addChild( g1 );
+  for ( unsigned int i = middleCubes; i < numCubes; ++i )
+  {
+    auto geom = new mb::Geometry( std::string( "CubeGeom" ) + std::to_string( i + 1 ) );
+    geom->local( ).setPosition( cubePositions[ i ] );
+    geom->local( ).setScale( mb::Vector3( 0.5f ) );
+
+    mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>();
+    mc->addMaterial( mb::MaterialPtr( customMaterial ) );//2 ) );
+
+    // if ( i % 3 == 0 ) { geom->setCastShadows( false ); } // TODO: HARDCODED
+
+    geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ) * -1.0f, 0.1f ) );
+
+    geom->layer( ).set( i );
+
+    g2->addChild( geom );
+  }
+  cubes->addChild( g2 );
+  std::cout << (g1->getNumChildren( ) + g2->getNumChildren( )) << std::endl;
+
+  /*auto geom = new mb::Geometry( std::string( "CubeGeom" ) );
+  geom->local( ).setPosition( mb::Vector3::ZERO );
+  //geom->local( ).setRotation( mb::Vector3( -1.0f, -1.0f, 0.0f ), mb::Mathf::degToRad( 260.0f ) );
+  geom->local( ).setScale( mb::Vector3( 0.5f ) );
+
+  std::cout << geom->local( ).getRotation( ) << std::endl;
+
+  geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ) * -1.0f, 0.1f ) );
+
+  g2->addChild( geom );*/
+
+  scene->addChild( cubes );
 
   mb::Group* _scene = scene;
 
@@ -362,34 +374,27 @@ int main( )
 
       if(mainQueue.get() != nullptr)
       {
-        //auto shadow_renderables = mainQueue->renderables( mb::BatchQueue::RenderableType::SHADOW );
-        //std::cout << shadow_renderables.size() << std::endl;
         auto renderables = mainQueue->renderables( mb::BatchQueue::RenderableType::OPAQUE );
         if ( !renderables.empty( ) )
         {
           for ( mb::Renderable& renderable : renderables )
           {
-            //program.use();
-            //glUniformMatrix4fv(projLoc, 1, GL_FALSE, mainQueue->getProjectionMatrix().values( ).data( ) );
-            //glUniformMatrix4fv(viewLoc, 1, GL_FALSE, mainQueue->getViewMatrix().values( ).data( ) );
-
             //std::cout << "ZDIST: " << renderable->zDistance << std::endl;
 
-            customMaterial.uniform("projection")->value(mainQueue->getProjectionMatrix());
-            customMaterial.uniform("view")->value(mainQueue->getViewMatrix());
-            customMaterial.uniform("model")->value(renderable.modelTransform);
-            customMaterial.use( );
+            mb::MaterialComponent* mc = renderable.geometry->getComponent<mb::MaterialComponent>();
 
+            auto mat = mc->first();
 
-            tex3->bind( 0 );
-            glUniform1i(texLoc, 0);
+            mat->uniform("projection")->value(mainQueue->getProjectionMatrix());
+            mat->uniform("view")->value(mainQueue->getViewMatrix());
+            mat->uniform("model")->value(renderable.modelTransform);
+            mat->use( );
 
             glBindVertexArray(vao);
             glDrawArrays(GL_TRIANGLES, 0, 36);
             glBindVertexArray(0);
-            //program.unuse();
 
-            customMaterial.unuse( );
+            mat->unuse( );
           }
         }
       }
@@ -397,8 +402,8 @@ int main( )
 
 
     //glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    tex2->bind( 0 );
-    mb::Renderer::drawScreenQuad(&customPPMaterial);
+    //tex2->bind( 0 );
+    //mb::Renderer::drawScreenQuad(&customPPMaterial);
 
 
     window->swapBuffers( );

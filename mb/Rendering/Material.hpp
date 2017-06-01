@@ -29,6 +29,9 @@
 
 #include "../OpenGL/Program.hpp"
 
+#include <iterator>
+#include <algorithm>
+
 namespace mb
 {
   MB_API
@@ -110,6 +113,25 @@ namespace mb
     PipelineState &state( void );
     MB_API
     void state( const PipelineState &ps );
+
+
+    virtual Material* clone( void )
+    {
+      Material* m2 = new Material( );
+      //std::copy(this->_uniforms.begin(), this->_uniforms.end(),
+      //  std::inserter(m2->_uniforms, m2->_uniforms.end()) );
+
+      //m2->_uniforms = this->_uniforms; TODO: PROBLEM WITH DEEP COPY OF POINTER
+      for (auto& kv: this->_uniforms)
+      {
+        m2->addUniform(kv.first, kv.second);
+      }
+
+      m2->_state = this->_state;
+      m2->program = this->program;
+
+      return m2;
+    }
 
 
     mb::Program* program;

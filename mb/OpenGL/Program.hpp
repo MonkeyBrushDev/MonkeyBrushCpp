@@ -359,6 +359,12 @@ namespace mb
         */
         MB_API
         void sendUniform3v(const std::string& uniform, const float* data);
+
+        MB_API
+        void sendUniform3v(const std::string& uniform,
+                           const std::array< float, 3 > & data);
+
+
         /**
         * Method to send a vec4
         * @param uniform: Uniform name

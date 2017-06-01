@@ -18,8 +18,10 @@
  **/
 
 #include "Material.hpp"
+#include "../Maths/Vector2.hpp"
 #include "../Maths/Vector3.hpp"
 #include "../Maths/Matrix4.hpp"
+#include "Texture.hpp"
 
 namespace mb
 {
@@ -48,6 +50,7 @@ namespace mb
   }
   void Material::use( void )
   {
+    unsigned int texId = 0;
     program->use( );
     for ( const auto& uniform: _uniforms )
     {
@@ -66,19 +69,33 @@ namespace mb
           uniform.second->value( ).cast< int >( )
         );
       }
-      else if ( type == UniformType::Matrix4 )
+      else if ( type == UniformType::Vector2 )
       {
-        program->sendUniform4m(
+        program->sendUniform2v(
           uniform.first,
-          uniform.second->value( ).cast< Matrix4 >( ).data( )
+          uniform.second->value( ).cast< mb::Vector2 >( ).data( )
         );
       }
       else if ( type == UniformType::Vector3 )
       {
         program->sendUniform3v(
           uniform.first,
-          uniform.second->value( ).cast< Vector3 >( ).data( )
+          uniform.second->value( ).cast< mb::Vector3 >( ).values( )//.data( )
         );
+      }
+      else if ( type == UniformType::Matrix4 )
+      {
+        program->sendUniform4m(
+          uniform.first,
+          uniform.second->value( ).cast< mb::Matrix4 >( ).data( )
+        );
+      }
+      else if ( type == UniformType::TextureSampler )
+      {
+        mb::Texture* tex = uniform.second->value().cast< mb::Texture* >();
+        tex->bind(texId);
+        this->program->sendUniformi(uniform.first, texId);
+        ++texId;
       }
     }
   }
