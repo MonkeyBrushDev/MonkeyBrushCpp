@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/85/three.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+  var quaternion = new THREE.Quaternion();
+  quaternion.setFromAxisAngle( new THREE.Vector3( -1, -1, 0 ), THREE.Math.degToRad( 60.0 ) );
+  console.log(quaternion);
+  quaternion.setFromAxisAngle( new THREE.Vector3( -1, -1, 0 ), THREE.Math.degToRad( 160.0 ) );
+  console.log(quaternion);
+  quaternion.setFromAxisAngle( new THREE.Vector3( -1, -1, 0 ), THREE.Math.degToRad( 260.0 ) );
+  console.log(quaternion);
+  quaternion.setFromAxisAngle( new THREE.Vector3( -1, -1, 0 ), THREE.Math.degToRad( 360.0 ) );
+  console.log(quaternion);
+  quaternion.setFromAxisAngle( new THREE.Vector3( -1, -1, 0 ), THREE.Math.degToRad( 460.0 ) );
+  console.log(quaternion);
+</script>
+</body>
+</html>

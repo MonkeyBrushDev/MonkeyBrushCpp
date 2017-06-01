@@ -61,6 +61,11 @@ namespace mb
       _data[ 2 ] = z;
     }
 
+    float* data( void )
+    {
+      return _data.data( );
+    }
+
 		float operator[]( unsigned int i ) const { return _data[ i ]; }
 		float &operator[]( unsigned int i ) { return _data[ i ]; }
 

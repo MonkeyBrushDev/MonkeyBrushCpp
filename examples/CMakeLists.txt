@@ -40,12 +40,12 @@ configure_file(
 ## common_application( mbExampleGroup )
 
 
-## set( MBTESTS_HEADERS )
-## set( MBTESTS_SOURCES tests.cpp )
-## set( MBTESTS_LINK_LIBRARIES
-##   mb
-## )
-## common_application( mbTests )
+set( MBTESTS_HEADERS )
+set( MBTESTS_SOURCES tests.cpp )
+set( MBTESTS_LINK_LIBRARIES
+  mb
+)
+common_application( mbTests )
 
 
 ## set( MBEXAMPLEPOSTPROCESS_HEADERS )

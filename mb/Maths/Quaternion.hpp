@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -96,7 +96,7 @@ namespace mb
       return q * v;
     }
 
-    Quaternion& lookAt( const Vector3& dir, 
+    Quaternion& lookAt( const Vector3& dir,
       const Vector3& up = Vector3::UP )
     {
       Vector3 axis = up;
@@ -177,10 +177,10 @@ namespace mb
 
       float invDot = dot ? 1.0f / dot : 0.0f;
 
-      this->_values[0] *= -invDot;
-      this->_values[1] *= -invDot;
-      this->_values[2] *= -invDot;
-      this->_values[3] *= -invDot;
+      this->_values[ 0 ] *= -invDot;
+      this->_values[ 1 ] *= -invDot;
+      this->_values[ 2 ] *= -invDot;
+      this->_values[ 3 ] *= -invDot;
 
       return *this;
     }
@@ -221,7 +221,7 @@ namespace mb
     MB_API
     static float dot( const Quaternion& a, const Quaternion& b )
     {
-      return a.x( ) * b.x( ) + a.y( ) * b.y( ) 
+      return a.x( ) * b.x( ) + a.y( ) * b.y( )
       + a.z( ) * b.z( ) + a.w( ) * b.w( );
     }
 
@@ -236,16 +236,40 @@ namespace mb
     }
 
     MB_API
-    friend Quaternion operator*( const Quaternion& lhs, 
+    Quaternion& fromEulerAngles( float pitch, float yaw, float roll )
+    {
+      Quaternion q;
+      float t0 = std::cos( roll * 0.5f );
+      float t1 = std::sin( roll * 0.5f );
+      float t2 = std::cos( pitch * 0.5f );
+      float t3 = std::sin( pitch * 0.5f );
+      float t4 = std::cos( yaw * 0.5f );
+      float t5 = std::sin( yaw * 0.5f );
+
+      float x = t0 * t3 * t4 - t1 * t2 * t5;
+      float y = t0 * t2 * t5 + t1 * t3 * t4;
+      float z = t1 * t2 * t4 - t0 * t3 * t5;
+      float w = t0 * t2 * t4 + t1 * t3 * t5;
+
+      _values[ 0 ] = x;
+      _values[ 1 ] = y;
+      _values[ 2 ] = z;
+      _values[ 3 ] = w;
+
+      return *this;
+    }
+
+    MB_API
+    friend Quaternion operator*( const Quaternion& lhs,
       const Quaternion& rhs )
     {
       return Quaternion(
-        lhs.w( ) * rhs.x( ) + lhs.x( ) * rhs.w( ) 
-        + lhs.y( ) * rhs.z( ) - lhs.z( ) * rhs.y( ), 
-        lhs.w( ) * rhs.y( ) + lhs.y( ) * rhs.w( ) 
+        lhs.w( ) * rhs.x( ) + lhs.x( ) * rhs.w( )
+        + lhs.y( ) * rhs.z( ) - lhs.z( ) * rhs.y( ),
+        lhs.w( ) * rhs.y( ) + lhs.y( ) * rhs.w( )
         + lhs.z( ) * rhs.x( ) - lhs.x( ) * rhs.z( ), lhs.w( ) * rhs.z( )
-        + lhs.z( ) * rhs.w( ) + lhs.x( ) * rhs.y( ) - lhs.y( ) * rhs.x( ), 
-        lhs.w( ) * rhs.w( )  - lhs.x( ) * rhs.x( ) 
+        + lhs.z( ) * rhs.w( ) + lhs.x( ) * rhs.y( ) - lhs.y( ) * rhs.x( ),
+        lhs.w( ) * rhs.w( )  - lhs.x( ) * rhs.x( )
         - lhs.y( ) * rhs.y( ) - lhs.z( ) * rhs.z( ) );
     }
 
@@ -253,15 +277,24 @@ namespace mb
     static float angle( const Quaternion& a, const Quaternion& b)
     {
       float f = Quaternion::dot( a, b );
-      return std::acos( std::min( std::abs( f ), 1.0f ) ) 
+      return std::acos( std::min( std::abs( f ), 1.0f ) )
       * 2.0f * 57.29578f;
     }
     MB_API
     Quaternion getConjugate( void ) const
     {
-      return Quaternion( -_values[ 0 ], -_values[ 1 ], 
+      return Quaternion( -_values[ 0 ], -_values[ 1 ],
         -_values[ 2 ], _values[ 3 ] );
     }
+
+    friend std::ostream &operator<<( std::ostream &out, const Quaternion& q )
+    {
+      out << std::setiosflags( std::ios::fixed | std::ios::showpoint  )
+        << std::setprecision( 10 )
+          << "[r = " << q.x( ) << ", " << q.y( ) << ", " << q.z( ) << ", i = " << q.w() << "]";
+      return out;
+    }
+
   protected:
     Vector4 _values;
     //std::function<void( EulerAngles )> _cb;

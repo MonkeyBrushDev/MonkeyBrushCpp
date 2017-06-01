@@ -28,6 +28,7 @@
 #include "../Layer.hpp"
 
 #include "../Maths/Transform.hpp"
+#include "../Maths/Clock.hpp"
 
 #include <mb/api.h>
 #include <algorithm>
@@ -80,7 +81,7 @@ namespace mb
     MB_API
     void addComponent( Component* comp );
     MB_API
-    void updateComponents( const float& dt );
+    void updateComponents( const mb::Clock& clock );
     MB_API
     void detachAllComponents( void );
     MB_API

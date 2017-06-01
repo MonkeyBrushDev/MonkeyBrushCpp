@@ -7,12 +7,10 @@ set( MB_PUBLIC_HEADERS
   Boundings/SphereBoundingVolume.hpp
 
   Components/Component.hpp
-  Components/CustomComponent.hpp
   Components/LambdaComponent.hpp
   Components/MaterialComponent.hpp
   Components/MeshRenderer.hpp
   Components/OrbitCamera.hpp
-  Components/OtherComponent.hpp
   Components/ScriptComponent.hpp
   Components/RotateComponent.hpp
   Components/OrbitComponent.hpp
@@ -152,11 +150,9 @@ set( MB_SOURCES
 
 
   Components/Component.cpp
-  Components/CustomComponent.cpp
   Components/LambdaComponent.cpp
   Components/MaterialComponent.cpp
   Components/MeshRenderer.cpp
-  Components/OtherComponent.cpp
   Components/ScriptComponent.cpp
   Components/RotateComponent.cpp
   Components/FreeCameraComponent.cpp
@@ -200,6 +196,7 @@ set( MB_SOURCES
   Rendering/Material.cpp
   Rendering/Renderer.cpp
   Rendering/FramebufferObject.cpp
+  Rendering/Texture.cpp
 
 
   Scenegraph/Camera.cpp

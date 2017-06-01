@@ -16,7 +16,7 @@ namespace mb
       , smooth( smooth_ )
     {
     }
-    virtual void update( const float& )
+    virtual void update( const mb::Clock& )
     {
       /*if ( target )
       {

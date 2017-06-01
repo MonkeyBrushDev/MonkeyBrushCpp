@@ -21,6 +21,8 @@
 #include "StandardRenderingPass.hpp"
 #include "../BatchQueue.hpp"
 
+#include "../../Includes.hpp"
+
 namespace mb
 {
   OffscreenRenderingPass::OffscreenRenderingPass( unsigned int fbo )
@@ -37,9 +39,11 @@ namespace mb
   void OffscreenRenderingPass::render( Renderer* renderer, BatchQueuePtr bq, Camera* cam )
   {
     std::cout << "Bind FBO" << std::endl;
-    //renderer->bindFBO( targetFBO );
+
+    glBindFramebuffer( GL_FRAMEBUFFER, _fbo); // renderer->bindFBO( targetFBO );
+
     _sceneRenderingPass->render( renderer, bq, cam );
-    //renderer->unbindFBO( );
+    glBindFramebuffer( GL_FRAMEBUFFER, 0); // renderer->unbindFBO( );
     std::cout << "Unbind FBO" << std::endl;
     applyImageEffects( renderer, cam );
   }

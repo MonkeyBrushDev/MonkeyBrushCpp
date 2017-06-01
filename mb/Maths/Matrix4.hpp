@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -58,6 +58,11 @@ namespace mb
     static Matrix4 orthographic( const float& left, const float& right,
                               const float& bottom, const float& top,
                               const float& near, const float& far );
+
+    float* data( void )
+    {
+      return _values.data( );
+    }
 
     float operator[]( int i ) const
     {
@@ -109,7 +114,7 @@ namespace mb
     Matrix4 getTranspose( void ) const
     {
       Matrix4 result;
-      
+
       for ( unsigned int i = 0; i < 4; ++i )
       {
         for ( unsigned int j = 0; j < 4; ++j )
@@ -211,7 +216,7 @@ namespace mb
 
       return Matrix4( te );*/
       Matrix4 result;
-      /*std::copy( std::begin( result._values ), std::end( result._values ), 
+      /*std::copy( std::begin( result._values ), std::end( result._values ),
         std::begin( _values ) );*/
 
       for ( unsigned int i = 0; i < 4; ++i )
@@ -236,22 +241,22 @@ namespace mb
     friend Vector4 operator*( const Matrix4& m, const Vector4& v )
     {
       Vector4 result;
-      result[ 0 ] = 
+      result[ 0 ] =
         m[ 0 ] * v[ 0 ] +
         m[ 1 ] * v[ 1 ] +
         m[ 2 ] * v[ 2 ] +
         m[ 3 ] * v[ 3 ];
-      result[ 1 ] = 
+      result[ 1 ] =
         m[ 4 ] * v[ 0 ] +
         m[ 5 ] * v[ 1 ] +
         m[ 6 ] * v[ 2 ] +
         m[ 7 ] * v[ 3 ];
-      result[ 2 ] = 
+      result[ 2 ] =
         m[ 8 ] * v[ 0 ] +
         m[ 9 ] * v[ 1 ] +
         m[ 10 ] * v[ 2 ] +
         m[ 11 ] * v[ 3 ];
-      result[ 3 ] = 
+      result[ 3 ] =
         m[ 12 ] * v[ 0 ] +
         m[ 13 ] * v[ 1 ] +
         m[ 14 ] * v[ 2 ] +

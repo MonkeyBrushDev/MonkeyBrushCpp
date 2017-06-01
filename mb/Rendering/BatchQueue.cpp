@@ -75,13 +75,20 @@ namespace mb
       return;
     }*/
 
-    auto materials = geometry->getComponent< MaterialComponent >( );
+    mb::MaterialComponent* materials = geometry->getComponent< mb::MaterialComponent >( );
     if ( materials == nullptr )
     {
       return;
     }
 
     auto renderType = RenderableType::OPAQUE;
+
+    /*mb::PipelineState& state = materials->first()->state();
+
+    if( state.blending().isEnabled( ) )
+    {
+      renderType = RenderableType::TRANSPARENT;
+    }*/
 
     Renderable renderable(
       nullptr, // TODO HARDCODED materials->first( ).get( ),
@@ -99,7 +106,7 @@ namespace mb
     {
       // Order back to front
       auto it = queue->begin( );
-      while( it != queue->end( ) && ( *it ).zDistance >= renderable.zDistance )
+      while( it != queue->end( ) && it->zDistance >= renderable.zDistance )
       {
         ++it;
       }
@@ -109,6 +116,11 @@ namespace mb
     {
       // TODO: Required order?
       queue->push_back( renderable );
+    }
+
+    if ( geometry->castShadows( ) )
+    {
+      _renderables[ RenderableType::SHADOW ].push_back( renderable );
     }
   }
   void BatchQueue::pushLight( Light * l )

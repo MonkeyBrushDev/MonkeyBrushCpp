@@ -15,7 +15,7 @@ namespace mb
     MB_API
     virtual void start( void ) override;
     MB_API
-    virtual void update( const float& dt ) override;
+    virtual void update( const mb::Clock& clock ) override;
   public:
     float fastMovementSpeed = 5.0f;
   protected:

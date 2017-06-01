@@ -46,7 +46,7 @@ namespace mb
     _node = n;
   }
 
-  void Component::update( const float & )
+  void Component::update( const mb::Clock& )
   {
   }
 

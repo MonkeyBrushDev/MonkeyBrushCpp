@@ -53,6 +53,8 @@ namespace mb
     virtual void unbindProgram( unsigned int ) { }
     virtual void drawPrimitive( MaterialPtr, Primitive* ) { }
 
+    static void drawScreenQuad( Material* m ); // TODO: REMOVE STATIC and use VIRTUAL
+
     // virtual void drawBuffer( Material* material ... ) { }
   };
 }

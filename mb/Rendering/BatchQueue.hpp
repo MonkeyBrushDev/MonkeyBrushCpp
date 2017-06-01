@@ -58,7 +58,8 @@ namespace mb
     enum class RenderableType
     {
       OPAQUE,
-      TRANSPARENT
+      TRANSPARENT,
+      SHADOW
     };
     MB_API
     BatchQueue( void );

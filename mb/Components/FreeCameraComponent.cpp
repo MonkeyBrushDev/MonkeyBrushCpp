@@ -10,7 +10,7 @@ namespace mb
     initPosition = root->local().getPosition( );
     initRotation = root->local().getRotation();
   }
-  void FreeCameraComponent::update( const float& dt )
+  void FreeCameraComponent::update( const mb::Clock& clock )
   {
     float speed = 1.0f;
 
@@ -20,7 +20,7 @@ namespace mb
     }
 
     auto root = node( );
-    speed *= dt;
+    speed *= clock.getDeltaTime( );
 
     // Code based on https://gist.github.com/ashleydavis/f025c03a9221bc840a2b
     if( mb::Input::isKeyPressed( mb::Keyboard::Key::A ) )

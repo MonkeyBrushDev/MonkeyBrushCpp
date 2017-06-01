@@ -22,6 +22,8 @@
 #include "BatchQueue.hpp"
 #include "../Scenegraph/Camera.hpp"
 
+#include "../Includes.hpp"
+
 namespace mb
 {
   Renderer::Renderer( )
@@ -46,5 +48,35 @@ namespace mb
   {
     // Clear data
     std::cout << "unbind renderer" << std::endl;
+  }
+
+  void Renderer::drawScreenQuad( Material* m )
+  {
+    static unsigned VAO = 666;
+    static unsigned VBO = 666;
+    if (VAO == 666)
+    {
+      float quadVertices[] = {
+        -1.0f,  1.0f,  0.0f,
+        -1.0f, -1.0f,  0.0f,
+         1.0f,  1.0f,  0.0f,
+         1.0f, -1.0f,  0.0f
+      };
+      glGenVertexArrays(1, &VAO);
+      glGenBuffers(1, &VBO);
+      glBindVertexArray(VAO);
+      glBindBuffer(GL_ARRAY_BUFFER, VBO);
+      glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+      glEnableVertexAttribArray(0);
+      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
+    }
+
+    //std::cout << "VAO: " << VAO << " - VBO: " << VBO << std::endl;
+
+    m->use();
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glBindVertexArray(0);
+    m->unuse();
   }
 }

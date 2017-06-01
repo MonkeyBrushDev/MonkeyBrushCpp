@@ -46,11 +46,28 @@ namespace mb
     void removePrimitive( Primitive *p );
     MB_API
     void forEachPrimitive( std::function< void(Primitive* )> cb );
+
+
+    // TODO: Move to MeshRenderer
+    bool castShadows( void ) const { return _castShadows; }
+    // TODO: Move to MeshRenderer
+    void setCastShadows( bool value ) { _castShadows = value; }
+
+    // TODO: Move to MeshRenderer
+    bool receiveShadows( void ) const { return _receiveShadows; }
+    // TODO: Move to MeshRenderer
+    void setReceiveShadows( bool value ) { _receiveShadows = value; }
   protected:
     std::vector< Primitive* > _primitives;
 
   public:
     virtual void accept( Visitor& v ) override;
+
+  protected:
+    // TODO: Move to MeshRenderer
+    bool _castShadows = true;
+    // TODO: Move to MeshRenderer
+    bool _receiveShadows = true;
   };
 }
 

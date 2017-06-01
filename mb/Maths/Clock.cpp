@@ -28,7 +28,7 @@ namespace mb
   	reset( );
   }
 
-  Clock::Clock( float dt )
+  Clock::Clock( double dt )
   {
     reset( );
 
@@ -65,8 +65,8 @@ namespace mb
     _currentTime = 0.001 * std::chrono::duration_cast<
       std::chrono::milliseconds >( now ).count( );
     _lastTime = _currentTime;
-    _deltaTime = 0;
-    _accumTime = 0;
+    _deltaTime = 0.0;
+    _accumTime = 0.0;
   }
 
   void Clock::tick( void )
@@ -83,44 +83,20 @@ namespace mb
     onTick( );
   }
 
-  float Clock::currentTime( void ) const
+  double Clock::getCurrentTime( void ) const
   {
     return _currentTime;
   }
-  void Clock::currentTime( float value )
-  {
-    _currentTime = value;
-  }
-
-  float Clock::lastTime( void ) const
+  double Clock::getLastTime( void ) const
   {
     return _lastTime;
   }
-  void Clock::lastTime( float value )
-  {
-    _lastTime = value;
-  }
-
-  float Clock::deltaTime( void ) const
+  double Clock::getDeltaTime( void ) const
   {
     return _deltaTime;
   }
-  void Clock::deltaTime( float value )
-  {
-    _deltaTime = value;
-  }
-
-  float Clock::accumTime( void ) const
-  {
-    return _accumTime;
-  }
-  void Clock::accumTime( float value )
-  {
-    _accumTime = value;
-  }
-
   void Clock::setTimeout( Clock::TimeoutCallback const &callback,
-    float timeout )
+    double timeout )
   {
     _timeoutCallback = callback;
     _timeout = timeout;
@@ -128,7 +104,7 @@ namespace mb
   }
 
   void Clock::setInterval( Clock::TimeoutCallback const &callback,
-    float timeout )
+    double timeout )
   {
     _timeoutCallback = callback;
     _timeout = timeout;
@@ -145,7 +121,7 @@ namespace mb
 
   Clock &Clock::operator+=( const Clock &other )
   {
-    *this += other.deltaTime( );
+    *this += other.getDeltaTime( );
     return *this;
   }
 
