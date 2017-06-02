@@ -25,7 +25,7 @@ namespace mb
 	float radius,
     unsigned int width, 
     unsigned int height )
-    : Primitive(Primitive::Type::TRIANGLE_STRIP),
+    : Primitive(Primitive::Type::TRIANGLES),
     _radius(radius),
     _width(width),
     _height(height)
@@ -89,6 +89,11 @@ namespace mb
 				indices.push_back(d);
 			}
 		}
+
+	    for( unsigned int i = 0; i < vertices.size(); ++i )
+	    {
+            color.push_back(Vector3(0.0f, 0.2f, 0.0f));
+	    }
 	}
 
 }//NS

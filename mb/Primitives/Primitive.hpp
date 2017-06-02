@@ -52,9 +52,9 @@ namespace mb
     {
       VERTEX = 0,
       COLOR,
-      INDEX,
       NORMAL,
-      TEXCOORD,
+      INDEX,      
+      //TEXCOORD,
       VBO_LEN
 
     } TVBOAttrib;

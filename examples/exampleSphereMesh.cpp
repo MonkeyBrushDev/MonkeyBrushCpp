@@ -15,7 +15,10 @@ mb::Program initProgram( )
     #version 330 core
     in vec3 inVertex;
     in vec3 inColor;
+    in vec3 inNormal;
+
     out vec3 vcolor;
+    out vec3 vnormal;
 
     uniform mat4 model;
     uniform mat4 view;
@@ -24,17 +27,23 @@ mb::Program initProgram( )
     void main()
     {
       vcolor = inColor;
+      vnormal = inNormal;
       gl_Position = projection * view * model * vec4( inVertex.xyz, 1.0f);
     })");
   program.loadFragmentShaderFromText(R"(
     #version 330 core
     in vec3 vcolor;
+    in vec3 vnormal;
+
+    const vec3 lightColor = vec3(0.0, 1.0, 1.0);
+    const vec3 lightPos = vec3(1.0, 1.0, 1.0);
 
     out vec4 outColor;
 
     void main()
     {
-      outColor = vec4( vcolor, 1.0f );
+      float cosTheta = dot(vnormal, lightPos);
+      outColor = vec4( (lightColor*cosTheta)+vcolor, 1.0f );
     })");
   program.compileAndLink( );
   program.autocatching();
@@ -56,23 +65,22 @@ int main( )
   window->init( );
 
   // Setting shaders...
-  GLint inColor=-1;
-  GLint inVertex=-1;
 
   mb::Program program = initProgram( );
-
-//  program.bindAttribute("inVertex", 0);
-//  program.bindAttribute("inColor", 1);
 
 //  program.addUniform( "projection" );
 //  program.addUniform( "view" );
 //  program.addUniform( "model" );
+  GLint inColor=program.attribute("inColor");
+  GLint inVertex=program.attribute("inVertex");
+  GLint inNormal=program.attribute("inNormal");
 
   // Creating sphere mesh...
-  mb::SpherePrimitive* sphere = new mb::SpherePrimitive();
+  mb::SpherePrimitive* sphere = new mb::SpherePrimitive( 2, 25, 25);
 
   sphere->bindShaderAttrib(0, inVertex);
   sphere->bindShaderAttrib(1, inColor);
+  sphere->bindShaderAttrib(2, inNormal);
   sphere->setupRender();
 
   unsigned int vao = sphere->getVAO();

@@ -29,9 +29,9 @@ namespace mb
 
   public:
   	MB_API
-  	SpherePrimitive( float radius = 1.0f,
-			               unsigned int width = 1, 
-			               unsigned int height = 1 );
+  	SpherePrimitive( float radius = 10.0f,
+			               unsigned int width = 10, 
+			               unsigned int height = 10 );
 
   	MB_API
   	virtual ~SpherePrimitive(){}

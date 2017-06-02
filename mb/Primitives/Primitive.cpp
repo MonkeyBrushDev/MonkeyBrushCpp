@@ -66,7 +66,7 @@ namespace mb
     glBufferData( GL_ARRAY_BUFFER, sizeof(Vector3)*vertices.size(), vertices.data(), GL_STATIC_DRAW);
     if(shaderDescriptors[VERTEX] != -1)
     {
-      glVertexAttribPointer( shaderDescriptors[VERTEX], VBO_LEN, GL_FLOAT, GL_FALSE, 0, 0);
+      glVertexAttribPointer( shaderDescriptors[VERTEX], 3, GL_FLOAT, GL_FALSE, 0, 0);
       glEnableVertexAttribArray(shaderDescriptors[VERTEX]);
     }
 
@@ -75,31 +75,31 @@ namespace mb
     glBufferData( GL_ARRAY_BUFFER, sizeof(Vector3)*color.size(), color.data(), GL_STATIC_DRAW);
     if(shaderDescriptors[COLOR] != -1)
     {
-      glVertexAttribPointer( shaderDescriptors[COLOR], VBO_LEN, GL_FLOAT, GL_FALSE, 0, 0);
+      glVertexAttribPointer( shaderDescriptors[COLOR], 3, GL_FLOAT, GL_FALSE, 0, 0);
       glEnableVertexAttribArray(shaderDescriptors[COLOR]);
     }
-
-    //Strips
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[INDEX]); 
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*indices.size(), indices.data(), GL_STATIC_DRAW);
 
     //Normals
     glBindBuffer( GL_ARRAY_BUFFER, VBO[NORMAL] );
     glBufferData( GL_ARRAY_BUFFER, sizeof(Vector3)*normals.size(), normals.data(), GL_STATIC_DRAW);
     if(shaderDescriptors[NORMAL] != -1)
     {
-      glVertexAttribPointer( shaderDescriptors[NORMAL], VBO_LEN, GL_FLOAT, GL_FALSE, 0, 0);
+      glVertexAttribPointer( shaderDescriptors[NORMAL], 3, GL_FLOAT, GL_FALSE, 0, 0);
       glEnableVertexAttribArray(shaderDescriptors[NORMAL]);
     }
 
+    //Strips
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[INDEX]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*indices.size(), indices.data(), GL_STATIC_DRAW);
+
     //Texture coordinates
-    glBindBuffer( GL_ARRAY_BUFFER, VBO[TEXCOORD] );
+/*    glBindBuffer( GL_ARRAY_BUFFER, VBO[TEXCOORD] );
     glBufferData( GL_ARRAY_BUFFER, sizeof(Vector2)*texCoords.size(), texCoords.data(), GL_STATIC_DRAW);
     if(shaderDescriptors[TEXCOORD] != -1)
     {
       glVertexAttribPointer( shaderDescriptors[TEXCOORD], VBO_LEN, GL_FLOAT, GL_FALSE, 0, 0);
       glEnableVertexAttribArray(shaderDescriptors[TEXCOORD]);
-    }
+    }*/
 
 
     glBindVertexArray(NULL);
@@ -129,6 +129,10 @@ namespace mb
             glDrawElements( GL_LINE_STRIP, sizeof(GLushort)*indices.size(),
                         GL_UNSIGNED_SHORT, 0);
             break;
+    case Type::TRIANGLES:
+        glDrawElements( GL_TRIANGLES, sizeof(GLushort)*indices.size(),
+                    GL_UNSIGNED_SHORT, 0);
+        break;
         case Type::TRIANGLE_FAN:
             glDrawElements( GL_TRIANGLE_FAN, sizeof(GLushort)*indices.size(),
                         GL_UNSIGNED_SHORT, 0);
