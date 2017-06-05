@@ -7,47 +7,47 @@ unsigned int createVAO( )
 {
   // Set up vertex data (and buffer(s)) and attribute pointers
   float vertices[] = {
-    -1.0f, -1.0f, -1.0f,  0.0f, 0.0f,
-     1.0f, -1.0f, -1.0f,  1.0f, 0.0f,
-     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f,
-    -1.0f, -1.0f, -1.0f,  0.0f, 0.0f,
+    -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, -1.0f,  0.0f, 0.0f,
+     1.0f, -1.0f, -1.0f,  0.0f, 0.0f, -1.0f,  1.0f, 0.0f,
+     1.0f,  1.0f, -1.0f,  0.0f, 0.0f, -1.0f,  1.0f, 1.0f,
+     1.0f,  1.0f, -1.0f,  0.0f, 0.0f, -1.0f,  1.0f, 1.0f,
+    -1.0f,  1.0f, -1.0f,  0.0f, 0.0f, -1.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, -1.0f,  0.0f, 0.0f,
 
-    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
-     1.0f, -1.0f,  1.0f,  1.0f, 0.0f,
-     1.0f,  1.0f,  1.0f,  1.0f, 1.0f,
-     1.0f,  1.0f,  1.0f,  1.0f, 1.0f,
-    -1.0f,  1.0f,  1.0f,  0.0f, 1.0f,
-    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
+    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,  1.0f,  0.0f, 0.0f,
+     1.0f, -1.0f,  1.0f,  0.0f, 0.0f,  1.0f,  1.0f, 0.0f,
+     1.0f,  1.0f,  1.0f,  0.0f, 0.0f,  1.0f,  1.0f, 1.0f,
+     1.0f,  1.0f,  1.0f,  0.0f, 0.0f,  1.0f,  1.0f, 1.0f,
+    -1.0f,  1.0f,  1.0f,  0.0f, 0.0f,  1.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,  1.0f,  0.0f, 0.0f,
 
-    -1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
-    -1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
-    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
-    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
-    -1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
+    -1.0f,  1.0f,  1.0f,  -1.0f, 0.0f, 0.0f,  1.0f, 0.0f,
+    -1.0f,  1.0f, -1.0f,  -1.0f, 0.0f, 0.0f,  1.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f,  -1.0f, 0.0f, 0.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f,  -1.0f, 0.0f, 0.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f,  1.0f,  -1.0f, 0.0f, 0.0f,  0.0f, 0.0f,
+    -1.0f,  1.0f,  1.0f,  -1.0f, 0.0f, 0.0f,  1.0f, 0.0f,
 
-     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
-     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-     1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
-     1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
-     1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
-     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
+     1.0f,  1.0f,  1.0f,  1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
+     1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,   1.0f, 1.0f,
+     1.0f, -1.0f, -1.0f,  1.0f, 0.0f, 0.0f,   0.0f, 1.0f,
+     1.0f, -1.0f, -1.0f,  1.0f, 0.0f, 0.0f,   0.0f, 1.0f,
+     1.0f, -1.0f,  1.0f,  1.0f, 0.0f, 0.0f,   0.0f, 0.0f,
+     1.0f,  1.0f,  1.0f,  1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
 
-    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
-     1.0f, -1.0f, -1.0f,  1.0f, 1.0f,
-     1.0f, -1.0f,  1.0f,  1.0f, 0.0f,
-     1.0f, -1.0f,  1.0f,  1.0f, 0.0f,
-    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
-    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f,  0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+     1.0f, -1.0f, -1.0f,  0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+     1.0f, -1.0f,  1.0f,  0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+     1.0f, -1.0f,  1.0f,  0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+    -1.0f, -1.0f,  1.0f,  0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+    -1.0f, -1.0f, -1.0f,  0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
 
-    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f,
-     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
-     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
-    -1.0f,  1.0f,  1.0f,  0.0f, 0.0f,
-    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f
+    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f, 0.0,   0.0f, 1.0f,
+     1.0f,  1.0f, -1.0f,  0.0f, 1.0f, 0.0,   1.0f, 1.0f,
+     1.0f,  1.0f,  1.0f,  0.0f, 1.0f, 0.0,   1.0f, 0.0f,
+     1.0f,  1.0f,  1.0f,  0.0f, 1.0f, 0.0,   1.0f, 0.0f,
+    -1.0f,  1.0f,  1.0f,  0.0f, 1.0f, 0.0,   0.0f, 0.0f,
+    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f, 0.0,   0.0f, 1.0f
   };
   unsigned int VBO, VAO;
   glGenVertexArrays(1, &VAO);
@@ -59,10 +59,13 @@ unsigned int createVAO( )
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
   // Position attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
   glEnableVertexAttribArray(0);
+  // Normal attribute
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+  glEnableVertexAttribArray(1);
   // TexCoord attribute
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
   glEnableVertexAttribArray(2);
 
   glBindVertexArray(0); // Unbind VAO
@@ -144,6 +147,43 @@ mb::Program* initProgram( )
 
   return program;
 }
+mb::Program* initProgramNoTex( )
+{
+  mb::Program* program = new mb::Program( );
+  program->loadVertexShaderFromText(R"(
+    #version 330 core
+    layout (location = 0) in vec3 position;
+    layout (location = 2) in vec2 texCoord;
+
+    out vec2 TexCoord;
+
+    uniform mat4 model;
+    uniform mat4 view;
+    uniform mat4 projection;
+
+    void main()
+    {
+      gl_Position = projection * view * model * vec4(position, 1.0f);
+      TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
+    })");
+  program->loadFragmentShaderFromText(R"(
+    #version 330 core
+    in vec2 TexCoord;
+
+    out vec4 fragColor;
+
+    uniform vec3 color;
+
+    void main()
+    {
+      fragColor = vec4( TexCoord, 0.0, 1.0 );
+      fragColor *= vec4(color, 1.0);
+    })");
+  program->compileAndLink( );
+  program->autocatching();
+
+  return program;
+}
 
 class ToggleDepthTest : public mb::Component
 {
@@ -164,23 +204,19 @@ public:
   }
 };
 
-#include <routes.h>
+unsigned int vao;
 
-int main( )
+mb::Group* createScene( void )
 {
-  mb::FileSystem::getInstance()->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
+  vao = createVAO( );
 
-  mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
-  window->init( );
-
-  mb::Material* customMaterial = new mb::Material;
   mb::Material customPPMaterial;
   customPPMaterial.addUniform("tex",
         std::make_shared< mb::Uniform >(mb::UniformType::Integer, 0 ));
   customPPMaterial.program = quadProgram( );
 
-  unsigned int vao = createVAO( );
 
+  mb::StandardMaterial* customMaterial = new mb::StandardMaterial( ); /* = new mb::Material;
   customMaterial->program = initProgram( );
   customMaterial->addUniform("projection",
         std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
@@ -191,11 +227,25 @@ int main( )
   customMaterial->addUniform("myTexture",
         std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler ) );
   customMaterial->addUniform("color",
-        std::make_shared< mb::Uniform >( mb::UniformType::Vector3, mb::Vector3(1.0f, 0.0f, 0.0f) ) );
+        std::make_shared< mb::Uniform >( mb::UniformType::Vector3, mb::Vector3(
+                                             1.0f, 0.0f, 0.0f) ) );*/
+
+
+  mb::StandardMaterial2* customMaterial2 = new mb::StandardMaterial2( ); /*new mb::Material;
+  customMaterial2->program = initProgramNoTex();
+  customMaterial2->addUniform("projection",
+        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+  customMaterial2->addUniform("view",
+        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+  customMaterial2->addUniform("model",
+        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+  customMaterial2->addUniform("color",
+        std::make_shared< mb::Uniform >( mb::UniformType::Vector3, mb::Vector3(
+                                             0.0f, 1.0f, 0.0f) ) );*/
 
   auto scene = new mb::Group( "scene" );
   auto camera = new mb::Camera( 45.0f, 500/500, 0.01f, 1000.0f );
-  camera->local( ).translate( 0.0f, 0.0f, -8.0f );
+  camera->local( ).translate( 0.0f, 0.0f, 8.0f );
 
   camera->addComponent( new mb::FreeCameraComponent( ) );
   camera->addComponent( new ToggleDepthTest( ) );
@@ -220,9 +270,14 @@ int main( )
   };
 
 
-
+  mb::Texture2D* normalTex = mb::Texture2D::loadFromImage( "NormalMap.png" );
   mb::Texture* tex = mb::Texture2D::loadFromImage( "texture.jpg" );
   mb::Texture* tex2 = mb::Texture2D::loadFromImage( "tex_metal_005_t.jpg" );
+  mb::Texture2D* tex4 = mb::Texture2D::loadFromImage( "crate.jpg" );
+
+  mb::Texture2D* chesterDiffuse = mb::Texture2D::loadFromImage( "chesterfieldDiffuseMap.png" );
+  mb::Texture2D* chesterDNormal = mb::Texture2D::loadFromImage( "chesterfieldNormalMap.png" );
+  mb::Texture2D* bumpTex = mb::Texture2D::loadFromImage( "DisplacementMap.png" );
 
   unsigned int WW = 50, HH = 50;
   unsigned char * tex_data = new unsigned char[ 4 * WW * HH ];
@@ -244,7 +299,15 @@ int main( )
   tex3->apply( );
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-  customMaterial->uniform("myTexture")->value(tex3);
+  //customMaterial->uniform("DiffuseTexture")->value(tex3);
+  //customMaterial2->uniform("DiffuseTexture")->value(tex3);
+  customMaterial->setColorMap( chesterDiffuse );
+  customMaterial->setNormalMap( chesterDNormal );
+  customMaterial->setColor( mb::Color::GREEN );
+
+  customMaterial2->setColorMap( tex4 );
+  customMaterial2->setBumpMap( bumpTex );
+  customMaterial2->setColor( mb::Color::GOLD );
 
   size_t numCubes = cubePositions.size( );
   size_t middleCubes = numCubes / 2;
@@ -257,7 +320,15 @@ int main( )
     geom->local( ).setScale( mb::Vector3( 0.5f ) );
 
     mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>();
-    mc->addMaterial( mb::MaterialPtr( customMaterial ) );
+
+    if ( i % 2 == 0 )
+    {
+      mc->addMaterial( mb::MaterialPtr( customMaterial ) );
+    }
+    else
+    {
+      mc->addMaterial( mb::MaterialPtr( customMaterial2 ) );
+    }
 
     // TODO: HARDCODED
     if ( i % 3 == 0 ) { geom->setCastShadows( false ); }
@@ -276,9 +347,17 @@ int main( )
     geom->local( ).setScale( mb::Vector3( 0.5f ) );
 
     mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>();
-    mc->addMaterial( mb::MaterialPtr( customMaterial ) );//2 ) );
 
-    // if ( i % 3 == 0 ) { geom->setCastShadows( false ); } // TODO: HARDCODED
+    if ( i % 2 == 0 )
+    {
+      mc->addMaterial( mb::MaterialPtr( customMaterial ) );
+    }
+    else
+    {
+      mc->addMaterial( mb::MaterialPtr( customMaterial2 ) );
+    }
+
+    // if ( i % 3 == 0 ) { 0.0f, 1.0f, 0.0,   geom->setCastShadows( false ); } // TODO: HARDCODED
 
     geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ) * -1.0f, 0.1f ) );
 
@@ -302,7 +381,19 @@ int main( )
 
   scene->addChild( cubes );
 
-  mb::Group* _scene = scene;
+  return scene;
+}
+
+#include <routes.h>
+
+int main( )
+{
+  mb::FileSystem::getInstance()->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
+
+  mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
+  window->init( );
+
+  mb::Group* _scene = createScene( );
 
   _scene->perform( mb::UpdateWorldState( ) );
 

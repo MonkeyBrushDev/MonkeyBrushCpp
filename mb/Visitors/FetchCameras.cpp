@@ -21,14 +21,6 @@
 
 namespace mb
 {
-  FetchCameras::FetchCameras( )
-  {
-  }
-
-  FetchCameras::~FetchCameras( )
-  {
-  }
-
   void FetchCameras::reset( void )
   {
     _cameras.clear( );

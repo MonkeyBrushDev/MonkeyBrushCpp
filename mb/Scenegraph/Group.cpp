@@ -20,6 +20,7 @@
 #include "Group.hpp"
   #include <algorithm>
 #include "../Exceptions/HasParentException.hpp"
+#include "../Exceptions/RuntimeException.hpp"
 
 namespace mb
 {
@@ -47,7 +48,7 @@ namespace mb
   {
     if ( node->parent( ) == this )
     {
-      return; // TODO: throw Exception!!
+      throw RuntimeException( "You trying to add this node with himself" );
     }
     if ( node->parent( ) != nullptr )
     {

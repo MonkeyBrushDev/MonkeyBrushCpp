@@ -304,6 +304,26 @@ namespace mb
       _rotate.lookAt( dir, up );
     }
 
+    Transform& fromMatrix( const mb::Matrix4& m )
+    {
+      std::array<float, 9> viewRotation;
+      viewRotation[ 0 ] = m[ 0 ];
+      viewRotation[ 1 ] = m[ 1 ];
+      viewRotation[ 2 ] = m[ 2 ];
+      viewRotation[ 3 ] = m[ 4 ];
+      viewRotation[ 4 ] = m[ 5 ];
+      viewRotation[ 5 ] = m[ 6 ];
+      viewRotation[ 6 ] = m[ 8 ];
+      viewRotation[ 7 ] = m[ 9 ];
+      viewRotation[ 8 ] = m[ 10 ];
+
+      rotate( ).fromRotationMatrix( viewRotation );
+      setPosition( m[ 12 ], m[ 13 ], m[ 14 ] );
+      setScale( mb::Vector3::ONE );
+
+      return *this;
+    }
+
   protected:
     // OPTIMIZATION: If identity, discard multiplication on global matrices generation!!
     bool _isIdentity;

@@ -20,7 +20,7 @@
 #ifndef __MB_FRUSTUM__
 #define __MB_FRUSTUM__
 
-// TODO: CHECK https://sites.google.com/site/letsmakeavoxelengine/home/frustum-culling
+// Ideas from https://sites.google.com/site/letsmakeavoxelengine/home/frustum-culling
 
 #include <math.h>
 #include <array>

@@ -106,15 +106,14 @@ namespace mb
   const Matrix4& Camera::getView( void )
   {
     _viewMatrix = getWorld().computeModel();
-    // TODO _viewMatrix.makeInverse();
+    _viewMatrix.makeInverse();
     return _viewMatrix;
   }
 
   void Camera::setView( const Matrix4& view )
   {
-    _viewMatrix = view;
-    // world().fromMatrix( view.getInverse() );
-    //_viewMatrix = view.getInverse();
+    world().fromMatrix( view.getInverse() );
+    _viewMatrix = view.getInverse();
   }
 
   void Camera::computeCullingPlanes( void )

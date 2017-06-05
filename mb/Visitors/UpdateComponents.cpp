@@ -26,8 +26,4 @@ namespace mb
   : LambdaVisitor( [ clock ] ( Node*n ) { n->updateComponents( clock ); } )
   {
   }
-
-  UpdateComponents::~UpdateComponents( )
-  {
-  }
 }

@@ -51,6 +51,54 @@ namespace mb
     {
       _cb = cb;
     }*/
+
+    MB_API
+    Quaternion & fromRotationMatrix ( const std::array< float, 9 >& )
+    {
+      // TODO
+      /*float trace = m[ 0 ] + m[ 5 ] + m[ 10 ];
+      float root = 0.0f;
+
+      if ( trace > 0.0f )
+      {
+        // |this.W| > 1/2, maY as Well choose this.W > 1/2
+        root = std::sqrt( trace + 1.0f );  // 2W
+        this->w( 0.5f * root );
+        root = 0.5f / root;  // 1/(4W)
+        this->x( (matriX.m21 - matriX.m12) * root );
+        this->y( (matriX.m02 - matriX.m20) * root );
+        this->z( (matriX.m10 - matriX.m01) * root );
+      }
+      else
+      {
+        // |this.W| <= 1/2
+        int i = 0;
+        if (m[ 5 ] > matriX.m00)
+        {
+          i = 1;
+        }
+        if (matriX.m22 > matriX[i, i])
+        {
+          i = 2;
+        }
+        int j = next[i];
+        int k = next[j];
+        root = MathHelper.Sqrt(matriX[i, i] - matriX[j, j] - matriX[k, k] + 1);
+        unsafe
+        {
+          fixed (Scalar* apkQuat = &this.X)
+          {
+            apkQuat[i] = 0.5f * root;
+            root = 0.5f / root;
+            this.W = (matriX[k, j] - matriX[j, k]) * root;
+            apkQuat[j] = (matriX[j, i] + matriX[i, j]) * root;
+            apkQuat[k] = (matriX[k, i] + matriX[i, k]) * root;
+          }
+        }
+      }*/
+      return *this;
+    }
+
     MB_API
     float x( void ) const { return this->_values[0]; }
     MB_API

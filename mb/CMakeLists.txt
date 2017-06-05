@@ -10,10 +10,7 @@ set( MB_PUBLIC_HEADERS
   Components/LambdaComponent.hpp
   Components/MaterialComponent.hpp
   Components/MeshRenderer.hpp
-  Components/OrbitCamera.hpp
-  Components/ScriptComponent.hpp
   Components/RotateComponent.hpp
-  Components/OrbitComponent.hpp
   Components/FreeCameraComponent.hpp
 
 
@@ -136,6 +133,7 @@ set( MB_PUBLIC_HEADERS
   OpenGL/Program.hpp
   OpenGL/ResourceShader.hpp
   OpenGL/OpenGLRenderer.hpp
+  Rendering/StandardMaterial2.hpp
 )
 
 set( MB_HEADERS
@@ -154,7 +152,6 @@ set( MB_SOURCES
   Components/LambdaComponent.cpp
   Components/MaterialComponent.cpp
   Components/MeshRenderer.cpp
-  Components/ScriptComponent.cpp
   Components/RotateComponent.cpp
   Components/FreeCameraComponent.cpp
 

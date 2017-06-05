@@ -28,7 +28,6 @@
 
 namespace mb
 {
-  // TODO: Use shared_ptr instead raw pointers
   class Geometry: public Node
   {
   public:

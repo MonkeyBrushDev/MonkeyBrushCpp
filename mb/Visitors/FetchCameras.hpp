@@ -33,10 +33,6 @@ namespace mb
   {
   public:
     MB_API
-    FetchCameras( );
-    MB_API
-    virtual ~FetchCameras( );
-    MB_API
     virtual void reset( void ) override;
     MB_API
     virtual void visitCamera( Camera* c ) override;

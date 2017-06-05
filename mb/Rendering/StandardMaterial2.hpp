@@ -17,8 +17,8 @@
  *
  **/
 
-#ifndef __MB_STANDARDMATERIAL__
-#define __MB_STANDARDMATERIAL__
+#ifndef __MB_StandardMaterial2__
+#define __MB_StandardMaterial2__
 
 #include <mb/api.h>
 
@@ -29,16 +29,16 @@
 
 namespace mb
 {
-  class StandardMaterial: public Material
+  class StandardMaterial2: public Material
   {
   public:
     MB_API
-    StandardMaterial( void )
+    StandardMaterial2( void )
       //: _diffuse( mb::Color::WHITE )
       //, _shininess( 32.0f )
       //, _colorMap( nullptr )
       //, _specularMap( nullptr )
-      // _normalMap( nullptr )
+      // _bumpMap( nullptr )
     {
       this->addUniform("projection",
         std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
@@ -48,18 +48,16 @@ namespace mb
         std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
 
       _colorMap = std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler );
-      _normalMap = std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler );
+      _bumpMap = std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler );
       _diffuse = std::make_shared< mb::Uniform >( mb::UniformType::Vector4, Vector4( 1.0f ) );
-      _specularMap = std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler );
       _shininess = std::make_shared< mb::Uniform >( mb::UniformType::Float, 64.0f );
-      _normalScale = std::make_shared< mb::Uniform >( mb::UniformType::Float, 0.5f );
+      _bumpScale = std::make_shared< mb::Uniform >( mb::UniformType::Float, 0.5f );
 
       this->addUniform( colorMapUnifName, _colorMap );
       this->addUniform( colorUnifName, _diffuse );
       this->addUniform( shininessUnifName, _shininess );
-      this->addUniform( specularMapUnifName, _specularMap );
-      this->addUniform( normalMapUnifName, _normalMap );
-      this->addUniform( normalScaleUnifName, _normalScale );
+      this->addUniform( bumpMapUnifName, _bumpMap );
+      this->addUniform( bumpScaleUnifName, _bumpScale );
 
       program = new mb::Program( );
       program->loadVertexShaderFromText(R"(
@@ -94,16 +92,16 @@ namespace mb
         out vec4 fragColor;
 
         uniform sampler2D DiffuseTexture;
-        uniform sampler2D NormalTexture;
+        uniform sampler2D BumpTexture;
         //uniform sampler2D SpecularTexture;
         uniform vec4 DiffuseColor;
 
         uniform mat4 view;
 
-        uniform float NormalScale;
+        uniform float BumpScale;
         uniform float ShininessValue;
 
-        #import<normal_mapping.glsl>(normalCustomTexture=NormalTexture,normalScale=NormalScale)
+        #import<bump_mapping.glsl>(bumpMap=BumpTexture,bumpScale=BumpScale)
 
         void main()
         {
@@ -113,7 +111,7 @@ namespace mb
           vec3 ambient = vec3(0.4);
 
           vec3 norm = normalize(Normal);
-          norm = perturb_normal(-outPosition, norm);
+          norm = perturbNormalArb(-outPosition, norm);
 
           vec3 lightDir = normalize(lightPosition - outPosition);
           float diff = max(dot(norm, lightDir), 0.0);
@@ -129,26 +127,10 @@ namespace mb
           fragColor = vec4((ambient + diffuse + specular) * texture( DiffuseTexture, TexCoord ).rgb, 1.0);
 
           fragColor *= DiffuseColor;
-
-          /*fragColor = vec4( TexCoord, 0.0, 1.0 );
-          fragColor = texture( DiffuseTexture, TexCoord );
-          fragColor *= DiffuseColor;
-          //fragColor.rgb = Normal;
-
-          if (gl_FragCoord.x < 250)
-          {
-            fragColor.rgb = norm;
-          }
-          fragColor.rgb = viewPos;*/
         })");
       program->compileAndLink( );
       program->autocatching();
     }
-    /*MB_API
-    const Color &getColor( void ) const
-    {
-      return _diffuse;
-    }*/
     MB_API
     void setColor( const Color &color )
     {
@@ -165,56 +147,34 @@ namespace mb
       _shininess->value( v );
     }
     MB_API
-    void setNormalScale( const float &v )
+    void setBumpScale( const float &v )
     {
-      _normalScale->value( v );
+      _bumpScale->value( v );
     }
-    /*MB_API
-    mb::Texture2D* getColorMap( void )
-    {
-      return _colorMap;
-    }*/
     MB_API
     void setColorMap( mb::Texture2D *texture )
     {
       _colorMap->value( texture );
     }
-    /*MB_API
-    mb::Texture2D* getSpecularMap( void )
-    {
-      return _specularMap;
-    }*/
     MB_API
-    void setSpecularMap( mb::Texture2D *texture )
+    void setBumpMap( mb::Texture2D *texture )
     {
-      _specularMap->value( texture );
-    }
-    /*MB_API
-    mb::Texture2D* getNormalMap( void )
-    {
-      return _normalMap;
-    }*/
-    MB_API
-    void setNormalMap( mb::Texture2D *texture )
-    {
-      _normalMap->value( texture );
+      _bumpMap->value( texture );
     }
   protected:
     mb::UniformPtr _diffuse;
     mb::UniformPtr _shininess;
     mb::UniformPtr _colorMap;
-    mb::UniformPtr _normalMap;
-    mb::UniformPtr _normalScale;
-    mb::UniformPtr _specularMap;
+    mb::UniformPtr _bumpMap;
+    mb::UniformPtr _bumpScale;
 
   private:
     const char* colorMapUnifName = "DiffuseTexture";
     const char* colorUnifName = "DiffuseColor";
     const char* shininessUnifName = "ShininessValue";
-    const char* normalMapUnifName = "NormalTexture";
-    const char* specularMapUnifName = "SpecularTexture";
-    const char* normalScaleUnifName = "NormalScale";
+    const char* bumpMapUnifName = "BumpTexture";
+    const char* bumpScaleUnifName = "BumpScale";
   };
 }
 
-#endif /* __MB_STANDARDMATERIAL__ */
+#endif /* __MB_StandardMaterial2__ */

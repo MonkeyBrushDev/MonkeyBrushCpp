@@ -489,15 +489,6 @@ namespace mb
         void activeSubprogram(const std::string& name, int shaderType);
 #endif
 
-#ifdef MB_OCC_QUERY
-        /**
-        * Method to check if object is visible in frustrum
-        * @return object is visible
-        */
-        MB_API
-        bool occlusionQuery(std::function<void()> renderFunc);
-#endif
-
 #ifdef MB_COMPUTE_SHADERS
         /**
         * Method to launch one or more compute work groups.
@@ -634,10 +625,6 @@ namespace mb
         std::multimap<int, SubProgram> _subprograms;
 #endif
         std::vector<unsigned int> _shaders;
-
-#ifdef MB_OCC_QUERY
-        unsigned int _occQuery;
-#endif
     };
 }
 

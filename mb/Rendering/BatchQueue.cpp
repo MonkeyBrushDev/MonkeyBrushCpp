@@ -114,8 +114,20 @@ namespace mb
     }
     else
     {
+      // Order by material
+      auto it = queue->begin( );
+      auto mat1 = materials->first();
+      while( it != queue->end( ) )
+      {
+        auto mat2 = renderable.geometry->getComponent< mb::MaterialComponent >( )->first();
+        if( mat1 != mat2 )
+        {
+          ++it;
+        } else { break; }
+      }
+      queue->insert( it, renderable );
       // TODO: Required order?
-      queue->push_back( renderable );
+      //queue->push_back( renderable );
     }
 
     if ( geometry->castShadows( ) )

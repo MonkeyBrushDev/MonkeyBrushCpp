@@ -128,7 +128,7 @@ namespace mb
         }
       } );
 
-      if ( mainQueue != nullptr ) // TODO: CORRECT COMPARISON??
+      if ( mainQueue != nullptr )
       {
         // Render main queue
         std::cout << "render main queue (" << mainQueue->camera( )->name( ) << ")" << std::endl;

@@ -18,6 +18,7 @@
  **/
 
 #include "ResourceShader.hpp"
+#include <iostream>
 
 namespace mb
 {
@@ -43,9 +44,8 @@ namespace mb
   {
     ResourceShader::_files.clear();
   }
-  void ResourceShader::loadShader(const std::string& alias, const std::string& filePath)
+  std::string ResourceShader::loadShader( const std::string& alias, const std::string& filePath )
   {
-    // TODO: USE FILESYSTEM
     std::ifstream file(filePath);
     if (!file.is_open())
     {
@@ -55,6 +55,7 @@ namespace mb
     buffer << file.rdbuf();
     const std::string& src = buffer.str();
     ResourceShader::loadShaderFromText(alias, src);
+    return src;
   }
   void ResourceShader::loadShaderFromText(const std::string& alias, const std::string& shaderSource)
   {

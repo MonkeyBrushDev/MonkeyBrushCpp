@@ -72,6 +72,8 @@ namespace mb
     virtual void onEnable( void ) { }
     MB_API
     virtual void onDisable( void ) { }
+
+    // TODO virtual void renderDebug( Renderer*, Camera* ) { }
   private:
     void setNode( Node* n );
   protected:
