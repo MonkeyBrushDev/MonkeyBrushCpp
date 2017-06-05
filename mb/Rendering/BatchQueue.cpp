@@ -1,30 +1,32 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  **/
 
 #include "BatchQueue.hpp"
+#include "../Components/MeshRenderer.hpp"
+#include "../Components/MaterialComponent.hpp"
 
 namespace mb
 {
   BatchQueue::BatchQueue( )
   {
-    _renderables[ RenderableType::OPAQUE ] = std::vector<Renderable*>( );
-    _renderables[ RenderableType::TRANSPARENT ] = std::vector<Renderable*>( );
+    _renderables[ RenderableType::OPAQUE ] = std::vector<Renderable>( );
+    _renderables[ RenderableType::TRANSPARENT ] = std::vector<Renderable>( );
   }
 
   BatchQueue::~BatchQueue( )
@@ -44,7 +46,7 @@ namespace mb
   }
   void BatchQueue::setCamera( Camera* c )
   {
-    if ( c!= nullptr)
+    if ( c!= nullptr )
     {
       _camera = c;
       _projectionMatrix = _camera->getProjection( );
@@ -57,27 +59,69 @@ namespace mb
       _viewMatrix.makeIdentity( );
     }
   }
-  Camera* BatchQueue::camera( )
+  Camera* BatchQueue::getCamera( void )
   {
     return _camera;
   }
-  std::vector<Renderable*> BatchQueue::renderables( RenderableType t )
+  std::vector<Renderable> BatchQueue::renderables( RenderableType t )
   {
     return _renderables[ t ];
   }
-  void BatchQueue::pushGeometry( Geometry* g )
+  void BatchQueue::pushGeometry( Geometry* geometry )
   {
-    auto mr = g->getComponent< MeshRenderer >( );
+    /*auto mr = geometry->getComponent< MeshRenderer >( );
     if ( mr == nullptr )
+    {
+      return;
+    }*/
+
+    mb::MaterialComponent* materials = geometry->getComponent< mb::MaterialComponent >( );
+    if ( materials == nullptr )
     {
       return;
     }
 
-    Renderable* r = new Renderable( );
-    r->material = 1;
-    r->geom = g;
+    auto renderType = RenderableType::OPAQUE;
 
-    _renderables[ RenderableType::OPAQUE ].push_back( r );
+    /*mb::PipelineState& state = materials->first()->state();
+
+    if( state.blending().isEnabled( ) )
+    {
+      renderType = RenderableType::TRANSPARENT;
+    }*/
+
+    Renderable renderable(
+      nullptr, // TODO HARDCODED materials->first( ).get( ),
+      geometry,
+      geometry->world( ).computeModel( ),
+      (
+        getCamera( )->world( ).getPosition( ) -
+        geometry->world( ).getPosition( )
+      ).getSquaredMagnitude( )
+    );
+
+    auto queue = &_renderables[ renderType ];
+
+    if( renderType == RenderableType::TRANSPARENT )
+    {
+      // Order back to front
+      auto it = queue->begin( );
+      while( it != queue->end( ) && it->zDistance >= renderable.zDistance )
+      {
+        ++it;
+      }
+      queue->insert( it, renderable );
+    }
+    else
+    {
+      // TODO: Required order?
+      queue->push_back( renderable );
+    }
+
+    if ( geometry->castShadows( ) )
+    {
+      _renderables[ RenderableType::SHADOW ].push_back( renderable );
+    }
   }
   void BatchQueue::pushLight( Light * l )
   {

@@ -21,178 +21,137 @@
 #define __MB_TEXTURE__
 
 #include <mb/api.h>
-
-#include "../Includes.hpp"
-
-#include <FreeImage.h>
-#include <iostream>
-#include <fstream>
-
-#include "../Maths/Color.hpp"
-
-#include "../Utils/FileSystem.hpp"
+#include <string>
 
 namespace mb
 {
   class Texture
   {
+  public:
+    enum class WrapMode: short
+    {
+      REPEAT, CLAMP_TO_EDGE
+    };
+    enum class FilterMode: short
+    {
+      LINEAR, NEAREST
+    };
+    enum class FormatTexture: short
+    {
+      RGB, RGBA
+    };
+    MB_API
+    WrapMode getWrapMode( void ) const { return _wrapMode; }
+    MB_API
+    void setWrapMode( const WrapMode& wm ) { _wrapMode = wm; }
+    MB_API
+    FilterMode getMinFilter( void ) const { return _minFilter; }
+    MB_API
+    void setMinFilter( const FilterMode& fm ) { _minFilter = fm; }
+    MB_API
+    FilterMode getMagFilter( void ) const { return _magFilter; }
+    MB_API
+    void setMagFilter( const FilterMode& fm ) { _magFilter = fm; }
+    MB_API
+    unsigned int getWidth( void ) const { return _width; }
+    MB_API
+    unsigned int getHeight( void ) const { return _height; }
+    MB_API
+    unsigned int getAnisoLevel( void ) const { return _anisoLevel; }
+    MB_API
+    void setAnisoLevel( unsigned int anisoLevel ) { _anisoLevel = anisoLevel; }
 
+    MB_API
+    void bind( int slot = -1 );
+    MB_API
+    void unbind( void );
+    MB_API
+    virtual void loadRawTexture( unsigned char* data )
+    {
+      _data = data;
+    }
+    MB_API
+    virtual void apply( void ) = 0;
+  protected:
+    Texture(unsigned int w, unsigned int h, FormatTexture format,
+      bool linear, unsigned int target ); // TODO: bool mipmap
+  protected:
+    WrapMode _wrapMode;
+    FilterMode _minFilter;
+    FilterMode _magFilter;
+    unsigned int _width;
+    unsigned int _height;
+    unsigned int _anisoLevel; // TODO: unused
+    unsigned int _target;
+    unsigned int _handler;
+    unsigned char* _data;
   };
-  /*class Texture
+  class Texture1D: public Texture
   {
   public:
-    bool _anisotropicFiltering;
-    unsigned int _width; // ONLY GET
-    unsigned int _height; // ONLY GET
-    unsigned int _filterMode;
-    unsigned int _anisoLevel;
-    unsigned int _wrapMode;
-    unsigned int _filter;
-  protected:
-    Texture( unsigned int width, unsigned int height, unsigned int format, bool mipmap, bool linear )
-      : _width( width )
-      , _height( height )
-      , _filter
-    {
-      _filter = linear ? GL_LINEAR : GL_NEAREST;
-    }
+    MB_API
+    Texture1D( unsigned int w );
+    MB_API
+    Texture1D( unsigned int w, Texture::FormatTexture format );
+    MB_API
+    Texture1D( unsigned int w, FormatTexture format, bool linear );
+    MB_API
+    virtual void apply( void ); // bool updateMipMaps = true
   };
   class Texture2D: public Texture
   {
   public:
-    Texture2D( unsigned int width, unsigned int height )
-    {
-      Texture2D( width, height, GL_RGBA32F, true, false );
-    }
-    Texture2D( unsigned int width, unsigned int height, unsigned int format, bool mipmap )
-    {
-      Texture2D( width, height, format, mipmap, false );
-    }
-    Texture2D( unsigned int width, unsigned int height, unsigned int format, bool mipmap, bool linear )
-      : Texture( width, height, format, mipmap, linear )
-    {
-      _filter = linear ? GL_LINEAR : GL_NEAREST;
-    }
-    // void setPixel( unsigned int x, unsigned int y, const mb::Color& color )
-    // mb::Color getPixel( unsigned int x, unsigned int y )
-    // void loadRawTexture( unsigned char * data )
-    // void loadRawTexture( unsigned char * data, unsigned int size )}
+    MB_API
+    Texture2D( unsigned int w, unsigned int h );
+    MB_API
+    Texture2D( unsigned int w, unsigned int h, FormatTexture format );
+    MB_API
+    Texture2D( unsigned int w, unsigned int h, FormatTexture format,
+      bool linear );
+    MB_API
+    void loadImageTexture( const std::string& fileName );
+    MB_API
+    virtual void apply( void ); // bool updateMipMaps = true
+    MB_API
+    static mb::Texture2D* loadFromImage( const std::string& fileName );
+  protected:
+    Texture2D( void ) : Texture2D( 0, 0 ) { }
   };
   class Texture2DArray: public Texture
   {
   public:
-    Texture2DArray( unsigned int width, unsigned int height, unsigned int depth,
-      unsigned int format, bool mipmap )
-    {
-      Texture2DArray( width, height, depth, format, mipmap, false );
-    }
-    Texture2DArray( unsigned int width, unsigned int height, unsigned int depth,
-      unsigned int format, bool mipmap, bool linear )
-      : Texture( width, height, format, mipmap, linear )
-      , _depth( depth )
-    {
-    }
-    void apply( bool updateMipmaps = true )
-    {
-
-    }
+    MB_API
+    Texture2DArray( unsigned int w, unsigned int h, unsigned int d,
+      FormatTexture format );
+    MB_API
+    Texture2DArray( unsigned int w, unsigned int h, unsigned int d,
+      FormatTexture format, bool linear );
+    MB_API
+    unsigned int getDepth( void ) const { return _depth; }
+    MB_API
+    void setDepth( unsigned int d ) { _depth = d; }
+    MB_API
+    void apply( void ); // bool updateMipMaps = true
+  protected:
     unsigned int _depth;
   };
   class Texture3D: public Texture
   {
   public:
-    Texture3D( unsigned int width, unsigned int height, unsigned int depth,
-      unsigned int format, bool mipmap )
-    {
-      Texture3D( width, height, depth, format, mipmap, false );
-    }
-    Texture3D( unsigned int width, unsigned int height, unsigned int depth,
-      unsigned int format, bool mipmap, bool linear )
-      : Texture( width, height, format, mipmap, linear )
-      , _depth( depth )
-    {
-    }
-    void apply( bool updateMipmaps = true )
-    {
-
-    }
-    unsigned int _depth;
-  };*/
-  class Texture2D
-  {
-  public:
-    Texture2D( const std::string& fileName )
-    {
-      std::string auxName = mb::FileSystem::getInstance()->getPathForResource( fileName );
-      const char* fileName_ = auxName.c_str( );
-
-      FreeImage_Initialise( TRUE );
-      FREE_IMAGE_FORMAT format = FreeImage_GetFileType( fileName_, 0 );
-      if ( format == FIF_UNKNOWN )
-        format = FreeImage_GetFIFFromFilename( fileName_ );
-      if ( ( format == FIF_UNKNOWN ) || !FreeImage_FIFSupportsReading( format ) )
-        throw;
-      FIBITMAP* img = FreeImage_Load( format, fileName_ );
-      if ( img == nullptr )
-        throw "IMG UNDEFINED";
-      FIBITMAP* tempImg = img;
-      img = FreeImage_ConvertTo32Bits( img );
-      FreeImage_Unload( tempImg );
-      width_ = FreeImage_GetWidth( img );
-      height_ = FreeImage_GetHeight( img );
-      //BGRA a RGBA
-      unsigned char * data = new unsigned char[ 4 * width_*height_ ];
-      char *buff = ( char* ) FreeImage_GetBits( img );
-      for ( unsigned int j = 0; j < width_*height_; ++j )
-      {
-        data[ j * 4 + 0 ] = buff[ j * 4 + 2 ];
-        data[ j * 4 + 1 ] = buff[ j * 4 + 1 ];
-        data[ j * 4 + 2 ] = buff[ j * 4 + 0 ];
-        data[ j * 4 + 3 ] = buff[ j * 4 + 3 ];
-      }
-      FreeImage_Unload( img );
-      FreeImage_DeInitialise( );
-
-
-      glGenTextures( 1, &_handler );
-      glBindTexture( GL_TEXTURE_2D, _handler );
-
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-      glTexImage2D(
-        GL_TEXTURE_2D,
-        0,
-        GL_RGBA,
-        width_,
-        height_,
-        0,
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        data
-      );
-      glGenerateMipmap(GL_TEXTURE_2D);
-      glBindTexture(GL_TEXTURE_2D, 0);
-    }
-    void bind( int slot = -1 )
-    {
-      if ( slot >= 0 )
-      {
-        glActiveTexture( GL_TEXTURE0 + slot );
-      }
-      glBindTexture( GL_TEXTURE_2D, _handler );
-    }
-    void unbind( void )
-    {
-      glBindTexture( GL_TEXTURE_2D, -1 );
-    }
-  public:
-    unsigned int _handler;
+    MB_API
+    Texture3D( unsigned int w, unsigned int h, unsigned int d,
+      FormatTexture format );
+    MB_API
+    Texture3D( unsigned int w, unsigned int h, unsigned int d,
+      FormatTexture format, bool linear );
+    MB_API
+    unsigned int getDepth( void ) const { return _depth; }
+    MB_API
+    void setDepth( unsigned int d ) { _depth = d; }
+    MB_API
+    void apply( void ); // bool updateMipMaps = true
   protected:
-    unsigned int width_;
-    unsigned int height_;
+    unsigned int _depth;
   };
 }
 

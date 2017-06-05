@@ -22,12 +22,12 @@
 namespace mb
 {
   LOD::LOD( const std::string& name )
-    : Group( name )
+    : Switch( name )
   {
   }
   void LOD::addChild( Node* node )
   {
-    Group::addChild( node );
+    Switch::addChild( node );
     unsigned int numChildren = this->getNumChildren( );
     if ( numChildren > _rangeList.size( ) )
     {
@@ -37,7 +37,7 @@ namespace mb
   }
   void LOD::addChild( Node* node, const float& min, const float& max )
   {
-    Group::addChild( node );
+    Switch::addChild( node );
     unsigned int numChildren = this->getNumChildren( );
     if ( numChildren > _rangeList.size( ) )
     {
@@ -57,11 +57,11 @@ namespace mb
     {
       _rangeList.erase( _rangeList.begin( ) + pos );
     }
-    Group::removeChild( node );
+    Switch::removeChild( node );
   }
   void LOD::removeChildren( void )
   {
     _rangeList.clear( );
-    Group::removeChildren( );
+    Switch::removeChildren( );
   }
 }

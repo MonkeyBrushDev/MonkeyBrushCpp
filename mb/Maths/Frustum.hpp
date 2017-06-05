@@ -77,6 +77,12 @@ namespace mb
       return getDMax() - getDMin();
     }
 
+    /*MB_API
+    void setFieldOfView( float fov )
+    {
+      _data[ FRUSTUM_UMAX ] = near * std::tan( 0.5f * fov * 3.1415f / 180.0f );
+    }*/
+
 		float getRMin( void ) const { return _data[ FRUSTUM_RMIN ]; }
 		float getRMax( void ) const { return _data[ FRUSTUM_RMAX ]; }
 		float getUMin( void ) const { return _data[ FRUSTUM_UMIN ]; }
@@ -86,6 +92,17 @@ namespace mb
 
     Matrix4 computeProjMatrix( void ) const;
     Matrix4 computeOthoMatrix( void ) const;
+
+
+    friend std::ostream& operator<<( std::ostream &out, const Frustum& f )
+    {
+      out << std::setiosflags( std::ios::fixed | std::ios::showpoint  )
+      << std::setprecision( 4 )
+      << "[D = (" << f.getDMin( ) << ", " << f.getDMax( ) << "), "
+      << "R = (" << f.getRMin( ) << ", " << f.getRMax( ) << "), "
+      << "U = (" << f.getUMin( ) << ", " << f.getUMax( ) << ")]";
+      return out;
+    }
   protected:
     std::array< float, 6 > _data;
   };

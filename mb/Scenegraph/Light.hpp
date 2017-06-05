@@ -33,15 +33,15 @@ namespace mb
   {
     enum class ShadowType
     {
-      NO_SHADOW,
-      SOFT_SHADOW,
-      HARD_SHADOW
+      NONE,
+      SOFT,
+      HARD
     };
     enum class Type
     {
       //AMBIENT,
       DIRECTIONAL,
-      //HEMISPHERIC,
+      HEMISPHERIC,
       POINT,
       SPOT
     };
@@ -67,13 +67,30 @@ namespace mb
     }
     const Color& getColor( void ) { return _diffuseColor; }
     void setColor( const Color& c ) { _diffuseColor = c; }
-
-    /*mb::Matrix4 computeProjectionMatrix( void ) const
+    const Color& getGroundColor( void )
     {
-      const float top;
-      const float left;
+      if ( _type == Type::HEMISPHERIC )
+      {
+        return _groundColor;
+      }
+      return mb::Color::BLACK;
+    }
+    void setGroundColor( const Color& c )
+    {
+      _groundColor = c;
+    }
+
+    mb::Matrix4 computeProjectionMatrix( void ) const
+    {
+      return mb::Matrix4::orthographic(
+        -10.0f, 10.0f,
+        -10.0f, 10.0f,
+        _shadowFar, _shadowNear
+      );
+      /*const float top = _shadowFar;
+      const float left = -_shadowFar;
       const float right;
-      const float bottom;
+      const float bottom = -_shadowFar;
       const float near;
       const float far;
 
@@ -82,8 +99,8 @@ namespace mb
         0.0f, 2.0f / ( top - bottom ), 0.0f, - ( top + bottom ) / ( top - bottom ),
         0.0f, 0.0f, -2.0f / ( far - near ), - ( far + near ) / ( far - near ),
         0.0f, 0.0f, 0.0f, 1.0f
-      });
-    }*/
+      });*/
+    }
     mb::Matrix4 computeViewMatrix( void ) const
     {
       return getWorld( ).computeModel( ).getInverse( );
@@ -95,14 +112,19 @@ namespace mb
 
   public:
     Light::Type _type;
-    Color _diffuseColor;
-    Color _ambientColor;
-    ShadowType shadowType;
+    mb::Color _diffuseColor;
+    mb::Color _ambientColor;
+    mb::Color _groundColor;   // Only for hemispheric light
+    ShadowType _shadowType;
     float strength = 1.0f;
     float bias = 0.05f;
     float normalBias = 0.4f;
     float nearPlane = 0.2f;
+    // TODO: mb::Vector3 _attenuation;
+    float _shadowNear = 0.1f;
+    float _shadowFar = 1024.0f;
   };
+  typedef std::shared_ptr<Light> LightPtr;
 }
 
 #endif /* __MB_LIGHT__ */

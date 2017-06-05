@@ -31,7 +31,7 @@ namespace mb
     MB_API
     Clock( void );
     MB_API
-    explicit Clock( float dt );
+    explicit Clock( double dt );
     MB_API
     Clock( const Clock &c );
     MB_API
@@ -45,43 +45,29 @@ namespace mb
     void tick( void );
 
     MB_API
-    float currentTime( void ) const;
+    double getCurrentTime( void ) const;
     MB_API
-    void currentTime( float value );
-
+    double getLastTime( void ) const;
     MB_API
-    float lastTime( void ) const;
-    MB_API
-    void lastTime( float value );
-
-    MB_API
-    float deltaTime( void ) const;
-    MB_API
-    void deltaTime( float value );
-
-    MB_API
-    float accumTime( void ) const;
-    MB_API
-    void accumTime( float value );
-
+    double getDeltaTime( void ) const;
   private:
-    float _currentTime;
-    float _lastTime;
-    float _deltaTime;
-    float _accumTime;
+    double _currentTime;
+    double _lastTime;
+    double _deltaTime;
+    double _accumTime;
 
   public:
     typedef std::function< void( void ) > TimeoutCallback;
     MB_API
       void setTimeout( TimeoutCallback const &callback,
-      float timeout );
+      double timeout );
     MB_API
       void setInterval( TimeoutCallback const &callback,
-      float timeout );
+      double timeout );
 
   private:
     TimeoutCallback _timeoutCallback;
-    float _timeout;
+    double _timeout;
     bool _repeat;
 
   public:

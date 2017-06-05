@@ -316,7 +316,7 @@ int main()
       BatchQueuePtr mainQueue = nullptr;
       std::for_each( bqCollection.begin(), bqCollection.end(), [&](BatchQueuePtr bq)
       {
-        if (bq->camera() != Camera::getMainCamera())
+        if ( bq->getCamera( ) != Camera::getMainCamera( ) )
         {
           std::cout << "OUTSCREEN" << std::endl;
         }
@@ -331,7 +331,7 @@ int main()
         auto renderables = mainQueue->renderables( BatchQueue::RenderableType::OPAQUE );
         if ( !renderables.empty( ) )
         {
-          for ( Renderable*& renderable : renderables )
+          for ( Renderable& renderable : renderables )
           {
             glUniformMatrix4fv(projLoc, 1, GL_FALSE, mainQueue->getProjectionMatrix().values( ).data( ) );
             glUniformMatrix4fv(viewLoc, 1, GL_FALSE, mainQueue->getViewMatrix().values( ).data( ) );
@@ -340,7 +340,7 @@ int main()
             glUniform1i(texLoc, 0);
 
             glBindVertexArray(VAO);
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, renderable->geom->world().computeModel().values( ).data( ) );
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, renderable.geometry->world().computeModel().values( ).data( ) );
             glDrawArrays(GL_TRIANGLES, 0, 36);
             glBindVertexArray(0);
           }

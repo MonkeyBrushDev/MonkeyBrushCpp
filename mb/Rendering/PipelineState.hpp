@@ -168,9 +168,11 @@ namespace mb
     };
   public:
     // TODO: Complete
-    CullFaceState culling( void ) { return _cullingState; }
+    CullFaceState& culling( void ) { return _cullingState; }
+    BlendingState& blending( void ) { return _blendingState; }
   protected:
     CullFaceState _cullingState;
+    BlendingState _blendingState;
   };
 }
 

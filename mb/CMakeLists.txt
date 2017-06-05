@@ -7,15 +7,14 @@ set( MB_PUBLIC_HEADERS
   Boundings/SphereBoundingVolume.hpp
 
   Components/Component.hpp
-  Components/CustomComponent.hpp
   Components/LambdaComponent.hpp
   Components/MaterialComponent.hpp
   Components/MeshRenderer.hpp
   Components/OrbitCamera.hpp
-  Components/OtherComponent.hpp
   Components/ScriptComponent.hpp
   Components/RotateComponent.hpp
   Components/OrbitComponent.hpp
+  Components/FreeCameraComponent.hpp
 
 
   Exceptions/Exception.hpp
@@ -77,6 +76,7 @@ set( MB_PUBLIC_HEADERS
   Rendering/Texture.hpp
   Rendering/FramebufferObject.hpp
   Rendering/RenderTarget.hpp
+  Rendering/RenderBuffer.hpp
 
 
   Scenegraph/Camera.hpp
@@ -151,13 +151,12 @@ set( MB_SOURCES
 
 
   Components/Component.cpp
-  Components/CustomComponent.cpp
   Components/LambdaComponent.cpp
   Components/MaterialComponent.cpp
   Components/MeshRenderer.cpp
-  Components/OtherComponent.cpp
   Components/ScriptComponent.cpp
   Components/RotateComponent.cpp
+  Components/FreeCameraComponent.cpp
 
 
   Io/Input.cpp
@@ -198,6 +197,8 @@ set( MB_SOURCES
   Rendering/Material.cpp
   Rendering/Renderer.cpp
   Rendering/FramebufferObject.cpp
+  Rendering/Texture.cpp
+  Rendering/RenderBuffer.cpp
 
 
   Scenegraph/Camera.cpp

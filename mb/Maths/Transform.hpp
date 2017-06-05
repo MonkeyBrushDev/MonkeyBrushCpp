@@ -86,11 +86,14 @@ namespace mb
     Matrix4 computeModel( void ) const
     {
       Matrix4 result;
-      result.compose(
-        this->getPosition( ),
-        this->getRotation( ),
-        this->getScale( )
-      );
+      if ( !_isIdentity )
+      {
+        result.compose(
+          this->getPosition( ),
+          this->getRotation( ),
+          this->getScale( )
+        );
+      }
       return result;
     }
     Vector3 getRight( void ) const
@@ -217,6 +220,10 @@ namespace mb
       setPosition( getPosition( ) + pos );
     }
     const Vector3& getPosition( void ) const
+    {
+      return _position;
+    }
+    Vector3& position( )
     {
       return _position;
     }

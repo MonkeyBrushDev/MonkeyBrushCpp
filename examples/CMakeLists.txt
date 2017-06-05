@@ -40,14 +40,6 @@ configure_file(
 ## common_application( mbExampleGroup )
 
 
-## set( MBTESTS_HEADERS )
-## set( MBTESTS_SOURCES tests.cpp )
-## set( MBTESTS_LINK_LIBRARIES
-##   mb
-## )
-## common_application( mbTests )
-
-
 ## set( MBEXAMPLEPOSTPROCESS_HEADERS )
 ## set( MBEXAMPLEPOSTPROCESS_SOURCES examplePostProcess.cpp )
 ## set( MBEXAMPLEPOSTPROCESS_LINK_LIBRARIES
@@ -100,10 +92,19 @@ set( MBEXAMPLEWINDOW_LINK_LIBRARIES
 )
 common_application( mbExampleWindow )
 
+
 set( MBEXAMPLESPHERE_HEADERS )
 set( MBEXAMPLESPHERE_SOURCES exampleSphereMesh.cpp )
 set( MBEXAMPLESPHERE_LINK_LIBRARIES
   mb
 )
 common_application( mbExampleSphere )
+
+
+set( MBTESTS_HEADERS )
+set( MBTESTS_SOURCES tests.cpp )
+set( MBTESTS_LINK_LIBRARIES
+  mb
+)
+common_application( mbTests )
 

@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -28,6 +28,9 @@
 #include "PipelineState.hpp"
 
 #include "../OpenGL/Program.hpp"
+
+#include <iterator>
+#include <algorithm>
 
 namespace mb
 {
@@ -112,7 +115,26 @@ namespace mb
     void state( const PipelineState &ps );
 
 
-    mb::Program program;
+    virtual Material* clone( void )
+    {
+      Material* m2 = new Material( );
+      //std::copy(this->_uniforms.begin(), this->_uniforms.end(),
+      //  std::inserter(m2->_uniforms, m2->_uniforms.end()) );
+
+      //m2->_uniforms = this->_uniforms; TODO: PROBLEM WITH DEEP COPY OF POINTER
+      for (auto& kv: this->_uniforms)
+      {
+        m2->addUniform(kv.first, kv.second);
+      }
+
+      m2->_state = this->_state;
+      m2->program = this->program;
+
+      return m2;
+    }
+
+
+    mb::Program* program;
   protected:
     TUniforms _uniforms;
     PipelineState _state;

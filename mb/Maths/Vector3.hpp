@@ -61,8 +61,16 @@ namespace mb
       _data[ 2 ] = z;
     }
 
-		float operator[]( unsigned int i ) const { return _data[ i ]; }
-		float &operator[]( unsigned int i ) { return _data[ i ]; }
+    float* data( void )
+    {
+      return _data.data( );
+    }
+
+    MB_API
+    std::array<float, 3> values( void ) const { return _data; }
+
+    float operator[]( unsigned int i ) const { return _data[ i ]; }
+    float &operator[]( unsigned int i ) { return _data[ i ]; }
 
     float x( void ) const { return _data[ 0 ]; }
     float y( void ) const { return _data[ 1 ]; }

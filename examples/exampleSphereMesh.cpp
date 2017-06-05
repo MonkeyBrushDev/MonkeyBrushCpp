@@ -114,7 +114,8 @@ int main( )
 
   //---------
 
-  mb::Texture2D* tex = new mb::Texture2D( "../resources/texture.jpg" );
+  mb::Texture2D* tex = new mb::Texture2D( 50, 50 );
+  tex->loadFromImage("../resources/texture.jpg");
   int texLoc = glGetUniformLocation( program.program( ), "myTexture");
 
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -136,9 +137,6 @@ int main( )
 
   _scene->perform( mb::StartComponents( ) );
 
-  float dt = 0.0f;
-  float lastFrame = 0.0f;
-
   glEnable( GL_DEPTH_TEST );
 
   mb::Clock clockTime;
@@ -156,16 +154,9 @@ int main( )
 
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-    float currentFrame = glfwGetTime();
-    dt = currentFrame - lastFrame;
-    lastFrame = currentFrame;
+    clockTime.tick( );
 
-    // TODO: float dt2 = clockTime.deltaTime( );
-    // TODO: clockTime.tick( );
-
-    // TODO: std::cout << "DT1: " << dt << " - DT2: " << dt2 << std::endl;
-
-    _scene->perform( mb::UpdateComponents( dt ) );
+    _scene->perform( mb::UpdateComponents( clockTime ) );
 
     _scene->perform( mb::UpdateWorldState( ) );
 
@@ -187,7 +178,7 @@ int main( )
       mb::BatchQueuePtr mainQueue = nullptr;
       std::for_each( bqCollection.begin(), bqCollection.end(), [&](mb::BatchQueuePtr bq)
       {
-        if (bq->camera() != mb::Camera::getMainCamera())
+        if (bq->getCamera() != mb::Camera::getMainCamera())
         {
           std::cout << "OUTSCREEN" << std::endl;
         }
@@ -202,15 +193,14 @@ int main( )
         auto renderables = mainQueue->renderables( mb::BatchQueue::RenderableType::OPAQUE );
         if ( !renderables.empty( ) )
         {
-          for ( mb::Renderable*& renderable : renderables )
+          for ( mb::Renderable& renderable : renderables )
           {
             tex->bind( 0 );
             glUniform1i( texLoc, 0 );
 
             program.sendUniform4m( "projection", mainQueue->getProjectionMatrix().values().data() );
             program.sendUniform4m( "view", mainQueue->getViewMatrix().values().data());
-            program.sendUniform4m( "model", renderable->geom->world().
-                                   computeModel().values( ).data( ));
+            program.sendUniform4m( "model", renderable.modelTransform.data());
             program.use();
 
             sphere->render();
