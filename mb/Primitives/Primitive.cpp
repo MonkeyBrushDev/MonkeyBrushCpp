@@ -93,13 +93,13 @@ namespace mb
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort)*indices.size(), indices.data(), GL_STATIC_DRAW);
 
     //Texture coordinates
-/*    glBindBuffer( GL_ARRAY_BUFFER, VBO[TEXCOORD] );
+    glBindBuffer( GL_ARRAY_BUFFER, VBO[TEXCOORD] );
     glBufferData( GL_ARRAY_BUFFER, sizeof(Vector2)*texCoords.size(), texCoords.data(), GL_STATIC_DRAW);
     if(shaderDescriptors[TEXCOORD] != -1)
     {
-      glVertexAttribPointer( shaderDescriptors[TEXCOORD], VBO_LEN, GL_FLOAT, GL_FALSE, 0, 0);
+      glVertexAttribPointer( shaderDescriptors[TEXCOORD], 2, GL_FLOAT, GL_FALSE, 0, 0);
       glEnableVertexAttribArray(shaderDescriptors[TEXCOORD]);
-    }*/
+    }
 
 
     glBindVertexArray(NULL);
@@ -110,6 +110,12 @@ namespace mb
   {
     //std::cout << "\t-Primitive '" << name << "'" << std::endl;
     glBindVertexArray(VAO);
+
+    glEnable( GL_DEPTH_TEST );
+    glDepthMask( GL_FALSE );
+    glDisable( GL_CULL_FACE );
+    glEnable( GL_BLEND );
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
     switch (_type)
     {
@@ -152,6 +158,9 @@ namespace mb
         default:
             break;
     }
+
+    glEnable(GL_CULL_FACE);
+    glDisable(GL_BLEND);
 
     glBindVertexArray(NULL);
   }

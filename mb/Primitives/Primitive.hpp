@@ -54,7 +54,7 @@ namespace mb
       COLOR,
       NORMAL,
       INDEX,      
-      //TEXCOORD,
+      TEXCOORD,
       VBO_LEN
 
     } TVBOAttrib;

@@ -27,6 +27,19 @@ namespace mb
   class TorusPrimitive: public Primitive
   {
 
+  public:
+  	MB_API
+    TorusPrimitive( float outerRadius = 1.0f, float innerRadius = 0.5f,
+           unsigned int sides = 4, unsigned int rings = 10 );
+
+  	protected:
+
+	float _outerRadius;
+	float _innerRadius;
+
+    unsigned int _sides;
+    unsigned int _rings;
+
   };
 }
 
