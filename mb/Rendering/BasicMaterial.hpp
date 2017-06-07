@@ -37,13 +37,13 @@ namespace mb
     : Material( )
     {
       this->addUniform( "projection",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+        std::make_shared< mb::Matrix4Uniform >( ) );
       this->addUniform( "view",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+        std::make_shared< mb::Matrix4Uniform >( ) );
       this->addUniform( "model",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+        std::make_shared< mb::Matrix4Uniform >( ) );
 
-      _diffuse = std::make_shared< mb::Uniform >( mb::UniformType::Vector4, Vector4( 1.0f ) );
+      _diffuse = std::make_shared< mb::Vector4Uniform >( Vector4( 1.0f ) );
 
       this->addUniform( colorUnifName, _diffuse );
 

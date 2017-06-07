@@ -40,18 +40,18 @@ namespace mb
       //, _specularMap( nullptr )
       // _bumpMap( nullptr )
     {
-      this->addUniform("projection",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
-      this->addUniform("view",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
-      this->addUniform("model",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+      this->addUniform( "projection",
+        std::make_shared< mb::Matrix4Uniform >( ) );
+      this->addUniform( "view",
+        std::make_shared< mb::Matrix4Uniform >( ) );
+      this->addUniform( "model",
+        std::make_shared< mb::Matrix4Uniform >( ) );
 
-      _colorMap = std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler );
-      _bumpMap = std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler );
-      _diffuse = std::make_shared< mb::Uniform >( mb::UniformType::Vector4, Vector4( 1.0f ) );
-      _shininess = std::make_shared< mb::Uniform >( mb::UniformType::Float, 64.0f );
-      _bumpScale = std::make_shared< mb::Uniform >( mb::UniformType::Float, 0.5f );
+      _colorMap = std::make_shared< mb::TextureUniform >( );
+      _bumpMap = std::make_shared< mb::TextureUniform >( );
+      _diffuse = std::make_shared< mb::Vector4Uniform >( mb::Vector4( 1.0f ) );
+      _shininess = std::make_shared< mb::FloatUniform >( 64.0f );
+      _bumpScale = std::make_shared< mb::FloatUniform >( 0.5f );
 
       this->addUniform( colorMapUnifName, _colorMap );
       this->addUniform( colorUnifName, _diffuse );

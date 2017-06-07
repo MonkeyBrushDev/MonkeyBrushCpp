@@ -37,18 +37,18 @@ namespace mb
     : Material( )
     {
       this->addUniform( "projection",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+        std::make_shared< mb::Matrix4Uniform >( ) );
       this->addUniform( "view",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+        std::make_shared< mb::Matrix4Uniform >( ) );
       this->addUniform( "model",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
+        std::make_shared< mb::Matrix4Uniform >( ) );
 
-      _colorMap = std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler );
-      _normalMap = std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler );
-      _diffuse = std::make_shared< mb::Uniform >( mb::UniformType::Vector4, Vector4( 1.0f ) );
-      _specularMap = std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler );
-      _shininess = std::make_shared< mb::Uniform >( mb::UniformType::Float, 64.0f );
-      _normalScale = std::make_shared< mb::Uniform >( mb::UniformType::Float, 0.5f );
+      _colorMap = std::make_shared< mb::TextureUniform >( );
+      _normalMap = std::make_shared< mb::TextureUniform >( );
+      _diffuse = std::make_shared< mb::Vector4Uniform >( mb::Vector4( 1.0f ) );
+      _specularMap = std::make_shared< mb::TextureUniform >( );
+      _shininess = std::make_shared< mb::FloatUniform >( 64.0f );
+      _normalScale = std::make_shared< mb::FloatUniform >( 0.5f );
 
       this->addUniform( colorMapUnifName, _colorMap );
       this->addUniform( colorUnifName, _diffuse );
