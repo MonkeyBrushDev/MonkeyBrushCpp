@@ -35,6 +35,17 @@ namespace mb
     {
     }
 
+    static Color randomColor( void )
+    {
+      return mb::Color(
+        static_cast <float> ( rand( ) ) / static_cast <float> ( RAND_MAX ),
+        static_cast <float> ( rand( ) ) / static_cast <float> ( RAND_MAX ),
+        static_cast <float> ( rand( ) ) / static_cast <float> ( RAND_MAX ),
+        1.0f
+      );
+      // TODO: USE BETTER RANDOM METHODS ...
+    }
+
     float r( void ) const { return _r; }
     float g( void ) const { return _g; }
     float b( void ) const { return _b; }
@@ -172,6 +183,8 @@ namespace mb
     const static Color GOLD;
     MB_API
     const static Color GREEN;
+    MB_API
+    const static Color GREY;
     MB_API
     const static Color INDIGO;
     MB_API

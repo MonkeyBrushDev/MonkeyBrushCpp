@@ -288,6 +288,12 @@ namespace mb
     static const Vector3 LEFT;
     MB_API
     static const Vector3 RIGHT;
+    MB_API
+    static const Vector3 X_AXIS;
+    MB_API
+    static const Vector3 Y_AXIS;
+    MB_API
+    static const Vector3 Z_AXIS;
   protected:
     std::array< float, 3 > _data;
   };

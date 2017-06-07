@@ -51,7 +51,7 @@ namespace mb
   }
   void Material::use( void )
   {
-    unsigned int texId = 0;
+    texId = 0;
     program->use( );
     for ( const auto& uniform: _uniforms )
     {

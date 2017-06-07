@@ -33,6 +33,7 @@ set( MB_PUBLIC_HEADERS
   Maths/Frustum.hpp
   Maths/Mathf.hpp
   Maths/Ray.hpp
+  Maths/Matrix3.hpp
   Maths/Matrix4.hpp
   Maths/Rect.hpp
   Maths/Quaternion.hpp
@@ -134,6 +135,10 @@ set( MB_PUBLIC_HEADERS
   OpenGL/ResourceShader.hpp
   OpenGL/OpenGLRenderer.hpp
   Rendering/StandardMaterial2.hpp
+
+  Rendering/BasicMaterial.hpp
+  Rendering/ColorMaterial.hpp
+  Rendering/FontMaterial.hpp
 )
 
 set( MB_HEADERS
@@ -243,6 +248,13 @@ set( MB_SOURCES
 
   OpenGL/Program.cpp
   OpenGL/ResourceShader.cpp
+
+  Rendering/StandardMaterial.cpp
+  Rendering/StandardMaterial2.cpp
+
+  Rendering/BasicMaterial.cpp
+  Rendering/ColorMaterial.cpp
+  Rendering/FontMaterial.cpp
 )
 
 set( MB_LINK_LIBRARIES

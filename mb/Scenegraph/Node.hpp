@@ -43,7 +43,7 @@ namespace mb
   {
   public:
     MB_API
-    Node( );
+    Node( void );
     MB_API
     Node( const std::string& name );
     MB_API

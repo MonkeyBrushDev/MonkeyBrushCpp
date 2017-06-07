@@ -17,27 +17,50 @@
  *
  **/
 
-#include "Light.hpp"
+#ifndef __MB_MATRIX3__
+#define __MB_MATRIX3__
+
+#include <mb/api.h>
+
+#include <array>
 
 namespace mb
 {
-  Light::Light( Light::Type t )
-    : Node( std::string("Light") )
-    , _type( t )
-    , _diffuseColor( mb::Color::WHITE )
-    , _ambientColor( mb::Color::BLACK )
-    , _groundColor( mb::Color::BLACK )
-    , _shadowType( ShadowType::NONE )
-  {
-  }
 
-  Light::~Light( void )
-  {
-    std::cout << "[D] Light '" << this->name( ) << "'" << std::endl;
-  }
+ class Matrix3
+ {
+  public:
+    MB_API
+    Matrix3( void )
+    {
+      this->_values = { {
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f,
+      } };
+    }
+    MB_API
+    Matrix3( const std::array<float, 9>& values )
+    {
+      this->_values = values;
+    }
+    float* data( void )
+    {
+      return _values.data( );
+    }
 
-  void Light::accept( Visitor& visitor )
-  {
-    visitor.visitLight( this );
-  }
+    float operator[]( int i ) const
+    {
+      return _values[ i ];
+    }
+
+    float &operator[]( int i )
+    {
+      return _values[ i ];
+    }
+   protected:
+    std::array<float, 9> _values;
+  };
 }
+
+#endif /* __MB_MATRIX3__ */

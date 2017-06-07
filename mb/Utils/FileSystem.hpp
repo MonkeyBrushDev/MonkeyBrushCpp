@@ -10,11 +10,22 @@ namespace mb
   class FileSystem: public Singleton<FileSystem>
   {
   public:
-    std::string getBaseDirectory( void ) { return _baseDirectory; }
+    MB_API
+    FileSystem( void )
+    {
+      _baseDirectory = std::string( "." );
+    }
+    MB_API
+    std::string getBaseDirectory( void )
+    {
+      return _baseDirectory;
+    }
+    MB_API
     void setBaseDirectory( const std::string& baseDirectory )
     {
       _baseDirectory = baseDirectory;
     }
+    MB_API
     std::string extractDirectory( const std::string& path )
     {
       std::string dir;
@@ -44,7 +55,7 @@ namespace mb
       return absolutePath;
     }
   protected:
-    std::string _baseDirectory = std::string( "." );
+    std::string _baseDirectory;
   };
 }
 

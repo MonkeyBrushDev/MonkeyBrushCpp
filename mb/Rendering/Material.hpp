@@ -136,6 +136,7 @@ namespace mb
 
     mb::Program* program;
   protected:
+    unsigned int texId;
     TUniforms _uniforms;
     PipelineState _state;
   };

@@ -24,6 +24,8 @@
 #include "../Rendering/BatchQueue.hpp"
 #include <mb/api.h>
 
+#include "../Scenegraph/Camera.hpp"
+
 namespace mb
 {
   class Group;

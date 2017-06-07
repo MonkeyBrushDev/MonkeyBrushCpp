@@ -101,3 +101,20 @@ set( MBTESTS_LINK_LIBRARIES
   mb
 )
 common_application( mbTests )
+
+
+
+set( MBEXAMPLEPLANETS_HEADERS )
+set( MBEXAMPLEPLANETS_SOURCES examplePlanets.cpp )
+set( MBEXAMPLEPLANETS_LINK_LIBRARIES
+  mb
+)
+common_application( mbExamplePlanets )
+
+
+set( MBEXAMPLETHREE1_HEADERS )
+set( MBEXAMPLETHREE1_SOURCES exampleThree1.cpp )
+set( MBEXAMPLETHREE1_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleThree1 )

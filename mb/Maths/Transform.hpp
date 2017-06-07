@@ -21,6 +21,7 @@
 #define __MB_TRANSFORM__
 
 #include "Vector3.hpp"
+#include "Matrix3.hpp"
 #include "Matrix4.hpp"
 #include "Quaternion.hpp"
 
@@ -207,7 +208,6 @@ namespace mb
       _position = t2._position;
       _rotate = t2._rotate;
       _scale = t2._scale;
-      // TODO: Complete others variables
       _isIdentity = t2._isIdentity;
       return *this;
     }
@@ -250,6 +250,10 @@ namespace mb
     const Vector3& getScale( void ) const
     {
       return _scale;
+    }
+    void setScale( float v )
+    {
+      setScale( v, v, v );
     }
     void setScale( const Vector3& sc )
     {
@@ -306,7 +310,7 @@ namespace mb
 
     Transform& fromMatrix( const mb::Matrix4& m )
     {
-      std::array<float, 9> viewRotation;
+      mb::Matrix3 viewRotation;
       viewRotation[ 0 ] = m[ 0 ];
       viewRotation[ 1 ] = m[ 1 ];
       viewRotation[ 2 ] = m[ 2 ];

@@ -668,12 +668,6 @@ namespace mb
 		int loc = uniform(uniformName);
 		glUniform3fv(loc, 1, data.data());
 	}
-    void Program::sendUniform3v(const std::string& uniformName,
-                       const std::array< float, 3 > & data)
-    {
-        int loc = uniform(uniformName);
-        glUniform3fv(loc, 1, data.data());
-    }
 
 	void Program::sendUniform3v(const std::string& uniformName,
 		const float* data)

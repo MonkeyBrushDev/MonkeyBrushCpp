@@ -48,6 +48,7 @@ namespace mb
 
   Camera::~Camera( )
   {
+    std::cout << "[D] Camera '" << this->name( ) << "'" << std::endl;
     if ( Camera::getMainCamera( ) == this )
     {
       setMainCamera( nullptr );

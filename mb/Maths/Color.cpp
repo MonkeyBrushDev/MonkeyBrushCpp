@@ -29,6 +29,7 @@ namespace mb
   const Color Color::CYAN = Color::createFromHex( 0x00FFFF );
   const Color Color::GOLD = Color::createFromHex( 0xFFD700 );
   const Color Color::GREEN = Color::createFromHex( 0x008000 );
+  const Color Color::GREY = Color::createFromHex( 0x808080 );
   const Color Color::INDIGO = Color::createFromHex( 0x4B0082 );
   const Color Color::LAVENDER = Color::createFromHex( 0xE6E6FA );
   const Color Color::ORANGE = Color::createFromHex( 0xFFA500 );

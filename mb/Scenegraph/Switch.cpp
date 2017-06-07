@@ -29,7 +29,7 @@ namespace mb
 
   Switch::~Switch( )
   {
-    std::cout << "Destroy switch" << std::endl;
+    std::cout << "[D] Switch '" << this->name( ) << "'" << std::endl;
   }
 
   void Switch::forEachNode( std::function<void( Node* )> cb )

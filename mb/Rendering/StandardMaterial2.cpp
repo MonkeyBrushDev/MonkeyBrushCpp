@@ -17,27 +17,8 @@
  *
  **/
 
-#include "Light.hpp"
+#include "StandardMaterial2.hpp"
 
 namespace mb
 {
-  Light::Light( Light::Type t )
-    : Node( std::string("Light") )
-    , _type( t )
-    , _diffuseColor( mb::Color::WHITE )
-    , _ambientColor( mb::Color::BLACK )
-    , _groundColor( mb::Color::BLACK )
-    , _shadowType( ShadowType::NONE )
-  {
-  }
-
-  Light::~Light( void )
-  {
-    std::cout << "[D] Light '" << this->name( ) << "'" << std::endl;
-  }
-
-  void Light::accept( Visitor& visitor )
-  {
-    visitor.visitLight( this );
-  }
 }

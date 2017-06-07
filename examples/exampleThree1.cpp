@@ -4,7 +4,6 @@
 #include <mb/mb.h>
 #include <routes.h>
 
-#include <chrono>
 
 unsigned int vao;
 unsigned int createVAO( )
@@ -77,26 +76,6 @@ unsigned int createVAO( )
   return VAO;
 }
 
-class ToggleDepthTest : public mb::Component
-{
-  IMPLEMENT_COMPONENT( ToggleDepthTest )
-public:
-  virtual void update( const mb::Clock& ) override
-  {
-    if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Plus ) )
-    {
-      std::cout << "ENABLE" << std::endl;
-      glEnable( GL_DEPTH_TEST );
-    }
-    else  if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Minus ) )
-    {
-      glDisable( GL_DEPTH_TEST );
-      std::cout << "DISABLE" << std::endl;
-    }
-    // std::cout << mb::Input::MouseX( ) << ", " << mb::Input::MouseY( ) << std::endl;
-  }
-};
-
 class RotationComponent : public mb::Component
 {
   IMPLEMENT_COMPONENT( RotationComponent )
@@ -108,157 +87,94 @@ public:
   virtual void update( const mb::Clock& clock )
   {
     node( )->local( ).rotate( ).fromAxisAngle(
-      mb::Vector3::Y_AXIS, _time * mb::Mathf::TWO_PI );
-    _time += _speed * clock.getDeltaTime( );
+      mb::Vector3::ONE, _time * mb::Mathf::TWO_PI );
+    _time += _speed *clock.getDeltaTime( );
   }
 protected:
   float _speed;
   float _time;
 };
 
-mb::Group* createPlanet( float radius, const std::string& diffuse, float equatorialRotationSpeed,
-  float orbitSize, float sideralRotationSpeed, const mb::Color& color )
+mb::Geometry* generateGeom( const mb::Color& c )
 {
-  auto geometry = new mb::Geometry( );
-  geometry->local( ).setScale( radius );
-  geometry->layer( ).set( 0 );
+  auto geom = new mb::Geometry( );
 
+  mb::BasicMaterial* customMaterial = new mb::BasicMaterial( );
+  customMaterial->setColor( c );
 
-  auto planetRotationPivot = new mb::Group( "" );
-  planetRotationPivot->addComponent( new RotationComponent( equatorialRotationSpeed ) );
-  planetRotationPivot->addChild( geometry );
-
-  mb::StandardMaterial* customMaterial = new mb::StandardMaterial( );
-  customMaterial->setColorMap( mb::Texture2D::loadFromImage( diffuse ) );
-  customMaterial->setNormalMap( mb::Texture2D::loadFromImage( "metal-floor-normal.jpg" ) );
-  customMaterial->setColor( color );
-
-  mb::MaterialComponent* mc = geometry->getComponent<mb::MaterialComponent>( );
+  mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
 
-  auto planet = new mb::Group( "name" );
-  planet->addChild( planetRotationPivot );
-  planet->local( ).setPosition( orbitSize, 0.0f, 0.0f );
+  geom->addComponent( new mb::RotateComponent( mb::Vector3::ONE, 0.25f ) );
 
-  auto planetPivot = new mb::Group( "" );
-  planetPivot->addComponent( new RotationComponent( sideralRotationSpeed ) );
-  planetPivot->addChild( planet );
+  return geom;
+}
 
-  return planetPivot;
+#include <random>
+
+// Returns random values uniformly distributed in the range [a, b]
+float _random( )
+{
+  return static_cast <float> ( rand( ) ) / static_cast <float> ( RAND_MAX );
+}
+
+mb::Group* addCube( void )
+{
+  auto cubeSize = std::ceil( _random( ) * 3 );
+  auto cubeGeometry = generateGeom( mb::Color::randomColor( ) );
+  cubeGeometry->local( ).setScale( cubeSize );
+  auto cube = new mb::Group( "cube" );
+  cube->addChild( cubeGeometry );
+
+  mb::Vector3 pos = cube->local( ).getPosition( );
+  pos.x( ) = -30.0f + std::round( _random( ) * 100.0f );
+  pos.y( ) = std::round( _random( ) * 5 );
+  pos.z( ) = -20.0f + std::round( _random( ) * 100.0f );
+
+  cube->local( ).setPosition( pos );
+  
+  return cube;
 }
 
 mb::Group* createScene( void )
 {
-  std::cout << "NEW BASE DIR2: " << mb::FileSystem::getInstance( )->getBaseDirectory( ) << std::endl;
   vao = createVAO( );
   auto scene = new mb::Group( "scene" );
 
-  auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
-  camera->local( ).translate( 0.0f, 0.0f, 8.0f );
-
-
+  auto camera = new mb::Camera( 75.0f, 500 / 500, 0.03f, 1000.0f );
+  camera->local( ).translate( 0.0f, 00.0f, 10.0f );
 
   camera->addComponent( new mb::FreeCameraComponent( ) );
-  camera->addComponent( new ToggleDepthTest( ) );
   scene->addChild( camera );
 
-  auto cubes = new mb::Group( "Cubes" );
-  mb::Group* g1 = new mb::Group( "MyGroup1" );
-  mb::Group* g2 = new mb::Group( "MyGroup2" );
-
-  mb::Texture2D* chesterDiffuse = mb::Texture2D::loadFromImage( "metal-floor.jpg" );
-  mb::Texture2D* chesterDNormal = mb::Texture2D::loadFromImage( "metal-floor-normal.jpg" );
-
-  mb::StandardMaterial* customMaterial = new mb::StandardMaterial( );
-  customMaterial->setColorMap( chesterDiffuse );
-  customMaterial->setNormalMap( chesterDNormal );
-  customMaterial->setColor( mb::Color::GREEN );
-
-  mb::Texture2D* stoneTex = mb::Texture2D::loadFromImage( "stone.jpg" );
-  mb::Texture2D* bumpTex = mb::Texture2D::loadFromImage( "stone-bump.jpg" );
-
-  mb::StandardMaterial2* customMaterial2 = new mb::StandardMaterial2( );
-  customMaterial2->setColorMap( stoneTex );
-  customMaterial2->setBumpMap( bumpTex );
-  customMaterial2->setColor( mb::Color::GOLD );
-
-
-  std::vector< mb::Vector3 > cubePositions = {
-    mb::Vector3( 2.0f, 5.0f, -15.0f ),
-    mb::Vector3( 0.0f, -5.0f, 0.0f ),
-    mb::Vector3( -1.5f, -2.2f, -2.5f ),
-    mb::Vector3( -3.8f, -2.0f, -12.3f ),
-    mb::Vector3( 2.4f, -0.4f, -3.5f ),
-    mb::Vector3( -1.7f, 3.0f, -7.5f ),
-    mb::Vector3( 1.3f, -2.0f, -2.5f ),
-    mb::Vector3( 1.5f, 2.0f, -2.5f ),
-    mb::Vector3( 1.5f, 0.2f, -1.5f ),
-    mb::Vector3( -1.3f, 1.0f, -1.5f )
-  };
-
-  size_t numCubes = cubePositions.size( );
-  size_t middleCubes = numCubes / 2;
-  for ( unsigned int i = 0; i < middleCubes; ++i )
+  for ( int i = 0; i < 185; ++i )
   {
-    auto geom = new mb::Geometry( std::string( "CubeGeom" ) + std::to_string( i + 1 ) );
-    geom->local( ).position( ) = cubePositions[ i ];
-    geom->local( ).setScale( mb::Vector3( 0.5f ) );
-
-    mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
-    mc->addMaterial( mb::MaterialPtr( customMaterial ) );
-
-    geom->addComponent( new RotationComponent( 0.1f ) );
-    //geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f, 0.0f ), 0.1f ) );
-    geom->layer( ).set( i );
-    g1->addChild( geom );
+    scene->addChild( addCube( ) );
   }
-  cubes->addChild( g1 );
-  for ( unsigned int i = middleCubes; i < numCubes; ++i )
-  {
-    auto geom = new mb::Geometry( std::string( "CubeGeom" ) + std::to_string( i + 1 ) );
-    geom->local( ).setPosition( cubePositions[ i ] );
-    geom->local( ).setScale( mb::Vector3( 0.5f ) );
 
-    mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
-    mc->addMaterial( mb::MaterialPtr( customMaterial2 ) );
+  /*auto cube = generateGeom( mb::Color::RED );
+  cube->local( ).setPosition( -4.0f, 3.0f, 0.0f );
+  cube->local( ).setScale( 2.0f );
+  scene->addChild( cube );
 
-    geom->addComponent( new RotationComponent( 0.1f ) );
-    //geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f, 0.0f ) * -1.0f, 0.1f ) );
-    geom->layer( ).set( i );
-    g2->addChild( geom );
-  }
-  cubes->addChild( g2 );
+  auto sphere = generateGeom( mb::Color::BLUE );
+  sphere->local( ).setPosition( 20.0f, 4.0f, 2.0f );
+  sphere->local( ).setScale( 2.0f );
+  scene->addChild( sphere );*/
 
-  scene->addChild( cubes );
-
-  auto earth = createPlanet( 0.5f, "earth.png", 0.05f, 0.5f, 0.1f, mb::Color::BLUE );
-  auto moon = createPlanet( 0.15f, "moon.png", 0.025f, 1.15f, 0.035f, mb::Color::BROWN );
-
-  scene->addChild( earth );
-  earth->nodeAt<mb::Group>( 0 )->addChild( moon );
+  //camera->local( ).lookAt( scene->local( ).getPosition( ) );
 
   return scene;
 }
 
 int main( )
 {
-  auto start = std::chrono::steady_clock::now( );
   mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
 
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
-
-  auto finish = std::chrono::steady_clock::now( );
-  double elapsed_seconds = std::chrono::duration_cast<
-    std::chrono::duration<double> >( finish - start ).count( );
-  std::cout << elapsed_seconds << std::endl;
-
   window->init( );
 
   glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
-  auto finish2 = std::chrono::steady_clock::now( );
-  double elapsed_seconds2 = std::chrono::duration_cast<
-    std::chrono::duration<double> >( finish2 - start ).count( );
-  std::cout << elapsed_seconds2 << std::endl;
 
   mb::Group* _scene = createScene( );
 
@@ -362,7 +278,7 @@ int main( )
     window->swapBuffers( );
   }
 
-  delete _scene;
+  //delete _scene;
 
   return 0;
 }

@@ -7,6 +7,7 @@
 #include <fstream>
 
 #include "../Utils/FileSystem.hpp"
+#include "../Exceptions/RuntimeException.hpp"
 
 namespace mb
 {
@@ -17,7 +18,7 @@ namespace mb
     , _magFilter( _minFilter )
     , _width( w )
     , _height( h )
-    , _anisoLevel( 0 )
+    //, _anisoLevel( 0 )
     , _target( target )
   {
     glGenTextures( 1, &_handler );
@@ -126,7 +127,7 @@ namespace mb
       throw;
     FIBITMAP* img = FreeImage_Load( format, fileName_ );
     if ( img == nullptr )
-      throw "IMG UNDEFINED";
+      throw new mb::RuntimeException( "Image undefined" );
     FIBITMAP* tempImg = img;
     img = FreeImage_ConvertTo32Bits( img );
     FreeImage_Unload( tempImg );

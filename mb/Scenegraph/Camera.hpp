@@ -30,10 +30,6 @@
 #include "../Maths/Vector3.hpp"
 #include "../Maths/Matrix4.hpp"
 
-/*
-  TODO: Change Field of View and clipping planes
-*/
-
 namespace mb
 {
   class RenderingPass;
@@ -171,6 +167,7 @@ namespace mb
     bool _cullingEnabled = true;
     std::array< Plane, 6 > _cullingPlanes;
   };
+  typedef std::shared_ptr< mb::Camera > CameraPtr;
 }
 
 #endif /* __MB_CAMERA__ */

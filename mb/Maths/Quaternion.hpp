@@ -20,10 +20,10 @@
 #ifndef __MB_QUATERNION__
 #define __MB_QUATERNION__
 
-#include <array>
 #include <mb/api.h>
 #include "Vector3.hpp"
 #include "Vector4.hpp"
+#include "Matrix3.hpp"
 #include <cmath>
 
 namespace mb
@@ -53,7 +53,7 @@ namespace mb
     }*/
 
     MB_API
-    Quaternion & fromRotationMatrix ( const std::array< float, 9 >& )
+    Quaternion & fromRotationMatrix ( const mb::Matrix3& )
     {
       // TODO
       /*float trace = m[ 0 ] + m[ 5 ] + m[ 10 ];
