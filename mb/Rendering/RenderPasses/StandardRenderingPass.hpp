@@ -35,7 +35,7 @@ namespace mb
   protected:
     void renderOpaqueObjects( Renderer* renderer, BatchQueuePtr bq, Camera* c );
     void renderTransparentObjects( Renderer* renderer, BatchQueuePtr bq, Camera* c );
-    void renderStandardGeometry( Renderer*, Renderable&, Material* );
+    void renderStandardGeometry( Renderer*, Renderable&, MaterialPtr );
   };
 }
 

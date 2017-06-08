@@ -36,6 +36,7 @@ namespace mb
     , _frustum( fov, ar, near, far )
     , _viewport( 0.0f, 0.0f, 1.0f, 1.0f )
     , _renderPass( new StandardRenderingPass( ) )
+    , _clearColor( mb::Color( 0.2f, 0.3f, 0.3f, 1.0f ) )
   {
     for ( unsigned int i = 0; i < 32; ++i )
     {

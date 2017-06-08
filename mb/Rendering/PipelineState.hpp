@@ -103,7 +103,7 @@ namespace mb
         DST_ALPHA,
         ONE_MINUS_DST_ALPHA
       };
-      BlendingState( bool enabled = true,
+      BlendingState( bool enabled = false,
         SourceFunc srcFunc = SourceFunc::SRC_ALPHA,
         DstFunc dstFunc = DstFunc::ONE_MINUS_SRC_ALPHA )
         : RenderState( enabled )

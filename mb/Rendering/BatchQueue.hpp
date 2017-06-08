@@ -37,11 +37,11 @@ namespace mb
 {
   struct Renderable
   {
-    Material* material;
+    MaterialPtr material;
     Geometry* geometry;
     mb::Matrix4 modelTransform;
     float zDistance;
-    Renderable( Material* m, Geometry* g,
+    Renderable( MaterialPtr m, Geometry* g,
       const mb::Matrix4& mt, float zDist )
     {
       this->material = m;

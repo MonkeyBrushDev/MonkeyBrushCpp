@@ -118,3 +118,12 @@ set( MBEXAMPLETHREE1_LINK_LIBRARIES
   mb
 )
 common_application( mbExampleThree1 )
+
+
+
+set( MBEXAMPLEFOG_HEADERS )
+set( MBEXAMPLEFOG_SOURCES exampleFog.cpp )
+set( MBEXAMPLEFOG_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleFog )

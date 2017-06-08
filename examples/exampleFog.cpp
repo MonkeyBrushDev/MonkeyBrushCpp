@@ -4,7 +4,6 @@
 #include <mb/mb.h>
 #include <routes.h>
 
-
 unsigned int vao;
 unsigned int createVAO( )
 {
@@ -76,31 +75,63 @@ unsigned int createVAO( )
   return VAO;
 }
 
-class RotationComponent : public mb::Component
+mb::Program* createProgram( )
 {
-  IMPLEMENT_COMPONENT( RotationComponent )
-public:
-  RotationComponent( float speed )
-    : _speed( speed )
-    , _time( 0.0f )
-  { }
-  virtual void update( const mb::Clock& clock )
-  {
-    node( )->local( ).rotate( ).fromAxisAngle(
-      mb::Vector3::ONE, _time * mb::Mathf::TWO_PI );
-    _time += _speed *clock.getDeltaTime( );
-  }
-protected:
-  float _speed;
-  float _time;
-};
+  mb::Program* program = new mb::Program( );
+  program->loadVertexShaderFromText( R"(
+    #version 330 core
+    layout (location = 0) in vec3 Vertex;
+
+    uniform mat4 model;
+    uniform mat4 view;
+    uniform mat4 projection;
+
+    out vec3 position;
+
+    void main()
+    {
+      gl_Position = projection * view * model * vec4(Vertex, 1.0);
+      position = vec3( view * model * vec4( Vertex, 1.0 ) );
+    })" );
+  program->loadFragmentShaderFromText( R"(
+    #version 330 core
+    in vec3 position;
+    out vec4 fragColor;
+
+    uniform float density;
+    uniform mat4 view;
+
+    const vec3 fogColor = vec3( 0.2 );
+    const vec3 color = vec3( 1.0, 0.3, 0.4 );
+
+    void main()
+    {
+      vec3 viewPos = -transpose(mat3(view)) * view[3].xyz;
+      float dst = length(position - viewPos);
+      float fogFactor = 1.0 / exp(dst * density);
+      fogFactor = clamp(fogFactor, 0.0, 1.0);
+      fragColor = vec4(mix(fogColor, color, fogFactor), 1.0);
+    })" );
+  program->compileAndLink( );
+  program->autocatching( );
+
+  return program;
+}
 
 mb::Geometry* generateGeom( const mb::Color& c )
 {
   auto geom = new mb::Geometry( );
 
-  mb::BasicMaterial* customMaterial = new mb::BasicMaterial( );
-  customMaterial->setColor( c );
+  mb::Material* customMaterial = new mb::Material( );
+  customMaterial->program = createProgram( );
+  customMaterial->addUniform( "projection",
+    std::make_shared< mb::Matrix4Uniform >( ) );
+  customMaterial->addUniform( "view",
+    std::make_shared< mb::Matrix4Uniform >( ) );
+  customMaterial->addUniform( "model",
+    std::make_shared< mb::Matrix4Uniform >( ) );
+  customMaterial->addUniform( "density",
+    std::make_shared< mb::FloatUniform >( 0.04f ) );
 
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
@@ -110,47 +141,20 @@ mb::Geometry* generateGeom( const mb::Color& c )
   return geom;
 }
 
-#include <random>
-
-// Returns random values uniformly distributed in the range [a, b]
-float _random( )
-{
-  return static_cast <float> ( rand( ) ) / static_cast <float> ( RAND_MAX );
-}
-
-mb::Group* addCube( void )
-{
-  auto cubeSize = std::ceil( _random( ) * 3 );
-  auto cubeGeometry = generateGeom( mb::Color::randomColor( ) );
-  cubeGeometry->local( ).setScale( cubeSize );
-  auto cube = new mb::Group( "cube" );
-  cube->addChild( cubeGeometry );
-
-  mb::Vector3 pos = cube->local( ).getPosition( );
-  pos.x( ) = -30.0f + std::round( _random( ) * 100.0f );
-  pos.y( ) = std::round( _random( ) * 5 );
-  pos.z( ) = -20.0f + std::round( _random( ) * 100.0f );
-
-  cube->local( ).setPosition( pos );
-  
-  return cube;
-}
-
 mb::Group* createScene( void )
 {
   vao = createVAO( );
   auto scene = new mb::Group( "scene" );
 
-  auto camera = new mb::Camera( 75.0f, 500 / 500, 0.03f, 1000.0f );
-  camera->local( ).translate( 0.0f, 10.0f, 50.0f );
+  auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
+  camera->local( ).translate( 0.0f, 0.0f, 10.0f );
+
+  auto node = generateGeom( mb::Color::GREY );
+
+  scene->addChild( node );
 
   camera->addComponent( new mb::FreeCameraComponent( ) );
   scene->addChild( camera );
-
-  for ( int i = 0; i < 185; ++i )
-  {
-    scene->addChild( addCube( ) );
-  }
 
   return scene;
 }
@@ -161,6 +165,8 @@ int main( )
 
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
+
+  glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
 
   mb::Group* _scene = createScene( );
 
@@ -232,8 +238,6 @@ int main( )
 
       if ( mainQueue != nullptr )
       {
-        const mb::Color& clearColor = mainQueue->getCamera( )->getClearColor( );
-        glClearColor( clearColor.r( ), clearColor.g( ), clearColor.b( ), clearColor.a( ) );
         auto renderables = mainQueue->renderables( mb::BatchQueue::RenderableType::OPAQUE );
         if ( !renderables.empty( ) )
         {
@@ -266,7 +270,7 @@ int main( )
     window->swapBuffers( );
   }
 
-  //delete _scene;
+  delete _scene;
 
   return 0;
 }

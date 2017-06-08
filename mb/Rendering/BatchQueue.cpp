@@ -83,15 +83,15 @@ namespace mb
 
     auto renderType = RenderableType::OPAQUE;
 
-    /*mb::PipelineState& state = materials->first()->state();
+    mb::PipelineState& state = materials->first()->state();
 
     if( state.blending().isEnabled( ) )
     {
       renderType = RenderableType::TRANSPARENT;
-    }*/
+    }
 
     Renderable renderable(
-      nullptr, // TODO HARDCODED materials->first( ).get( ),
+      materials->first( ),
       geometry,
       geometry->world( ).computeModel( ),
       (
