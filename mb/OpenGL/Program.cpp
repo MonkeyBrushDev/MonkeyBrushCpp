@@ -219,7 +219,11 @@ namespace mb
 			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
 			GLchar* infoLog = new GLchar[infoLogLength];
 			glGetShaderInfoLog(shader, infoLogLength, nullptr, infoLog);
-      std::cout << source << std::endl;
+      std::cout
+        << "----------------------------- " << std::endl <<
+        str << std::endl <<
+        "----------------------------- " << 
+        std::endl;
 			std::cerr << "Compile log: " << infoLog << std::endl;
 			delete[] infoLog;
 			return false;

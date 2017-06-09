@@ -1,0 +1,11 @@
+#
+newmtl My_Texture
+Ka 0.000000 1.000000 0.000000
+Kd 1.000000 1.000000 0.500000
+Ks 0.4 0.0 0.6
+Ns 1.12345
+illum 2
+map_Kd myDiffuseTex.png
+map_bump myNormalTex.png
+map_Ke myEmmisive.png
+map_kS mySpecularTex.png

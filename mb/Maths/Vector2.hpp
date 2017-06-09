@@ -23,6 +23,8 @@
 #include <array>
 #include <mb/api.h>
 #include <cmath>
+#include <iomanip>
+#include <iostream>
 
 namespace mb
 {
@@ -175,6 +177,19 @@ namespace mb
     {
       *this /= length( );
       return *this;
+    }
+
+    friend std::ostream& operator<<( std::ostream &out, const Vector2& v )
+    {
+      out << std::setiosflags( std::ios::fixed | std::ios::showpoint )
+        << std::setprecision( 2 );
+      out << "(" << v[ 0 ];
+      for ( unsigned int i = 1; i < 2; ++i )
+      {
+        out << ", " << v[ i ];
+      }
+      out << ")";
+      return out;
     }
   protected:
     std::array< float, 2 > _data;

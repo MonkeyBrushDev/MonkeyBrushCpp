@@ -263,7 +263,7 @@ namespace mb
     friend std::ostream& operator<<( std::ostream &out, const Vector3& v )
     {
       out << std::setiosflags( std::ios::fixed | std::ios::showpoint )
-        << std::setprecision( 10 );
+        << std::setprecision( 2 );
       out << "(" << v[ 0 ];
       for ( unsigned int i = 1; i < 3; ++i )
       {

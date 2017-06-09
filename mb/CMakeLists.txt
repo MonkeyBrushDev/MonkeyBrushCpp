@@ -139,6 +139,10 @@ set( MB_PUBLIC_HEADERS
   Rendering/BasicMaterial.hpp
   Rendering/ColorMaterial.hpp
   Rendering/FontMaterial.hpp
+  Rendering/NormalMaterial.hpp
+  Rendering/PointMaterial.hpp
+
+  Utils/ObjLoader.hpp
 )
 
 set( MB_HEADERS
@@ -255,6 +259,8 @@ set( MB_SOURCES
   Rendering/BasicMaterial.cpp
   Rendering/ColorMaterial.cpp
   Rendering/FontMaterial.cpp
+  Rendering/NormalMaterial.cpp
+  Rendering/PointMaterial.cpp
 )
 
 set( MB_LINK_LIBRARIES

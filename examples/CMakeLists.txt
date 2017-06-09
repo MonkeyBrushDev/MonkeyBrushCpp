@@ -127,3 +127,20 @@ set( MBEXAMPLEFOG_LINK_LIBRARIES
   mb
 )
 common_application( mbExampleFog )
+
+
+
+set( MBEXAMPLEMODELLOADER_HEADERS )
+set( MBEXAMPLEMODELLOADER_SOURCES exampleModelLoader.cpp )
+set( MBEXAMPLEMODELLOADER_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleModelLoader )
+
+
+set( MBEXAMPLETRIANGLE_HEADERS )
+set( MBEXAMPLETRIANGLE_SOURCES exampleTriangle.cpp )
+set( MBEXAMPLETRIANGLE_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleTriangle )
