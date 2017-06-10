@@ -22,7 +22,7 @@
 
 #include <mb/api.h>
 
-#include "Material.hpp"
+#include "../Rendering/Material.hpp"
 #include "Texture.hpp"
 #include "../Maths/Vector4.hpp"
 #include "../Maths/Color.hpp"
@@ -63,7 +63,7 @@ namespace mb
       program->loadVertexShaderFromText(R"(
         #version 330 core
         layout (location = 0) in vec3 position;
-        layout (location = 0) in vec3 normal;
+        layout (location = 1) in vec3 normal;
         layout (location = 2) in vec2 texCoord;
 
         out vec3 outPosition;

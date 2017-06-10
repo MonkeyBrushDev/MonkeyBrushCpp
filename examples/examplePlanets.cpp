@@ -110,8 +110,8 @@ public:
 
     mb::Texture2D* planetDiffuse = mb::Texture2D::loadFromImage( texture );
 
-    mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
-    customMaterial->setColorMap( planetDiffuse );
+    mb::ToonMaterial* customMaterial = new mb::ToonMaterial( );
+    customMaterial->setGradientMap( planetDiffuse );
     customMaterial->setColor( mb::Color::WHITE );
 
     mb::MaterialComponent* mc = sphere->getComponent<mb::MaterialComponent>( );
@@ -148,9 +148,9 @@ mb::Group* createScene( void )
   auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
   camera->local( ).translate( 0.0f, 0.0f, 20.0f );
 
-  auto sun = new Astro( 6.0f / 2.0f, "sun.png", 0.0f, 0.0f, 0.002f, mb::Color::YELLOW );
-  auto earth = new Astro( 1.27f / 2.0f, "earth.png", 6.0f, 0.001f, 0.005f, mb::Color::BLUE );
-  auto moon = new Astro( 0.34f / 2.0f, "moon.png", 1.0f, 0.01f, 0.0f, mb::Color::WHITE );
+  auto sun = new Astro( 6.0f / 2.0f, "MatCap_Toon3.png", 0.0f, 0.0f, 0.002f, mb::Color::YELLOW );
+  auto earth = new Astro( 1.27f / 2.0f, "MatCap_Toon3.png", 6.0f, 0.001f, 0.005f, mb::Color::BLUE );
+  auto moon = new Astro( 0.34f / 2.0f, "MatCap_Toon3.png", 1.0f, 0.01f, 0.0f, mb::Color::WHITE );
 
   scene->addChild( sun );
   sun->addSatelite( earth );
@@ -254,9 +254,11 @@ int main( )
 
             auto mat = mc->first( );
 
-            mat->uniform( "projection" )->value( mainQueue->getProjectionMatrix( ) );
-            mat->uniform( "view" )->value( mainQueue->getViewMatrix( ) );
-            mat->uniform( "model" )->value( renderable.modelTransform );
+            mat->uniform( MB_PROJ_MATRIX )->value( mainQueue->getProjectionMatrix( ) );
+            mat->uniform( MB_VIEW_MATRIX )->value( mainQueue->getViewMatrix( ) );
+            mat->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
+            //mat->uniform( MB_VIEWPROJ_MATRIX )->value( 
+            //  mainQueue->getProjectionMatrix( ) * mainQueue->getViewMatrix( ) );
             mat->use( );
 
             glBindVertexArray( vao );

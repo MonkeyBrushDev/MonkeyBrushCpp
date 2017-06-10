@@ -17,68 +17,75 @@
  *
  **/
 
-#ifndef __MB_FONTMATERIAL__
-#define __MB_FONTMATERIAL__
+#ifndef __MB_BASICMATERIAL__
+#define __MB_BASICMATERIAL__
 
 #include <mb/api.h>
 
-#include "Material.hpp"
+#include "../Rendering/Material.hpp"
 #include "../Rendering/Texture.hpp"
 #include "../Maths/Color.hpp"
 #include "../Maths/Vector4.hpp"
 
 namespace mb
 {
-  class FontMaterial: public Material
+  class BasicMaterial: public Material
   {
   public:
     MB_API
-    FontMaterial( void )
+    BasicMaterial( void )
     : Material( )
     {
-      this->addUniform( "projection",
+      this->addUniform( MB_PROJ_MATRIX,
         std::make_shared< mb::Matrix4Uniform >( ) );
-      this->addUniform( "view",
+      this->addUniform( MB_VIEW_MATRIX,
         std::make_shared< mb::Matrix4Uniform >( ) );
-      this->addUniform( "model",
+      this->addUniform( MB_MODEL_MATRIX,
         std::make_shared< mb::Matrix4Uniform >( ) );
 
-      _colorMap = std::make_shared< mb::TextureUniform >( );
-      _diffuse = std::make_shared< mb::Vector4Uniform >( mb::Vector4( 1.0f ) );
+      _diffuse = std::make_shared< mb::Vector4Uniform >( Vector4( 1.0f ) );
 
-      this->addUniform( colorMapUnifName, _colorMap );
       this->addUniform( colorUnifName, _diffuse );
 
       program = new mb::Program( );
       program->loadVertexShaderFromText( R"(
         #version 330 core
         layout (location = 0) in vec3 position;
-        layout (location = 1) in vec3 texCoord;
+        layout (location = 1) in vec3 normal;
 
-        out vec2 outTexCoord;
+        out vec3 outPosition;
+        out vec3 Normal;
 
-        uniform mat4 model;
-        uniform mat4 view;
-        uniform mat4 projection;
+        uniform mat4 mb_MatrixM;
+        uniform mat4 mb_MatrixV;
+        uniform mat4 mb_MatrixP;
 
         void main()
         {
-          outTexCoord = texCoord;
-          gl_Position = projection * view * model * vec4(position, 1.0f);
+          gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(position, 1.0f);
+          outPosition = vec3( mb_MatrixM * vec4( position, 1.0 ) );
+          Normal = normal;
         })" );
       program->loadFragmentShaderFromText( R"(
         #version 330 core
 
-        in vec2 outTexCoord;
-        uniform sampler2D DiffuseTexture;
-        uniform vec4 DiffuseColor;
+        in vec3 outPosition;
+        in vec3 Normal;
 
-        void main( )
+        out vec4 fragColor;
+
+        uniform vec4 DiffuseColor;
+        uniform mat4 view;
+
+        void main()
         {
-          fragColor = DiffuseColor>
-          float c = texture2D( DiffuseTexture, outTexCoord ).r;
-          fragColor *= vec4( c );
-          if ( fragColor.a < 0.1 ) discard;
+          vec3 viewPos = -transpose(mat3(view)) * view[3].xyz;
+          vec3 L = normalize(viewPos-outPosition);
+          vec3 N = normalize( Normal );
+          float dif = dot( N, L );
+          dif = clamp( dif, 0.0, 1.0 );
+          fragColor = vec4( DiffuseColor.rgb * dif, 1.0 ) + vec4( DiffuseColor.rgb * 0.3, 1.0 );
+          fragColor.a = DiffuseColor.a;
         })" );
       program->compileAndLink( );
       program->autocatching( );
@@ -88,18 +95,11 @@ namespace mb
     {
       _diffuse->value( mb::Color( color.r( ), color.g( ), color.b( ), color.a( ) ) );
     }
-    MB_API
-    void setColorMap( mb::Texture2D *texture )
-    {
-      _colorMap->value( texture );
-    }
   protected:
     mb::UniformPtr _diffuse;
-    mb::UniformPtr _colorMap;
   private:
-    const char* colorMapUnifName = "DiffuseTexture";
     const char* colorUnifName = "DiffuseColor";
   };
 }
 
-#endif /* __MB_FONTMATERIAL__ */
+#endif /* __MB_BASICMATERIAL__ */

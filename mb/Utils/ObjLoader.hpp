@@ -219,8 +219,8 @@ namespace mb
       for ( unsigned int i = 0, size = _faces.size( ); i < size; i += 3 )
       {
         std::vector< int > v0 = StringUtils::split<int>( _faces[ i ], '/' );
-        std::vector< int > v1 = StringUtils::split<int>( _faces[ i ], '/' );
-        std::vector< int > v2 = StringUtils::split<int>( _faces[ i ], '/' );
+        std::vector< int > v1 = StringUtils::split<int>( _faces[ i + 1 ], '/' );
+        std::vector< int > v2 = StringUtils::split<int>( _faces[ i + 2 ], '/' );
 
         p0 = _positions[ v0[ 0 ] - 1 ];
         p1 = _positions[ v1[ 0 ] - 1 ];

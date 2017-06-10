@@ -138,9 +138,23 @@ set( MBEXAMPLEMODELLOADER_LINK_LIBRARIES
 common_application( mbExampleModelLoader )
 
 
-set( MBEXAMPLETRIANGLE_HEADERS )
-set( MBEXAMPLETRIANGLE_SOURCES exampleTriangle.cpp )
-set( MBEXAMPLETRIANGLE_LINK_LIBRARIES
+##set( MBEXAMPLETRIANGLE_HEADERS )
+##set( MBEXAMPLETRIANGLE_SOURCES exampleTriangle.cpp )
+##set( MBEXAMPLETRIANGLE_LINK_LIBRARIES
+##  mb
+##)
+##common_application( mbExampleTriangle )
+
+
+set( MBEXAMPLEDEMO_HEADERS
+  AlienProceduralMaterial.hpp
+  MatCapMaterial.hpp
+  GraniteProceduralMaterial.hpp
+  TurbulenceProceduralMaterial.hpp
+  HatchingProceduralMaterial.hpp
+)
+set( MBEXAMPLEDEMO_SOURCES exampleDemo.cpp )
+set( MBEXAMPLEDEMO_LINK_LIBRARIES
   mb
 )
-common_application( mbExampleTriangle )
+common_application( mbExampleDemo )

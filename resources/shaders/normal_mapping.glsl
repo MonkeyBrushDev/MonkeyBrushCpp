@@ -1,3 +1,6 @@
+#ifndef __NORMAL_MAPPING_INCLUDED__
+#define __NORMAL_MAPPING_INCLUDED__
+
 vec3 perturb_normal(vec3 p, vec3 n)
 {
   vec3 dp1 = dFdx(p);
@@ -12,3 +15,5 @@ vec3 perturb_normal(vec3 p, vec3 n)
   mat3 tsn = mat3(S, T, N);
   return normalize(tsn * mapN);
 }
+
+#endif

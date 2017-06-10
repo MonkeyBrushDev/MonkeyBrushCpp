@@ -17,23 +17,23 @@
  *
  **/
 
-#ifndef __MB_COLORMATERIAL__
-#define __MB_COLORMATERIAL__
+#ifndef __MB_FONTMATERIAL__
+#define __MB_FONTMATERIAL__
 
 #include <mb/api.h>
 
-#include "Material.hpp"
+#include "../Rendering/Material.hpp"
 #include "../Rendering/Texture.hpp"
 #include "../Maths/Color.hpp"
 #include "../Maths/Vector4.hpp"
 
 namespace mb
 {
-  class ColorMaterial: public Material
+  class FontMaterial: public Material
   {
   public:
     MB_API
-    ColorMaterial( void )
+    FontMaterial( void )
     : Material( )
     {
       this->addUniform( "projection",
@@ -45,22 +45,17 @@ namespace mb
 
       _colorMap = std::make_shared< mb::TextureUniform >( );
       _diffuse = std::make_shared< mb::Vector4Uniform >( mb::Vector4( 1.0f ) );
-      _shininess = std::make_shared< mb::FloatUniform >( 64.0f );
 
       this->addUniform( colorMapUnifName, _colorMap );
       this->addUniform( colorUnifName, _diffuse );
-      this->addUniform( shininessUnifName, _shininess );
 
       program = new mb::Program( );
       program->loadVertexShaderFromText( R"(
         #version 330 core
         layout (location = 0) in vec3 position;
-        layout (location = 0) in vec3 normal;
-        layout (location = 2) in vec2 texCoord;
+        layout (location = 1) in vec3 texCoord;
 
-        out vec3 outPosition;
-        out vec3 Normal;
-        out vec2 TexCoord;
+        out vec2 outTexCoord;
 
         uniform mat4 model;
         uniform mat4 view;
@@ -68,50 +63,22 @@ namespace mb
 
         void main()
         {
+          outTexCoord = texCoord;
           gl_Position = projection * view * model * vec4(position, 1.0f);
-          TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
-          mat3 normalMatrix = mat3(transpose(inverse( model )));
-          Normal = normalMatrix * normal;
-          outPosition = vec3( model * vec4( position, 1.0 ) );
         })" );
       program->loadFragmentShaderFromText( R"(
         #version 330 core
 
-        in vec3 outPosition;
-        in vec3 Normal;
-        in vec2 TexCoord;
-
-        out vec4 fragColor;
-
+        in vec2 outTexCoord;
         uniform sampler2D DiffuseTexture;
         uniform vec4 DiffuseColor;
 
-        uniform mat4 view;
-
-        uniform float ShininessValue;
-
-        void main()
+        void main( )
         {
-          vec3 lightPosition = vec3(view * vec4(2.0, 15.0, 15.0, 1.0));
-          vec3 viewPos = -transpose(mat3(view)) * view[3].xyz;
-
-          vec3 ambient = vec3(0.4);
-
-          vec3 norm = normalize(Normal);
-
-          vec3 lightDir = normalize(lightPosition - outPosition);
-          float diff = max(dot(norm, lightDir), 0.0);
-          //vec3 diffuse = texture( DiffuseTexture, TexCoord ).rgb * diff;
-          vec3 diffuse = vec3(1.0) * diff;
-
-          vec3 viewDir = normalize(viewPos - outPosition);
-          vec3 reflectDir = reflect(-lightDir, norm);
-          float spec = pow(max(dot(viewDir, reflectDir), 0.0), ShininessValue);
-          vec3 specular = vec3(spec);
-
-          fragColor = vec4((ambient + diffuse + specular) * texture( DiffuseTexture, TexCoord ).rgb, 1.0);
-
-          fragColor *= DiffuseColor;
+          fragColor = DiffuseColor>
+          float c = texture2D( DiffuseTexture, outTexCoord ).r;
+          fragColor *= vec4( c );
+          if ( fragColor.a < 0.1 ) discard;
         })" );
       program->compileAndLink( );
       program->autocatching( );
@@ -122,24 +89,17 @@ namespace mb
       _diffuse->value( mb::Color( color.r( ), color.g( ), color.b( ), color.a( ) ) );
     }
     MB_API
-    void setShininess( const float &v )
-    {
-      _shininess->value( v );
-    }
-    MB_API
     void setColorMap( mb::Texture2D *texture )
     {
       _colorMap->value( texture );
     }
   protected:
     mb::UniformPtr _diffuse;
-    mb::UniformPtr _shininess;
     mb::UniformPtr _colorMap;
   private:
     const char* colorMapUnifName = "DiffuseTexture";
     const char* colorUnifName = "DiffuseColor";
-    const char* shininessUnifName = "ShininessValue";
   };
 }
 
-#endif /* __MB_COLORMATERIAL__ */
+#endif /* __MB_FONTMATERIAL__ */
