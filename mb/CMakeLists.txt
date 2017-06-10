@@ -70,7 +70,6 @@ set( MB_PUBLIC_HEADERS
   Rendering/Material.hpp
   Rendering/Renderer.hpp
   Rendering/PipelineState.hpp
-  Rendering/StandardMaterial.hpp
   Rendering/Texture.hpp
   Rendering/FramebufferObject.hpp
   Rendering/RenderTarget.hpp
@@ -134,13 +133,14 @@ set( MB_PUBLIC_HEADERS
   OpenGL/Program.hpp
   OpenGL/ResourceShader.hpp
   OpenGL/OpenGLRenderer.hpp
-  Rendering/StandardMaterial2.hpp
 
-  Rendering/BasicMaterial.hpp
-  Rendering/ColorMaterial.hpp
-  Rendering/FontMaterial.hpp
-  Rendering/NormalMaterial.hpp
-  Rendering/PointMaterial.hpp
+  Materials/StandardMaterial.hpp
+  Materials/BasicMaterial.hpp
+  Materials/ColorMaterial.hpp
+  Materials/FontMaterial.hpp
+  Materials/NormalMaterial.hpp
+  Materials/PointMaterial.hpp
+  Materials/ToonMaterial.hpp
 
   Utils/ObjLoader.hpp
 )
@@ -253,14 +253,14 @@ set( MB_SOURCES
   OpenGL/Program.cpp
   OpenGL/ResourceShader.cpp
 
-  Rendering/StandardMaterial.cpp
-  Rendering/StandardMaterial2.cpp
 
-  Rendering/BasicMaterial.cpp
-  Rendering/ColorMaterial.cpp
-  Rendering/FontMaterial.cpp
-  Rendering/NormalMaterial.cpp
-  Rendering/PointMaterial.cpp
+  Materials/StandardMaterial.cpp
+  Materials/BasicMaterial.cpp
+  Materials/ColorMaterial.cpp
+  Materials/FontMaterial.cpp
+  Materials/NormalMaterial.cpp
+  Materials/PointMaterial.cpp
+  Materials/ToonMaterial.cpp
 )
 
 set( MB_LINK_LIBRARIES

@@ -86,10 +86,10 @@ namespace mb
       }
       else if ( type == UniformType::Vector4 )
       {
-        mb::Vector4 cc = uniform.second->value( ).cast< mb::Vector4 >( );
+        //mb::Vector4 cc = uniform.second->value( ).cast< mb::Vector4 >( );
         program->sendUniform4v(
           uniform.first,
-          cc.data( )//.data( )
+          uniform.second->value( ).cast< mb::Vector4 >( ).data( )
         );
       }
       else if ( type == UniformType::Matrix4 )

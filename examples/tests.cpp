@@ -9,7 +9,7 @@ int main( )
 {
   mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
   
-  mb::ObjLoader::loadObj( "objects/cube.obj_" );
+  mb::ObjLoader::loadObj( "objects/wolf.obj_" );
   mb::ObjLoader::readMaterialFile( "materials/customMaterial.mtl_" );
 
   system( "PAUSE" );

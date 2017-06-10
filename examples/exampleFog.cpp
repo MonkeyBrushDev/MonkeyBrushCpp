@@ -82,16 +82,16 @@ mb::Program* createProgram( )
     #version 330 core
     layout (location = 0) in vec3 Vertex;
 
-    uniform mat4 model;
-    uniform mat4 view;
-    uniform mat4 projection;
+    uniform mat4 mb_MatrixM;
+    uniform mat4 mb_MatrixV;
+    uniform mat4 mb_MatrixP;
 
     out vec3 position;
 
     void main()
     {
-      gl_Position = projection * view * model * vec4(Vertex, 1.0);
-      position = vec3( view * model * vec4( Vertex, 1.0 ) );
+      gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(Vertex, 1.0);
+      position = vec3( mb_MatrixV * mb_MatrixM * vec4( Vertex, 1.0 ) );
     })" );
   program->loadFragmentShaderFromText( R"(
     #version 330 core
@@ -99,14 +99,14 @@ mb::Program* createProgram( )
     out vec4 fragColor;
 
     uniform float density;
-    uniform mat4 view;
+    uniform mat4 mb_MatrixV;
 
-    const vec3 fogColor = vec3( 0.2 );
+    const vec3 fogColor = vec3( 0.2, 0.3, 0.3 );
     const vec3 color = vec3( 1.0, 0.3, 0.4 );
 
     void main()
     {
-      vec3 viewPos = -transpose(mat3(view)) * view[3].xyz;
+      vec3 viewPos = -transpose(mat3(mb_MatrixV)) * mb_MatrixV[3].xyz;
       float dst = length(position - viewPos);
       float fogFactor = 1.0 / exp(dst * density);
       fogFactor = clamp(fogFactor, 0.0, 1.0);
@@ -124,11 +124,11 @@ mb::Geometry* generateGeom( const mb::Color& c )
 
   mb::Material* customMaterial = new mb::Material( );
   customMaterial->program = createProgram( );
-  customMaterial->addUniform( "projection",
+  customMaterial->addUniform( MB_PROJ_MATRIX,
     std::make_shared< mb::Matrix4Uniform >( ) );
-  customMaterial->addUniform( "view",
+  customMaterial->addUniform( MB_VIEW_MATRIX,
     std::make_shared< mb::Matrix4Uniform >( ) );
-  customMaterial->addUniform( "model",
+  customMaterial->addUniform( MB_MODEL_MATRIX,
     std::make_shared< mb::Matrix4Uniform >( ) );
   customMaterial->addUniform( "density",
     std::make_shared< mb::FloatUniform >( 0.04f ) );
@@ -251,9 +251,11 @@ int main( )
 
             auto mat = mc->first( );
 
-            mat->uniform( "projection" )->value( mainQueue->getProjectionMatrix( ) );
-            mat->uniform( "view" )->value( mainQueue->getViewMatrix( ) );
-            mat->uniform( "model" )->value( renderable.modelTransform );
+            mat->uniform( MB_PROJ_MATRIX )->value( mainQueue->getProjectionMatrix( ) );
+            mat->uniform( MB_VIEW_MATRIX )->value( mainQueue->getViewMatrix( ) );
+            mat->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
+            //mat->uniform( MB_VIEWPROJ_MATRIX )->value( 
+            //  mainQueue->getProjectionMatrix( ) * mainQueue->getViewMatrix( ) );
             mat->use( );
 
             glBindVertexArray( vao );

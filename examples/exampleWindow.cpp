@@ -174,12 +174,9 @@ mb::Group* createScene( void )
   customMaterial->setNormalMap( chesterDNormal );
   customMaterial->setColor( mb::Color::GREEN );
 
-  mb::Texture2D* stoneTex = mb::Texture2D::loadFromImage( "stone.jpg" );
-  mb::Texture2D* bumpTex = mb::Texture2D::loadFromImage( "stone-bump.jpg" );
-
-  mb::StandardMaterial2* customMaterial2 = new mb::StandardMaterial2( );
-  customMaterial2->setColorMap( stoneTex );
-  customMaterial2->setBumpMap( bumpTex );
+  mb::StandardMaterial* customMaterial2 = new mb::StandardMaterial( );
+  customMaterial2->setColorMap( chesterDiffuse );
+  customMaterial2->setNormalMap( chesterDNormal );
   customMaterial2->setColor( mb::Color::GOLD );
 
 
@@ -343,9 +340,11 @@ int main( )
 
             auto mat = mc->first( );
 
-            mat->uniform( "projection" )->value( mainQueue->getProjectionMatrix( ) );
-            mat->uniform( "view" )->value( mainQueue->getViewMatrix( ) );
-            mat->uniform( "model" )->value( renderable.modelTransform );
+            mat->uniform( MB_PROJ_MATRIX )->value( mainQueue->getProjectionMatrix( ) );
+            mat->uniform( MB_VIEW_MATRIX )->value( mainQueue->getViewMatrix( ) );
+            mat->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
+            //mat->uniform( MB_VIEWPROJ_MATRIX )->value( 
+            //  mainQueue->getProjectionMatrix( ) * mainQueue->getViewMatrix( ) );
             mat->use( );
 
             glBindVertexArray( vao );

@@ -111,7 +111,7 @@ mb::Group* createScene( void )
   auto geom = new mb::Geometry( );
 
   mb::BasicMaterial* customMaterial = new mb::BasicMaterial( );
-  customMaterial->setColor( c );
+  customMaterial->setColor( mb::Color::GREEN );
 
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
@@ -215,9 +215,11 @@ int main( )
 
             auto mat = mc->first( );
 
-            mat->uniform( "projection" )->value( mainQueue->getProjectionMatrix( ) );
-            mat->uniform( "view" )->value( mainQueue->getViewMatrix( ) );
-            mat->uniform( "model" )->value( renderable.modelTransform );
+            mat->uniform( MB_PROJ_MATRIX )->value( mainQueue->getProjectionMatrix( ) );
+            mat->uniform( MB_VIEW_MATRIX )->value( mainQueue->getViewMatrix( ) );
+            mat->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
+            //mat->uniform( MB_VIEWPROJ_MATRIX )->value( 
+            //  mainQueue->getProjectionMatrix( ) * mainQueue->getViewMatrix( ) );
             mat->use( );
 
             glBindVertexArray( vao );

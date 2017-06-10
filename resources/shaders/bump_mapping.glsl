@@ -1,4 +1,7 @@
-vec2 dHdxy_fwd()
+#ifndef __BUMP_MAPPING_MAPPING_INCLUDED__
+#define __BUMP_MAPPING_MAPPING_INCLUDED__
+
+vec2 dHdxy_fwd( void )
 {
   vec2 TexDx = dFdx( TexCoord );
   vec2 TexDy = dFdy( TexCoord );
@@ -10,7 +13,7 @@ vec2 dHdxy_fwd()
   return vec2( dBx, dBy );
 }
 
-vec3 perturbNormalArb( vec3 surf_pos, vec3 surf_norm )
+vec3 perturbBumpNormal( vec3 surf_pos, vec3 surf_norm )
 {
   vec2 dHdxy = dHdxy_fwd( );
 
@@ -26,3 +29,5 @@ vec3 perturbNormalArb( vec3 surf_pos, vec3 surf_norm )
   vec3 vGrad = sign( fDet ) * ( dHdxy.x * R1 + dHdxy.y * R2 );
   return normalize( abs( fDet ) * surf_norm - vGrad );
 }
+
+#endif

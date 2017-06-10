@@ -1,0 +1,109 @@
+#version 330 core
+in vec3 attrPosition;
+in vec3 attrNormal;
+in vec3 attrTextureCoord;
+
+uniform mat4 uProjection;
+uniform mat4 uView;
+uniform mat4 uModel;
+
+uniform bool uUseNormalMap;
+
+out vec3 vWorldVertex;
+out vec3 vWorldNormal;
+out vec3 vTextureCoord;
+
+void main( )
+{
+    vWorldVertex = vec3( model * vec4( attrPosition, 1.0 ) );
+    vWorldNormal = inverse(transpose(mat3( model ) ) ) * attrNormal;
+    
+    vTextureCoord = attrTextureCoord;
+
+    gl_Position = projection * view * vec4( vWorldVertex, 1.0 );
+}
+//// Fragment
+
+
+in vec3 vWorldVertex;
+in vec3 vWorldNormal;
+in vec3 vTextureCoord;
+
+uniform sampler2D uColorMap;
+uniform bool uUseColorMap;
+uniform sampler2D uNormalMap;
+uniform bool uUseNormalMap;
+uniform sampler2D uSpecularMap;
+uniform bool uUseSpecularMap;
+
+struct Light
+{
+    vec3 position;
+    vec3 color;
+    float shininess;
+    //vec3 attenuation;
+}
+
+struct Material
+{
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+    float shininess;
+    float emissive;
+}
+
+#define MAX_LIGHTS 4
+
+uniform int uLightCount;
+uniform Light uLights[ MAX_LIGHTS ];
+uniform Material uMaterial;
+
+out vec4 fragColor;
+
+const float normalScale = 1.5;
+
+#import<normal_mapping.glsl>(normalCustomTexture=uNormalMap,TexCoord=vTextureCoord)
+
+void main( void )
+{
+    vec4 color = uUseColorMap ? texture2D( uColorMap, vTextureCoord ) : vec4( 1.0 );
+    color *= uMaterial.diffuse;
+
+    if ( color.a == 0.0 ) discard;
+
+    if ( uMaterial.emissive > 0.0 || uLightCount == 0 )
+    {
+        fragColor = color;
+        return;
+    }
+
+    vec3 normal = normalize( vWorldNormal );
+    vec4 specularColor = uUseSpecularMap ? texture2D( uSpecularMap, vTextureCoord ) : vec4( 1.0 );
+    specularColor *= uMaterial.specular;
+
+    vec4 outColor = vec4( uMaterial.ambient, color.a );
+        
+    if ( uUseNormalMap )
+    {
+        normal = perturb_normal( -vWorldVertex, normal );
+    }
+
+    for ( int i = 0; i < MAX_LIGHTS; ++i )
+    {
+        if ( i >= uLightCount ) break;
+
+        // Diffuse
+        vec3 lightDir = normalize(uLights[ i ].position - vWorldVertex.xyz);
+        float diff = max(dot(nor, lightDir), 0.0);
+        vec3 diffuse = uLights[ i ].color * ( diff * uMaterial.diffuse );
+
+        // Specular
+        vec3 viewDir = normalize( viewPos - vWorldVertex );
+        vec3 reflectDir = reflect( -lightDir, normal );
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+
+        outColor.rgb += ((color.rgb * 1.0) + (specularColor.rgb * spec)) * uLights[ i ].color.rgb;
+    }
+    fragColor = outColor;
+}

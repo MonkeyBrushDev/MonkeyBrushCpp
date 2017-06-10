@@ -20,6 +20,11 @@
 #ifndef __MB_MATERIAL__
 #define __MB_MATERIAL__
 
+#define MB_MODEL_MATRIX "mb_MatrixM"
+#define MB_VIEW_MATRIX "mb_MatrixV"
+#define MB_VIEWPROJ_MATRIX "mb_MatrixVP"  // Unused
+#define MB_PROJ_MATRIX "mb_MatrixP"
+
 #include <memory>
 #include <unordered_map>
 #include <mb/api.h>
