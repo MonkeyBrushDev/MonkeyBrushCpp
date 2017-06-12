@@ -482,7 +482,7 @@ int main( )
                 mat->uniform( lightColorName )->value( mb::Vector3( cc.r( ), cc.g( ), cc.b( ) ) );
               }
             }
-            
+
 
             //mat->uniform( MB_VIEWPROJ_MATRIX )->value(
             //  mainQueue->getProjectionMatrix( ) * mainQueue->getViewMatrix( ) );

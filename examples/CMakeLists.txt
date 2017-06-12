@@ -153,6 +153,7 @@ set( MBEXAMPLEDEMO_HEADERS
   TurbulenceProceduralMaterial.hpp
   HatchingProceduralMaterial.hpp
 )
+set( MBEXAMPLEDEMO_HEADERS MatCapMaterial.hpp )
 set( MBEXAMPLEDEMO_SOURCES exampleDemo.cpp )
 set( MBEXAMPLEDEMO_LINK_LIBRARIES
   mb
