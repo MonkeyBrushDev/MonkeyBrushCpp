@@ -144,7 +144,11 @@ BOOST_AUTO_TEST_CASE( test_group_full )
 
   // Reattach
   BOOST_CHECK_EQUAL( group->getNumChildren( ), 2 );
-  group->addChild( lChild );
+  BOOST_CHECK_THROW(
+    group->addChild( lChild ),
+    mb::RuntimeException
+  );
+  ;
   BOOST_CHECK_EQUAL( group->getNumChildren( ), 2 );
 
   // Detach

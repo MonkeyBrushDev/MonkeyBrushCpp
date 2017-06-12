@@ -273,13 +273,14 @@ mb::Geometry* generateGeom( const mb::Color& c )
   return geom;
 }
 
-#include "HatchingProceduralMaterial.hpp"
+#include "AlienProceduralMaterial.hpp"
 
-mb::Geometry* generateGeomWithLight( const mb::Color& c )
+mb::Geometry* generateGeomWithLight( const mb::Color& )
 {
   auto geom = new mb::Geometry( );
 
-  HatchingProceduralMaterial* customMaterial = new HatchingProceduralMaterial( );
+  mb::ToonMaterial* customMaterial = new mb::ToonMaterial( );
+  customMaterial->setColor( mb::Color::RED );
 
   /*mb::Texture2D* texDiffuse = mb::Texture2D::loadFromImage( "uv_checker.png" );
 

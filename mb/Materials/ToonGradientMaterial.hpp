@@ -17,8 +17,8 @@
  *
  **/
 
-#ifndef __MB_TOONMATERIAL__
-#define __MB_TOONMATERIAL__
+#ifndef __MB_TOONGRADIENTMATERIAL__
+#define __MB_TOONGRADIENTMATERIAL__
 
 #include <mb/api.h>
 
@@ -29,11 +29,11 @@
 
 namespace mb
 {
-  class ToonMaterial: public Material
+  class ToonGradientMaterial: public Material
   {
   public:
     MB_API
-    ToonMaterial( void )
+    ToonGradientMaterial( void )
     : Material( )
     {
       this->addUniform( MB_PROJ_MATRIX,
@@ -43,9 +43,11 @@ namespace mb
       this->addUniform( MB_MODEL_MATRIX,
         std::make_shared< mb::Matrix4Uniform >( ) );
 
+      _gradientMap = std::make_shared< mb::TextureUniform >( );
       _diffuse = std::make_shared< mb::Vector4Uniform >( mb::Vector4( 1.0f ) );
       _shininess = std::make_shared< mb::FloatUniform >( 64.0f );
 
+      this->addUniform( gradientMapUnifName, _gradientMap );
       this->addUniform( colorUnifName, _diffuse );
       this->addUniform( shininessUnifName, _shininess );
 
@@ -81,20 +83,17 @@ namespace mb
 
         out vec4 fragColor;
 
+        uniform sampler2D GradientTexture;
         uniform vec4 DiffuseColor;
 
-        uniform mat4 mb_MatrixV;
+        uniform mat4 view;
 
         uniform float ShininessValue;
 
-
-        /*uniform*/ float levels = 5.0;
-
-
         void main()
         {
-          /*vec3 lightPosition = vec3(mb_MatrixV * vec4(2.0, 15.0, 15.0, 1.0));
-          vec3 viewPos = -transpose(mat3(mb_MatrixV)) * mb_MatrixV[3].xyz;
+          vec3 lightPosition = vec3(view * vec4(2.0, 15.0, 15.0, 1.0));
+          vec3 viewPos = -transpose(mat3(view)) * view[3].xyz;
 
           vec3 ambient = vec3(0.4);
 
@@ -111,21 +110,15 @@ namespace mb
 
           fragColor = vec4((ambient + diffuse + specular), 1.0 );
 
-          fragColor = vec4( 0.0, 0.0, 0.0, 1.0 );
+          float dotNL = dot( norm, lightDir );
+          vec2 coord = vec2( dotNL * 0.5 + 0.5, 0.0 );
 
-          float cosine = max( 0.0, dot( lightDir, Normal ) );
+          float NdotL = dot(Normal, lightDir);
+          NdotL = texture(GradientTexture, vec2(NdotL, 0.5)).r;
 
-          fragColor *= vec4(vec3(floor( cosine * levels ) * scaleFactor), 1.0);
+          fragColor *= vec4(vec3(NdotL), 1.0);
 
-          fragColor = DiffuseColor;*/
-
-          vec3 viewPos = -transpose(mat3(mb_MatrixV)) * mb_MatrixV[3].xyz;
-          float scaleFactor = 1.0 / levels;
-          vec3 n = normalize(Normal);
-          vec3 s = normalize(viewPos.xyz - outPosition.xyz);
-          float cosine = dot(s, n);
-          vec3 diffuse = DiffuseColor.rgb * floor(cosine * levels) * scaleFactor;
-          fragColor = vec4(diffuse, 1.0);
+          fragColor *= DiffuseColor;
         })" );
       program->compileAndLink( );
       program->autocatching( );
@@ -140,13 +133,20 @@ namespace mb
     {
       _shininess->value( v );
     }
+    MB_API
+    void setGradientMap( mb::Texture2D *texture )
+    {
+      _gradientMap->value( texture );
+    }
   protected:
     mb::UniformPtr _diffuse;
     mb::UniformPtr _shininess;
+    mb::UniformPtr _gradientMap;
   private:
+    const char* gradientMapUnifName = "GradientTexture";
     const char* colorUnifName = "DiffuseColor";
     const char* shininessUnifName = "ShininessValue";
   };
 }
 
-#endif /* __MB_TOONMATERIAL__ */
+#endif /* __MB_TOONGRADIENTMATERIAL__ */

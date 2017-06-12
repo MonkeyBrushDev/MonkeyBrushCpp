@@ -71,6 +71,8 @@ namespace mb
       _data = data;
     }
     MB_API
+    virtual ~Texture( void );
+    MB_API
     virtual void apply( void ) = 0;
   protected:
     Texture(unsigned int w, unsigned int h, FormatTexture format,

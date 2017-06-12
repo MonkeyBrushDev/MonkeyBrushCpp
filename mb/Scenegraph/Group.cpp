@@ -48,7 +48,7 @@ namespace mb
   {
     if ( node->parent( ) == this )
     {
-      throw RuntimeException( "You trying to add this node with himself" );
+      throw RuntimeException( "You trying to add this node repeated" );
     }
     if ( node->parent( ) != nullptr )
     {

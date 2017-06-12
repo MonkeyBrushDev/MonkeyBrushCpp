@@ -152,6 +152,7 @@ set( MBEXAMPLEDEMO_HEADERS
   GraniteProceduralMaterial.hpp
   TurbulenceProceduralMaterial.hpp
   HatchingProceduralMaterial.hpp
+  IceMaterial.hpp
 )
 set( MBEXAMPLEDEMO_HEADERS MatCapMaterial.hpp )
 set( MBEXAMPLEDEMO_SOURCES exampleDemo.cpp )

@@ -19,12 +19,12 @@ BOOST_AUTO_TEST_CASE( test_switch_construction )
 
   // Default currentNodeIdx is 0
   BOOST_CHECK_EQUAL( switchNode->nodeAt<mb::Node>(
-    switchNode->getCurrentNodeIndex( ) ) == node1 );
+    switchNode->getCurrentNodeIndex( ) ), node1 );
 
   switchNode->setCurrentNodeIndex( 1 );
 
   BOOST_CHECK_EQUAL( switchNode->nodeAt<mb::Node>(
-    switchNode->getCurrentNodeIndex( ) ) == node2 );
+    switchNode->getCurrentNodeIndex( ) ), node2 );
 }
 
 BOOST_AUTO_TEST_CASE( test_switch_foreachChildren )
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE( test_switch_foreachChildren )
   unsigned int numNodes = 0;
   switchNode->forEachNode( [ & ] ( mb::Node* node )
   {
-    BOOST_CHECK_EQUAL( node2 == node );
+    BOOST_CHECK_EQUAL( node2, node );
     ++numNodes;
   } );
   BOOST_CHECK_EQUAL( numNodes, 1 );

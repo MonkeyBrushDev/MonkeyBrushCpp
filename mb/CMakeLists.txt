@@ -141,6 +141,7 @@ set( MB_PUBLIC_HEADERS
   Materials/NormalMaterial.hpp
   Materials/PointMaterial.hpp
   Materials/ToonMaterial.hpp
+  Materials/ToonGradientMaterial.hpp
 
   Utils/ObjLoader.hpp
 )
@@ -261,6 +262,7 @@ set( MB_SOURCES
   Materials/NormalMaterial.cpp
   Materials/PointMaterial.cpp
   Materials/ToonMaterial.cpp
+  Materials/ToonGradientMaterial.cpp
 )
 
 set( MB_LINK_LIBRARIES

@@ -24,9 +24,9 @@ BOOST_AUTO_TEST_CASE( test_camera_view )
 
   mb::Matrix4 viewMatrix = camera.getView( );
 
-  BOOST_CHECK_EQUAL( viewMatrix[ 12 ], 1.0f );
-  BOOST_CHECK_EQUAL( viewMatrix[ 13 ], 2.0f );
-  BOOST_CHECK_EQUAL( viewMatrix[ 14 ], 3.0f );
+  BOOST_CHECK_EQUAL( viewMatrix[ 12 ], -1.0f );
+  BOOST_CHECK_EQUAL( viewMatrix[ 13 ], -2.0f );
+  BOOST_CHECK_EQUAL( viewMatrix[ 14 ], -3.0f );
 }
 
 BOOST_AUTO_TEST_CASE( test_camera_projection )

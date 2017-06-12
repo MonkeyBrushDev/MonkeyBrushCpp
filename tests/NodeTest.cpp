@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE( test_node_construction )
   auto node = new Node( name );
   BOOST_CHECK_EQUAL( node->name( ), name );
   BOOST_CHECK_FALSE( node->hasParent( ) );
-  // TODO BOOST_CHECK_IS_NULL( node->parent( ) );
+  BOOST_CHECK_IS_NULL( node->parent( ) );
 }
 
 BOOST_AUTO_TEST_CASE( test_node_compare_parent )

@@ -11,7 +11,7 @@
 
 namespace mb
 {
-  Texture::Texture(unsigned int w, unsigned int h, FormatTexture format,
+  Texture::Texture(unsigned int w, unsigned int h, FormatTexture /*format*/,
     bool linear, unsigned int target )
     : _wrapMode( WrapMode::CLAMP_TO_EDGE )
     , _minFilter( linear? FilterMode::LINEAR : FilterMode::NEAREST )
@@ -34,6 +34,10 @@ namespace mb
   void Texture::unbind( void )
   {
     glBindTexture( _target, 0 );
+  }
+  Texture::~Texture( void )
+  {
+    glDeleteTextures( 1, &_handler );
   }
 }
 
