@@ -142,8 +142,11 @@ set( MB_PUBLIC_HEADERS
   Materials/PointMaterial.hpp
   Materials/ToonMaterial.hpp
   Materials/ToonGradientMaterial.hpp
+  Materials/PostProcessMaterial.hpp
 
   Utils/ObjLoader.hpp
+
+  Utils/JobScheduler.hpp
 )
 
 set( MB_HEADERS
@@ -263,6 +266,9 @@ set( MB_SOURCES
   Materials/PointMaterial.cpp
   Materials/ToonMaterial.cpp
   Materials/ToonGradientMaterial.cpp
+  Materials/PostProcessMaterial.cpp
+
+  Utils/JobScheduler.cpp
 )
 
 set( MB_LINK_LIBRARIES

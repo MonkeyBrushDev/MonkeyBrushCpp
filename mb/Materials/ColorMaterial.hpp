@@ -109,7 +109,9 @@ namespace mb
           float spec = pow(max(dot(viewDir, reflectDir), 0.0), ShininessValue);
           vec3 specular = vec3(spec);
 
-          fragColor = vec4((ambient + diffuse + specular) * texture( DiffuseTexture, TexCoord ).rgb, 1.0);
+          vec4 texDiffuse = texture( DiffuseTexture, TexCoord );
+
+          fragColor = vec4((ambient + diffuse + specular) * texDiffuse.rgb, texDiffuse.a );
 
           fragColor *= DiffuseColor;
         })" );

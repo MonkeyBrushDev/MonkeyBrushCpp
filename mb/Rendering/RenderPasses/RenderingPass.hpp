@@ -40,7 +40,7 @@ namespace mb
     MB_API
     virtual void applyImageEffects( Renderer *renderer, Camera *camera );
     MB_API
-      std::vector<ImageEffectPtr>& imageEffects( void )
+    std::vector<ImageEffectPtr>& imageEffects( void )
     {
       return _imageEffects;
     }

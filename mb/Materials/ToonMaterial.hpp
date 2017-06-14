@@ -43,22 +43,18 @@ namespace mb
       this->addUniform( MB_MODEL_MATRIX,
         std::make_shared< mb::Matrix4Uniform >( ) );
 
-      _diffuse = std::make_shared< mb::Vector4Uniform >( mb::Vector4( 1.0f ) );
-      _shininess = std::make_shared< mb::FloatUniform >( 64.0f );
+      _levels = std::make_shared< mb::FloatUniform >( 5.0f );
 
-      this->addUniform( colorUnifName, _diffuse );
-      this->addUniform( shininessUnifName, _shininess );
+      this->addUniform( levelsUnifName, _levels );
 
       program = new mb::Program( );
       program->loadVertexShaderFromText( R"(
         #version 330 core
         layout (location = 0) in vec3 position;
         layout (location = 1) in vec3 normal;
-        layout (location = 2) in vec2 texCoord;
 
         out vec3 outPosition;
         out vec3 Normal;
-        out vec2 TexCoord;
 
         uniform mat4 mb_MatrixM;
         uniform mat4 mb_MatrixV;
@@ -67,7 +63,6 @@ namespace mb
         void main()
         {
           gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(position, 1.0f);
-          TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
           mat3 normalMatrix = mat3(transpose(inverse( mb_MatrixM )));
           Normal = normalMatrix * normal;
           outPosition = vec3( mb_MatrixM * vec4( position, 1.0 ) );
@@ -77,7 +72,6 @@ namespace mb
 
         in vec3 outPosition;
         in vec3 Normal;
-        in vec2 TexCoord;
 
         out vec4 fragColor;
 
@@ -85,67 +79,30 @@ namespace mb
 
         uniform mat4 mb_MatrixV;
 
-        uniform float ShininessValue;
-
-
-        /*uniform*/ float levels = 5.0;
-
+        uniform float levels;
 
         void main()
         {
-          /*vec3 lightPosition = vec3(mb_MatrixV * vec4(2.0, 15.0, 15.0, 1.0));
-          vec3 viewPos = -transpose(mat3(mb_MatrixV)) * mb_MatrixV[3].xyz;
-
-          vec3 ambient = vec3(0.4);
-
-          vec3 norm = normalize(Normal);
-
-          vec3 lightDir = normalize(lightPosition - outPosition);
-          float diff = max(dot(norm, lightDir), 0.0);
-          vec3 diffuse = vec3(1.0) * diff;
-
-          vec3 viewDir = normalize(viewPos - outPosition);
-          vec3 reflectDir = reflect(-lightDir, norm);
-          float spec = pow(max(dot(viewDir, reflectDir), 0.0), ShininessValue);
-          vec3 specular = vec3(spec);
-
-          fragColor = vec4((ambient + diffuse + specular), 1.0 );
-
-          fragColor = vec4( 0.0, 0.0, 0.0, 1.0 );
-
-          float cosine = max( 0.0, dot( lightDir, Normal ) );
-
-          fragColor *= vec4(vec3(floor( cosine * levels ) * scaleFactor), 1.0);
-
-          fragColor = DiffuseColor;*/
-
           vec3 viewPos = -transpose(mat3(mb_MatrixV)) * mb_MatrixV[3].xyz;
           float scaleFactor = 1.0 / levels;
           vec3 n = normalize(Normal);
           vec3 s = normalize(viewPos.xyz - outPosition.xyz);
           float cosine = dot(s, n);
           vec3 diffuse = DiffuseColor.rgb * floor(cosine * levels) * scaleFactor;
-          fragColor = vec4(diffuse, 1.0);
+          fragColor = vec4( diffuse, 1.0 );
         })" );
       program->compileAndLink( );
       program->autocatching( );
     }
     MB_API
-    void setColor( const Color &color )
+    void setLevels( const float &v )
     {
-      _diffuse->value( mb::Color( color.r( ), color.g( ), color.b( ), color.a( ) ) );
-    }
-    MB_API
-    void setShininess( const float &v )
-    {
-      _shininess->value( v );
+      _levels->value( v );
     }
   protected:
-    mb::UniformPtr _diffuse;
-    mb::UniformPtr _shininess;
+    mb::UniformPtr _levels;
   private:
-    const char* colorUnifName = "DiffuseColor";
-    const char* shininessUnifName = "ShininessValue";
+    const char* levelsUnifName = "levels";
   };
 }
 

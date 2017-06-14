@@ -160,3 +160,17 @@ set( MBEXAMPLEDEMO_LINK_LIBRARIES
   mb
 )
 common_application( mbExampleDemo )
+
+set( MBEXAMPLEEARTH_HEADERS )
+set( MBEXAMPLEEARTH_SOURCES exampleEarth.cpp )
+set( MBEXAMPLEEARTH_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleEarth )
+
+set( MBEXAMPLEBUTTERFLIES_HEADERS )
+set( MBEXAMPLEBUTTERFLIES_SOURCES exampleButterflies.cpp )
+set( MBEXAMPLEBUTTERFLIES_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleButterflies )

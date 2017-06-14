@@ -36,14 +36,38 @@ namespace mb
       return;
     }
     std::cout << "Render OpaqueObjects" << std::endl;
-    mb::Matrix4 projection = bq->getProjectionMatrix();
-    mb::Matrix4 view = bq->getViewMatrix();
-    for( Renderable& renderable: renderables  )
+    mb::Matrix4 projection = bq->getProjectionMatrix( );
+    mb::Matrix4 view = bq->getViewMatrix( );
+
+
+    unsigned int numLights = bq->_lights.size( );
+
+    for( Renderable& renderable: renderables )
     {
-      // TODO: BIND LIGHTS
       auto material = renderable.material;
-      material->uniform("projection")->value(projection);
-      material->uniform("view")->value(view);
+      material->uniform( MB_PROJ_MATRIX )->value( projection );
+      material->uniform( MB_VIEW_MATRIX )->value( view );
+
+      // BIND LIGHTS
+      // TODO: NOT BEST OPTION
+      if ( material->hasUniform( "mb_NumLights" ) )
+      {
+        material->uniform( "mb_NumLights" )->value( numLights );
+
+        for ( unsigned int i = 0; i < numLights && i < 5; ++i )
+        {
+          std::string lightPosName = std::string( "mb_LightPosition[" ) +
+            std::to_string( i ) + std::string( "]" );
+          mb::Vector3 lightPos = bq->_lights[ i ]->getPosition( );
+          mb::Vector4 lp = mb::Vector4( lightPos.x( ), lightPos.y( ), lightPos.z( ), 1.0 );
+          material->uniform( lightPosName )->value( lp );
+
+          std::string lightColorName = std::string( "mb_LightColor[" ) +
+            std::to_string( i ) + std::string( "]" );
+          mb::Color cc = bq->_lights[ i ]->getColor( );
+          material->uniform( lightColorName )->value( mb::Vector3( cc.r( ), cc.g( ), cc.b( ) ) );
+        }
+      }
 
       renderStandardGeometry(renderer, renderable, material);
       // TODO: UNBIND LIGHTS
@@ -64,19 +88,21 @@ namespace mb
     {
       auto material = renderable.material;
 
-      material->uniform("projection")->value(projection);
-      material->uniform("view")->value(view);
+      material->uniform( MB_PROJ_MATRIX )->value( projection );
+      material->uniform( MB_VIEW_MATRIX )->value( view );
 
       renderStandardGeometry( renderer, renderable, material );
     }
   }
-  void StandardRenderingPass::renderStandardGeometry( Renderer*, Renderable& renderable, MaterialPtr m )
+  void StandardRenderingPass::renderStandardGeometry( Renderer*, Renderable& renderable,
+    MaterialPtr m )
   {
+    m->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
+    m->use( );
     renderable.geometry->forEachPrimitive( [m] ( Primitive *pr )
     {
-      m->use( );
       pr->render( );
-      m->unuse( );
     } );
+    m->unuse( );
   }
 }

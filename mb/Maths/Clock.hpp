@@ -50,6 +50,11 @@ namespace mb
     double getLastTime( void ) const;
     MB_API
     double getDeltaTime( void ) const;
+    MB_API
+    double getAccumTime( void ) const
+    {
+      return _accumTime;
+    }
   private:
     double _currentTime;
     double _lastTime;

@@ -82,7 +82,9 @@ namespace mb
     const Matrix4 &getViewMatrix( void ) const { return _viewMatrix; }
   protected:
     Camera* _camera;
+  public:
     std::vector< Light* > _lights;
+  protected:
     Matrix4 _projectionMatrix;
     Matrix4 _viewMatrix;
     std::map< RenderableType, std::vector< Renderable >> _renderables;

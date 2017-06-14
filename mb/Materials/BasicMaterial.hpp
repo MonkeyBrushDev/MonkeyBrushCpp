@@ -80,12 +80,11 @@ namespace mb
         void main()
         {
           vec3 viewPos = -transpose(mat3(view)) * view[3].xyz;
-          vec3 L = normalize(viewPos-outPosition);
+          vec3 L = normalize(viewPos - outPosition);
           vec3 N = normalize( Normal );
           float dif = dot( N, L );
           dif = clamp( dif, 0.0, 1.0 );
-          fragColor = vec4( DiffuseColor.rgb * dif, 1.0 ) + vec4( DiffuseColor.rgb * 0.3, 1.0 );
-          fragColor.a = DiffuseColor.a;
+          fragColor = vec4( DiffuseColor.rgb * ( dif + 0.3 ), DiffuseColor.a ) );
         })" );
       program->compileAndLink( );
       program->autocatching( );
