@@ -21,6 +21,7 @@
 #define __MB_TRANSFORM__
 
 #include "Vector3.hpp"
+#include "Matrix3.hpp"
 #include "Matrix4.hpp"
 #include "Quaternion.hpp"
 
@@ -207,7 +208,6 @@ namespace mb
       _position = t2._position;
       _rotate = t2._rotate;
       _scale = t2._scale;
-      // TODO: Complete others variables
       _isIdentity = t2._isIdentity;
       return *this;
     }
@@ -250,6 +250,10 @@ namespace mb
     const Vector3& getScale( void ) const
     {
       return _scale;
+    }
+    void setScale( float v )
+    {
+      setScale( v, v, v );
     }
     void setScale( const Vector3& sc )
     {
@@ -302,6 +306,26 @@ namespace mb
       Vector3 dir = target - getPosition( );
       dir.normalize( );
       _rotate.lookAt( dir, up );
+    }
+
+    Transform& fromMatrix( const mb::Matrix4& m )
+    {
+      mb::Matrix3 viewRotation;
+      viewRotation[ 0 ] = m[ 0 ];
+      viewRotation[ 1 ] = m[ 1 ];
+      viewRotation[ 2 ] = m[ 2 ];
+      viewRotation[ 3 ] = m[ 4 ];
+      viewRotation[ 4 ] = m[ 5 ];
+      viewRotation[ 5 ] = m[ 6 ];
+      viewRotation[ 6 ] = m[ 8 ];
+      viewRotation[ 7 ] = m[ 9 ];
+      viewRotation[ 8 ] = m[ 10 ];
+
+      rotate( ).fromRotationMatrix( viewRotation );
+      setPosition( m[ 12 ], m[ 13 ], m[ 14 ] );
+      setScale( mb::Vector3::ONE );
+
+      return *this;
     }
 
   protected:

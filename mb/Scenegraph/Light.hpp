@@ -49,7 +49,7 @@ namespace mb
     MB_API
     Light( Light::Type t = Light::Type::POINT );
     MB_API
-    ~Light( void );
+    virtual ~Light( void );
 
     const Light::Type& getType( void ) const { return _type; }
 

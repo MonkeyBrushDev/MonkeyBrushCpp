@@ -25,14 +25,11 @@
 #include "../Maths/Plane.hpp"
 #include "../Maths/Ray.hpp"
 #include "../Maths/Rect.hpp"
+#include "../Maths/Color.hpp"
 #include <mb/api.h>
 
 #include "../Maths/Vector3.hpp"
 #include "../Maths/Matrix4.hpp"
-
-/*
-  TODO: Change Field of View and clipping planes
-*/
 
 namespace mb
 {
@@ -133,6 +130,16 @@ namespace mb
       old_f.setFieldOfView( fov );
       setFrustum( old_f );
     }*/
+    MB_API
+    const mb::Color& getClearColor( void ) const
+    {
+      return this->_clearColor;
+    }
+    MB_API
+    void setClearColor( const mb::Color& color )
+    {
+      this->_clearColor = color;
+    }
   private:
     bool _isMainCamera = false;
   protected:
@@ -143,6 +150,7 @@ namespace mb
     Matrix4 _projectionMatrix;
     Matrix4 _orthographicMatrix;
     Matrix4 _viewMatrix;
+    mb::Color _clearColor;
   public:
     void computeCullingPlanes( void );
 
@@ -171,6 +179,7 @@ namespace mb
     bool _cullingEnabled = true;
     std::array< Plane, 6 > _cullingPlanes;
   };
+  typedef std::shared_ptr< mb::Camera > CameraPtr;
 }
 
 #endif /* __MB_CAMERA__ */

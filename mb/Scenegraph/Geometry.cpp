@@ -33,6 +33,7 @@ namespace mb
   }
   Geometry::~Geometry( void )
   {
+    std::cout << "[D] Geometry '" << this->name( ) << "'" << std::endl;
     removeAllPrimitives( );
   }
   void Geometry::removeAllPrimitives( void )

@@ -28,11 +28,7 @@ namespace mb
   ComputeBatchQueue::ComputeBatchQueue( Camera* c, BatchQueuePtr bq_ )
   : Visitor( )
   , _camera( c )
-  , bq( bq_ )
-  {
-  }
-
-  ComputeBatchQueue::~ComputeBatchQueue( )
+  , _batch( bq_ )
   {
   }
 
@@ -46,8 +42,8 @@ namespace mb
 
   void ComputeBatchQueue::traverse( Node* node )
   {
-    bq->reset( );
-    bq->setCamera( _camera );
+    _batch->reset( );
+    _batch->setCamera( _camera );
 
     /*if ( _camera != nullpr )
     {
@@ -64,12 +60,12 @@ namespace mb
     if ( _camera != nullptr &&
       _camera->layer( ).check( geometry->layer( ) ) )
     {
-      bq->pushGeometry( geometry );
+      _batch->pushGeometry( geometry );
     }
   }
 
   void ComputeBatchQueue::visitLight( Light *light )
   {
-    bq->pushLight( light );
+    _batch->pushLight( light );
   }
 }

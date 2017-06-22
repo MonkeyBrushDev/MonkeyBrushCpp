@@ -21,7 +21,6 @@
 #define __MB_BATCH_QUEUE__
 
 #include <vector>
-//#include <unordered_map>
 #include <map>
 
 #include "../Scenegraph/Light.hpp"
@@ -38,11 +37,11 @@ namespace mb
 {
   struct Renderable
   {
-    Material* material;
+    MaterialPtr material;
     Geometry* geometry;
     mb::Matrix4 modelTransform;
     float zDistance;
-    Renderable( Material* m, Geometry* g,
+    Renderable( MaterialPtr m, Geometry* g,
       const mb::Matrix4& mt, float zDist )
     {
       this->material = m;
@@ -86,7 +85,6 @@ namespace mb
     std::vector< Light* > _lights;
     Matrix4 _projectionMatrix;
     Matrix4 _viewMatrix;
-    // TODO std::unordered_map< RenderableType, std::vector< Renderable* >> _renderables;
     std::map< RenderableType, std::vector< Renderable >> _renderables;
   };
   typedef std::shared_ptr< BatchQueue > BatchQueuePtr;

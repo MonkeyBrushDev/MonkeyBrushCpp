@@ -10,10 +10,7 @@ set( MB_PUBLIC_HEADERS
   Components/LambdaComponent.hpp
   Components/MaterialComponent.hpp
   Components/MeshRenderer.hpp
-  Components/OrbitCamera.hpp
-  Components/ScriptComponent.hpp
   Components/RotateComponent.hpp
-  Components/OrbitComponent.hpp
   Components/FreeCameraComponent.hpp
 
 
@@ -36,6 +33,7 @@ set( MB_PUBLIC_HEADERS
   Maths/Frustum.hpp
   Maths/Mathf.hpp
   Maths/Ray.hpp
+  Maths/Matrix3.hpp
   Maths/Matrix4.hpp
   Maths/Rect.hpp
   Maths/Quaternion.hpp
@@ -136,6 +134,15 @@ set( MB_PUBLIC_HEADERS
   OpenGL/Program.hpp
   OpenGL/ResourceShader.hpp
   OpenGL/OpenGLRenderer.hpp
+  Rendering/StandardMaterial2.hpp
+
+  Rendering/BasicMaterial.hpp
+  Rendering/ColorMaterial.hpp
+  Rendering/FontMaterial.hpp
+  Rendering/NormalMaterial.hpp
+  Rendering/PointMaterial.hpp
+
+  Utils/ObjLoader.hpp
 )
 
 set( MB_HEADERS
@@ -154,7 +161,6 @@ set( MB_SOURCES
   Components/LambdaComponent.cpp
   Components/MaterialComponent.cpp
   Components/MeshRenderer.cpp
-  Components/ScriptComponent.cpp
   Components/RotateComponent.cpp
   Components/FreeCameraComponent.cpp
 
@@ -246,6 +252,15 @@ set( MB_SOURCES
 
   OpenGL/Program.cpp
   OpenGL/ResourceShader.cpp
+
+  Rendering/StandardMaterial.cpp
+  Rendering/StandardMaterial2.cpp
+
+  Rendering/BasicMaterial.cpp
+  Rendering/ColorMaterial.cpp
+  Rendering/FontMaterial.cpp
+  Rendering/NormalMaterial.cpp
+  Rendering/PointMaterial.cpp
 )
 
 set( MB_LINK_LIBRARIES

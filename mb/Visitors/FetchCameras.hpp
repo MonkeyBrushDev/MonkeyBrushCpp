@@ -26,16 +26,14 @@
 
 #include <mb/api.h>
 
+#include "../Scenegraph/Camera.hpp"
+
 namespace mb
 {
   class FetchCameras :
     public Visitor
   {
   public:
-    MB_API
-    FetchCameras( );
-    MB_API
-    virtual ~FetchCameras( );
     MB_API
     virtual void reset( void ) override;
     MB_API
@@ -48,7 +46,7 @@ namespace mb
     MB_API
     void forEachCameras( std::function<void( Camera* )> cb );
   protected:
-    std::vector<Camera*> _cameras;
+    std::vector< Camera* > _cameras;
   };
 }
 

@@ -70,7 +70,7 @@ namespace mb
       renderStandardGeometry( renderer, renderable, material );
     }
   }
-  void StandardRenderingPass::renderStandardGeometry( Renderer*, Renderable& renderable, Material* m )
+  void StandardRenderingPass::renderStandardGeometry( Renderer*, Renderable& renderable, MaterialPtr m )
   {
     renderable.geometry->forEachPrimitive( [m] ( Primitive *pr )
     {

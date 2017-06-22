@@ -20,6 +20,7 @@
 #include "Material.hpp"
 #include "../Maths/Vector2.hpp"
 #include "../Maths/Vector3.hpp"
+#include "../Maths/Vector4.hpp"
 #include "../Maths/Matrix4.hpp"
 #include "Texture.hpp"
 
@@ -50,7 +51,7 @@ namespace mb
   }
   void Material::use( void )
   {
-    unsigned int texId = 0;
+    texId = 0;
     program->use( );
     for ( const auto& uniform: _uniforms )
     {
@@ -80,7 +81,15 @@ namespace mb
       {
         program->sendUniform3v(
           uniform.first,
-          uniform.second->value( ).cast< mb::Vector3 >( ).values( )//.data( )
+          uniform.second->value( ).cast< mb::Vector3 >( ).data( )//.data( )
+        );
+      }
+      else if ( type == UniformType::Vector4 )
+      {
+        mb::Vector4 cc = uniform.second->value( ).cast< mb::Vector4 >( );
+        program->sendUniform4v(
+          uniform.first,
+          cc.data( )//.data( )
         );
       }
       else if ( type == UniformType::Matrix4 )
@@ -93,9 +102,11 @@ namespace mb
       else if ( type == UniformType::TextureSampler )
       {
         mb::Texture* tex = uniform.second->value().cast< mb::Texture* >();
+        if (tex == nullptr) continue;
         tex->bind(texId);
         this->program->sendUniformi(uniform.first, texId);
         ++texId;
+        // TODO: UNBIND TEXTURES IN UNUSE METHOD
       }
     }
   }

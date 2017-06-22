@@ -360,11 +360,6 @@ namespace mb
         MB_API
         void sendUniform3v(const std::string& uniform, const float* data);
 
-        MB_API
-        void sendUniform3v(const std::string& uniform,
-                           const std::array< float, 3 > & data);
-
-
         /**
         * Method to send a vec4
         * @param uniform: Uniform name
@@ -487,15 +482,6 @@ namespace mb
         */
         MB_API
         void activeSubprogram(const std::string& name, int shaderType);
-#endif
-
-#ifdef MB_OCC_QUERY
-        /**
-        * Method to check if object is visible in frustrum
-        * @return object is visible
-        */
-        MB_API
-        bool occlusionQuery(std::function<void()> renderFunc);
 #endif
 
 #ifdef MB_COMPUTE_SHADERS
@@ -634,10 +620,6 @@ namespace mb
         std::multimap<int, SubProgram> _subprograms;
 #endif
         std::vector<unsigned int> _shaders;
-
-#ifdef MB_OCC_QUERY
-        unsigned int _occQuery;
-#endif
     };
 }
 

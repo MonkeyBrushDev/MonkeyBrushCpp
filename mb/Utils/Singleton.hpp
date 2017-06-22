@@ -29,6 +29,7 @@ namespace mb
 	private:
 		static E _dummyInstance;
 	public:
+    MB_API
 		static E* getInstance( void )
 		{
 			static E instance;

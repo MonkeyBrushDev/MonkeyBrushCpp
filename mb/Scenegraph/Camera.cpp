@@ -36,6 +36,7 @@ namespace mb
     , _frustum( fov, ar, near, far )
     , _viewport( 0.0f, 0.0f, 1.0f, 1.0f )
     , _renderPass( new StandardRenderingPass( ) )
+    , _clearColor( mb::Color( 0.2f, 0.3f, 0.3f, 1.0f ) )
   {
     for ( unsigned int i = 0; i < 32; ++i )
     {
@@ -48,6 +49,7 @@ namespace mb
 
   Camera::~Camera( )
   {
+    std::cout << "[D] Camera '" << this->name( ) << "'" << std::endl;
     if ( Camera::getMainCamera( ) == this )
     {
       setMainCamera( nullptr );
@@ -106,15 +108,14 @@ namespace mb
   const Matrix4& Camera::getView( void )
   {
     _viewMatrix = getWorld().computeModel();
-    // TODO _viewMatrix.makeInverse();
+    _viewMatrix.makeInverse();
     return _viewMatrix;
   }
 
   void Camera::setView( const Matrix4& view )
   {
-    _viewMatrix = view;
-    // world().fromMatrix( view.getInverse() );
-    //_viewMatrix = view.getInverse();
+    world().fromMatrix( view.getInverse() );
+    _viewMatrix = view.getInverse();
   }
 
   void Camera::computeCullingPlanes( void )

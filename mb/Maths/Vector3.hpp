@@ -263,7 +263,7 @@ namespace mb
     friend std::ostream& operator<<( std::ostream &out, const Vector3& v )
     {
       out << std::setiosflags( std::ios::fixed | std::ios::showpoint )
-        << std::setprecision( 10 );
+        << std::setprecision( 2 );
       out << "(" << v[ 0 ];
       for ( unsigned int i = 1; i < 3; ++i )
       {
@@ -288,6 +288,12 @@ namespace mb
     static const Vector3 LEFT;
     MB_API
     static const Vector3 RIGHT;
+    MB_API
+    static const Vector3 X_AXIS;
+    MB_API
+    static const Vector3 Y_AXIS;
+    MB_API
+    static const Vector3 Z_AXIS;
   protected:
     std::array< float, 3 > _data;
   };

@@ -2,147 +2,79 @@
 #include <string>
 
 #include <mb/mb.h>
+#include <routes.h>
 
+#include <chrono>
+
+unsigned int vao;
 unsigned int createVAO( )
 {
   // Set up vertex data (and buffer(s)) and attribute pointers
-  float vertices[] = {
-    -1.0f, -1.0f, -1.0f,  0.0f, 0.0f,
-     1.0f, -1.0f, -1.0f,  1.0f, 0.0f,
-     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f,
-    -1.0f, -1.0f, -1.0f,  0.0f, 0.0f,
+  float vertices[ ] = {
+    -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
+    1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
+    1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
 
-    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
-     1.0f, -1.0f,  1.0f,  1.0f, 0.0f,
-     1.0f,  1.0f,  1.0f,  1.0f, 1.0f,
-     1.0f,  1.0f,  1.0f,  1.0f, 1.0f,
-    -1.0f,  1.0f,  1.0f,  0.0f, 1.0f,
-    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
+    -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+    1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+    1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+    -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-    -1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
-    -1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
-    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
-    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
-    -1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
+    -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+    -1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+    -1.0f, -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 
-     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
-     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-     1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
-     1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
-     1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
-     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
+    1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+    1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+    1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+    1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+    1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 
-    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
-     1.0f, -1.0f, -1.0f,  1.0f, 1.0f,
-     1.0f, -1.0f,  1.0f,  1.0f, 0.0f,
-     1.0f, -1.0f,  1.0f,  1.0f, 0.0f,
-    -1.0f, -1.0f,  1.0f,  0.0f, 0.0f,
-    -1.0f, -1.0f, -1.0f,  0.0f, 1.0f,
+    -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
+    1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+    1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+    1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+    -1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+    -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
 
-    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f,
-     1.0f,  1.0f, -1.0f,  1.0f, 1.0f,
-     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
-     1.0f,  1.0f,  1.0f,  1.0f, 0.0f,
-    -1.0f,  1.0f,  1.0f,  0.0f, 0.0f,
-    -1.0f,  1.0f, -1.0f,  0.0f, 1.0f
+    -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0, 0.0f, 1.0f,
+    1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0, 1.0f, 1.0f,
+    1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0, 1.0f, 0.0f,
+    1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0, 1.0f, 0.0f,
+    -1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0, 0.0f, 0.0f,
+    -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0, 0.0f, 1.0f
   };
   unsigned int VBO, VAO;
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &VBO);
+  glGenVertexArrays( 1, &VAO );
+  glGenBuffers( 1, &VBO );
 
-  glBindVertexArray(VAO);
+  glBindVertexArray( VAO );
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  glBindBuffer( GL_ARRAY_BUFFER, VBO );
+  glBufferData( GL_ARRAY_BUFFER, sizeof( vertices ), vertices, GL_STATIC_DRAW );
 
   // Position attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-  glEnableVertexAttribArray(0);
+  glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid* ) 0 );
+  glEnableVertexAttribArray( 0 );
+  // Normal attribute
+  glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid* ) ( 3 * sizeof( GLfloat ) ) );
+  glEnableVertexAttribArray( 1 );
   // TexCoord attribute
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-  glEnableVertexAttribArray(2);
+  glVertexAttribPointer( 2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid* ) ( 6 * sizeof( GLfloat ) ) );
+  glEnableVertexAttribArray( 2 );
 
-  glBindVertexArray(0); // Unbind VAO
+  glBindVertexArray( 0 ); // Unbind VAO
 
   return VAO;
-}
-
-mb::Program* quadProgram( )
-{
-  mb::Program* program = new mb::Program( );
-  program->loadVertexShaderFromText(R"(
-    #version 330 core
-    layout (location = 0) in vec3 position;
-    out vec2 TexCoord;
-    void main( )
-    {
-      gl_Position = vec4(position, 1.0);
-      TexCoord = vec2(position.xy * 0.5) + vec2(0.5);
-    }
-  )");
-  program->loadFragmentShaderFromText(R"(
-    #version 330 core
-    in vec2 TexCoord;
-    out vec4 fragColor;
-    uniform sampler2D tex;
-    void main( )
-    {
-      fragColor = vec4(TexCoord, 0.0, 1.0);
-      fragColor = texture(tex, TexCoord);
-
-      float f = fragColor.r + fragColor.g + fragColor.b;
-      f /= 3.0f;
-
-      if ( f > 0.5 ) discard;
-    }
-  )");
-  program->compileAndLink( );
-  program->autocatching();
-
-  return program;
-}
-
-mb::Program* initProgram( )
-{
-  mb::Program* program = new mb::Program( );
-  program->loadVertexShaderFromText(R"(
-    #version 330 core
-    layout (location = 0) in vec3 position;
-    layout (location = 2) in vec2 texCoord;
-
-    out vec2 TexCoord;
-
-    uniform mat4 model;
-    uniform mat4 view;
-    uniform mat4 projection;
-
-    void main()
-    {
-      gl_Position = projection * view * model * vec4(position, 1.0f);
-      TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
-    })");
-  program->loadFragmentShaderFromText(R"(
-    #version 330 core
-    in vec2 TexCoord;
-
-    out vec4 fragColor;
-
-    uniform sampler2D myTexture;
-    uniform vec3 color;
-
-    void main()
-    {
-      fragColor = vec4( TexCoord, 0.0, 1.0 );
-      fragColor = texture( myTexture, TexCoord );
-      fragColor *= vec4(color, 1.0);
-    })");
-  program->compileAndLink( );
-  program->autocatching();
-
-  return program;
 }
 
 class ToggleDepthTest : public mb::Component
@@ -154,118 +86,130 @@ public:
     if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Plus ) )
     {
       std::cout << "ENABLE" << std::endl;
-      glEnable(GL_DEPTH_TEST);
-    } else  if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Minus ) )
+      glEnable( GL_DEPTH_TEST );
+    }
+    else  if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Minus ) )
     {
-      glDisable(GL_DEPTH_TEST);
+      glDisable( GL_DEPTH_TEST );
       std::cout << "DISABLE" << std::endl;
     }
     // std::cout << mb::Input::MouseX( ) << ", " << mb::Input::MouseY( ) << std::endl;
   }
 };
 
-#include <routes.h>
-
-int main( )
+class RotationComponent : public mb::Component
 {
-  mb::FileSystem::getInstance()->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
+  IMPLEMENT_COMPONENT( RotationComponent )
+public:
+  RotationComponent( float speed )
+    : _speed( speed )
+    , _time( 0.0f )
+  { }
+  virtual void update( const mb::Clock& clock )
+  {
+    node( )->local( ).rotate( ).fromAxisAngle(
+      mb::Vector3::Y_AXIS, _time * mb::Mathf::TWO_PI );
+    _time += _speed * clock.getDeltaTime( );
+  }
+protected:
+  float _speed;
+  float _time;
+};
 
-  mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
-  window->init( );
+mb::Group* createPlanet( float radius, const std::string& diffuse, float equatorialRotationSpeed,
+  float orbitSize, float sideralRotationSpeed, const mb::Color& color )
+{
+  auto geometry = new mb::Geometry( );
+  geometry->local( ).setScale( radius );
+  geometry->layer( ).set( 0 );
 
-  mb::Material* customMaterial = new mb::Material;
-  mb::Material customPPMaterial;
-  customPPMaterial.addUniform("tex",
-        std::make_shared< mb::Uniform >(mb::UniformType::Integer, 0 ));
-  customPPMaterial.program = quadProgram( );
 
-  unsigned int vao = createVAO( );
+  auto planetRotationPivot = new mb::Group( "" );
+  planetRotationPivot->addComponent( new RotationComponent( equatorialRotationSpeed ) );
+  planetRotationPivot->addChild( geometry );
 
-  customMaterial->program = initProgram( );
-  customMaterial->addUniform("projection",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
-  customMaterial->addUniform("view",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
-  customMaterial->addUniform("model",
-        std::make_shared< mb::Uniform >( mb::UniformType::Matrix4 ) );
-  customMaterial->addUniform("myTexture",
-        std::make_shared< mb::Uniform >( mb::UniformType::TextureSampler ) );
-  customMaterial->addUniform("color",
-        std::make_shared< mb::Uniform >( mb::UniformType::Vector3, mb::Vector3(1.0f, 0.0f, 0.0f) ) );
+  mb::StandardMaterial* customMaterial = new mb::StandardMaterial( );
+  customMaterial->setColorMap( mb::Texture2D::loadFromImage( diffuse ) );
+  customMaterial->setNormalMap( mb::Texture2D::loadFromImage( "metal-floor-normal.jpg" ) );
+  customMaterial->setColor( color );
 
+  mb::MaterialComponent* mc = geometry->getComponent<mb::MaterialComponent>( );
+  mc->addMaterial( mb::MaterialPtr( customMaterial ) );
+
+  auto planet = new mb::Group( "name" );
+  planet->addChild( planetRotationPivot );
+  planet->local( ).setPosition( orbitSize, 0.0f, 0.0f );
+
+  auto planetPivot = new mb::Group( "" );
+  planetPivot->addComponent( new RotationComponent( sideralRotationSpeed ) );
+  planetPivot->addChild( planet );
+
+  return planetPivot;
+}
+
+mb::Group* createScene( void )
+{
+  std::cout << "NEW BASE DIR2: " << mb::FileSystem::getInstance( )->getBaseDirectory( ) << std::endl;
+  vao = createVAO( );
   auto scene = new mb::Group( "scene" );
-  auto camera = new mb::Camera( 45.0f, 500/500, 0.01f, 1000.0f );
-  camera->local( ).translate( 0.0f, 0.0f, -8.0f );
+
+  auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
+  camera->local( ).translate( 0.0f, 0.0f, 8.0f );
+
+
 
   camera->addComponent( new mb::FreeCameraComponent( ) );
   camera->addComponent( new ToggleDepthTest( ) );
-
   scene->addChild( camera );
 
   auto cubes = new mb::Group( "Cubes" );
-  mb::Group* g1 = new mb::Group("MyGroup1");
-  mb::Group* g2 = new mb::Group("MyGroup2");
+  mb::Group* g1 = new mb::Group( "MyGroup1" );
+  mb::Group* g2 = new mb::Group( "MyGroup2" );
+
+  mb::Texture2D* chesterDiffuse = mb::Texture2D::loadFromImage( "metal-floor.jpg" );
+  mb::Texture2D* chesterDNormal = mb::Texture2D::loadFromImage( "metal-floor-normal.jpg" );
+
+  mb::StandardMaterial* customMaterial = new mb::StandardMaterial( );
+  customMaterial->setColorMap( chesterDiffuse );
+  customMaterial->setNormalMap( chesterDNormal );
+  customMaterial->setColor( mb::Color::GREEN );
+
+  mb::Texture2D* stoneTex = mb::Texture2D::loadFromImage( "stone.jpg" );
+  mb::Texture2D* bumpTex = mb::Texture2D::loadFromImage( "stone-bump.jpg" );
+
+  mb::StandardMaterial2* customMaterial2 = new mb::StandardMaterial2( );
+  customMaterial2->setColorMap( stoneTex );
+  customMaterial2->setBumpMap( bumpTex );
+  customMaterial2->setColor( mb::Color::GOLD );
+
 
   std::vector< mb::Vector3 > cubePositions = {
-    mb::Vector3(  2.0f,  5.0f, -15.0f ),
-    mb::Vector3(  0.0f,  0.0f,   0.0f ),
-    mb::Vector3( -1.5f, -2.2f,  -2.5f ),
+    mb::Vector3( 2.0f, 5.0f, -15.0f ),
+    mb::Vector3( 0.0f, -5.0f, 0.0f ),
+    mb::Vector3( -1.5f, -2.2f, -2.5f ),
     mb::Vector3( -3.8f, -2.0f, -12.3f ),
-    mb::Vector3(  2.4f, -0.4f,  -3.5f ),
-    mb::Vector3( -1.7f,  3.0f,  -7.5f ),
-    mb::Vector3(  1.3f, -2.0f,  -2.5f ),
-    mb::Vector3(  1.5f,  2.0f,  -2.5f ),
-    mb::Vector3(  1.5f,  0.2f,  -1.5f ),
-    mb::Vector3( -1.3f,  1.0f,  -1.5f )
+    mb::Vector3( 2.4f, -0.4f, -3.5f ),
+    mb::Vector3( -1.7f, 3.0f, -7.5f ),
+    mb::Vector3( 1.3f, -2.0f, -2.5f ),
+    mb::Vector3( 1.5f, 2.0f, -2.5f ),
+    mb::Vector3( 1.5f, 0.2f, -1.5f ),
+    mb::Vector3( -1.3f, 1.0f, -1.5f )
   };
-
-
-
-  mb::Texture* tex = mb::Texture2D::loadFromImage( "texture.jpg" );
-  mb::Texture* tex2 = mb::Texture2D::loadFromImage( "tex_metal_005_t.jpg" );
-
-  unsigned int WW = 50, HH = 50;
-  unsigned char * tex_data = new unsigned char[ 4 * WW * HH ];
-
-  mb::Random r;
-
-  for ( unsigned int j = 0; j < WW * HH; ++j )
-  {
-    float v = r.nextInt( 0, 255 );
-    tex_data[ j * 4 + 0 ] = v;
-    tex_data[ j * 4 + 1 ] = v;
-    tex_data[ j * 4 + 2 ] = v;
-    tex_data[ j * 4 + 3 ] = v;
-  }
-
-  mb::Texture2D* tex3 = new mb::Texture2D( WW, HH,
-                                           mb::Texture::FormatTexture::RGBA, true );
-  tex3->loadRawTexture( tex_data );
-  tex3->apply( );
-  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-
-  customMaterial->uniform("myTexture")->value(tex3);
 
   size_t numCubes = cubePositions.size( );
   size_t middleCubes = numCubes / 2;
-
   for ( unsigned int i = 0; i < middleCubes; ++i )
   {
     auto geom = new mb::Geometry( std::string( "CubeGeom" ) + std::to_string( i + 1 ) );
-    //geom->local( ).setPosition( cubePositions[ i ] );
     geom->local( ).position( ) = cubePositions[ i ];
     geom->local( ).setScale( mb::Vector3( 0.5f ) );
 
-    mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>();
+    mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
     mc->addMaterial( mb::MaterialPtr( customMaterial ) );
 
-    // TODO: HARDCODED
-    if ( i % 3 == 0 ) { geom->setCastShadows( false ); }
-
-    geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ), 0.1f ) );
-
+    geom->addComponent( new RotationComponent( 0.1f ) );
+    //geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f, 0.0f ), 0.1f ) );
     geom->layer( ).set( i );
-
     g1->addChild( geom );
   }
   cubes->addChild( g1 );
@@ -275,34 +219,48 @@ int main( )
     geom->local( ).setPosition( cubePositions[ i ] );
     geom->local( ).setScale( mb::Vector3( 0.5f ) );
 
-    mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>();
-    mc->addMaterial( mb::MaterialPtr( customMaterial ) );//2 ) );
+    mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
+    mc->addMaterial( mb::MaterialPtr( customMaterial2 ) );
 
-    // if ( i % 3 == 0 ) { geom->setCastShadows( false ); } // TODO: HARDCODED
-
-    geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ) * -1.0f, 0.1f ) );
-
+    geom->addComponent( new RotationComponent( 0.1f ) );
+    //geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f, 0.0f ) * -1.0f, 0.1f ) );
     geom->layer( ).set( i );
-
     g2->addChild( geom );
   }
   cubes->addChild( g2 );
-  std::cout << (g1->getNumChildren( ) + g2->getNumChildren( )) << std::endl;
-
-  /*auto geom = new mb::Geometry( std::string( "CubeGeom" ) );
-  geom->local( ).setPosition( mb::Vector3::ZERO );
-  //geom->local( ).setRotation( mb::Vector3( -1.0f, -1.0f, 0.0f ), mb::Mathf::degToRad( 260.0f ) );
-  geom->local( ).setScale( mb::Vector3( 0.5f ) );
-
-  std::cout << geom->local( ).getRotation( ) << std::endl;
-
-  geom->addComponent( new mb::RotateComponent( mb::Vector3( -1.0f, -1.0f,  0.0f ) * -1.0f, 0.1f ) );
-
-  g2->addChild( geom );*/
 
   scene->addChild( cubes );
 
-  mb::Group* _scene = scene;
+  auto earth = createPlanet( 0.5f, "earth.png", 0.05f, 0.5f, 0.1f, mb::Color::BLUE );
+  auto moon = createPlanet( 0.15f, "moon.png", 0.025f, 1.15f, 0.035f, mb::Color::BROWN );
+
+  scene->addChild( earth );
+  earth->nodeAt<mb::Group>( 0 )->addChild( moon );
+
+  return scene;
+}
+
+int main( )
+{
+  auto start = std::chrono::steady_clock::now( );
+  mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
+
+  mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
+
+  auto finish = std::chrono::steady_clock::now( );
+  double elapsed_seconds = std::chrono::duration_cast<
+    std::chrono::duration<double> >( finish - start ).count( );
+  std::cout << elapsed_seconds << std::endl;
+
+  window->init( );
+
+  glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
+  auto finish2 = std::chrono::steady_clock::now( );
+  double elapsed_seconds2 = std::chrono::duration_cast<
+    std::chrono::duration<double> >( finish2 - start ).count( );
+  std::cout << elapsed_seconds2 << std::endl;
+
+  mb::Group* _scene = createScene( );
 
   _scene->perform( mb::UpdateWorldState( ) );
 
@@ -326,11 +284,11 @@ int main( )
   mb::Clock clockTime;
   clockTime.reset( );
 
-  while( window->isRunning( ) )
+  while ( window->isRunning( ) )
   {
     window->pollEvents( );
 
-    if (mb::Input::isKeyPressed(mb::Keyboard::Key::Esc))
+    if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Esc ) )
     {
       window->close( );
       break;
@@ -341,12 +299,10 @@ int main( )
     clockTime.tick( );
 
     _scene->perform( mb::UpdateComponents( clockTime ) );
-
     _scene->perform( mb::UpdateWorldState( ) );
-
     std::vector< mb::BatchQueuePtr > bqCollection;
 
-    for( mb::Camera* c: _cameras)
+    for ( mb::Camera* c : _cameras )
     {
       if ( c != nullptr && c->isEnabled( ) )
       {
@@ -357,12 +313,12 @@ int main( )
       }
     };
 
-    if (!bqCollection.empty())
+    if ( !bqCollection.empty( ) )
     {
       mb::BatchQueuePtr mainQueue = nullptr;
-      std::for_each( bqCollection.begin(), bqCollection.end(), [&](mb::BatchQueuePtr bq)
+      std::for_each( bqCollection.begin( ), bqCollection.end( ), [ &] ( mb::BatchQueuePtr bq )
       {
-        if (bq->getCamera( ) != mb::Camera::getMainCamera( ))
+        if ( bq->getCamera( ) != mb::Camera::getMainCamera( ) )
         {
           std::cout << "OUTSCREEN" << std::endl;
         }
@@ -370,43 +326,43 @@ int main( )
         {
           mainQueue = bq;
         }
-      });
+      } );
 
-      if(mainQueue.get() != nullptr)
+      if ( mainQueue != nullptr )
       {
         auto renderables = mainQueue->renderables( mb::BatchQueue::RenderableType::OPAQUE );
         if ( !renderables.empty( ) )
         {
           for ( mb::Renderable& renderable : renderables )
           {
-            //std::cout << "ZDIST: " << renderable->zDistance << std::endl;
+            //std::cout << "ZDIST: " << renderable.zDistance << std::endl;
 
-            mb::MaterialComponent* mc = renderable.geometry->getComponent<mb::MaterialComponent>();
+            //if ( renderable.zDistance > 128.0f ) continue;
 
-            auto mat = mc->first();
+            mb::MaterialComponent* mc = renderable.geometry->getComponent<mb::MaterialComponent>( );
 
-            mat->uniform("projection")->value(mainQueue->getProjectionMatrix());
-            mat->uniform("view")->value(mainQueue->getViewMatrix());
-            mat->uniform("model")->value(renderable.modelTransform);
+            auto mat = mc->first( );
+
+            mat->uniform( "projection" )->value( mainQueue->getProjectionMatrix( ) );
+            mat->uniform( "view" )->value( mainQueue->getViewMatrix( ) );
+            mat->uniform( "model" )->value( renderable.modelTransform );
             mat->use( );
 
-            glBindVertexArray(vao);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-            glBindVertexArray(0);
+            glBindVertexArray( vao );
+            glDrawArrays( GL_TRIANGLES, 0, 36 );
+            glBindVertexArray( 0 );
 
             mat->unuse( );
           }
+          //std::cout << std::endl << std::endl << " -------------------------- " << std::endl << std::endl;
         }
       }
     }
 
-
-    //glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    //tex2->bind( 0 );
-    //mb::Renderer::drawScreenQuad(&customPPMaterial);
-
-
     window->swapBuffers( );
   }
+
+  delete _scene;
+
   return 0;
 }

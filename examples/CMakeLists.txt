@@ -108,3 +108,53 @@ set( MBTESTS_LINK_LIBRARIES
 )
 common_application( mbTests )
 
+
+set( MBEXAMPLEPLANETS_HEADERS )
+set( MBEXAMPLEPLANETS_SOURCES examplePlanets.cpp )
+set( MBEXAMPLEPLANETS_LINK_LIBRARIES
+  mb
+)
+common_application( mbExamplePlanets )
+
+
+
+set( MBEXAMPLEPLANETS2_HEADERS )
+set( MBEXAMPLEPLANETS2_SOURCES examplePlanets2.cpp )
+set( MBEXAMPLEPLANETS2_LINK_LIBRARIES
+  mb
+)
+common_application( mbExamplePlanets2 )
+
+
+set( MBEXAMPLETHREE1_HEADERS )
+set( MBEXAMPLETHREE1_SOURCES exampleThree1.cpp )
+set( MBEXAMPLETHREE1_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleThree1 )
+
+
+
+set( MBEXAMPLEFOG_HEADERS )
+set( MBEXAMPLEFOG_SOURCES exampleFog.cpp )
+set( MBEXAMPLEFOG_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleFog )
+
+
+
+set( MBEXAMPLEMODELLOADER_HEADERS )
+set( MBEXAMPLEMODELLOADER_SOURCES exampleModelLoader.cpp )
+set( MBEXAMPLEMODELLOADER_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleModelLoader )
+
+
+#set( MBEXAMPLETRIANGLE_HEADERS )
+#set( MBEXAMPLETRIANGLE_SOURCES exampleTriangle.cpp )
+#set( MBEXAMPLETRIANGLE_LINK_LIBRARIES
+#  mb
+#)
+#common_application( mbExampleTriangle )

@@ -32,6 +32,12 @@
 #include <iterator>
 #include <algorithm>
 
+#include "../Maths/Vector2.hpp"
+#include "../Maths/Vector3.hpp"
+#include "../Maths/Vector4.hpp"
+#include "../Maths/Matrix4.hpp"
+#include "../Rendering/Texture.hpp"
+
 namespace mb
 {
   MB_API
@@ -43,20 +49,13 @@ namespace mb
     Matrix2, Matrix3, Matrix4,
     TextureSampler
   };
-
   class Uniform
   {
   public:
     MB_API
-    Uniform( )
+    explicit Uniform( void )
       : _type( UniformType::Invalid )
       , _value( )
-    {
-    }
-    MB_API
-    Uniform( UniformType type_, any value_ = nullptr )
-      : _type( type_ )
-      , _value( value_ )
     {
     }
     MB_API
@@ -66,7 +65,7 @@ namespace mb
     {
     }
     MB_API
-    any value( ) const
+    any value( void ) const
     {
       return this->_value;
     }
@@ -76,16 +75,94 @@ namespace mb
       _value = std::move( v );
     }
     MB_API
-    UniformType type() const
+    UniformType type( void ) const
     {
       return _type;
     }
   protected:
     UniformType _type;
     any _value;
+  public:
+    // TODO: REMOVE OR PROTECT THIS CTOR
+    Uniform( UniformType type_, any value_ = nullptr )
+      : _type( type_ )
+      , _value( value_ )
+    { }
   };
-
   typedef std::shared_ptr< Uniform > UniformPtr;
+
+  class FloatUniform : public Uniform
+  {
+  public:
+    MB_API
+    FloatUniform( float v = 0.0f )
+      : Uniform( UniformType::Float, v )
+    { }
+  };
+  class IntegerUniform : public Uniform
+  {
+  public:
+    MB_API
+    IntegerUniform( int v = 0 )
+      : Uniform( UniformType::Integer, v )
+    { }
+  };
+  class UnsignedUniform : public Uniform
+  {
+  public:
+    MB_API
+    UnsignedUniform( unsigned int v = 0 )
+      : Uniform( UniformType::Unsigned, v )
+    { }
+  };
+  class BooleanUniform : public Uniform
+  {
+  public:
+    MB_API
+    BooleanUniform( bool v = false )
+      : Uniform( UniformType::Boolean, v )
+    { }
+  };
+  class Vector2Uniform : public Uniform
+  {
+  public:
+    MB_API
+    Vector2Uniform( const mb::Vector2& v = mb::Vector2( ) )
+      : Uniform( UniformType::Vector2, v )
+    { }
+  };
+  class Vector3Uniform : public Uniform
+  {
+  public:
+    MB_API
+    Vector3Uniform( const mb::Vector3& v = mb::Vector3( ) )
+      : Uniform( UniformType::Vector3, v )
+    { }
+  };
+  class Vector4Uniform : public Uniform
+  {
+  public:
+    MB_API
+    Vector4Uniform( const mb::Vector4& v = mb::Vector4( ) )
+      : Uniform( UniformType::Vector4, v )
+    { }
+  };
+  class Matrix4Uniform : public Uniform
+  {
+  public:
+    MB_API
+    Matrix4Uniform( const mb::Matrix4& v = mb::Matrix4( ) )
+      : Uniform( UniformType::Matrix4, v )
+    { }
+  };
+  class TextureUniform : public Uniform
+  {
+  public:
+    MB_API
+    TextureUniform( mb::Texture* v = nullptr )
+    : Uniform( UniformType::TextureSampler, v )
+    { }
+  };
 
   typedef std::unordered_map< std::string, UniformPtr > TUniforms;
   class Material
@@ -136,6 +213,7 @@ namespace mb
 
     mb::Program* program;
   protected:
+    unsigned int texId;
     TUniforms _uniforms;
     PipelineState _state;
   };

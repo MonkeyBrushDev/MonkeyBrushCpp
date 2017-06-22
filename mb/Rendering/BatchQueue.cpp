@@ -83,15 +83,15 @@ namespace mb
 
     auto renderType = RenderableType::OPAQUE;
 
-    /*mb::PipelineState& state = materials->first()->state();
+    mb::PipelineState& state = materials->first()->state();
 
     if( state.blending().isEnabled( ) )
     {
       renderType = RenderableType::TRANSPARENT;
-    }*/
+    }
 
     Renderable renderable(
-      nullptr, // TODO HARDCODED materials->first( ).get( ),
+      materials->first( ),
       geometry,
       geometry->world( ).computeModel( ),
       (
@@ -114,8 +114,20 @@ namespace mb
     }
     else
     {
+      // Order by material
+      auto it = queue->begin( );
+      auto mat1 = materials->first();
+      while( it != queue->end( ) ) //TODO : REVIEW
+      {
+        auto mat2 = renderable.geometry->getComponent< mb::MaterialComponent >( )->first();
+        if( mat1 != mat2 )
+        {
+          ++it;
+        } else { break; }
+      }
+      queue->insert( it, renderable );
       // TODO: Required order?
-      queue->push_back( renderable );
+      //queue->push_back( renderable );
     }
 
     if ( geometry->castShadows( ) )

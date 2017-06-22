@@ -29,7 +29,7 @@ include(Common)
 
 # Allow warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error")
 
 
 option( MB_WITH_COMPUTE_SHADERS "enabling/disabling compute shaders" ON )
@@ -70,9 +70,7 @@ common_find_package( FreeImage REQUIRED SYSTEM )
 common_find_package( GLFW3 REQUIRED SYSTEM )
 common_find_package( Boost COMPONENTS unit_test_framework )
 
-common_find_package( GLM REQUIRED SYSTEM ) # TODO: REMOVE!!
-
-list ( APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW3 GLM FreeImage )
+list ( APPEND MB_DEPENDENT_LIBRARIES OpenGL GLEW GLFW3 FreeImage )
 
 
 # TODO( FIXED GLFW LINUX )

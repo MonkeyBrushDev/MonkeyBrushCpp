@@ -31,11 +31,8 @@ namespace mb
     public LambdaVisitor
   {
   public:
-    // TODO: USE CLOCK
     MB_API
     UpdateComponents( const mb::Clock& clock );
-    MB_API
-    virtual ~UpdateComponents( );
   };
 }
 

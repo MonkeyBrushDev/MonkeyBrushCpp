@@ -17,8 +17,8 @@
  *
  **/
 
-#ifndef WRAPPER_H
-#define WRAPPER_H
+#ifndef __MB_MATRIX4__
+#define __MB_MATRIX4__
 
 #include <mb/api.h>
 #include "Vector3.hpp"
@@ -274,11 +274,11 @@ namespace mb
     {
       return !( *this == v );
     }
-   public:
+   protected:
     std::array<float, 16> _values;
   };
 
 }//NS
 
 
-#endif // WRAPPER_H
+#endif // __MB_MATRIX4__

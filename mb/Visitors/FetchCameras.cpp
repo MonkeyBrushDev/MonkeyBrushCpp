@@ -21,14 +21,6 @@
 
 namespace mb
 {
-  FetchCameras::FetchCameras( )
-  {
-  }
-
-  FetchCameras::~FetchCameras( )
-  {
-  }
-
   void FetchCameras::reset( void )
   {
     _cameras.clear( );
@@ -40,7 +32,7 @@ namespace mb
     _cameras.push_back( c );
   }
 
-  void FetchCameras::forEachCameras( std::function< void( Camera * ) > cb )
+  void FetchCameras::forEachCameras( std::function< void( Camera* ) > cb )
   {
     for ( auto& camera : _cameras ) {
       cb( camera );

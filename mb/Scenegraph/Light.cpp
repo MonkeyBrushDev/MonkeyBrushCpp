@@ -31,8 +31,9 @@ namespace mb
   {
   }
 
-  Light::~Light( )
+  Light::~Light( void )
   {
+    std::cout << "[D] Light '" << this->name( ) << "'" << std::endl;
   }
 
   void Light::accept( Visitor& visitor )

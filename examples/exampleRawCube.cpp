@@ -22,15 +22,15 @@ layout (location = 2) in vec2 texCoord;
 
 out vec3 outColor;
 out vec2 TexCoord;
-  
+
 uniform mat4 transform;
 
 void main()
 {
-    gl_Position = transform * vec4(position, 1.0f);
-    ourColor = color;
-    TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
-} 
+  gl_Position = transform * vec4(position, 1.0f);
+  ourColor = color;
+  TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
+}
 )";
 const char* fragmentShaderSource = R"(
 #version 330 core
@@ -84,7 +84,7 @@ int main()
          0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // Top Right
          0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // Bottom Right
         -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // Bottom Left
-        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // Top Left 
+        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // Top Left
     };
     GLuint indices[] = {  // Note that we start from 0!
         0, 1, 3, // First Triangle

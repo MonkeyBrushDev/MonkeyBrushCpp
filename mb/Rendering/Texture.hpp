@@ -40,6 +40,10 @@ namespace mb
     {
       RGB, RGBA
     };
+
+    MB_API
+    virtual ~Texture( void ){}
+
     MB_API
     WrapMode getWrapMode( void ) const { return _wrapMode; }
     MB_API
@@ -56,10 +60,10 @@ namespace mb
     unsigned int getWidth( void ) const { return _width; }
     MB_API
     unsigned int getHeight( void ) const { return _height; }
-    MB_API
+    /*MB_API
     unsigned int getAnisoLevel( void ) const { return _anisoLevel; }
     MB_API
-    void setAnisoLevel( unsigned int anisoLevel ) { _anisoLevel = anisoLevel; }
+    void setAnisoLevel( unsigned int anisoLevel ) { _anisoLevel = anisoLevel; }*/
 
     MB_API
     void bind( int slot = -1 );
@@ -81,7 +85,7 @@ namespace mb
     FilterMode _magFilter;
     unsigned int _width;
     unsigned int _height;
-    unsigned int _anisoLevel; // TODO: unused
+    // unsigned int _anisoLevel; // unused
     unsigned int _target;
     unsigned int _handler;
     unsigned char* _data;
