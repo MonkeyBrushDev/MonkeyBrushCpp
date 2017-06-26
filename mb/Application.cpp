@@ -2,16 +2,18 @@
 
 #include "Visitors/StartComponents.hpp"
 #include "Visitors/FetchCameras.hpp"
+#include "Visitors/FetchLights.hpp"
 #include "Visitors/ComputeBatchQueue.hpp"
+#include "Visitors/UpdateComponents.hpp"
 #include "Visitors/UpdateWorldState.hpp"
 
 namespace mb
 {
   Application::Application( void )
   {
-
+    _renderer = new Renderer( );
   }
-  ~Application::Application( void )
+  Application::~Application( void )
   {
 
   }
@@ -26,7 +28,7 @@ namespace mb
 
       FetchCameras fetchCameras;
       _scene->perform( fetchCameras );
-      fetchCameras.forEachCamera( [ &] ( Camera* c )
+      fetchCameras.forEachCameras( [ &] ( Camera* c )
       {
         if ( Camera::getMainCamera( ) == nullptr || c->isMainCamera( ) )
         {
@@ -52,8 +54,8 @@ namespace mb
   bool Application::update( void )
   {
     // UPDATE STEP
-    clockTime.tick( );
-    _scene->perform( mb::UpdateComponents( clockTime ) );
+    _simulationClock.tick( );
+    _scene->perform( mb::UpdateComponents( _simulationClock ) );
     _scene->perform( mb::UpdateWorldState( ) );
 
     std::vector< BatchQueuePtr > bqCollection;
@@ -63,7 +65,7 @@ namespace mb
     _scene->perform( fl );
     lights = fl.lights( );
 
-    forEachCamera( [ &] ( Camera *c )
+    for ( auto c : _cameras )
     {
       if ( c != nullptr && c->isEnabled( ) )
       {
@@ -72,23 +74,21 @@ namespace mb
         _scene->perform( cbq );
         bqCollection.push_back( bq );
       }
-    } );
+    }
     // \\ UPDATE STEP
 
     // RENDER STEP
-    //_renderer->beginRender( );
-    //_renderer->clearBuffers( );
+    _renderer->beginRender( );
+    _renderer->clearBuffers( );
     if ( !bqCollection.empty( ) )
     {
       BatchQueuePtr mainQueue = nullptr;
       std::for_each( bqCollection.begin( ),
         bqCollection.end( ), [ &] ( BatchQueuePtr bq )
       {
-        if ( bq->camera( ) != Camera::getMainCamera( ) )
+        if ( bq->getCamera( ) != Camera::getMainCamera( ) )
         {
-          // Render queue with bq camera
-          std::cout << "Render outscreen (" << bq->camera( )->name( ) << ")" << std::endl;
-          //_renderer->render( bq, bq->camera( )->renderPass( ) );
+          _renderer->render( bq, bq->getCamera( )->renderPass( ) );
         }
         else
         {
@@ -98,15 +98,11 @@ namespace mb
 
       if ( mainQueue != nullptr )
       {
-        // Render main queue
-        std::cout << "render main queue (" << mainQueue->camera( )->name( ) << ")" << std::endl;
-        //_renderer->render( mainQueue, mainQueue->camera( )->renderPass( ) );
+        _renderer->render( mainQueue, mainQueue->getCamera( )->renderPass( ) );
       }
     }
-    //_renderer->endRender( );
+    _renderer->endRender( );
     // \\ RENDER STEP
     return false;
   }
 }
-
-#endif /* __MB_APPLICATION__ */

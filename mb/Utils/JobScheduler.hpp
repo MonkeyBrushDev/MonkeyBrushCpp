@@ -11,6 +11,9 @@
 #include <iostream>
 #include "Singleton.hpp"
 
+
+#include <sstream> // TODO REMOVE
+
 namespace mb
 {
   namespace concurrency
@@ -38,7 +41,20 @@ namespace mb
       void reset( const JobCallback& callback )
       {
         _callback = callback;
+        _parent = nullptr;
         _unfinishedJobs = 1;
+      }
+      MB_API
+      void reset( const JobPtr& parent, const JobCallback& callback )
+      {
+        _callback = callback;
+        _parent = parent.get( );
+        _unfinishedJobs = 1;
+
+        if ( _parent != nullptr )
+        {
+          ++_unfinishedJobs;
+        }
       }
       MB_API
       void execute( void )
@@ -52,10 +68,10 @@ namespace mb
       MB_API
       void finish( void )
       {
-        //if( _unfinishedJobs > 0 )
-        //{
+        if( _unfinishedJobs > 0 )
+        {
           --_unfinishedJobs;
-        //}
+        }
         if( isCompleted( ) )
         {
           if( _parent != nullptr )
@@ -91,12 +107,12 @@ namespace mb
       bool empty( void ) const;
       void push( const Job::JobPtr& job );
       Job::JobPtr pop( void );
-      Job::JobPtr steal( void );
+      Job::JobPtr pop_back( void );
     protected:
       std::mutex _mutex;
       std::vector< Job::JobPtr > _jobs;
     };
-    
+
     class JobScheduler: public Singleton < JobScheduler >
     {
     public:
@@ -107,97 +123,42 @@ namespace mb
         STOPPING,
         STOPPED
       };
-    protected:
-      State _state = State::INIT;
-      std::vector< std::thread > _workers;
-      std::thread::id _mainWorkerID;
-      std::mutex _mutex;
-      unsigned int _numWorkers;
     public:
-      JobScheduler( void )
-      {
-        configure( );
-      }
-      void configure( int numWorkers = -1 )
-      {
-        int nw = numWorkers;
-        if ( nw < 0 )
-        {
-          nw = std::thread::hardware_concurrency( );
-        }
-        _numWorkers = nw;
-      }
       MB_API
-      bool start( void )
-      {
-        _state = State::INIT;
-
-        initWorker( true );
-        for ( unsigned int i = 0; i < _numWorkers; ++i )
-        {
-          _workers.push_back( std::thread( 
-            std::bind( &JobScheduler::worker, this ) )
-          );
-        }
-        _state = State::RUN;
-        return true;
-      }
+      JobScheduler( void );
       MB_API
-      void stop( void )
-      {
-        _state = State::STOPPING;
-
-        for ( auto& worker : _workers )
-        {
-          if ( worker.joinable( ) )
-          {
-            worker.join( );
-          }
-        }
-        _workers.clear( );
-        _workerJobQueues.clear( );
-        _state = State::STOPPED;
-      }
-      void worker( void )
-      {
-        initWorker( false );
-
-        while ( getState( ) == State::INIT )
-        {
-          // wait for startup to complete
-          yield( );
-        }
-
-        while ( getState( ) == State::RUN )
-        {
-          executeNextJob( );
-        }
-      }
-      void initWorker( bool mainWorker )
-      {
-        std::lock_guard<std::mutex> lock( _mutex );
-        if ( mainWorker )
-        {
-          _mainWorkerID = std::this_thread::get_id( );
-        }
-        _workerJobQueues[ getWorkerId( ) ] = std::make_shared< JobQueue >( );
-      }
-      bool isRunning( void )
-      {
-        return _state == State::RUN;
-      }
-      State getState( void ) const
-      {
-        return _state;
-      }
-      std::thread::id JobScheduler::getWorkerId( void ) const
+      void configure( int numWorkers = -1 );
+      MB_API
+      bool start( void );
+      MB_API
+      void stop( void );
+      MB_API
+      void worker( void );
+      MB_API
+      void initWorker( bool mainWorker );
+      MB_API
+      inline std::thread::id getWorkerID( void ) const
       {
         return std::this_thread::get_id( );
       }
+      MB_API
       std::shared_ptr<JobQueue> getWorkerJobQueue( void )
       {
-        return _workerJobQueues[ getWorkerId( ) ];
+        std::stringstream ss;
+        /*for ( auto id : _workerJobQueues )
+        {
+          ss << id.first.hash() << " , ";
+        }
+        ss << " => " << getWorkerID( ).hash() << std::endl;
+        */
+        if ( _workerJobQueues.count( getWorkerID( ) ) != 0 )
+        {
+          ss << "OK" << std::endl;
+        }
+        std::cout << ss.str( ) << std::endl;
+        return _workerJobQueues[ getWorkerID( ) ];
       }
+      MB_API
       std::shared_ptr<JobQueue> getRandomJobQueue( void )
       {
         if ( _workerJobQueues.empty( ) )
@@ -215,19 +176,34 @@ namespace mb
         return nullptr;
       }
 
+
+      bool isRunning( void )
+      {
+        return _state == State::RUN;
+      }
+      State getState( void ) const
+      {
+        return _state;
+      }
+
       void schedule( const Job::JobPtr& job )
       {
         if ( job == nullptr )
         {
+          std::cout << "Cannot schedule null job" << std::endl;
           return;
         }
 
         if ( getState( ) == State::STOPPING || getState( ) == State::STOPPED )
         {
+          std::cout << "Cannot schedule new jobs since the scheduler is not running" << std::endl;
           return;
         }
         auto queue = getWorkerJobQueue( );
-        queue->push( job );
+        if ( queue )
+        {
+          queue->push( job );
+        }
       }
       void wait( const Job::JobPtr& job )
       {
@@ -261,7 +237,7 @@ namespace mb
 
         if ( !stealQueue->empty( ) )
         {
-          return stealQueue->steal( );
+          return stealQueue->pop_back( );
         }
 
         return nullptr;
@@ -285,6 +261,12 @@ namespace mb
       {
         std::this_thread::yield( );
       }
+    protected:
+      State _state = State::INIT;
+      std::vector< std::thread > _workers;
+      std::thread::id _mainWorkerID;
+      std::mutex _mutex;
+      unsigned int _numWorkers;
     };
     MB_API
     Job::JobPtr async( void );

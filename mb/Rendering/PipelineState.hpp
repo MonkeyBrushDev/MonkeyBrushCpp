@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -42,6 +42,14 @@ namespace mb
       {
       }
       bool _enabled;
+    };
+    class WireFrameState : public RenderState
+    {
+    public:
+      WireFrameState( bool enabled = true )
+        : RenderState( enabled )
+      {
+      }
     };
 
     class ColorMaskState : public RenderState
@@ -159,20 +167,61 @@ namespace mb
         GEQUAL,
         ALWAYS
       };
-      DepthState( bool enabled = true, CompareFunc /*cmp*/ = CompareFunc::LESS,
-        bool /*writable*/ = true )
+      DepthState( bool enabled = true, CompareFunc cmp = CompareFunc::LESS,
+        bool w = true )
         : RenderState( enabled )
+        , compare( cmp )
+        , writable( w )
       {
       }
       // TODO: Getter and setter for CompareFunc and writable
+      CompareFunc compare;
+      bool writable;
+    protected:
+      bool _writable;
+      CompareFunc _compare;
+    };
+    class StencilState: public RenderState
+    {
+    public:
+      enum class CompareMode
+      {
+        NEVER, LESS, EQUAL, LEQUAL, GREATER, NOT_EQUAL, GEQUAL, ALWAYS
+      };
+      enum class OperationType
+      {
+        KEEP, ZERO, REPLACE, INCREMTN, DECREMENT, INVERT
+      };
+      StencilState( bool enabled = true)
+        : RenderState( enabled )
+        , Compare( CompareMode::NEVER )
+        , Reference( 0 )
+        , Mask( 0xFFFFFFFF )
+        , WriteMask( 0xFFFFFFFF )
+        , OnFail( OperationType::KEEP )
+        , OnZFail( OperationType::KEEP )
+        , OnZPass( OperationType::KEEP )
+      {
+      }
+      CompareMode Compare;
+      unsigned int Reference;
+      unsigned int Mask;
+      unsigned int WriteMask;
+      OperationType OnFail;
+      OperationType OnZFail;
+      OperationType OnZPass;
     };
   public:
     // TODO: Complete
     CullFaceState& culling( void ) { return _cullingState; }
     BlendingState& blending( void ) { return _blendingState; }
+    DepthState& depth( void ) { return _depthState; }
+    StencilState& stencil( void ) { return _stencilState; }
   protected:
     CullFaceState _cullingState;
     BlendingState _blendingState;
+    DepthState _depthState;
+    StencilState _stencilState;
   };
 }
 

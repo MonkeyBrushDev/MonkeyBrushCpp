@@ -26,6 +26,20 @@
 
 namespace mb
 {
+  /*const char* RenderingPass::SRC_BUFFER_NAME = "SRC_BUFFER";
+  const char* RenderingPass::SRC_BUFFER_COLOR_TARGET_NAME = "0_COLOR";
+  const char* RenderingPass::SRC_BUFFER_DEPTH_TARGET_NAME = "DEPTH";
+
+  const char* RenderingPass::DST_BUFFER_NAME = "DST_BUFFER";
+  const char* RenderingPass::DST_BUFFER_COLOR_TARGET_NAME = "0_COLOR";
+  const char* RenderingPass::DST_BUFFER_DEPTH_TARGET_NAME = "DEPTH";
+
+  const char* RenderingPass::GBUFFER_NAME = "GBUFFER";
+  const char* RenderingPass::GBUFFER_POSITION_TARGET_NAME = "0_POSITION";
+  const char* RenderingPass::GBUFFER_NORMAL_TARGET_NAME = "1_NORMAL";
+  const char* RenderingPass::GBUFFER_DIFFUSE_TARGET_NAME = "2_DIFFUSE";
+  const char* RenderingPass::GBUFFER_BUFFER_DEPTH_TARGET_NAME = "DEPTH";*/
+
   void RenderingPass::applyImageEffects( Renderer *renderer, Camera *camera )
   {
     for ( auto& ie : _imageEffects )
@@ -33,9 +47,9 @@ namespace mb
       unsigned int fbo = 0;
       ie->compute( renderer, camera );
 
-      renderer->bindFBO( fbo );
+      //renderer->bindFBO( fbo );
       ie->apply( renderer, camera );
-      renderer->unbindFBO( fbo );
+      //renderer->unbindFBO( fbo );
       // Swap FBO?
       swapBuffers( renderer );
     }

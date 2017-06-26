@@ -45,9 +45,14 @@ namespace mb
     MB_API
     virtual ComponentUID GetUID( ) const = 0;
     MB_API
-    virtual ~Component( );
+    virtual ~Component( void );
     MB_API
-    Node* node( );
+    Node* node( void );
+    MB_API
+    const Node* getNode( void ) const
+    {
+      return _node;
+    }
     MB_API
     virtual void update( const mb::Clock& clock );
     MB_API

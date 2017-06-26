@@ -12,6 +12,7 @@ set( MB_PUBLIC_HEADERS
   Components/MeshRenderer.hpp
   Components/RotateComponent.hpp
   Components/FreeCameraComponent.hpp
+  Components/BillboardComponent.hpp
 
 
   Exceptions/Exception.hpp
@@ -80,7 +81,8 @@ set( MB_PUBLIC_HEADERS
   Scenegraph/Geometry.hpp
   Scenegraph/Group.hpp
   Scenegraph/Light.hpp
-  Scenegraph/LOD.hpp
+  #Scenegraph/LOD.hpp
+  Scenegraph/LodNode.hpp
   Scenegraph/Node.hpp
   Scenegraph/Switch.hpp
   Scenegraph/Scene.hpp
@@ -121,7 +123,7 @@ set( MB_PUBLIC_HEADERS
   Visitors/UpdateWorldState.hpp
   Visitors/Visitor.hpp
 
-  ##App.hpp
+  Application.hpp
   Layer.hpp
 
   Includes.hpp
@@ -132,7 +134,7 @@ set( MB_PUBLIC_HEADERS
 
   OpenGL/Program.hpp
   OpenGL/ResourceShader.hpp
-  OpenGL/OpenGLRenderer.hpp
+  #OpenGL/OpenGLRenderer.hpp
 
   Materials/StandardMaterial.hpp
   Materials/BasicMaterial.hpp
@@ -153,7 +155,7 @@ set( MB_HEADERS
 )
 
 set( MB_SOURCES
-  OpenGL/OpenGLRenderer.cpp
+  #OpenGL/OpenGLRenderer.cpp
 
 
   Boundings/BoxBoundingVolume.cpp
@@ -167,6 +169,7 @@ set( MB_SOURCES
   Components/MeshRenderer.cpp
   Components/RotateComponent.cpp
   Components/FreeCameraComponent.cpp
+  Components/BillboardComponent.cpp
 
 
   Io/Input.cpp
@@ -215,7 +218,8 @@ set( MB_SOURCES
   Scenegraph/Geometry.cpp
   Scenegraph/Group.cpp
   Scenegraph/Light.cpp
-  Scenegraph/LOD.cpp
+  #Scenegraph/LOD.cpp
+  Scenegraph/LodNode.cpp
   Scenegraph/Node.cpp
   Scenegraph/Switch.cpp
   Scenegraph/Scene.cpp
@@ -248,7 +252,7 @@ set( MB_SOURCES
   Visitors/Visitor.cpp
 
 
-  ##App.cpp
+  Application.cpp
   Layer.cpp
 
 
