@@ -28,7 +28,70 @@ namespace mb
   {
   public:
     MB_API
-    LOD( const std::string& name );
+    LOD( const std::string& name, unsigned int levelsOfDetail )
+      : Switch( name )
+    {
+      _levelsOfDetail = levelsOfDetail;
+
+      _localMinDist.reserve( _levelsOfDetail );
+      _localMaxDist.reserve( _levelsOfDetail );
+      _worldMinDist.reserve( _levelsOfDetail );
+      _worldMaxDist.reserve( _levelsOfDetail );
+    }
+    virtual ~LOD( void )
+    {
+      _localMinDist.clear( );
+      _localMaxDist.clear( );
+      _worldMinDist.clear( );
+      _worldMaxDist.clear( );
+    }
+
+    MB_API
+    inline int getNumLevelsOfDetail( void ) const { return _levelsOfDetail; }
+    inline float getLocalMinDistance( unsigned int idx ) const { return _localMinDist[ i ]; }
+    inline float getLocalMaxDistance( unsigned int idx ) const { return _localMaxDist[ i ]; }
+    inline float getWorldMinDistance( unsigned int idx ) const { return _worldMinDist[ i ]; }
+    inline float getWorldMaxDistance( unsigned int idx ) const { return _worldMaxDist[ i ]; }
+    void setLocalDistance( unsigned int idx, float minDist, float maxDist )
+    {
+      if ( i < _levelsOfDetail )
+      {
+        _localMinDist[ i ] = minDist;
+        _localMaxDist[ i ] = maxDist;
+        _worldMinDist[ i ] = minDist;
+        _worldMaxDist[ i ] = maxDist;
+
+        return;
+      }
+      throw;
+    }
+  protected:
+    void selectLevelOfDetails( const Camera* camera )
+    {
+      _worldLodCenter = node( )->getWorld( ) * _localLodCenter( );
+
+      /*for( unsigned int i = 0; i < _levelsOfDetail; ++i )
+      {
+        _worldMinDist[ i ] = node
+        _worldMaxDist[ i ] = node
+      }*/
+
+      setActiveChild( INVALID_CHILD );
+      Vector3 diff = _worldLodCenter - camera->world( )->getPosition( );
+      float dist = diff.lenght( );
+      for( unsigned int i = 0; i < _levelsOfDetail; ++i )
+      {
+        if ( _worldMinDist[ i ] <= dist && dist < _worldMaxDist[ i ] )
+        {
+          setActiveChild( i );
+          break;
+        }
+      }
+    }
+
+    int _levelsOfDetail;
+
+
     MB_API
     virtual void addChild( Node* node );
     MB_API

@@ -45,6 +45,7 @@ namespace mb
     for( Renderable& renderable: renderables )
     {
       auto material = renderable.material;
+      if ( !material ) continue;
       material->uniform( MB_PROJ_MATRIX )->value( projection );
       material->uniform( MB_VIEW_MATRIX )->value( view );
 
@@ -87,6 +88,7 @@ namespace mb
     for ( auto& renderable : renderables )
     {
       auto material = renderable.material;
+      if ( !material ) continue;
 
       material->uniform( MB_PROJ_MATRIX )->value( projection );
       material->uniform( MB_VIEW_MATRIX )->value( view );

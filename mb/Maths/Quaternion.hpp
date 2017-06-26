@@ -212,6 +212,28 @@ namespace mb
       //if (_onChange)  _onChange();
     }
     MB_API
+    Quaternion getInverse( void ) const
+    {
+      float dot = Quaternion::dot( *this, *this );
+
+      Quaternion q;
+      if ( !dot )
+      {
+        q.reset( );
+
+        return *this;
+      }
+
+      float invDot = dot ? 1.0f / dot : 0.0f;
+
+      q._values[ 0 ] *= -invDot;
+      q._values[ 1 ] *= -invDot;
+      q._values[ 2 ] *= -invDot;
+      q._values[ 3 ] *= -invDot;
+
+      return q;
+    }
+    MB_API
     Quaternion& inverse( void )
     {
       float dot = Quaternion::dot(*this, *this);

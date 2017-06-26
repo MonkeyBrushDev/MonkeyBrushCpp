@@ -49,6 +49,21 @@ namespace mb
 
   private:
     void swapBuffers( Renderer* r );
+
+    /*static const char* SRC_BUFFER_NAME;
+    static const char* SRC_BUFFER_COLOR_TARGET_NAME;
+    static const char* SRC_BUFFER_DEPTH_TARGET_NAME;
+
+    static const char* DST_BUFFER_NAME;
+    static const char* DST_BUFFER_COLOR_TARGET_NAME;
+    static const char* DST_BUFFER_DEPTH_TARGET_NAME;
+
+    // GBuffer
+    static const char* GBUFFER_NAME;
+    static const char* GBUFFER_POSITION_TARGET_NAME;
+    static const char* GBUFFER_NORMAL_TARGET_NAME;
+    static const char* GBUFFER_DIFFUSE_TARGET_NAME;
+    static const char* GBUFFER_BUFFER_DEPTH_TARGET_NAME;*/
   };
 }
 

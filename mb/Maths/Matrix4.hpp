@@ -238,6 +238,27 @@ namespace mb
       return u;
     }
 
+    friend Vector3 operator*( const Matrix4& m, const Vector3& v )
+    {
+      Vector3 result;
+      result[ 0 ] =
+        m[ 0 ] * v[ 0 ] +
+        m[ 1 ] * v[ 1 ] +
+        m[ 2 ] * v[ 2 ] +
+        m[ 3 ] * 1.0f;
+      result[ 1 ] =
+        m[ 4 ] * v[ 0 ] +
+        m[ 5 ] * v[ 1 ] +
+        m[ 6 ] * v[ 2 ] +
+        m[ 7 ] * 1.0f;
+      result[ 2 ] =
+        m[ 8 ] * v[ 0 ] +
+        m[ 9 ] * v[ 1 ] +
+        m[ 10 ] * v[ 2 ] +
+        m[ 11 ] * 1.0f;
+
+      return result;
+    }
     friend Vector4 operator*( const Matrix4& m, const Vector4& v )
     {
       Vector4 result;

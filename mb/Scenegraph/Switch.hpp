@@ -40,17 +40,23 @@ namespace mb
     Node* currentNode( void );
 
     MB_API
-    unsigned int getCurrentNodeIndex( void ) const;
+    unsigned int getActiveChild( void ) const;
     MB_API
-    void setCurrentNodeIndex( unsigned int idx );
+    void setActiveChild( unsigned int idx );
+    MB_API
+    void disableAllChildren( void )
+    {
+      _activeChild = SW_INVALID_CHILD;
+    }
 
     MB_API
     void selectNextNode( void );
     MB_API
     void selectPreviousNode( void );
 
+    enum { SW_INVALID_CHILD = -1 };
   private:
-    unsigned int _currentIdx;
+    int _activeChild;
   };
 }
 

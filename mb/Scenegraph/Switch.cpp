@@ -23,11 +23,11 @@ namespace mb
 {
   Switch::Switch( const std::string name )
   : Group( name )
-  , _currentIdx( 0 )
+  , _activeChild( SW_INVALID_CHILD )
   {
   }
 
-  Switch::~Switch( )
+  Switch::~Switch( void )
   {
     std::cout << "[D] Switch '" << this->name( ) << "'" << std::endl;
   }
@@ -38,7 +38,7 @@ namespace mb
     {
       return;
     }
-    Node* current = nodeAt( _currentIdx );
+    Node* current = nodeAt( _activeChild );
     if ( current != nullptr )
     {
       cb( current );
@@ -51,7 +51,7 @@ namespace mb
     {
       return;
     }
-    _currentIdx = ( _currentIdx + 1 ) % getNumChildren( );
+    _activeChild = ( _activeChild + 1 ) % getNumChildren( );
   }
 
   void Switch::selectPreviousNode( void )
@@ -61,21 +61,21 @@ namespace mb
       return;
     }
     unsigned int nChildren = getNumChildren( );
-    _currentIdx = ( _currentIdx + nChildren - 1 ) % nChildren;
+    _activeChild = ( _activeChild + nChildren - 1 ) % nChildren;
   }
 
   Node* Switch::currentNode( void )
   {
-    return nodeAt( _currentIdx );
+    return nodeAt( _activeChild );
   }
 
-  unsigned int Switch::getCurrentNodeIndex( void ) const
+  unsigned int Switch::getActiveChild( void ) const
   {
-    return _currentIdx;
+    return _activeChild;
   }
 
-  void Switch::setCurrentNodeIndex( unsigned int idx )
+  void Switch::setActiveChild( unsigned int idx )
   {
-    _currentIdx = idx;
+    _activeChild = idx;
   }
 }

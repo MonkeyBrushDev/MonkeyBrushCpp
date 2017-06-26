@@ -34,9 +34,9 @@ namespace mb
 
   void PostRenderingPass::render( Renderer* renderer, BatchQueuePtr bq, Camera* cam )
   {
-    renderer->bindFBO( _fbo );
+    //renderer->bindFBO( _fbo );
     _sceneRenderingPass->render( renderer, bq, cam );
-    renderer->unbindFBO( _fbo );
+    //renderer->unbindFBO( _fbo );
 
     applyImageEffects( renderer, cam );
   }

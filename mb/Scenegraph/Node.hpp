@@ -71,6 +71,12 @@ namespace mb
     MB_API
     Node* parent( void );
 
+    template< class NodeType >
+    const Node* parent( void )
+    {
+      return static_cast< NodeType* >( _parent );
+    }
+
     template<class NodeClass>
     NodeClass* parent( void );
 

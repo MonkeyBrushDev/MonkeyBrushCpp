@@ -25,11 +25,13 @@ namespace mb
 {
   void BillboardComponent::update( const mb::Clock& )
   {
-    Camera* cam = nullptr;
-    if (node()->hasParent( ))
+    Camera* cam = Camera::getMainCamera( ); // TODO: BAD ...
+    if ( cam != nullptr ) return;
+    auto n = getNode( );
+    if ( n->hasParent( ) )
     {
-      auto invParentRot = node()->parent()->getWorld().getRotation().getInverse();
-      node()->local().setRotation( invParentRot * cam->getWorld().getRotation());
+      //auto invParentRot = n->parent( )->getWorld( ).getRotation( ).getInverse( );
+      //node()->local().setRotation( invParentRot * cam->getWorld().getRotation());
     }
   }
 }
