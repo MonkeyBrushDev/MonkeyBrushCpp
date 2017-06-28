@@ -174,3 +174,16 @@ set( MBEXAMPLEBUTTERFLIES_LINK_LIBRARIES
   mb
 )
 common_application( mbExampleButterflies )
+
+
+set( MBEXAMPLEMATERIALS_HEADERS
+  MatCapMaterial.hpp
+  AlienProceduralMaterial.hpp
+  GraniteProceduralMaterial.hpp
+  HatchingProceduralMaterial.hpp
+)
+set( MBEXAMPLEMATERIALS_SOURCES exampleMaterials.cpp )
+set( MBEXAMPLEMATERIALS_LINK_LIBRARIES
+  mb
+)
+common_application( mbExampleMaterials )

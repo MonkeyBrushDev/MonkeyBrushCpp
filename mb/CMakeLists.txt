@@ -54,6 +54,8 @@ set( MB_PUBLIC_HEADERS
   Primitives/PlanePrimitive.hpp
   Primitives/SpherePrimitive.hpp
   Primitives/TorusPrimitive.hpp
+  Primitives/MeshPrimitive.hpp
+  Primitives/PolyhedronPrimitive.hpp
 
 
   #Rendering/ImageEffects/BlurImageEffect.hpp
@@ -145,6 +147,7 @@ set( MB_PUBLIC_HEADERS
   Materials/ToonMaterial.hpp
   Materials/ToonGradientMaterial.hpp
   Materials/PostProcessMaterial.hpp
+  Materials/UVMaterial.hpp
 
   Utils/ObjLoader.hpp
 
@@ -196,6 +199,8 @@ set( MB_SOURCES
   Primitives/PlanePrimitive.cpp
   Primitives/SpherePrimitive.cpp
   Primitives/TorusPrimitive.cpp
+  Primitives/MeshPrimitive.cpp
+  Primitives/PolyhedronPrimitive.cpp
 
   Rendering/ImageEffects/GreyImageEffect.cpp
   Rendering/ImageEffects/SepiaImageEffect.cpp
@@ -271,6 +276,7 @@ set( MB_SOURCES
   Materials/ToonMaterial.cpp
   Materials/ToonGradientMaterial.cpp
   Materials/PostProcessMaterial.cpp
+  Materials/UVMaterial.cpp
 
   Utils/JobScheduler.cpp
 )

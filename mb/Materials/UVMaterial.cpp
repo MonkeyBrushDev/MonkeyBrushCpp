@@ -17,21 +17,8 @@
  *
  **/
 
-#ifndef __MB_PLANE_PRIMITIVE__
-#define __MB_PLANE_PRIMITIVE__
-
-#include "Primitive.hpp"
-
+#include "UVMaterial.hpp"
 namespace mb
 {
-  class PlanePrimitive: public Primitive
-  {
-  public:
-    MB_API
-    PlanePrimitive( float width = 1.0f, float height = 1.0f, unsigned int widthSegments = 1, unsigned int heightSegments = 1 );
-    MB_API
-    virtual void render( void );
-  };
-}
 
-#endif /* __MB_PLANE_PRIMITIVE__ */
+}

@@ -24,6 +24,10 @@
 #include <iostream>
 #include <mb/api.h>
 
+#include <vector>
+#include "../Maths/Vector2.hpp"
+#include "../Maths/Vector3.hpp"
+
 namespace mb
 {
   class Primitive
@@ -44,9 +48,18 @@ namespace mb
     MB_API
     Primitive::Type getType( void ) const;
     MB_API
-    void render( void );
+    virtual void render( void );
   protected:
     Primitive::Type _type;
+
+
+  protected:
+    std::vector<Vector3> vertices;
+    std::vector<short> indices;
+    std::vector<Vector3> normals;
+    std::vector<Vector2> texCoords;
+
+    unsigned int VAO;
   };
 }
 

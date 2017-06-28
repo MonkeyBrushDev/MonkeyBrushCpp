@@ -35,7 +35,7 @@ namespace mb
     {
       return;
     }
-    std::cout << "Render OpaqueObjects" << std::endl;
+//    std::cout << "Render OpaqueObjects" << std::endl;
     mb::Matrix4 projection = bq->getProjectionMatrix( );
     mb::Matrix4 view = bq->getViewMatrix( );
 
@@ -82,8 +82,8 @@ namespace mb
     {
       return;
     }
-    std::cout << "Render TransparentObjects" << std::endl;
-    mb::Matrix4 projection = bq->getProjectionMatrix();
+//    std::cout << "Render TransparentObjects" << std::endl;
+    /*mb::Matrix4 projection = bq->getProjectionMatrix();
     mb::Matrix4 view = bq->getViewMatrix();
     for ( auto& renderable : renderables )
     {
@@ -94,7 +94,7 @@ namespace mb
       material->uniform( MB_VIEW_MATRIX )->value( view );
 
       renderStandardGeometry( renderer, renderable, material );
-    }
+    }*/
   }
   void StandardRenderingPass::renderStandardGeometry( Renderer*, Renderable& renderable,
     MaterialPtr m )

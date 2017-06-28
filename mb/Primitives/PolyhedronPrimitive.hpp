@@ -17,21 +17,35 @@
  *
  **/
 
-#ifndef __MB_PLANE_PRIMITIVE__
-#define __MB_PLANE_PRIMITIVE__
+#ifndef __MB_POLYHEDRON_PRIMITIVE__
+#define __MB_POLYHEDRON_PRIMITIVE__
 
 #include "Primitive.hpp"
 
 namespace mb
 {
-  class PlanePrimitive: public Primitive
+  class PolyhedronPrimitive: public Primitive
   {
   public:
     MB_API
-    PlanePrimitive( float width = 1.0f, float height = 1.0f, unsigned int widthSegments = 1, unsigned int heightSegments = 1 );
+    PolyhedronPrimitive( float radius, unsigned int subdivisions );
     MB_API
     virtual void render( void );
+  protected:
+    virtual void _createPolyhedron( std::vector< mb::Vector3 >&,
+      std::vector<short>& )
+    { }
+  };
+
+  class IcosahedronPrimitive : public PolyhedronPrimitive
+  {
+  public:
+    MB_API
+    IcosahedronPrimitive( void );
+  protected:
+    virtual void _createPolyhedron( std::vector< mb::Vector3 >& verts,
+      std::vector<short>& el );
   };
 }
 
-#endif /* __MB_PLANE_PRIMITIVE__ */
+#endif /* __MB_POLYHEDRON_PRIMITIVE__ */

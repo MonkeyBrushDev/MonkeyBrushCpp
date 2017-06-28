@@ -1,17 +1,17 @@
 #ifndef __MATCAP_GLSL__
 #define __MATCAP_GLSL__
 
-vec2 matcap(vec3 __eye, vec3 __normal)
+vec2 matcap(vec3 _eye_, vec3 _normal_)
 {
-  vec3 __reflected = reflect(__eye, __normal);
+  vec3 _reflected_ = reflect(_eye_, _normal_);
 
-  float __m = 2.0 * sqrt(
-    pow(__reflected.x, 2.0) +
-    pow(__reflected.y, 2.0) +
-    pow(__reflected.z + 1.0, 2.0)
+  float _m_ = 2.0 * sqrt(
+    pow(_reflected_.x, 2.0) +
+    pow(_reflected_.y, 2.0) +
+    pow(_reflected_.z + 1.0, 2.0)
   );
 
-  return __reflected.xy / __m + 0.5;
+  return _reflected_.xy / _m_ + 0.5;
 }
 
 #endif

@@ -17,21 +17,31 @@
  *
  **/
 
-#ifndef __MB_PLANE_PRIMITIVE__
-#define __MB_PLANE_PRIMITIVE__
+#ifndef __MB_MESH_PRIMITIVE__
+#define __MB_MESH_PRIMITIVE__
 
 #include "Primitive.hpp"
+#include <vector>
+#include "../Maths/Vector2.hpp"
+#include "../Maths/Vector3.hpp"
 
 namespace mb
 {
-  class PlanePrimitive: public Primitive
+  class MeshPrimitive: public Primitive
   {
   public:
     MB_API
-    PlanePrimitive( float width = 1.0f, float height = 1.0f, unsigned int widthSegments = 1, unsigned int heightSegments = 1 );
+    MeshPrimitive( const std::string& fileName );
     MB_API
     virtual void render( void );
+  protected:
+    std::vector<Vector3> vertices;
+    std::vector<short> indices;
+    std::vector<Vector3> normals;
+    std::vector<Vector2> texCoords;
+
+    unsigned int VAO;
   };
 }
 
-#endif /* __MB_PLANE_PRIMITIVE__ */
+#endif /* __MB_MESH_PRIMITIVE__ */

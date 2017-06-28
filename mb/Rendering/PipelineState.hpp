@@ -20,12 +20,14 @@
 #ifndef __MB_PIPELINE_STATE__
 #define __MB_PIPELINE_STATE__
 
+#include "../Utils/NonCopyable.hpp"
+
 namespace mb
 {
   class PipelineState
   {
   public:
-    class RenderState
+    class RenderState//: public NonCopyable
     {
     public:
       bool isEnabled( void ) const
@@ -38,7 +40,8 @@ namespace mb
       }
     protected:
       RenderState( bool enabled = true )
-        : _enabled( enabled )
+        : /*NonCopyable( )
+        ,*/ _enabled( enabled )
       {
       }
       bool _enabled;

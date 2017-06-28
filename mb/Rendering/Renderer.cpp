@@ -58,7 +58,7 @@ namespace mb
 
   void Renderer::setViewport( const Viewport& viewport )
   {
-    std::cout << "CHANGE VIEWPORT" << std::endl;
+    //std::cout << "CHANGE VIEWPORT" << std::endl;
     glViewport(
       viewport.x( ), viewport.y( ),
       viewport.width( ), viewport.height( )
@@ -70,7 +70,7 @@ namespace mb
   }
   void Renderer::clearBuffers( void )
   {
-    std::cout << "Clear color and depth buffers" << std::endl;
+    //std::cout << "Clear color and depth buffers" << std::endl;
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
   }
   void Renderer::endRender( void )
@@ -131,7 +131,7 @@ namespace mb
   {
     static unsigned int VAO = -1;
     static unsigned int VBO;
-    if ( VAO == -1 )
+    if ( (int)VAO == -1 )
     {
       float quadVertices[ ] = {
         -1.0f, 1.0f, 0.0f,
@@ -250,7 +250,7 @@ namespace mb
       };
       static GLenum gStencilOperation[ 6 ] =
       {
-        GL_KEEP, GL_ZERO, GL_REPLACE, 
+        GL_KEEP, GL_ZERO, GL_REPLACE,
         GL_INCR, GL_DECR, GL_INVERT,
       };
       unsigned int compare = gStencilCompare[ ( short ) stencilState->Compare ];

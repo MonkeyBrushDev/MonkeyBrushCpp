@@ -48,7 +48,8 @@ namespace mb
       headers_defines += ( flat_shading ? "#define FLAT_SHADING\n" : "" );
       headers_defines += ( double_sided ? "#define DOUBLE_SIDED\n" : "" );
       program->loadVertexShaderFromText(
-      R"(#version 330 core)" + headers_defines + R"(
+      R"(#version 330 core
+      )" + headers_defines + R"(
       uniform mat4 mb_MatrixM;
       uniform mat4 mb_MatrixV;
       uniform mat4 mb_MatrixP;
@@ -75,7 +76,8 @@ namespace mb
       gl_Position = mb_MatrixP * mvPosition;
     })" );
       program->loadFragmentShaderFromText(
-      R"(#version 330 core)" + headers_defines + R"(
+      R"(#version 330 core
+      )" + headers_defines + R"(
       #if defined( FLAT_SHADING )
         flat in vec3 outNormal;
       #else
