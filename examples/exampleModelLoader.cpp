@@ -42,10 +42,10 @@ protected:
   float _time;
 };
 
-mb::Group* createScene( void )
+mb::Group* createScene( const std::string& objFile, const std::string& /*texFile*/ )
 {
   auto scene = new mb::Group( "scene" );
-
+   
   auto camera = new mb::Camera( 75.0f, 500 / 500, 0.03f, 1000.0f );
   camera->local( ).translate( 0.0f, 10.0f, 50.0f );
 
@@ -55,15 +55,21 @@ mb::Group* createScene( void )
 
   // LOAD MODEL
   auto geom = new mb::Geometry( );
-  geom->addPrimitive( new mb::MeshPrimitive( "objects/Pikachu/pikachu.obj_" ) );
+  geom->addPrimitive( new mb::MeshPrimitive( objFile ) );
 
-  mb::Texture2D* diffuse = mb::Texture2D::loadFromImage( "objects/Pikachu/pikachu.png" );
+  /*mb::Texture2D* diffuse = mb::Texture2D::loadFromImage( texFile );
 
   mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
   customMaterial->setColor( mb::Color::WHITE );
-  customMaterial->setColorMap( diffuse );
+  customMaterial->setColorMap( diffuse );*/
 
-  geom->local( ).setScale( 0.25f );
+  mb::FlatColorMaterial* customMaterial = new mb::FlatColorMaterial( );
+  customMaterial->setColor( mb::Color::YELLOW );
+
+  customMaterial->state( ).wireframe( )->setEnabled( true );
+  customMaterial->state( ).culling( )->setEnabled( false );
+
+  geom->local( ).setScale( 0.5f );
 
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
@@ -75,12 +81,13 @@ mb::Group* createScene( void )
   return scene;
 }
 
-int main( )
+int main( int argc, char* argv[] )
 {
   mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
 
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
+  window->setTitle( "Model loader" );
 
   glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
 
@@ -88,7 +95,20 @@ int main( )
 
   mb::Application app;
 
-  app.setSceneNode( createScene( ) );
+  std::string objFile;
+  std::string textureFile;
+  if ( argc >= 3 )
+  {
+    objFile = std::string( argv[ 1 ] );
+    textureFile = std::string( argv[ 2 ] );
+  }
+  else
+  {
+    objFile = std::string( "objects/Pikachu/pikachu.obj_" );
+    textureFile = std::string( "objects/Pikachu/pikachu.png" );
+  }
+
+  app.setSceneNode( createScene( objFile, textureFile ) );
 
   while ( window->isRunning( ) )
   {

@@ -17,24 +17,23 @@
  *
  **/
 
-#ifndef __MB_MESH_PRIMITIVE__
-#define __MB_MESH_PRIMITIVE__
+#ifndef __MB_POINT_PRIMITIVE__
+#define __MB_POINT_PRIMITIVE__
 
 #include "Primitive.hpp"
-#include <vector>
-#include "../Maths/Vector2.hpp"
-#include "../Maths/Vector3.hpp"
 
 namespace mb
 {
-  class MeshPrimitive: public Primitive
+  class PointPrimitive: public Primitive
   {
   public:
     MB_API
-    MeshPrimitive( const std::string& fileName );
+    PointPrimitive( const std::vector< Vector3 >& points );
     MB_API
     virtual void render( void );
+  protected:
+    unsigned int MAXPOINTS;
   };
 }
 
-#endif /* __MB_MESH_PRIMITIVE__ */
+#endif /* __MB_POINT_PRIMITIVE__ */

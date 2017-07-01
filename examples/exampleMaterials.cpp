@@ -70,7 +70,7 @@ mb::Geometry* generateGeom( mb::Material* customMaterial )
 {
   auto geom = new mb::Geometry( );
 
-  geom->addPrimitive( new mb::IcosahedronPrimitive( ) ); // ( 1.0f, 25, 25 ) );
+  geom->addPrimitive( new mb::SpherePrimitive( 1.0f, 25, 25 ) );
 
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
@@ -80,10 +80,10 @@ mb::Geometry* generateGeom( mb::Material* customMaterial )
   return geom;
 }
 
-#include "AlienProceduralMaterial.hpp"
-#include "GraniteProceduralMaterial.hpp"
-#include "HatchingProceduralMaterial.hpp"
-#include "MatCapMaterial.hpp"
+#include "others/AlienProceduralMaterial.hpp"
+#include "others/GraniteProceduralMaterial.hpp"
+#include "others/HatchingProceduralMaterial.hpp"
+#include "others/MatCapMaterial.hpp"
 
 mb::Group* createScene( void )
 {
@@ -197,6 +197,7 @@ int main( )
 
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
+  window->setTitle( "Multi simple materials" );
 
   glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
 

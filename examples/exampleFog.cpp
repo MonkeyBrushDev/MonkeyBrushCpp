@@ -114,6 +114,7 @@ int main( )
 
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
+  window->setTitle( "Fog Demo" );
 
   glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
 

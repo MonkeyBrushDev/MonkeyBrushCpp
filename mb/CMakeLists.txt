@@ -56,6 +56,7 @@ set( MB_PUBLIC_HEADERS
   Primitives/TorusPrimitive.hpp
   Primitives/MeshPrimitive.hpp
   Primitives/PolyhedronPrimitive.hpp
+  Primitives/PointPrimitive.hpp
 
 
   #Rendering/ImageEffects/BlurImageEffect.hpp
@@ -74,8 +75,8 @@ set( MB_PUBLIC_HEADERS
   Rendering/Renderer.hpp
   Rendering/PipelineState.hpp
   Rendering/Texture.hpp
-  Rendering/FramebufferObject.hpp
-  Rendering/RenderTarget.hpp
+  #Rendering/FramebufferObject.hpp
+  #Rendering/RenderTarget.hpp
   Rendering/RenderBuffer.hpp
 
 
@@ -148,6 +149,7 @@ set( MB_PUBLIC_HEADERS
   Materials/ToonGradientMaterial.hpp
   Materials/PostProcessMaterial.hpp
   Materials/UVMaterial.hpp
+  Materials/FlatColorMaterial.hpp
 
   Utils/ObjLoader.hpp
 
@@ -201,6 +203,7 @@ set( MB_SOURCES
   Primitives/TorusPrimitive.cpp
   Primitives/MeshPrimitive.cpp
   Primitives/PolyhedronPrimitive.cpp
+  Primitives/PointPrimitive.cpp
 
   Rendering/ImageEffects/GreyImageEffect.cpp
   Rendering/ImageEffects/SepiaImageEffect.cpp
@@ -214,7 +217,7 @@ set( MB_SOURCES
   Rendering/BatchQueue.cpp
   Rendering/Material.cpp
   Rendering/Renderer.cpp
-  Rendering/FramebufferObject.cpp
+  #Rendering/FramebufferObject.cpp
   Rendering/Texture.cpp
   Rendering/RenderBuffer.cpp
 
@@ -277,6 +280,7 @@ set( MB_SOURCES
   Materials/ToonGradientMaterial.cpp
   Materials/PostProcessMaterial.cpp
   Materials/UVMaterial.cpp
+  Materials/FlatColorMaterial.cpp
 
   Utils/JobScheduler.cpp
 )

@@ -23,78 +23,6 @@
 #include <mb/mb.h>
 #include <routes.h>
 
-unsigned int vao;
-unsigned int createVAO( )
-{
-  // Set up vertex data (and buffer(s)) and attribute pointers
-  float vertices[ ] = {
-    // positions          // normals           // texture coords
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-     0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-     0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  0.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-
-     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-     0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
-  };
-  unsigned int VBO, VAO;
-  glGenVertexArrays( 1, &VAO );
-  glGenBuffers( 1, &VBO );
-
-  glBindVertexArray( VAO );
-
-  glBindBuffer( GL_ARRAY_BUFFER, VBO );
-  glBufferData( GL_ARRAY_BUFFER, sizeof( vertices ), vertices, GL_STATIC_DRAW );
-
-  // Position attribute
-  glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid* ) 0 );
-  glEnableVertexAttribArray( 0 );
-  // Normal attribute
-  glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid* ) ( 3 * sizeof( GLfloat ) ) );
-  glEnableVertexAttribArray( 1 );
-  // TexCoord attribute
-  glVertexAttribPointer( 2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof( GLfloat ), ( GLvoid* ) ( 6 * sizeof( GLfloat ) ) );
-  glEnableVertexAttribArray( 2 );
-
-  glBindVertexArray( 0 ); // Unbind VAO
-
-  return VAO;
-}
-
 mb::Program* createProgram( )
 {
   mb::Program* program = new mb::Program( );
@@ -260,6 +188,7 @@ mb::Program* createProgram( )
 mb::Geometry* generateGeomWithLight( const mb::Color& )
 {
   auto geom = new mb::Geometry( );
+  geom->addPrimitive( new mb::SpherePrimitive( 0.75f, 15, 15 ) );
 
   mb::Material* customMaterial = new mb::Material( );
   customMaterial->program = createProgram( );
@@ -279,6 +208,7 @@ mb::Geometry* generateGeomWithLight( const mb::Color& )
 mb::Geometry* generateGeom( const mb::Color& c )
 {
   auto geom = new mb::Geometry( );
+  geom->addPrimitive( new mb::CubePrimitive( 1.0f ) );
 
   mb::BasicMaterial* customMaterial = new mb::BasicMaterial( );
   customMaterial->setColor( c );
@@ -293,7 +223,6 @@ mb::Geometry* generateGeom( const mb::Color& c )
 
 mb::Group* createScene( void )
 {
-  vao = createVAO( );
   auto scene = new mb::Group( "scene" );
 
   auto camera = new mb::Camera( 60.0f, 800 / 600, 0.01f, 1000.0f );
@@ -335,7 +264,7 @@ mb::Group* createScene( void )
     mb::Vector3( 0.4f,  0.4f, .4f)
   };
 
-  for ( unsigned int i = 0; i < cubePositions.size( ); ++i)
+  for ( unsigned int i = 0; i < pointLightColor.size( ); ++i )
   {
     mb::Color cc(pointLightColor[i].x(), pointLightColor[i].y(),pointLightColor[i].z( ));
     mb::Group* lg = new mb::Group( "" );
@@ -459,9 +388,10 @@ int main( )
             //  mainQueue->getProjectionMatrix( ) * mainQueue->getViewMatrix( ) );
             mat->use( );
 
-            glBindVertexArray( vao );
-            glDrawArrays( GL_TRIANGLES, 0, 36 );
-            glBindVertexArray( 0 );
+            renderable.geometry->forEachPrimitive( [] ( mb::Primitive* p )
+            {
+              p->render( );
+            } );
 
             mat->unuse( );
           }

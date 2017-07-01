@@ -267,7 +267,7 @@ namespace mb
       glDisable( GL_STENCIL_TEST );
     }
   }
-  void setWireframeState( const mb::PipelineState::WireFrameState* wireState )
+  void Renderer::setWireframeState( const mb::PipelineState::WireFrameState* wireState )
   {
     if ( wireState->isEnabled( ) )
     {

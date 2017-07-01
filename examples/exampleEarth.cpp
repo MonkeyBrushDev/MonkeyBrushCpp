@@ -23,6 +23,8 @@
 #include <mb/mb.h>
 #include <routes.h>
 
+// TODO: ADD SPECULAR AND NORMAL TEXTURE TO EARTH
+/*
 mb::Program* createProgram( )
 {
   mb::Program* program = new mb::Program( );
@@ -168,7 +170,7 @@ mb::Program* createProgram( )
         ( ambient + diffuse ) * s.Albedo,
         1.0
       );
-    }*/
+    }
 
     void main( )
     {
@@ -202,12 +204,12 @@ mb::Program* createProgram( )
   program->autocatching( );
 
   return program;
-}
+}*/
 
 mb::Geometry* generateGeom( const mb::Color& c, const std::string& tex )
 {
   auto geom = new mb::Geometry( );
-  geom->addPrimitive( new mb::SpherePrimitive( 1.0f, 100, 50 ) );
+  geom->addPrimitive( new mb::SpherePrimitive( 5.0f, 100, 50 ) );
 
   mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
   customMaterial->setColor( c );
@@ -247,7 +249,7 @@ mb::Group* createScene( void )
   auto scene = new mb::Group( "scene" );
 
   auto camera = new mb::Camera( 60.0f, 500 / 500, 0.01f, 1000.0f );
-  camera->local( ).translate( 0.0f, 0.0f, 10.0f );
+  camera->local( ).translate( 0.0f, 0.0f, 25.0f );
   camera->addComponent( new mb::FreeCameraComponent( ) );
   scene->addChild( camera );
 
@@ -259,10 +261,16 @@ mb::Group* createScene( void )
 
   auto node2 = generateGeom( mb::Color::WHITE, "earth/earth_clouds.png" );
   node2->getComponent<mb::MaterialComponent>( )->
-    first( )->state().blending().setEnabled(true);
-  node2->local( ).setScale( 1.05f );
+    first( )->state().blending()->setEnabled(true);
+  node2->local( ).setScale( 1.005f );
   node2->addComponent( new RotationComponent( 1.25f * rotationSpeed ) );
   scene->addChild( node2 );
+
+
+  auto node3 = generateGeom( mb::Color::WHITE, "earth/space.png" );
+  node3->local( ).setScale( 15.0f );
+  //node2->addComponent( new RotationComponent( 1.25f * rotationSpeed ) );
+  scene->addChild( node3 );
 
   return scene;
 }
@@ -273,161 +281,7 @@ int main( )
 
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
-
-  glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
-
-  mb::Group* _scene = createScene( );
-
-  _scene->perform( mb::UpdateWorldState( ) );
-
-  std::vector< mb::Camera* > _cameras;
-
-  mb::FetchCameras fetchCameras;
-  _scene->perform( fetchCameras );
-  fetchCameras.forEachCameras( [ &] ( mb::Camera* c )
-  {
-    if ( mb::Camera::getMainCamera( ) == nullptr || c->isMainCamera( ) )
-    {
-      mb::Camera::setMainCamera( c );
-    }
-    _cameras.push_back( c );
-  } );
-
-  _scene->perform( mb::StartComponents( ) );
-
-  glEnable( GL_DEPTH_TEST );
-
-  mb::Clock clockTime;
-  clockTime.reset( );
-
-  while ( window->isRunning( ) )
-  {
-    window->pollEvents( );
-
-    if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Esc ) )
-    {
-      window->close( );
-      break;
-    }
-
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
-    clockTime.tick( );
-
-    _scene->perform( mb::UpdateComponents( clockTime ) );
-    _scene->perform( mb::UpdateWorldState( ) );
-    std::vector< mb::BatchQueuePtr > bqCollection;
-
-    std::vector< mb::Light* > lights;
-    mb::FetchLights fl;
-    _scene->perform( fl );
-    lights = fl.lights( );
-
-    for ( mb::Camera* c : _cameras )
-    {
-      if ( c != nullptr && c->isEnabled( ) )
-      {
-        mb::BatchQueuePtr bq = std::make_shared< mb::BatchQueue >( );
-        mb::ComputeBatchQueue cbq( c, bq );
-        _scene->perform( cbq );
-        bqCollection.push_back( bq );
-      }
-    };
-
-    if ( !bqCollection.empty( ) )
-    {
-      mb::BatchQueuePtr mainQueue = nullptr;
-      std::for_each( bqCollection.begin( ), bqCollection.end( ), [ &] ( mb::BatchQueuePtr bq )
-      {
-        if ( bq->getCamera( ) != mb::Camera::getMainCamera( ) )
-        {
-          std::cout << "OUTSCREEN" << std::endl;
-        }
-        else
-        {
-          mainQueue = bq;
-        }
-      } );
-
-      if ( mainQueue != nullptr )
-      {
-        //unsigned int numLights = lights.size( );
-        auto renderables = mainQueue->renderables( mb::BatchQueue::RenderableType::OPAQUE );
-        if ( !renderables.empty( ) )
-        {
-          for ( mb::Renderable& renderable : renderables )
-          {
-            //std::cout << "ZDIST: " << renderable.zDistance << std::endl;
-
-            //if ( renderable.zDistance > 128.0f ) continue;
-
-            mb::MaterialComponent* mc = renderable.geometry->getComponent<mb::MaterialComponent>( );
-
-            auto mat = mc->first( );
-
-            mat->uniform( MB_PROJ_MATRIX )->value( mainQueue->getProjectionMatrix( ) );
-            mat->uniform( MB_VIEW_MATRIX )->value( mainQueue->getViewMatrix( ) );
-            mat->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
-
-            mat->use( );
-
-            renderable.geometry->forEachPrimitive( [] ( mb::Primitive* p )
-            {
-              p->render( );
-            } );
-
-            mat->unuse( );
-          }
-          //std::cout << std::endl << std::endl << " -------------------------- " << std::endl << std::endl;
-        }
-        glEnable( GL_BLEND );
-        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-        renderables = mainQueue->renderables( mb::BatchQueue::RenderableType::TRANSPARENT );
-        if ( !renderables.empty( ) )
-        {
-          for ( mb::Renderable& renderable : renderables )
-          {
-            //std::cout << "ZDIST: " << renderable.zDistance << std::endl;
-
-            //if ( renderable.zDistance > 128.0f ) continue;
-
-            mb::MaterialComponent* mc = renderable.geometry->getComponent<mb::MaterialComponent>( );
-
-            auto mat = mc->first( );
-
-            mat->uniform( MB_PROJ_MATRIX )->value( mainQueue->getProjectionMatrix( ) );
-            mat->uniform( MB_VIEW_MATRIX )->value( mainQueue->getViewMatrix( ) );
-            mat->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
-
-            mat->use( );
-
-            renderable.geometry->forEachPrimitive( [] ( mb::Primitive* p )
-            {
-              p->render( );
-            } );
-
-            mat->unuse( );
-          }
-          //std::cout << std::endl << std::endl << " -------------------------- " << std::endl << std::endl;
-        }
-        glDisable( GL_BLEND );
-      }
-    }
-
-    window->swapBuffers( );
-  }
-
-  delete _scene;
-
-  return 0;
-}
-
-/*int main( )
-{
-  mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
-
-  mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
-  window->init( );
+  window->setTitle( "Earth" );
 
   glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
 
@@ -455,4 +309,3 @@ int main( )
   }
   return 0;
 }
-*/

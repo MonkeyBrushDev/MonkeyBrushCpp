@@ -59,10 +59,15 @@ namespace mb
     //virtual void drawBuffer( MaterialPtr , ... )
     virtual void drawScreenQuad( MaterialPtr );
 
+    MB_API
     void setCullState( const mb::PipelineState::CullFaceState* cullState );
+    MB_API
     void setDepthState( const mb::PipelineState::DepthState* depthState );
+    MB_API
     void setBlendingState( const mb::PipelineState::BlendingState* blendState );
+    MB_API
     void setStencilState( const mb::PipelineState::StencilState* stencilState );
+    MB_API
     void setWireframeState( const mb::PipelineState::WireFrameState* wireState );
 
     const Viewport getViewport( void );

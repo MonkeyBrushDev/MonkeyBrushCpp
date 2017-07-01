@@ -46,14 +46,6 @@ namespace mb
       }
       bool _enabled;
     };
-    class WireFrameState : public RenderState
-    {
-    public:
-      WireFrameState( bool enabled = true )
-        : RenderState( enabled )
-      {
-      }
-    };
 
     class ColorMaskState : public RenderState
     {
@@ -84,7 +76,6 @@ namespace mb
       bool _bEnabled;
       bool _aEnabled;
     };
-
 
     class BlendingState : public RenderState
     {
@@ -132,6 +123,7 @@ namespace mb
       SourceFunc _srcBlendFunc;
       DstFunc _dstBlendFunc;
     };
+    
     class CullFaceState : public RenderState
     {
     public:
@@ -157,6 +149,7 @@ namespace mb
     protected:
       CullFaceState::Mode _cullMode;
     };
+    
     class DepthState : public RenderState
     {
     public:
@@ -184,6 +177,7 @@ namespace mb
       bool _writable;
       CompareFunc _compare;
     };
+    
     class StencilState: public RenderState
     {
     public:
@@ -195,7 +189,7 @@ namespace mb
       {
         KEEP, ZERO, REPLACE, INCREMTN, DECREMENT, INVERT
       };
-      StencilState( bool enabled = true)
+      StencilState( bool enabled = false )
         : RenderState( enabled )
         , Compare( CompareMode::NEVER )
         , Reference( 0 )
@@ -214,17 +208,62 @@ namespace mb
       OperationType OnZFail;
       OperationType OnZPass;
     };
+
+    class WireFrameState : public RenderState
+    {
+    public:
+      WireFrameState( bool enabled = false )
+        : RenderState( enabled )
+      { }
+    };
+
   public:
+    MB_API
+    PipelineState( void )
+    {
+      _cullingState = new CullFaceState( );
+      _blendingState = new BlendingState( );
+      _depthState = new DepthState( );
+      _stencilState = new StencilState( );
+      _wireState = new WireFrameState( );
+    }
+    MB_API
+    ~PipelineState( void )
+    {
+      /*delete _cullingState;
+      delete _blendingState;
+      delete _depthState;
+      delete _stencilState;
+      delete _wireState;*/
+    }
     // TODO: Complete
-    CullFaceState& culling( void ) { return _cullingState; }
-    BlendingState& blending( void ) { return _blendingState; }
-    DepthState& depth( void ) { return _depthState; }
-    StencilState& stencil( void ) { return _stencilState; }
+    MB_API
+    CullFaceState* culling( void ) { return _cullingState; }
+    MB_API
+    BlendingState* blending( void ) { return _blendingState; }
+    MB_API
+    DepthState* depth( void ) { return _depthState; }
+    MB_API
+    StencilState* stencil( void ) { return _stencilState; }
+    MB_API
+    WireFrameState* wireframe( void ) { return _wireState; }
+
+    MB_API
+    const CullFaceState* getCulling( void ) { return _cullingState; }
+    MB_API
+    const BlendingState* getBlending( void ) { return _blendingState; }
+    MB_API
+    const DepthState* getDepth( void ) { return _depthState; }
+    MB_API
+    const StencilState* getStencil( void ) { return _stencilState; }
+    MB_API
+    const WireFrameState* getWireframe( void ) { return _wireState; }
   protected:
-    CullFaceState _cullingState;
-    BlendingState _blendingState;
-    DepthState _depthState;
-    StencilState _stencilState;
+    CullFaceState* _cullingState;
+    BlendingState* _blendingState;
+    DepthState* _depthState;
+    StencilState* _stencilState;
+    WireFrameState* _wireState;
   };
 }
 
