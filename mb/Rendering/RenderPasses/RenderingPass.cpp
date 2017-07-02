@@ -65,4 +65,22 @@ namespace mb
     std::cout << "Set destination buffer with source texture" << std::endl;
     //renderer->setFBO(DESTINATION, source);
   }
+  /*MyFBO* RenderingPass::getSBuffer( Renderer* r )
+  {
+    auto fbo = r->getFramebuffer( "SRC_BUFFER" );
+    if ( fbo != nullptr )
+    {
+      return fbo;
+    }
+    throw;
+  }
+  MyFBO* RenderingPass::getDBuffer( Renderer* r )
+  {
+    auto fbo = r->getFramebuffer( "DEST_BUFFER" );
+    if ( fbo != nullptr )
+    {
+      return fbo;
+    }
+    throw;
+  }*/
 }

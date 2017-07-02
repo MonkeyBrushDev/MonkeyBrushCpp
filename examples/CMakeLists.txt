@@ -84,3 +84,12 @@ common_application( mbExampleNormalMapping )
 ## TODO: FAIL   mb
 ## TODO: FAIL )
 ## TODO: FAIL common_application( mbExampleButterflies )
+
+
+
+set( MBEXAMPLEPOSTPROCESS_HEADERS )
+set( MBEXAMPLEPOSTPROCESS_SOURCES examplePostProcess.cpp )
+set( MBEXAMPLEPOSTPROCESS_LINK_LIBRARIES
+  mb
+)
+common_application( mbExamplePostProcess )

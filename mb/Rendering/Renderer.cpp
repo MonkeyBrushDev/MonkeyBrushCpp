@@ -127,7 +127,7 @@ namespace mb
     //glDrawElements( type, p->getNumIndex( ), GL_UNSIGNED_SHORT, 0 );
   }
   //virtual void drawBuffer( MaterialPtr , ... )
-  void Renderer::drawScreenQuad( MaterialPtr m )
+  void Renderer::drawScreenQuad( /*MaterialPtr m*/ )
   {
     static unsigned int VAO = -1;
     static unsigned int VBO;
@@ -147,11 +147,11 @@ namespace mb
       glEnableVertexAttribArray( 0 );
       glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), 0 );
     }
-    m->use( );
+    //m->use( );
     glBindVertexArray( VAO );
     glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
     glBindVertexArray( 0 );
-    m->unuse( );
+    //m->unuse( );
   }
   void Renderer::setBlendingState( const mb::PipelineState::BlendingState* blendState )
   {
@@ -324,4 +324,10 @@ namespace mb
     GLboolean aMask = ( allowAlpha ? 1 : 0 );
     glColorMask( rMask, gMask, bMask, aMask );
   }
+
+
+  /*MyFBO* Renderer::getFramebuffer( const std::string& name )
+  {
+    return _fbos[ name ];
+  }*/
 }

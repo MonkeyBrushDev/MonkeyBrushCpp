@@ -205,6 +205,7 @@ set( MB_SOURCES
   Primitives/PolyhedronPrimitive.cpp
   Primitives/PointPrimitive.cpp
 
+  Rendering/ImageEffects/ImageEffect.cpp
   Rendering/ImageEffects/GreyImageEffect.cpp
   Rendering/ImageEffects/SepiaImageEffect.cpp
 

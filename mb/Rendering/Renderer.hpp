@@ -57,7 +57,7 @@ namespace mb
 
     virtual void drawPrimitive( MaterialPtr, Primitive* p );
     //virtual void drawBuffer( MaterialPtr , ... )
-    virtual void drawScreenQuad( MaterialPtr );
+    virtual void drawScreenQuad( /*MaterialPtr*/ );
 
     MB_API
     void setCullState( const mb::PipelineState::CullFaceState* cullState );
@@ -84,6 +84,10 @@ namespace mb
 
     //typedef std::map< const Texture*, TextureImpl* > TextureMap;
     //TextureMap _textureMap;
+
+    /*MyFBO* getFramebuffer( const std::string& name );
+
+    std::unordered_map< std::string, MyFBO* > _fbos;*/
   };
 }
 
