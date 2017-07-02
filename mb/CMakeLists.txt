@@ -94,9 +94,9 @@ set( MB_PUBLIC_HEADERS
   State/StateMachine.hpp
 
 
-  Systems/RenderSystem.hpp
-  Systems/System.hpp
-  Systems/UpdateSystem.hpp
+##Systems/RenderSystem.hpp
+##Systems/System.hpp
+##Systems/UpdateSystem.hpp
 
 
   Utils/any.hpp
@@ -113,6 +113,7 @@ set( MB_PUBLIC_HEADERS
 
 
   Visitors/ChildrenCounterVisitor.hpp
+  Visitors/DebugRenderVisitor.hpp
   Visitors/DumpVisitor.hpp
   Visitors/FetchCameras.hpp
   Visitors/ComputeBatchQueue.hpp
@@ -154,6 +155,8 @@ set( MB_PUBLIC_HEADERS
   Utils/ObjLoader.hpp
 
   Utils/JobScheduler.hpp
+
+  Rendering/Framebuffer.hpp
 )
 
 set( MB_HEADERS
@@ -237,9 +240,9 @@ set( MB_SOURCES
   State/StateMachine.cpp
 
 
-  Systems/RenderSystem.cpp
-  Systems/System.cpp
-  Systems/UpdateSystem.cpp
+##Systems/RenderSystem.cpp
+##Systems/System.cpp
+##Systems/UpdateSystem.cpp
 
 
   #Utils/Easing.cpp
@@ -247,6 +250,7 @@ set( MB_SOURCES
 
 
   Visitors/ChildrenCounterVisitor.cpp
+  Visitors/DebugRenderVisitor.cpp
   Visitors/DumpVisitor.cpp
   Visitors/FetchCameras.cpp
   Visitors/ComputeBatchQueue.cpp
@@ -284,6 +288,8 @@ set( MB_SOURCES
   Materials/FlatColorMaterial.cpp
 
   Utils/JobScheduler.cpp
+
+  Rendering/Framebuffer.cpp
 )
 
 set( MB_LINK_LIBRARIES

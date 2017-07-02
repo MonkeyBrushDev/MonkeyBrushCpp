@@ -32,6 +32,8 @@
 #include "Texture.hpp"
 #include "../Maths/Vector2.hpp"
 
+#include "Framebuffer.hpp"
+
 namespace mb
 {
   class RenderingPass;
@@ -85,9 +87,9 @@ namespace mb
     //typedef std::map< const Texture*, TextureImpl* > TextureMap;
     //TextureMap _textureMap;
 
-    /*MyFBO* getFramebuffer( const std::string& name );
+    Framebuffer* getFramebuffer( const std::string& name );
 
-    std::unordered_map< std::string, MyFBO* > _fbos;*/
+    std::unordered_map< std::string, Framebuffer* > _fbos;
   };
 }
 

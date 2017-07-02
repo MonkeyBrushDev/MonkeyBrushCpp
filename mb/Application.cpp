@@ -6,6 +6,7 @@
 #include "Visitors/ComputeBatchQueue.hpp"
 #include "Visitors/UpdateComponents.hpp"
 #include "Visitors/UpdateWorldState.hpp"
+#include "Visitors/DebugRenderVisitor.hpp"
 
 namespace mb
 {
@@ -102,6 +103,12 @@ namespace mb
       }
     }
     _renderer->endRender( );
+
+    if( debug )
+    {
+      _scene->perform( mb::DebugRenderVisitor( 
+        _renderer, mb::Camera::getMainCamera( ) ) );
+    }
     // \\ RENDER STEP
     return false;
   }

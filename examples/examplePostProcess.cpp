@@ -46,8 +46,8 @@ int main( )
   camera->addComponent( new mb::FreeCameraComponent( ) );
 
   camera->name( "PPCamera" );
-  camera->renderPass( new PostRenderingPass( new StandardRenderingPass( ) ) );
-  camera->renderPass( )->imageEffects( ).push_back( std::make_shared< SepiaToneEffect >( ) );
+  camera->renderPass( new mb::PostRenderingPass( new mb::StandardRenderingPass( ) ) );
+  camera->renderPass( )->imageEffects( ).push_back( std::make_shared< mb::SepiaToneEffect >( ) );
   //camera->renderPass( )->imageEffects( ).push_back( std::make_shared<  GreyToneEffect>( ) );
   scene->addChild( camera );
 

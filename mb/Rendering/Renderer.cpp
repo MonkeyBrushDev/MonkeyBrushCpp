@@ -326,8 +326,8 @@ namespace mb
   }
 
 
-  /*MyFBO* Renderer::getFramebuffer( const std::string& name )
+  Framebuffer* Renderer::getFramebuffer( const std::string& name )
   {
     return _fbos[ name ];
-  }*/
+  }
 }
