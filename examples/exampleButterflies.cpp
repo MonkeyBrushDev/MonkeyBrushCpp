@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -23,32 +23,21 @@
 #include <mb/mb.h>
 #include <routes.h>
 
-unsigned int vao;
 #define MAXPOINTS 500		// Change this to increment num of points
 #define RANDOM_POINT 0.02
-unsigned int createVAO( )
+
+std::vector< mb::Vector3 > createPoints( void )
 {
   srand( time( NULL ) );
-  GLfloat points[ MAXPOINTS * 3 ];
-  for ( int i = 0; i < MAXPOINTS * 3; i += 3 )
+  std::vector< mb::Vector3 > points( MAXPOINTS );
+  for ( int i = 0; i < MAXPOINTS; ++i )
   {
-    points[ i ] = ( ( float ) ( std::rand( ) % 1000 ) ) * RANDOM_POINT;
-    points[ i + 1 ] = ( ( float ) ( std::rand( ) % 1000 ) ) * RANDOM_POINT;
-    points[ i + 2 ] = ( ( float ) ( std::rand( ) % 1000 ) ) * RANDOM_POINT;
+    points[ i ].x( ) = ( ( float ) ( std::rand( ) % 1000 ) ) * RANDOM_POINT;
+    points[ i ].y( ) = ( ( float ) ( std::rand( ) % 1000 ) ) * RANDOM_POINT;
+    points[ i ].z( ) = ( ( float ) ( std::rand( ) % 1000 ) ) * RANDOM_POINT;
   }
 
-  unsigned int VAO, VBO;
-
-  glGenVertexArrays( 1, &VAO );
-  glBindVertexArray( VAO );
-  glGenBuffers( 1, &VBO );
-  glBindBuffer( GL_ARRAY_BUFFER, VBO );
-  glBufferData( GL_ARRAY_BUFFER, sizeof( points ), &points, GL_STATIC_DRAW );
-  glEnableVertexAttribArray( 0 );
-  glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof( GL_FLOAT ), 0 );
-  glBindVertexArray( 0 );
-
-  return VAO;
+  return points;
 }
 
 class ButterfliesUpdaterComponent : public mb::Component
@@ -207,6 +196,8 @@ mb::Geometry* generateGeom( const mb::Color& )
 {
   auto geom = new mb::Geometry( );
 
+  geom->addPrimitive( new mb::PointPrimitive( createPoints( ) ) );
+
   mb::Material* customMaterial = new mb::Material( );
   customMaterial->program = createProgram( );
   customMaterial->addUniform( MB_PROJ_MATRIX,
@@ -236,11 +227,10 @@ mb::Geometry* generateGeom( const mb::Color& )
 
 mb::Group* createScene( void )
 {
-  vao = createVAO( );
   auto scene = new mb::Group( "scene" );
 
   auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
-  camera->local( ).translate( 0.0f, 0.0f, 10.0f );
+  camera->local( ).translate( 20.0f, 0.0f, 20.0f );
 
   auto node = generateGeom( mb::Color::GREY );
 
@@ -252,7 +242,7 @@ mb::Group* createScene( void )
   return scene;
 }
 
-int main( )
+int main2( )
 {
   mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
 
@@ -336,9 +326,6 @@ int main( )
         {
           for ( mb::Renderable& renderable : renderables )
           {
-            //std::cout << "ZDIST: " << renderable.zDistance << std::endl;
-
-            //if ( renderable.zDistance > 128.0f ) continue;
 
             mb::MaterialComponent* mc = renderable.geometry->getComponent<mb::MaterialComponent>( );
 
@@ -348,19 +335,15 @@ int main( )
             mat->uniform( MB_VIEW_MATRIX )->value( mainQueue->getViewMatrix( ) );
             mat->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
 
-            //mat->uniform( MB_VIEWPROJ_MATRIX )->value(
-            //  mainQueue->getProjectionMatrix( ) * mainQueue->getViewMatrix( ) );
             mat->use( );
 
-
-
-            glBindVertexArray( vao );
-            glDrawArrays( GL_POINTS, 0, MAXPOINTS );
-            glBindVertexArray( 0 );
+            renderable.geometry->forEachPrimitive( [] ( mb::Primitive*p )
+            {
+              p->render( );
+            } );
 
             mat->unuse( );
           }
-          //std::cout << std::endl << std::endl << " -------------------------- " << std::endl << std::endl;
         }
       }
     }
@@ -371,4 +354,45 @@ int main( )
   delete _scene;
 
   return 0;
+}
+
+// TODO: FAIL!!!
+int main3( )
+{
+  mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
+
+  mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
+  window->init( );
+  window->setTitle( "Earth" );
+
+  glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
+
+  glEnable( GL_DEPTH_TEST );
+
+  mb::Application app;
+
+  app.setSceneNode( createScene( ) );
+
+  while ( window->isRunning( ) )
+  {
+    window->pollEvents( );
+
+    if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Esc ) )
+    {
+      window->close( );
+      break;
+    }
+
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+    app.update( );
+
+    window->swapBuffers( );
+  }
+  return 0;
+}
+
+int main( )
+{
+  return main2( );
 }

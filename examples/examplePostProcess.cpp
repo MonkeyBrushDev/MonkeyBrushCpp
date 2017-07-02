@@ -20,42 +20,64 @@
 #include <iostream>
 
 #include <mb/mb.h>
+#include <routes.h>
 using namespace mb;
 
 int main( )
 {
-  auto scene = new Scene( "scene" );
+  mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
 
+  mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
+  window->init( );
+
+  auto scene = new Group( "scene" );
+
+  mb::Material* customMaterial = new mb::UVMaterial( );
   auto geom = new Geometry( "nodeGeom" );
-  geom->addPrimitive( new Primitive( ) );
-  scene->addChild( geom );
-  geom->layer( ).set( 2 );
+  geom->addPrimitive( new CubePrimitive( ) );
+  mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
+  mc->addMaterial( mb::MaterialPtr( customMaterial ) );
 
-  auto camera = new Camera( );
+  scene->addChild( geom );
+  //geom->layer( ).set( 2 );
+
+  auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
+  camera->local( ).translate( 0.0f, 0.0f, 10.0f );
+  camera->addComponent( new mb::FreeCameraComponent( ) );
+
   camera->name( "PPCamera" );
   camera->renderPass( new PostRenderingPass( new StandardRenderingPass( ) ) );
-  camera->renderPass( )->imageEffects( ).push_back( 
-    std::make_shared< SepiaToneEffect >( ) );
-  camera->renderPass( )->imageEffects( ).push_back( 
-    std::make_shared<  GreyToneEffect>( ) );
+  camera->renderPass( )->imageEffects( ).push_back( std::make_shared< SepiaToneEffect >( ) );
+  //camera->renderPass( )->imageEffects( ).push_back( std::make_shared<  GreyToneEffect>( ) );
   scene->addChild( camera );
 
-  camera->layer( ).enable( 1 );
-  camera->layer( ).enable( 2 );
-  camera->layer( ).enable( 3 );
+  //camera->layer( ).enable( 1 );
+  //camera->layer( ).enable( 2 );
+  //camera->layer( ).enable( 3 );
 
-  mb::DumpVisitor dv;
-  dv.traverse( scene );
+  glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
 
-  App app;
+  glEnable( GL_DEPTH_TEST );
+
+  mb::Application app;
+
   app.setSceneNode( scene );
-  app.run( );
 
-  /*std::cout << std::endl << std::endl << std::endl;
+  while ( window->isRunning( ) )
+  {
+    window->pollEvents( );
 
-  geom->layer( ).set( 4 );
-  e.run( );*/
-  delete scene;
-  system( "PAUSE" );
+    if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Esc ) )
+    {
+      window->close( );
+      break;
+    }
+
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+    app.update( );
+
+    window->swapBuffers( );
+  }
   return 0;
 }

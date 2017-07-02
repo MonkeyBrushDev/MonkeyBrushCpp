@@ -17,8 +17,8 @@
  *
  **/
 
-#ifndef __MB_BASICMATERIAL__
-#define __MB_BASICMATERIAL__
+#ifndef __MB_FLAT_MATERIAL__
+#define __MB_FLAT_MATERIAL__
 
 #include <mb/api.h>
 
@@ -29,11 +29,11 @@
 
 namespace mb
 {
-  class BasicMaterial: public Material
+  class FlatColorMaterial: public Material
   {
   public:
     MB_API
-    BasicMaterial( void )
+    FlatColorMaterial( void )
     : Material( )
     {
       this->addUniform( MB_PROJ_MATRIX,
@@ -50,41 +50,49 @@ namespace mb
       program = new mb::Program( );
       program->loadVertexShaderFromText( R"(
         #version 330 core
-        layout (location = 0) in vec3 position;
-        layout (location = 1) in vec3 normal;
+        layout (location = 0) in vec3 attrPosition;
+        layout (location = 1) in vec3 attrNormal;
 
         out vec3 outPosition;
-        out vec3 Normal;
+        flat out vec3 outNormal;
 
         uniform mat4 mb_MatrixM;
         uniform mat4 mb_MatrixV;
         uniform mat4 mb_MatrixP;
 
-        void main()
-        {
-          gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(position, 1.0f);
-          outPosition = vec3( mb_MatrixM * vec4( position, 1.0 ) );
-          Normal = normal;
-        })" );
+        void main( void )
+      {
+        vec3 normal = vec3( attrNormal );
+        mat3 normalMatrix = mat3( inverse( transpose( mb_MatrixV * mb_MatrixM ) ) );
+        vec3 transformedNormal = normalMatrix * normal;
+        vec3 position = vec3( attrPosition );
+        outPosition = vec3( mb_MatrixV * mb_MatrixM * vec4( position, 1.0 ) );
+        outNormal = normalize( attrNormal );
+        gl_Position = mb_MatrixP * vec4( outPosition, 1.0 );
+      })" );
       program->loadFragmentShaderFromText( R"(
         #version 330 core
 
         in vec3 outPosition;
-        in vec3 Normal;
+        flat in vec3 outNormal;
 
         out vec4 fragColor;
 
         uniform vec4 DiffuseColor;
         uniform mat4 view;
 
-        void main()
+        vec4 shading( )
         {
           vec3 viewPos = -transpose(mat3(view)) * view[3].xyz;
           vec3 L = normalize(viewPos - outPosition);
-          vec3 N = normalize( Normal );
+          vec3 N = normalize( outNormal );
           float dif = dot( N, L );
           dif = clamp( dif, 0.0, 1.0 );
-          fragColor = vec4( DiffuseColor.rgb * ( dif + 0.3 ), DiffuseColor.a );
+          return vec4( DiffuseColor.rgb * ( dif + 0.3 ), DiffuseColor.a );
+        }
+        void main()
+        {
+          fragColor = shading( );
         })" );
       program->compileAndLink( );
       program->autocatching( );
@@ -101,4 +109,4 @@ namespace mb
   };
 }
 
-#endif /* __MB_BASICMATERIAL__ */
+#endif /* __MB_FLAT_MATERIAL__ */

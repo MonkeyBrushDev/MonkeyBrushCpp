@@ -58,7 +58,7 @@ namespace mb
 
   void Renderer::setViewport( const Viewport& viewport )
   {
-    std::cout << "CHANGE VIEWPORT" << std::endl;
+    //std::cout << "CHANGE VIEWPORT" << std::endl;
     glViewport(
       viewport.x( ), viewport.y( ),
       viewport.width( ), viewport.height( )
@@ -70,7 +70,7 @@ namespace mb
   }
   void Renderer::clearBuffers( void )
   {
-    std::cout << "Clear color and depth buffers" << std::endl;
+    //std::cout << "Clear color and depth buffers" << std::endl;
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
   }
   void Renderer::endRender( void )
@@ -127,11 +127,11 @@ namespace mb
     //glDrawElements( type, p->getNumIndex( ), GL_UNSIGNED_SHORT, 0 );
   }
   //virtual void drawBuffer( MaterialPtr , ... )
-  void Renderer::drawScreenQuad( MaterialPtr m )
+  void Renderer::drawScreenQuad( /*MaterialPtr m*/ )
   {
     static unsigned int VAO = -1;
     static unsigned int VBO;
-    if ( VAO == -1 )
+    if ( (int)VAO == -1 )
     {
       float quadVertices[ ] = {
         -1.0f, 1.0f, 0.0f,
@@ -147,11 +147,11 @@ namespace mb
       glEnableVertexAttribArray( 0 );
       glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), 0 );
     }
-    m->use( );
+    //m->use( );
     glBindVertexArray( VAO );
     glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
     glBindVertexArray( 0 );
-    m->unuse( );
+    //m->unuse( );
   }
   void Renderer::setBlendingState( const mb::PipelineState::BlendingState* blendState )
   {
@@ -250,7 +250,7 @@ namespace mb
       };
       static GLenum gStencilOperation[ 6 ] =
       {
-        GL_KEEP, GL_ZERO, GL_REPLACE, 
+        GL_KEEP, GL_ZERO, GL_REPLACE,
         GL_INCR, GL_DECR, GL_INVERT,
       };
       unsigned int compare = gStencilCompare[ ( short ) stencilState->Compare ];
@@ -267,7 +267,7 @@ namespace mb
       glDisable( GL_STENCIL_TEST );
     }
   }
-  void setWireframeState( const mb::PipelineState::WireFrameState* wireState )
+  void Renderer::setWireframeState( const mb::PipelineState::WireFrameState* wireState )
   {
     if ( wireState->isEnabled( ) )
     {
@@ -324,4 +324,10 @@ namespace mb
     GLboolean aMask = ( allowAlpha ? 1 : 0 );
     glColorMask( rMask, gMask, bMask, aMask );
   }
+
+
+  /*MyFBO* Renderer::getFramebuffer( const std::string& name )
+  {
+    return _fbos[ name ];
+  }*/
 }

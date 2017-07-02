@@ -22,6 +22,7 @@
 
 #include <mb/api.h>
 #include <memory>
+#include "../Material.hpp"
 
 namespace mb
 {
@@ -43,7 +44,7 @@ namespace mb
 
     bool enabled = true;
   protected:
-
+    virtual void renderScreen( Renderer*, MaterialPtr m );
   };
   typedef std::shared_ptr< ImageEffect > ImageEffectPtr;
 }

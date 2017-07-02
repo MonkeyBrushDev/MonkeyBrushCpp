@@ -35,7 +35,7 @@ namespace mb
     {
       return;
     }
-    std::cout << "Render OpaqueObjects" << std::endl;
+//    std::cout << "Render OpaqueObjects" << std::endl;
     mb::Matrix4 projection = bq->getProjectionMatrix( );
     mb::Matrix4 view = bq->getViewMatrix( );
 
@@ -82,7 +82,7 @@ namespace mb
     {
       return;
     }
-    std::cout << "Render TransparentObjects" << std::endl;
+    //std::cout << "Render TransparentObjects" << std::endl;
     mb::Matrix4 projection = bq->getProjectionMatrix();
     mb::Matrix4 view = bq->getViewMatrix();
     for ( auto& renderable : renderables )
@@ -96,10 +96,19 @@ namespace mb
       renderStandardGeometry( renderer, renderable, material );
     }
   }
-  void StandardRenderingPass::renderStandardGeometry( Renderer*, Renderable& renderable,
+  void StandardRenderingPass::renderStandardGeometry( Renderer* r, Renderable& renderable,
     MaterialPtr m )
   {
     m->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
+    // TODO: MOVE TO ANOTHER ZONE Material::use( Renderer* )
+
+    auto state = m->getState( );
+    r->setBlendingState( state.getBlending( ) );
+    r->setDepthState( state.getDepth( ) );
+    r->setCullState( state.getCulling( ) );
+    r->setStencilState( state.getStencil( ) );
+    r->setWireframeState( state.getWireframe( ) );
+
     m->use( );
     renderable.geometry->forEachPrimitive( [m] ( Primitive *pr )
     {

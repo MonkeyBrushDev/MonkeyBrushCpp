@@ -31,11 +31,13 @@ namespace mb
   {
   public:
     MB_API
+    SepiaToneEffect( void );
+    MB_API
     virtual void compute( Renderer*, Camera* camera ) override;
     MB_API
     virtual void apply( Renderer*, Camera* camera ) override;
   protected:
-    int shader;
+    MaterialPtr _material;
   };
 }
 

@@ -154,8 +154,18 @@ namespace mb
       }
     }
   public:
+    static std::vector< Vector3 > vertices;
+    static std::vector< Vector3 > normals;
+    static std::vector< Vector2 > texCoords;
+    static std::vector< short > indexData;
+
     static void loadObj( const std::string fileName )
     {
+      vertices.clear( );
+      normals.clear( );
+      texCoords.clear( );
+      indexData.clear( );
+
       std::vector< mb::Vector3 > _positions;
       std::vector< mb::Vector3 > _normals;
       std::vector< mb::Vector2 > _texCoords;
@@ -218,7 +228,9 @@ namespace mb
           }
           else if ( type == "mtllib" )
           {
-
+            std::string name;
+            line >> name;
+            std::cout << "Object MTL File: " << name << std::endl;
           }
         }
       }
@@ -229,7 +241,7 @@ namespace mb
       bool hasTextureCoords = !_texCoords.empty( );
       bool hasTangents = hasNormals && hasTextureCoords;
 
-      std::vector< unsigned short > indexData;
+      //std::vector< unsigned short > indexData;
 
       mb::Vector3 p0, p1, p2;
       mb::Vector3 n0, n1, n2;
@@ -268,23 +280,50 @@ namespace mb
           tangent = ( dP1 * dUV2[ 1 ] - dP2 * dUV1[ 1 ] ) * r;
         }
 
-        std::cout << "POS: " << p0;
-        if ( hasNormals )       std::cout << " - NORMAL: " << n0;
-        if ( hasTextureCoords ) std::cout << " - UV: " << uv0;
-        if ( hasTangents )      std::cout << " - TG: " << tangent;
-        std::cout << std::endl;
+        //std::cout << "POS: " << p0;
+        vertices.push_back( p0 );
+        if ( hasNormals )
+        {
+          normals.push_back( n0 );
+          //std::cout << " - NORMAL: " << n0;
+        }
+        if ( hasTextureCoords )
+        {
+          texCoords.push_back( uv0 );
+          //std::cout << " - UV: " << uv0;
+        }
+        //if ( hasTangents )      std::cout << " - TG: " << tangent;
+        //std::cout << std::endl;
 
-        std::cout << "POS: " << p1;
-        if ( hasNormals )       std::cout << " - NORMAL: " << n1;
-        if ( hasTextureCoords ) std::cout << " - UV: " << uv1;
-        if ( hasTangents )      std::cout << " - TG: " << tangent;
-        std::cout << std::endl;
+        //std::cout << "POS: " << p1;
+        vertices.push_back( p1 );
+        if ( hasNormals )
+        {
+          normals.push_back( n1 );
+          //std::cout << " - NORMAL: " << n1;
+        }
+        if ( hasTextureCoords )
+        {
+          texCoords.push_back( uv1 );
+          //std::cout << " - UV: " << uv1;
+        }
+        //if ( hasTangents )      std::cout << " - TG: " << tangent;
+        //std::cout << std::endl;
 
-        std::cout << "POS: " << p2;
-        if ( hasNormals )       std::cout << " - NORMAL: " << n2;
-        if ( hasTextureCoords ) std::cout << " - UV: " << uv2;
-        if ( hasTangents )      std::cout << " - TG: " << tangent;
-        std::cout << std::endl;
+        //std::cout << "POS: " << p2;
+        vertices.push_back( p2 );
+        if ( hasNormals )
+        {
+          normals.push_back( n2 );
+          //std::cout << " - NORMAL: " << n2;
+        }
+        if ( hasTextureCoords )
+        {
+          texCoords.push_back( uv2 );
+          //std::cout << " - UV: " << uv2;
+        }
+        //if ( hasTangents )      std::cout << " - TG: " << tangent;
+        //std::cout << std::endl;
       }
       unsigned int numIndices = _faces.size( );
       for ( unsigned int i = 0; i < numIndices; ++i )
@@ -292,9 +331,13 @@ namespace mb
         indexData.push_back( i );
       }
 
-      std::cout << "END" << std::endl;
+      //std::cout << "END" << std::endl;
     }
   };
+  std::vector< Vector3 > ObjLoader::vertices;
+  std::vector< Vector3 > ObjLoader::normals;
+  std::vector< Vector2 > ObjLoader::texCoords;
+  std::vector< short > ObjLoader::indexData;
 }
 
 #endif /* __MB_OBJ_LOADER__ */

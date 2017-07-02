@@ -54,6 +54,9 @@ set( MB_PUBLIC_HEADERS
   Primitives/PlanePrimitive.hpp
   Primitives/SpherePrimitive.hpp
   Primitives/TorusPrimitive.hpp
+  Primitives/MeshPrimitive.hpp
+  Primitives/PolyhedronPrimitive.hpp
+  Primitives/PointPrimitive.hpp
 
 
   #Rendering/ImageEffects/BlurImageEffect.hpp
@@ -72,8 +75,8 @@ set( MB_PUBLIC_HEADERS
   Rendering/Renderer.hpp
   Rendering/PipelineState.hpp
   Rendering/Texture.hpp
-  Rendering/FramebufferObject.hpp
-  Rendering/RenderTarget.hpp
+  #Rendering/FramebufferObject.hpp
+  #Rendering/RenderTarget.hpp
   Rendering/RenderBuffer.hpp
 
 
@@ -91,9 +94,9 @@ set( MB_PUBLIC_HEADERS
   State/StateMachine.hpp
 
 
-  Systems/RenderSystem.hpp
-  Systems/System.hpp
-  Systems/UpdateSystem.hpp
+##Systems/RenderSystem.hpp
+##Systems/System.hpp
+##Systems/UpdateSystem.hpp
 
 
   Utils/any.hpp
@@ -110,6 +113,7 @@ set( MB_PUBLIC_HEADERS
 
 
   Visitors/ChildrenCounterVisitor.hpp
+  Visitors/DebugRenderVisitor.hpp
   Visitors/DumpVisitor.hpp
   Visitors/FetchCameras.hpp
   Visitors/ComputeBatchQueue.hpp
@@ -145,6 +149,8 @@ set( MB_PUBLIC_HEADERS
   Materials/ToonMaterial.hpp
   Materials/ToonGradientMaterial.hpp
   Materials/PostProcessMaterial.hpp
+  Materials/UVMaterial.hpp
+  Materials/FlatColorMaterial.hpp
 
   Utils/ObjLoader.hpp
 
@@ -196,7 +202,11 @@ set( MB_SOURCES
   Primitives/PlanePrimitive.cpp
   Primitives/SpherePrimitive.cpp
   Primitives/TorusPrimitive.cpp
+  Primitives/MeshPrimitive.cpp
+  Primitives/PolyhedronPrimitive.cpp
+  Primitives/PointPrimitive.cpp
 
+  Rendering/ImageEffects/ImageEffect.cpp
   Rendering/ImageEffects/GreyImageEffect.cpp
   Rendering/ImageEffects/SepiaImageEffect.cpp
 
@@ -209,7 +219,7 @@ set( MB_SOURCES
   Rendering/BatchQueue.cpp
   Rendering/Material.cpp
   Rendering/Renderer.cpp
-  Rendering/FramebufferObject.cpp
+  #Rendering/FramebufferObject.cpp
   Rendering/Texture.cpp
   Rendering/RenderBuffer.cpp
 
@@ -228,9 +238,9 @@ set( MB_SOURCES
   State/StateMachine.cpp
 
 
-  Systems/RenderSystem.cpp
-  Systems/System.cpp
-  Systems/UpdateSystem.cpp
+##Systems/RenderSystem.cpp
+##Systems/System.cpp
+##Systems/UpdateSystem.cpp
 
 
   #Utils/Easing.cpp
@@ -238,6 +248,7 @@ set( MB_SOURCES
 
 
   Visitors/ChildrenCounterVisitor.cpp
+  Visitors/DebugRenderVisitor.cpp
   Visitors/DumpVisitor.cpp
   Visitors/FetchCameras.cpp
   Visitors/ComputeBatchQueue.cpp
@@ -271,6 +282,8 @@ set( MB_SOURCES
   Materials/ToonMaterial.cpp
   Materials/ToonGradientMaterial.cpp
   Materials/PostProcessMaterial.cpp
+  Materials/UVMaterial.cpp
+  Materials/FlatColorMaterial.cpp
 
   Utils/JobScheduler.cpp
 )

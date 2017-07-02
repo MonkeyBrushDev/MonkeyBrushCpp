@@ -17,57 +17,25 @@
  *
  **/
 
-#include "PlanePrimitive.hpp"
+#include "MeshPrimitive.hpp"
 
 #include "../Includes.hpp"
+#include "../Utils/ObjLoader.hpp"
 
 namespace mb
 {
-  PlanePrimitive::PlanePrimitive( float width, float height,
-    unsigned int widthSegments, unsigned int heightSegments )
+  MeshPrimitive::MeshPrimitive( const std::string& fileName )
   {
-    float width_half = width / 2.0f;
-    float height_half = height / 2.0f;
+    mb::ObjLoader::loadObj( fileName );
 
-    unsigned int gridX = std::floor( widthSegments );// || 1.0f;
-    unsigned int gridY = std::floor( heightSegments );// || 1.0f;
-
-    unsigned int gridX1 = gridX + 1;
-    unsigned int gridY1 = gridY + 1;
-
-    float segment_width = width / gridX;
-    float segment_height = height / gridY;
-
-    unsigned int ix, iy;
-
-    for( iy = 0; iy < gridY1; ++iy )
-    {
-      float y = iy * segment_height - height_half;
-      for( ix = 0; ix < gridX1; ++ix )
-      {
-        float x = ix * segment_width - width_half;
-
-        vertices.push_back( Vector3( x, -y, 0.0f ) );
-        normals.push_back( Vector3( 0.0f, 0.0f, 1.0f ) );
-
-        texCoords.push_back( Vector2( ( ( float ) ix ) / gridX, 1.0 - (( ( float ) iy ) / gridY ) ) );
-      }
-    }
-
-    for( iy = 0; iy < gridY; ++iy )
-    {
-      for( ix = 0; ix < gridX; ++ix )
-      {
-        unsigned int a = ix + gridX1 * iy;
-        unsigned int b = ix + gridX1 * ( iy + 1 );
-        unsigned int c = ( ix + 1 ) + gridX1 * ( iy + 1 );
-        unsigned int d = ( ix + 1 ) + gridX1 * iy;
-
-        // faces
-        indices.push_back( a );   indices.push_back( b );    indices.push_back( d );
-        indices.push_back( b );   indices.push_back( c );    indices.push_back( d );
-      }
-    }
+    // Vertices
+    vertices = mb::ObjLoader::vertices;
+    // Normals
+    normals = mb::ObjLoader::normals;
+    // TexCoords
+    texCoords = mb::ObjLoader::texCoords;
+    // Indices
+    indices = mb::ObjLoader::indexData;
 
     uint32_t VBO[ 4 ];
     glGenVertexArrays( 1, &VAO );
@@ -101,7 +69,7 @@ namespace mb
     glBindVertexArray( 0 );
   }
 
-  void PlanePrimitive::render( void )
+  void MeshPrimitive::render( void )
   {
     glBindVertexArray( VAO );
 

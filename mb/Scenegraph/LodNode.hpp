@@ -64,7 +64,7 @@ namespace mb
     {
       return _worldMaxDist.at( i );
     }
-    void setModelDistance( int i, float minDist, float maxDist )
+    void setModelDistance( int, float, float )
     {
     }
   protected:

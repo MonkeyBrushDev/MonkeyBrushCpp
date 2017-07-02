@@ -44,6 +44,8 @@ namespace mb
     {
       return _imageEffects;
     }
+    /*MyFBO* getSBuffer( Renderer* r );
+    MyFBO* getDBuffer( Renderer* r );*/
   protected:
     std::vector< ImageEffectPtr > _imageEffects;
 

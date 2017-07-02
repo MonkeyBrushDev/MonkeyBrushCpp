@@ -17,8 +17,8 @@
  *
  **/
 
-#ifndef __MB_BASICMATERIAL__
-#define __MB_BASICMATERIAL__
+#ifndef __MB_UVMATERIAL__
+#define __MB_UVMATERIAL__
 
 #include <mb/api.h>
 
@@ -29,11 +29,11 @@
 
 namespace mb
 {
-  class BasicMaterial: public Material
+  class UVMaterial: public Material
   {
   public:
     MB_API
-    BasicMaterial( void )
+    UVMaterial( void )
     : Material( )
     {
       this->addUniform( MB_PROJ_MATRIX,
@@ -43,18 +43,14 @@ namespace mb
       this->addUniform( MB_MODEL_MATRIX,
         std::make_shared< mb::Matrix4Uniform >( ) );
 
-      _diffuse = std::make_shared< mb::Vector4Uniform >( Vector4( 1.0f ) );
-
-      this->addUniform( colorUnifName, _diffuse );
-
       program = new mb::Program( );
       program->loadVertexShaderFromText( R"(
         #version 330 core
         layout (location = 0) in vec3 position;
-        layout (location = 1) in vec3 normal;
+        //layout (location = 1) in vec3 normal;
+        layout (location = 2) in vec2 texCoord;
 
-        out vec3 outPosition;
-        out vec3 Normal;
+        out vec2 TexCoord;
 
         uniform mat4 mb_MatrixM;
         uniform mat4 mb_MatrixV;
@@ -63,42 +59,23 @@ namespace mb
         void main()
         {
           gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(position, 1.0f);
-          outPosition = vec3( mb_MatrixM * vec4( position, 1.0 ) );
-          Normal = normal;
+          TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
         })" );
       program->loadFragmentShaderFromText( R"(
         #version 330 core
 
-        in vec3 outPosition;
-        in vec3 Normal;
+        in vec2 TexCoord;
 
         out vec4 fragColor;
 
-        uniform vec4 DiffuseColor;
-        uniform mat4 view;
-
-        void main()
+        void main( )
         {
-          vec3 viewPos = -transpose(mat3(view)) * view[3].xyz;
-          vec3 L = normalize(viewPos - outPosition);
-          vec3 N = normalize( Normal );
-          float dif = dot( N, L );
-          dif = clamp( dif, 0.0, 1.0 );
-          fragColor = vec4( DiffuseColor.rgb * ( dif + 0.3 ), DiffuseColor.a );
+          fragColor = vec4( TexCoord.xy, 0.0, 1.0 );
         })" );
       program->compileAndLink( );
       program->autocatching( );
     }
-    MB_API
-    void setColor( const Color &color )
-    {
-      _diffuse->value( mb::Color( color.r( ), color.g( ), color.b( ), color.a( ) ) );
-    }
-  protected:
-    mb::UniformPtr _diffuse;
-  private:
-    const char* colorUnifName = "DiffuseColor";
   };
 }
 
-#endif /* __MB_BASICMATERIAL__ */
+#endif /* __MB_UVMATERIAL__ */

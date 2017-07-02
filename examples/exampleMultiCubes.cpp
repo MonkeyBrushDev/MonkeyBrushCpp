@@ -34,7 +34,7 @@ public:
   virtual void update( const mb::Clock& clock )
   {
     node( )->local( ).rotate( ).fromAxisAngle(
-      mb::Vector3::Y_AXIS, _time * mb::Mathf::TWO_PI );
+      mb::Vector3::ONE, _time * mb::Mathf::TWO_PI );
     _time += _speed *clock.getDeltaTime( );
   }
 protected:
@@ -42,68 +42,62 @@ protected:
   float _time;
 };
 
-class Astro: public mb::Group
+mb::Geometry* generateGeom( const mb::Color& c )
 {
-public:
-  mb::Group* tgDis;
-  mb::Geometry* sphere;
-  Astro( float radius, const std::string& texture, float distance,
-    float velRotOrb, float velRot, const mb::Color& )
-    : Group( "Astro" )
-  {
-    sphere = new mb::Geometry( );
-    sphere->addPrimitive( new mb::SpherePrimitive( 1.0f, 25, 25 ) );
-    sphere->local( ).setPosition( mb::Vector3::ZERO );
-    sphere->local( ).setScale( radius );
+  auto geom = new mb::Geometry( );
+  geom->addPrimitive( new mb::CubePrimitive( 1.0f ) );
 
-    mb::Texture2D* planetDiffuse = mb::Texture2D::loadFromImage( texture );
+  mb::BasicMaterial* customMaterial = new mb::BasicMaterial( );
+  customMaterial->setColor( c );
 
-    mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
-    customMaterial->setColorMap( planetDiffuse );
-    customMaterial->setColor( mb::Color::WHITE );
+  mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
+  mc->addMaterial( mb::MaterialPtr( customMaterial ) );
 
-    mb::MaterialComponent* mc = sphere->getComponent<mb::MaterialComponent>( );
-    mc->addMaterial( mb::MaterialPtr( customMaterial ) );
+  geom->addComponent( new mb::RotateComponent( mb::Vector3::ONE, 0.25f ) );
 
-    auto tgRotOrb = new mb::Group( "tgRotOrb" );
-    tgDis = new mb::Group( "tgDis" );
-    auto tgRot = new mb::Group( "tgRot" );
+  return geom;
+}
 
-    tgRot->addChild( sphere );
-    tgDis->addChild( tgRot );
-    tgRotOrb->addChild( tgDis );
-    this->addChild( tgRotOrb );
+#include <random>
 
-    tgRotOrb->addComponent( new RotationComponent( velRotOrb * 10.0f ) );
-    tgRot->addComponent( new RotationComponent( velRot * 10.0f ) );
+// Returns random values uniformly distributed in the range [a, b]
+float _random( )
+{
+  return static_cast <float> ( rand( ) ) / static_cast <float> ( RAND_MAX );
+}
 
-    mb::Vector3 pos = this->tgDis->local( ).getPosition( );
+mb::Group* addCube( void )
+{
+  auto cubeSize = std::ceil( _random( ) * 3 );
+  auto cubeGeometry = generateGeom( mb::Color::randomColor( ) );
+  cubeGeometry->local( ).setScale( cubeSize );
+  auto cube = new mb::Group( "cube" );
+  cube->addChild( cubeGeometry );
 
-    this->tgDis->local( ).setPosition( distance, pos.y(), pos.z() );
-  }
-  void addSatelite( mb::Group* s )
-  {
-    this->tgDis->addChild( s );
-  }
-};
+  mb::Vector3 pos = cube->local( ).getPosition( );
+  pos.x( ) = -30.0f + std::round( _random( ) * 100.0f );
+  pos.y( ) = std::round( _random( ) * 5 );
+  pos.z( ) = -20.0f + std::round( _random( ) * 100.0f );
+
+  cube->local( ).setPosition( pos );
+  
+  return cube;
+}
 
 mb::Group* createScene( void )
 {
   auto scene = new mb::Group( "scene" );
 
-  auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
-  camera->local( ).translate( 0.0f, 0.0f, 20.0f );
-
-  auto sun = new Astro( 6.0f / 2.0f, "sun.png", 0.0f, 0.0f, 0.002f, mb::Color::YELLOW );
-  auto earth = new Astro( 1.27f / 2.0f, "earth.png", 6.0f, 0.001f, 0.005f, mb::Color::BLUE );
-  auto moon = new Astro( 0.34f / 2.0f, "moon.png", 1.0f, 0.01f, 0.0f, mb::Color::WHITE );
-
-  scene->addChild( sun );
-  sun->addSatelite( earth );
-  earth->addSatelite( moon );
+  auto camera = new mb::Camera( 75.0f, 500 / 500, 0.03f, 1000.0f );
+  camera->local( ).translate( 0.0f, 10.0f, 50.0f );
 
   camera->addComponent( new mb::FreeCameraComponent( ) );
   scene->addChild( camera );
+
+  for ( int i = 0; i < 185; ++i )
+  {
+    scene->addChild( addCube( ) );
+  }
 
   return scene;
 }
@@ -114,7 +108,7 @@ int main( )
 
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
-  window->setTitle( "Solar System" );
+  window->setTitle( "Multicubes" );
 
   glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
 
