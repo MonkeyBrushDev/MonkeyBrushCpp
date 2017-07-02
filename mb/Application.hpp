@@ -24,6 +24,8 @@ namespace mb
     virtual int run( void );
     MB_API
     virtual bool update( void );
+
+    bool debug = false;
   protected:
     Clock _simulationClock;
     Group* _scene; // Scene*

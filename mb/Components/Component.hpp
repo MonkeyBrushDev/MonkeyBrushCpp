@@ -27,6 +27,12 @@
 
 namespace mb
 {
+  class Renderer;
+  class Camera;
+}
+
+namespace mb
+{
   typedef std::string ComponentUID;
   #define IMPLEMENT_COMPONENT(__CLASS__) \
   public: \
@@ -78,7 +84,8 @@ namespace mb
     MB_API
     virtual void onDisable( void ) { }
 
-    // TODO virtual void renderDebug( Renderer*, Camera* ) { }
+    // Unuse
+    virtual void onRenderDebug( Renderer*, Camera* ) { }
   private:
     void setNode( Node* n );
   protected:
