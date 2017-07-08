@@ -32,7 +32,7 @@ int main( )
 
   auto scene = new Group( "scene" );
 
-  mb::Material* customMaterial = new mb::UVMaterial( );
+  mb::Material* customMaterial = new mb::NormalMaterial( );
   auto geom = new Geometry( "nodeGeom" );
   geom->addPrimitive( new CubePrimitive( ) );
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
@@ -46,8 +46,10 @@ int main( )
   camera->addComponent( new mb::FreeCameraComponent( ) );
 
   camera->name( "PPCamera" );
+#ifdef PP
   camera->renderPass( new mb::PostRenderingPass( new mb::StandardRenderingPass( ) ) );
   camera->renderPass( )->imageEffects( ).push_back( std::make_shared< mb::SepiaToneEffect >( ) );
+#endif
   //camera->renderPass( )->imageEffects( ).push_back( std::make_shared<  GreyToneEffect>( ) );
   scene->addChild( camera );
 
@@ -58,6 +60,32 @@ int main( )
   glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
 
   glEnable( GL_DEPTH_TEST );
+
+#ifndef PP
+  unsigned int framebuffer;
+  glGenFramebuffers( 1, &framebuffer );
+  glBindFramebuffer( GL_FRAMEBUFFER, framebuffer );
+  // create a color attachment texture
+  unsigned int textureColorbuffer;
+  glGenTextures( 1, &textureColorbuffer );
+  glBindTexture( GL_TEXTURE_2D, textureColorbuffer );
+  glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, 500, 500, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+  glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+  glFramebufferTexture2D( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0 );
+  // create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
+  unsigned int rbo;
+  glGenRenderbuffers( 1, &rbo );
+  glBindRenderbuffer( GL_RENDERBUFFER, rbo );
+  glRenderbufferStorage( GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 500, 500 ); // use a single renderbuffer object for both a depth AND stencil buffer.
+  glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo ); // now actually attach it
+  // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
+  if ( glCheckFramebufferStatus( GL_FRAMEBUFFER ) != GL_FRAMEBUFFER_COMPLETE )
+    std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+  glBindFramebuffer( GL_FRAMEBUFFER, 0 );
+
+  auto sepia = new mb::SepiaToneEffect( );
+#endif
 
   mb::Application app;
 
@@ -75,7 +103,15 @@ int main( )
 
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
+
+#ifdef PP
     app.update( );
+#else
+    glBindFramebuffer( GL_FRAMEBUFFER, framebuffer );
+    app.update( );
+    glBindFramebuffer( GL_FRAMEBUFFER, 0 );
+    sepia->apply( app.renderer( ), mb::Camera::getMainCamera( ) );
+#endif
 
     window->swapBuffers( );
   }

@@ -25,6 +25,15 @@ namespace mb
     MB_API
     virtual bool update( void );
 
+    const Renderer* getRenderer( void )
+    {
+      return _renderer;
+    }
+    Renderer* renderer( void )
+    {
+      return _renderer;
+    }
+
     bool debug = false;
   protected:
     Clock _simulationClock;
