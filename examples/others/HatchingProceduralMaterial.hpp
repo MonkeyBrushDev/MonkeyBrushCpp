@@ -28,12 +28,7 @@ public:
   HatchingProceduralMaterial( void )
   : Material( )
   {
-    this->addUniform( MB_PROJ_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    this->addUniform( MB_VIEW_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    this->addUniform( MB_MODEL_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
+    this->addStandardUniforms( );
 
     program = new mb::Program( );
     program->loadVertexShaderFromText( R"(
@@ -45,16 +40,16 @@ public:
       out vec3 outNormal;
       out float V;
 
-      uniform mat4 mb_MatrixM;
-      uniform mat4 mb_MatrixV;
-      uniform mat4 mb_MatrixP;
+      uniform mat4 MB_MATRIXM;
+      uniform mat4 MB_MATRIXV;
+      uniform mat4 MB_MATRIXP;
 
       void main()
       {
-        gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(position, 1.0);
-        vec3 outPosition = vec3(mb_MatrixM * vec4(position, 1.0));
+        gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(position, 1.0);
+        vec3 outPosition = vec3(MB_MATRIXM * vec4(position, 1.0));
         V = outPosition.x + outPosition.y + outPosition.z;
-        mat3 normalMatrix = mat3(inverse(transpose(mb_MatrixM)));
+        mat3 normalMatrix = mat3(inverse(transpose(MB_MATRIXM)));
         outNormal = normalize(normalMatrix * normal);
       })" );
     program->loadFragmentShaderFromText( R"(
@@ -65,13 +60,13 @@ public:
 
       out vec4 fragColor;
 
-      uniform mat4 mb_MatrixV;
+      uniform mat4 MB_MATRIXV;
 
       const float base_freq = 0.7;
 
       void main( void )
       {
-        vec3 viewPos = -transpose(mat3(mb_MatrixV)) * mb_MatrixV[3].xyz;
+        vec3 viewPos = -transpose(mat3(MB_MATRIXV)) * MB_MATRIXV[3].xyz;
         vec3 N=normalize(outNormal);
         vec3 L = normalize(viewPos - outPosition);
         float dif=dot(N, L);

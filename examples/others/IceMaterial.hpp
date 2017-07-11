@@ -28,12 +28,7 @@ public:
   IceMaterial( void )
   : Material( )
   {
-    this->addUniform( MB_PROJ_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    this->addUniform( MB_VIEW_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    this->addUniform( MB_MODEL_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
+    this->addStandardUniforms( );
 
     this->addUniform( "DiffuseColor",
       std::make_shared mb::Vector4Uniform >( ) );
@@ -49,15 +44,15 @@ public:
       out vec3 outPosition;
       out vec3 worldNormal;
 
-      uniform mat4 mb_MatrixM;
-      uniform mat4 mb_MatrixV;
-      uniform mat4 mb_MatrixP;
+      uniform mat4 MB_MATRIXM;
+      uniform mat4 MB_MATRIXV;
+      uniform mat4 MB_MATRIXP;
 
       void main()
       {
-        gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(position, 1.0);
-        outPosition = vec3(mb_MatrixM * vec4(position, 1.0));
-        mat3 normalMatrix = mat3(transpose(inverse( mb_MatrixM )));
+        gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(position, 1.0);
+        outPosition = vec3(MB_MATRIXM * vec4(position, 1.0));
+        mat3 normalMatrix = mat3(transpose(inverse( MB_MATRIXM )));
         worldNormal = normalMatrix * normal;
       })" );
     program->loadFragmentShaderFromText( R"(
@@ -67,14 +62,14 @@ public:
 
       out vec4 fragColor;
 
-      uniform mat4 mb_MatrixV;
+      uniform mat4 MB_MATRIXV;
 
       uniform vec4 DiffuseColor;
       /*uniform */float _DotProduct = 0.25; // [-1.0, 1.0];
 
       void main( void )
       {
-        vec3 viewPos = -transpose(mat3(mb_MatrixV)) * mb_MatrixV[3].xyz;
+        vec3 viewPos = -transpose(mat3(MB_MATRIXV)) * MB_MATRIXV[3].xyz;
 
         vec3 viewDir = normalize( viewPos - outPosition );
 

@@ -20,5 +20,51 @@
 #include "PointMaterial.hpp"
 namespace mb
 {
+  PointMaterial::PointMaterial( bool size_attenuation )
+    : Material( )
+  {
+    this->addStandardUniforms( );
 
+    program = new mb::Program( );
+    std::string headers_defines;
+    headers_defines += ( size_attenuation ? "#define SIZE_ATTENUATION\n" : "" );
+    program->loadVertexShaderFromText(
+    R"(#version 330 core)" + headers_defines + R"(
+
+    uniform mat4 MB_MATRIXM;
+    uniform mat4 MB_MATRIXV;
+    uniform mat4 MB_MATRIXP;
+
+    in vec3 attrPosition;
+
+    const float size = 10.0;
+    const float scale = 64.0;
+
+    void main( )
+    {
+      vec3 position = vec3( attrPosition );
+
+      vec4 mvPosition = MB_MATRIXV * MB_MATRIXM * vec4( position, 1.0 );
+
+    #ifdef SIZE_ATTENUATION
+      gl_PointSize = size * ( scale / mvPosition.z );
+    #else
+      gl_PointSize = size;
+    #endif
+
+      gl_Position = MB_MATRIXP * mvPosition;
+    })" );
+    program->loadFragmentShaderFromText(
+    R"(#version 330 core
+    uniform vec4 DiffuseColor;
+
+    out vec4 fragColor;
+
+    void main( )
+    {
+      fragColor = DiffuseColor;
+    })" );
+    program->compileAndLink( );
+    program->autocatching( );
+  }
 }

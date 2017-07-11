@@ -6,6 +6,6 @@ do
   echo $i
   if ! grep -q Copyright $i
   then
-    cat license.txt $i >$i.new && mv $i.new $i
+    cat _license_.txt $i >$i.new && mv $i.new $i
   fi
 done

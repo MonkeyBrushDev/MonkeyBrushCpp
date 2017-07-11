@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
-project(MB VERSION 1.0.1 )
+project(MB VERSION 1.0.2 )
 set(MB_VERSION_ABI 1)
 
 # Disable in source building
@@ -28,7 +28,7 @@ set(COMMON_PROJECT_DOMAIN MonkeyBrushDev)
 include(Common)
 
 # Allow warnings
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-error")
 
 
