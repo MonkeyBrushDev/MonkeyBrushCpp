@@ -36,20 +36,15 @@ namespace mb
     ColorMaterial( void )
     : Material( )
     {
-      this->addUniform( MB_PROJ_MATRIX,
-        std::make_shared< mb::Matrix4Uniform >( ) );
-      this->addUniform( MB_VIEW_MATRIX,
-        std::make_shared< mb::Matrix4Uniform >( ) );
-      this->addUniform( MB_MODEL_MATRIX,
-        std::make_shared< mb::Matrix4Uniform >( ) );
+      this->addStandardUniforms( );
 
       _colorMap = std::make_shared< mb::TextureUniform >( );
       _diffuse = std::make_shared< mb::Vector4Uniform >( mb::Vector4( 1.0f ) );
       _shininess = std::make_shared< mb::FloatUniform >( 64.0f );
 
-      this->addUniform( colorMapUnifName, _colorMap );
-      this->addUniform( colorUnifName, _diffuse );
-      this->addUniform( shininessUnifName, _shininess );
+      this->addUniform( "DiffuseTexture", _colorMap );
+      this->addUniform( "DiffuseColor", _diffuse );
+      this->addUniform( "ShininessValue", _shininess );
 
       program = new mb::Program( );
       program->loadVertexShaderFromText( R"(
@@ -62,17 +57,17 @@ namespace mb
         out vec3 Normal;
         out vec2 TexCoord;
 
-        uniform mat4 mb_MatrixM;
-        uniform mat4 mb_MatrixV;
-        uniform mat4 mb_MatrixP;
+        uniform mat4 MB_MATRIXM;
+        uniform mat4 MB_MATRIXV;
+        uniform mat4 MB_MATRIXP;
 
         void main()
         {
-          gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(position, 1.0f);
+          gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(position, 1.0f);
           TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
-          mat3 normalMatrix = mat3(transpose(inverse( mb_MatrixM )));
+          mat3 normalMatrix = mat3(transpose(inverse( MB_MATRIXM )));
           Normal = normalMatrix * normal;
-          outPosition = vec3( mb_MatrixM * vec4( position, 1.0 ) );
+          outPosition = vec3( MB_MATRIXM * vec4( position, 1.0 ) );
         })" );
       program->loadFragmentShaderFromText( R"(
         #version 330 core
@@ -137,10 +132,6 @@ namespace mb
     mb::UniformPtr _diffuse;
     mb::UniformPtr _shininess;
     mb::UniformPtr _colorMap;
-  private:
-    const char* colorMapUnifName = "DiffuseTexture";
-    const char* colorUnifName = "DiffuseColor";
-    const char* shininessUnifName = "ShininessValue";
   };
 }
 

@@ -23,47 +23,23 @@
 #include <mb/mb.h>
 #include <routes.h>
 
-mb::Program* createProgram( )
+#include "others/FogShader.hpp"
+
+mb::Material* createFogMaterial( )
 {
-  mb::Program* program = new mb::Program( );
-  program->loadVertexShaderFromText( R"(
-    #version 330 core
-    layout (location = 0) in vec3 Vertex;
+  mb::Material* customMaterial = new mb::Material( );
 
-    uniform mat4 mb_MatrixM;
-    uniform mat4 mb_MatrixV;
-    uniform mat4 mb_MatrixP;
+  customMaterial->program = new mb::Program( );
+  customMaterial->program->loadVertexShaderFromText( VS_FOG_SHADER );
+  customMaterial->program->loadFragmentShaderFromText( FS_FOG_SHADER );
+  customMaterial->program->compileAndLink( );
+  customMaterial->program->autocatching( );
 
-    out vec3 position;
+  customMaterial->addStandardUniforms( );
+  customMaterial->addUniform( "density",
+    std::make_shared< mb::FloatUniform >( 0.04f ) );
 
-    void main()
-    {
-      gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(Vertex, 1.0);
-      position = vec3( mb_MatrixV * mb_MatrixM * vec4( Vertex, 1.0 ) );
-    })" );
-  program->loadFragmentShaderFromText( R"(
-    #version 330 core
-    in vec3 position;
-    out vec4 fragColor;
-
-    uniform float density;
-    uniform mat4 mb_MatrixV;
-
-    const vec3 fogColor = vec3( 0.2, 0.3, 0.3 );
-    const vec3 color = vec3( 1.0, 0.3, 0.4 );
-
-    void main()
-    {
-      vec3 viewPos = -transpose(mat3(mb_MatrixV)) * mb_MatrixV[3].xyz;
-      float dst = length(position - viewPos);
-      float fogFactor = 1.0 / exp(dst * density);
-      fogFactor = clamp(fogFactor, 0.0, 1.0);
-      fragColor = vec4(mix(fogColor, color, fogFactor), 1.0);
-    })" );
-  program->compileAndLink( );
-  program->autocatching( );
-
-  return program;
+  return customMaterial;
 }
 
 mb::Geometry* generateGeom( mb::Material* customMaterial )
@@ -108,16 +84,7 @@ mb::Group* createScene( void )
   };
   uint32_t index = 0;
   {
-    mb::Material* customMaterial = new mb::Material( );
-    customMaterial->program = createProgram( );
-    customMaterial->addUniform( MB_PROJ_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    customMaterial->addUniform( MB_VIEW_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    customMaterial->addUniform( MB_MODEL_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    customMaterial->addUniform( "density",
-      std::make_shared< mb::FloatUniform >( 0.04f ) );
+    mb::Material* customMaterial = createFogMaterial( );
     auto node = generateGeom( customMaterial );
     scene->addChild( node );
 
@@ -189,8 +156,6 @@ mb::Group* createScene( void )
   return scene;
 }
 
-
-
 int main( )
 {
   mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
@@ -198,10 +163,6 @@ int main( )
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
   window->setTitle( "Multi simple materials" );
-
-  glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
-
-  glEnable( GL_DEPTH_TEST );
 
   mb::Application app;
 
@@ -216,8 +177,6 @@ int main( )
       window->close( );
       break;
     }
-
-    //glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
     app.update( );
 

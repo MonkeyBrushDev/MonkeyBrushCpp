@@ -20,5 +20,33 @@
 #include "PostProcessMaterial.hpp"
 namespace mb
 {
-
+  PostProcessMaterial::PostProcessMaterial( void )
+    : PostProcessMaterial(
+    R"(#version 330
+    uniform vec3 color;
+    out vec4 fragColor;
+    in vec2 uv;
+    void main( void )
+    {
+      fragColor = vec4( uv, 0.0, 1.0 );
+    })")
+  {
+  }
+  PostProcessMaterial::PostProcessMaterial( const std::string& fragmentSource )
+    : Material( )
+  {
+    program = new mb::Program( );
+    program->loadVertexShaderFromText( R"(
+      #version 330
+      layout( location = 0 ) in vec3 vertPosition;
+      out vec2 uv;
+      void main( void )
+      {
+        uv = vec2( vertPosition.xy * 0.5 ) + vec2( 0.5 );
+        gl_Position = vec4( vertPosition, 1.0 );
+      })" );
+    program->loadFragmentShaderFromText( fragmentSource );
+    program->compileAndLink( );
+    program->autocatching( );
+  }
 }

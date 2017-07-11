@@ -83,9 +83,9 @@ mb::Program* createProgram( )
     uniform float time;
     uniform float beta;
 
-    uniform mat4 mb_MatrixM;
-    uniform mat4 mb_MatrixV;
-    uniform mat4 mb_MatrixP;
+    uniform mat4 MB_MATRIXM;
+    uniform mat4 MB_MATRIXV;
+    uniform mat4 MB_MATRIXP;
 
     #define PI 3.1415
 
@@ -119,7 +119,7 @@ mb::Program* createProgram( )
     }
 
     void main()  {
-      mat4 modelViewProj = mb_MatrixP * mb_MatrixV * mb_MatrixM;
+      mat4 modelViewProj = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM;
 	    vec4 Position = gl_in[0].gl_Position;
 	    // Alpha: Aperture quad angle.
 	    float alpha = radians(-65.0) + 0.9*abs(sin(time));

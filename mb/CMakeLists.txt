@@ -102,7 +102,7 @@ set( MB_PUBLIC_HEADERS
   Utils/any.hpp
   Utils/CustomPingPong.hpp
   Utils/CustomPingPong.inl
-  #Utils/Easing.hpp
+  Utils/Easing.hpp
   Utils/Log.hpp
   Utils/Macros.hpp
   Utils/MemoryUtils.hpp
@@ -245,7 +245,7 @@ set( MB_SOURCES
 ##Systems/UpdateSystem.cpp
 
 
-  #Utils/Easing.cpp
+  Utils/Easing.cpp
   Utils/Log.cpp
 
 

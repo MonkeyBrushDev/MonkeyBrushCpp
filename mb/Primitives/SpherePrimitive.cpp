@@ -26,13 +26,13 @@ namespace mb
   SpherePrimitive::SpherePrimitive( float radius, unsigned int width, unsigned int height )
   {
     // -- Creating geometry of the sphere -- //
-    unsigned int faces = ( 1 + height ) * ( 1 + width );
-    unsigned int nv = 3 * height * width * 2;
+    //unsigned int faces = ( 1 + height ) * ( 1 + width );
+    //unsigned int nv = 3 * height * width * 2;
 
     // Generating the vertex data...
-    unsigned int NVIDX = 0;
-    unsigned int NNIDX = 0;
-    unsigned int NTIDX = 0;
+    //unsigned int NVIDX = 0;
+    //unsigned int NNIDX = 0;
+    //unsigned int NTIDX = 0;
     unsigned int IDX = 0;
 
     std::vector< std::vector< unsigned int > > grid;
