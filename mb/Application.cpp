@@ -8,11 +8,13 @@
 #include "Visitors/UpdateWorldState.hpp"
 #include "Visitors/DebugRenderVisitor.hpp"
 
+#include "OpenGL/OpenGLRenderer.hpp"
+
 namespace mb
 {
   Application::Application( void )
   {
-    _renderer = new Renderer( );
+    _renderer = new OpenGLRenderer( );
   }
   Application::~Application( void )
   {
@@ -106,7 +108,7 @@ namespace mb
 
     if( debug )
     {
-      _scene->perform( mb::DebugRenderVisitor( 
+      _scene->perform( mb::DebugRenderVisitor(
         _renderer, mb::Camera::getMainCamera( ) ) );
     }
     // \\ RENDER STEP

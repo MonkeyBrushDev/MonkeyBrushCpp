@@ -39,7 +39,7 @@ namespace mb
     };
     enum class Type
     {
-      //AMBIENT,
+      AMBIENT,
       DIRECTIONAL,
       HEMISPHERIC,
       POINT,
@@ -123,6 +123,12 @@ namespace mb
     // TODO: mb::Vector3 _attenuation;
     float _shadowNear = 0.1f;
     float _shadowFar = 1024.0f;
+
+
+    float Constant = 1.0f;   // default: 1
+    float Linear = 0.0f;     // default: 0
+    float Quadratic = 0.0f;  // default: 0
+    float Intensity = 1.0f;  // default: 1
   };
   typedef std::shared_ptr<Light> LightPtr;
 }

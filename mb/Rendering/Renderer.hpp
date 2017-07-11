@@ -38,14 +38,17 @@ namespace mb
 
   class Renderer
   {
-  public:
+  protected:
     Renderer( void );
+  public:
     virtual ~Renderer( void );
 
     virtual void setViewport( const Viewport& );
     virtual void beginRender( void );
     virtual void clearBuffers( void );
     virtual void endRender( void );
+
+    //virtual void configure( void ) = 0;
 
     virtual void render( BatchQueuePtr bq, RenderingPass* rp );
 
@@ -57,20 +60,20 @@ namespace mb
 
     virtual void drawPrimitive( MaterialPtr, Primitive* p );
     //virtual void drawBuffer( MaterialPtr , ... )
-    virtual void drawScreenQuad( /*MaterialPtr*/ );
+    virtual void drawScreenQuad( /*MaterialPtr*/ ) = 0;
 
-    MB_API
-    void setCullState( const mb::PipelineState::CullFaceState* cullState );
-    MB_API
-    void setDepthState( const mb::PipelineState::DepthState* depthState );
-    MB_API
-    void setBlendingState( const mb::PipelineState::BlendingState* blendState );
-    MB_API
-    void setStencilState( const mb::PipelineState::StencilState* stencilState );
-    MB_API
-    void setWireframeState( const mb::PipelineState::WireFrameState* wireState );
+    virtual void setCullState(
+      const mb::PipelineState::CullFaceState* cullState ) = 0;
+    virtual void setDepthState(
+      const mb::PipelineState::DepthState* depthState ) = 0;
+    virtual void setBlendingState(
+      const mb::PipelineState::BlendingState* blendState ) = 0;
+    virtual void setStencilState(
+      const mb::PipelineState::StencilState* stencilState ) = 0;
+    virtual void setWireframeState(
+      const mb::PipelineState::WireFrameState* wireState ) = 0;
 
-    const Viewport getViewport( void );
+    virtual const Viewport getViewport( void ) = 0;
 
     const Vector2 getDepthRange( void );
     void setDepthRange( float zMin, float zMax );
