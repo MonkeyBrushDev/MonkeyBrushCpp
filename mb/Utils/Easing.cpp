@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -20,12 +20,12 @@
 #ifndef __MB_EASING__
 #define __MB_EASING__
 
-#include "../maths/Mathf.hpp"
+#include "../Maths/Mathf.hpp"
 #include <cmath>
 
 namespace mb
 {
-  namespace Easing
+  namespace easing
   {
     // Sine functions
     namespace sine
@@ -36,7 +36,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeIn(float& t)
+      float easeIn(const float& t)
       {
         return std::sin(Mathf::PI_2 * t);
       }
@@ -46,7 +46,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeOut(float& t)
+      float easeOut(const float& t)
       {
         return 1.0f + std::sin(Mathf::PI_2 * (t - 1.0f));
       }
@@ -56,7 +56,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeInOut(float& t)
+      float easeInOut(const float& t)
       {
         return 0.5f * (1.0f + std::sin(Mathf::PI * (t - 0.5f)));
       }
@@ -71,7 +71,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeIn(float& t)
+      float easeIn(const float& t)
       {
         return t * t;
       }
@@ -81,7 +81,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeOut(float& t)
+      float easeOut(const float& t)
       {
         return t * (2.0f - t);
       }
@@ -92,7 +92,7 @@ namespace mb
        * @return {number}
        */
 
-      float easeInOut(float& t)
+      float easeInOut(const float& t)
       {
         return t < 0.5f ? 2.0f * t * t : t * (4.0f - 2.0f * t) - 1.0f;
       }
@@ -107,7 +107,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeIn(float& t)
+      float easeIn(const float& t)
       {
         return t * t * t;
       }
@@ -117,7 +117,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeOut(float& t)
+      float easeOut(const float& t)
       {
         return 1.0f + (t - 1.0f) * t * t;
       }
@@ -127,7 +127,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeInOut(float& t)
+      float easeInOut(const float& t)
       {
         return t < 0.5f ? 4.0f * t * t * t : 1.0f + (t - 1.0f) *
             (2.0f * (t - 1.0f)) * (2.0f * t);
@@ -143,8 +143,9 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeIn(float& t)
+      float easeIn(const float& t0)
       {
+        float t = t0;
         t *= t;
         return t * t;
       }
@@ -154,8 +155,9 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeOut(float& t)
+      float easeOut(const float& t0)
       {
+        float t = t0;
         t = (t - 1.0f) * t;
         return 1.0f - t * t;
       }
@@ -165,8 +167,9 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeInOut(float& t)
+      float easeInOut(const float& t0)
       {
+        float t = t0;
         if (t < 0.5f)
         {
           t *= t;
@@ -189,7 +192,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeIn(float& t)
+      float easeIn(const float& t)
       {
         float t2 = t * t;
         return t * t2 * t2;
@@ -200,7 +203,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeOut(float& t)
+      float easeOut(const float& t)
       {
         float t2 = (t - 1.0f) * t;
         return 1.0f + t * t2 * t2;
@@ -211,7 +214,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeInOut(float& t)
+      float easeInOut(const float& t)
       {
         float t2;
         if (t < 0.5f)
@@ -236,7 +239,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeIn(float& t)
+      float easeIn(const float& t)
       {
         return (std::pow(2.0f, 8.0f * t) - 1.0f) / 255.0f;
       }
@@ -246,7 +249,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeOut(float& t)
+      float easeOut(const float& t)
       {
         return 1 - std::pow(2.0f, -8.0f * t);
       }
@@ -256,7 +259,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeInOut(float& t)
+      float easeInOut(const float& t)
       {
         if (t < 0.5f)
         {
@@ -278,7 +281,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeIn(float& t)
+      float easeIn(const float& t)
       {
         return 1.0f - std::sqrt(1.0f - t);
       }
@@ -288,7 +291,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeOut(float& t)
+      float easeOut(const float& t)
       {
         return std::sqrt(t);
       }
@@ -298,7 +301,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeInOut(float& t)
+      float easeInOut(const float& t)
       {
         if (t < 0.5f)
         {
@@ -320,7 +323,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeIn(float& t)
+      float easeIn(const float& t)
       {
         return t * t * (2.70158 * t - 1.70158);
       }
@@ -330,7 +333,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeOut(float& t)
+      float easeOut(const float& t)
       {
         return 1.0f + (t - 1.0f) * t * (2.70158 * t + 1.70158);
       }
@@ -341,7 +344,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeInOut(float& t)
+      float easeInOut(const float& t)
       {
         if (t < 0.5f)
         {
@@ -363,7 +366,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeIn(float& t)
+      float easeIn(const float& t)
       {
         float t2 = t * t;
         return t2 * t2 * std::sin(t * Mathf::PI * 4.5f);
@@ -374,7 +377,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeOut(float& t)
+      float easeOut(const float& t)
       {
         float t2 = (t - 1.0f) * (t - 1.0f);
         return 1.0f - t2 * t2 * std::cos(t * Mathf::PI * 4.5f);
@@ -386,7 +389,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeInOut(float& t)
+      float easeInOut(const float& t)
       {
         float t2;
         if (t < 0.45)
@@ -415,7 +418,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeIn(float& t)
+      float easeIn(const float& t)
       {
         return std::pow(2.0f, 6.0f * (t - 1.0f)) * std::abs(std::sin(t * Mathf::PI * 3.5f));
       }
@@ -425,7 +428,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeOut(float& t)
+      float easeOut(const float& t)
       {
         return 1.0f - std::pow(2.0f, -6.0f * t) * std::abs(std::cos(t * Mathf::PI * 3.5f));
       }
@@ -435,7 +438,7 @@ namespace mb
        * @param  {number} t Time
        * @return {number}
        */
-      float easeInOut(float& t)
+      float easeInOut(const float& t)
       {
         if (t < 0.5f)
         {

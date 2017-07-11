@@ -123,7 +123,7 @@ namespace mb
       SourceFunc _srcBlendFunc;
       DstFunc _dstBlendFunc;
     };
-    
+
     class CullFaceState : public RenderState
     {
     public:
@@ -149,7 +149,7 @@ namespace mb
     protected:
       CullFaceState::Mode _cullMode;
     };
-    
+
     class DepthState : public RenderState
     {
     public:
@@ -164,20 +164,19 @@ namespace mb
         ALWAYS
       };
       DepthState( bool enabled = true, CompareFunc cmp = CompareFunc::LESS,
-        bool w = true )
+        bool writable_ = true )
         : RenderState( enabled )
+        , writable( writable_ )
         , compare( cmp )
-        , writable( w )
       {
       }
-      // TODO: Getter and setter for CompareFunc and writable
-      CompareFunc compare;
       bool writable;
+      CompareFunc compare;
     protected:
       bool _writable;
       CompareFunc _compare;
     };
-    
+
     class StencilState: public RenderState
     {
     public:

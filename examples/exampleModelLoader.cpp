@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -45,7 +45,7 @@ protected:
 mb::Group* createScene( const std::string& objFile, const std::string& /*texFile*/ )
 {
   auto scene = new mb::Group( "scene" );
-   
+
   auto camera = new mb::Camera( 75.0f, 500 / 500, 0.03f, 1000.0f );
   camera->local( ).translate( 0.0f, 10.0f, 50.0f );
 
@@ -89,10 +89,6 @@ int main( int argc, char* argv[] )
   window->init( );
   window->setTitle( "Model loader" );
 
-  glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
-
-  glEnable( GL_DEPTH_TEST );
-
   mb::Application app;
 
   std::string objFile;
@@ -119,8 +115,6 @@ int main( int argc, char* argv[] )
       window->close( );
       break;
     }
-
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
     app.update( );
 

@@ -14,6 +14,7 @@ set( MBEXAMPLEMATERIALS_HEADERS
   others/AlienProceduralMaterial.hpp
   others/GraniteProceduralMaterial.hpp
   others/HatchingProceduralMaterial.hpp
+  others/FogShader.hpp
 )
 set( MBEXAMPLEMATERIALS_SOURCES exampleMaterials.cpp )
 set( MBEXAMPLEMATERIALS_LINK_LIBRARIES
@@ -54,7 +55,9 @@ common_application( mbExampleEarth )
 ##common_application( mbExampleDemo )
 
 
-set( MBEXAMPLEFOG_HEADERS )
+set( MBEXAMPLEFOG_HEADERS
+  others/FogShader.hpp
+)
 set( MBEXAMPLEFOG_SOURCES exampleFog.cpp )
 set( MBEXAMPLEFOG_LINK_LIBRARIES
   mb

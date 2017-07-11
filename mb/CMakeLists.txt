@@ -102,7 +102,7 @@ set( MB_PUBLIC_HEADERS
   Utils/any.hpp
   Utils/CustomPingPong.hpp
   Utils/CustomPingPong.inl
-  #Utils/Easing.hpp
+  Utils/Easing.hpp
   Utils/Log.hpp
   Utils/Macros.hpp
   Utils/MemoryUtils.hpp
@@ -138,7 +138,7 @@ set( MB_PUBLIC_HEADERS
 
   OpenGL/Program.hpp
   OpenGL/ResourceShader.hpp
-  #OpenGL/OpenGLRenderer.hpp
+  OpenGL/OpenGLRenderer.hpp
 
   Materials/StandardMaterial.hpp
   Materials/BasicMaterial.hpp
@@ -155,13 +155,15 @@ set( MB_PUBLIC_HEADERS
   Utils/ObjLoader.hpp
 
   Utils/JobScheduler.hpp
+
+  OpenGL/OpenGLMapping.hpp
 )
 
 set( MB_HEADERS
 )
 
 set( MB_SOURCES
-  #OpenGL/OpenGLRenderer.cpp
+  OpenGL/OpenGLRenderer.cpp
 
 
   Boundings/BoxBoundingVolume.cpp
@@ -243,7 +245,7 @@ set( MB_SOURCES
 ##Systems/UpdateSystem.cpp
 
 
-  #Utils/Easing.cpp
+  Utils/Easing.cpp
   Utils/Log.cpp
 
 
@@ -286,6 +288,8 @@ set( MB_SOURCES
   Materials/FlatColorMaterial.cpp
 
   Utils/JobScheduler.cpp
+
+  OpenGL/OpenGLMapping.cpp
 )
 
 set( MB_LINK_LIBRARIES

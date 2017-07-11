@@ -20,10 +20,10 @@
 #ifndef __MB_MATERIAL__
 #define __MB_MATERIAL__
 
-#define MB_MODEL_MATRIX "mb_MatrixM"
-#define MB_VIEW_MATRIX "mb_MatrixV"
-#define MB_VIEWPROJ_MATRIX "mb_MatrixVP"  // Unused
-#define MB_PROJ_MATRIX "mb_MatrixP"
+#define MB_MODEL_MATRIX "MB_MATRIXM"
+#define MB_VIEW_MATRIX "MB_MATRIXV"
+#define MB_VIEWPROJ_MATRIX "MB_MATRIXVP"  // Unused
+#define MB_PROJ_MATRIX "MB_MATRIXP"
 
 #include <memory>
 #include <unordered_map>
@@ -221,6 +221,14 @@ namespace mb
     unsigned int texId;
     TUniforms _uniforms;
     PipelineState _state;
+
+  public:
+    void addStandardUniforms( void )
+    {
+      addUniform( MB_PROJ_MATRIX, std::make_shared< mb::Matrix4Uniform >( ) );
+      addUniform( MB_VIEW_MATRIX, std::make_shared< mb::Matrix4Uniform >( ) );
+      addUniform( MB_MODEL_MATRIX, std::make_shared< mb::Matrix4Uniform >( ) );
+    }
   };
 
   typedef std::shared_ptr< Material > MaterialPtr;

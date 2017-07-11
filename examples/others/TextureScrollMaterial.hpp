@@ -29,12 +29,7 @@ public:
   TextureScrollMaterial( void )
   : Material( )
   {
-    this->addUniform( MB_PROJ_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    this->addUniform( MB_VIEW_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    this->addUniform( MB_MODEL_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
+    this->addStandardUniforms( );
 
     _colorMap = std::make_shared< mb::TextureUniform >( );
 
@@ -55,13 +50,13 @@ public:
 
       out vec2 outUV;
 
-      uniform mat4 mb_MatrixM;
-      uniform mat4 mb_MatrixV;
-      uniform mat4 mb_MatrixP;
+      uniform mat4 MB_MATRIXM;
+      uniform mat4 MB_MATRIXV;
+      uniform mat4 MB_MATRIXP;
 
       void main()
       {
-        gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(position, 1.0);
+        gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(position, 1.0);
         outUV = uv;
       })" );
     program->loadFragmentShaderFromText( R"(

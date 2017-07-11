@@ -8,11 +8,13 @@
 #include "Visitors/UpdateWorldState.hpp"
 #include "Visitors/DebugRenderVisitor.hpp"
 
+#include "OpenGL/OpenGLRenderer.hpp"
+
 namespace mb
 {
   Application::Application( void )
   {
-    _renderer = new Renderer( );
+    _renderer = new OpenGLRenderer( );
   }
   Application::~Application( void )
   {
@@ -80,6 +82,11 @@ namespace mb
 
     // RENDER STEP
     _renderer->beginRender( );
+
+    // CLEAR COLOR (MODE TO ANOTHER ZONE) NOT BEST OPTION (ONLY MAIN CAMERA??)
+    auto clearColor = Camera::getMainCamera( )->getClearColor( );
+    glClearColor( clearColor.r(), clearColor.g(), clearColor.b(), clearColor.a() );
+
     _renderer->clearBuffers( );
     if ( !bqCollection.empty( ) )
     {
@@ -106,7 +113,7 @@ namespace mb
 
     if( debug )
     {
-      _scene->perform( mb::DebugRenderVisitor( 
+      _scene->perform( mb::DebugRenderVisitor(
         _renderer, mb::Camera::getMainCamera( ) ) );
     }
     // \\ RENDER STEP
