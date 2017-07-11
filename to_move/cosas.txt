@@ -1,0 +1,99 @@
+Cada renderer tiene:
+-Colecciones para IndexBuffer, VertexBuffer, Texture, Program, Framebuffer
+
+class Buffer
+{
+    enum Usage { STATIC, DYNAMIC, ... }
+    ctor( ): ctor( 0, 0 )
+    ctor( int numElements, int elementSize, Usage usage )
+    {
+        numBytes = numElements * elementSize;
+        data = new char[ numBytes ];
+    }
+    inline int getNumElements() const;
+    inline int getElementSize() const;
+    inline Usage getUsage( ) const;
+
+    inline void setNumElements( in n );
+    inline int getNumBytes() const;
+    inline const char* getData( ) const;
+
+protected:
+    int numElements, elementSize;
+    Usage usage;
+    int numBytes;
+    char* data;
+}
+
+class IndexBuffer: public Buffer
+{
+    ctor(int numIndices, int indexSize, Usage usage);
+    inline char* getData( ) const { return _data; }
+    inline int getOffset( ) const { return offset; }
+    inline void setOffset( int off ) { if (off >= 0 ) offset = off; }
+
+protected:
+    int offset;
+}
+
+class PdrIndexBuffer
+{
+    ctor(Renderer* r, const IndexBuffer* ib)
+    {
+        glGenBuffers(1, &buffer);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer);
+
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, ibuffer->getNumBytes(), 0,
+                     gOGLBufferUsage[ibuffer->GetUsage()]);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+        void* data = Lock(Buffer::BL_WRITE_ONLY);
+        memcpy(data, ibuffer->GetData(), ibuffer->GetNumBytes());
+        Unlock();
+    }
+    dtor( )
+    {
+        glDeleteBuffers(1, &buffer);
+    }
+    void enable( Renderer* r )
+    {
+        glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer );
+    }
+    void disable( Renderer* r )
+    {
+        glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
+    }
+    void* lock( Buffer::Locking mode )
+    {
+        glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer );
+        GLvoid * videoMemory = glMapBuffer( GL_ELEMENT_ARRAY_BUFFER, glOGLBufferLocking[mode]);
+
+        glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
+
+        return videoMemory;
+    }
+    void unlock( )
+    {
+        glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, buffer );
+        glUnmapBuffer( GL_ELEMENT_ARRAY_BUFFER );
+        glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0 );
+    }
+protected:
+    Gluint buffer;
+}
+
+
+
+class PdrTexture2D
+{
+    ctor( Renderer* r, const Texture2D texture )
+    {
+
+    }
+
+    inline int getTexture( )
+    {
+    
+    }
+}

@@ -38,77 +38,28 @@ namespace mb
   class OpenGLRenderer: public Renderer
   {
   public:
-    virtual void configure( void ) override;
-    //OpenGLRenderer( );
-    //~OpenGLRenderer( );
-    virtual void setViewport( const Viewport& viewport );
-    virtual void beginRender( void );
-    virtual void clearBuffers( void );
-    virtual void endRender( void );
-  public:
-    virtual void bindFBO( unsigned int fbo );
-    virtual void unbindFBO( unsigned int fbo );
+    OpenGLRenderer( void );
+    virtual void beginRender( void ) override;
+    virtual void clearBuffers( void ) override;
+    virtual void endRender( void ) override;
 
-    virtual void drawPrimitive( MaterialPtr  /*material*/, Primitive* primitive )
-    {
-      std::string type;
-      switch ( primitive->getType( ) )
-      {
-        case Primitive::Type::POINTS:
-          type = "POINTS";
-          break;
-        case Primitive::Type::LINES:
-          type = "LINES";
-          break;
-        case Primitive::Type::TRIANGLES:
-        default:
-          type = "TRIANGLES";
-          break;
-      }
+    virtual const Viewport getViewport( void );
 
-      // glDrawElements( type, primitive->indexBuffer( )->count( ), GL_UNSIGNED_SHORT, 0) );
-    }
+    virtual void setViewport( const Viewport& ) override;
+    virtual void setBlendingState(
+      const mb::PipelineState::BlendingState* );
+    virtual void setCullState(
+      const mb::PipelineState::CullFaceState* );
+    virtual void setDepthState(
+      const mb::PipelineState::DepthState* );
+    virtual void setStencilState(
+      const mb::PipelineState::StencilState* );
+    virtual void setWireframeState(
+      const mb::PipelineState::WireFrameState* );
+
+    virtual void drawScreenQuad( void );
   protected:
-    GLenum getPrimitiveType( short type )
-    {
-      static std::vector<GLenum> primitive_types = {
-        GL_POINTS,
-        GL_LINES,
-        GL_LINE_LOOP,
-        GL_LINE_STRIP,
-        GL_TRIANGLES,
-        GL_TRIANGLE_FAN,
-        GL_TRIANGLE_STRIP
-      };
-      return primitive_types[ type ];
-    }
-    GLenum getCullFaceMode( short mode )
-    {
-      static std::vector<GLenum> cullface_types = {
-        GL_FRONT,
-        GL_BACK,
-        GL_FRONT_AND_BACK
-      };
-      return cullface_types[ mode ];
-    }
-    GLenum getDepthMode( short mode )
-    {
-      static std::vector<GLenum> depth_mode_types = {
-        GL_NEVER,
-        GL_LESS,
-        GL_EQUAL,
-        GL_LEQUAL,
-        GL_GREATER,
-        GL_NOTEQUAL,
-        GL_GEQUAL,
-        GL_ALWAYS
-      };
-      return depth_mode_types[ mode ];
-    }
-    void configureDepthState( mb::PipelineState::DepthState* st );
-    void configureBlendState( mb::PipelineState::BlendingState* st );
-    void configureCullFaceState( mb::PipelineState::CullFaceState* st );
-    void configureColorMaskState( mb::PipelineState::ColorMaskState *st );
+    void configure( void );
   };
 }
 
