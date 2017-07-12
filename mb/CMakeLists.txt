@@ -45,6 +45,9 @@ set( MB_PUBLIC_HEADERS
   Maths/Spherical.hpp
   Maths/Random.hpp
 
+  Maths/Curves.hpp
+  Maths/Interpolation.hpp
+
 
   Maths/Plane.hpp
   Maths/Sphere.hpp
@@ -197,6 +200,9 @@ set( MB_SOURCES
   Maths/Vector3.cpp
   Maths/Spherical.cpp
   Maths/Random.cpp
+
+  Maths/Curves.cpp
+  Maths/Interpolation.cpp
 
   Primitives/Primitive.cpp
   Primitives/CapsulePrimitive.cpp

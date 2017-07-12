@@ -127,7 +127,7 @@ mb::Program* createProgram( )
       );
     }
 
-    /*vec4 LightingBlinnPhong( in SurfaceOutput s )
+    vec4 LightingBlinnPhong( in SurfaceOutput s )
     {
       vec3 _LightPos0 = mb_LightPosition[ 0 ].xyz;
       vec3 lightPosition = _LightPos0;
