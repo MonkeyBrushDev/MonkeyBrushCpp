@@ -157,6 +157,7 @@ set( MB_PUBLIC_HEADERS
   Utils/JobScheduler.hpp
 
   OpenGL/OpenGLMapping.hpp
+  OpenGL/ComputeShader.hpp
 )
 
 set( MB_HEADERS
@@ -290,6 +291,7 @@ set( MB_SOURCES
   Utils/JobScheduler.cpp
 
   OpenGL/OpenGLMapping.cpp
+  OpenGL/ComputeShader.cpp
 )
 
 set( MB_LINK_LIBRARIES

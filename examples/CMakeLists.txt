@@ -97,3 +97,13 @@ set( MBDEMOINTERPOLATIONS_LINK_LIBRARIES
   mb
 )
 common_application( mbDemoInterpolations )
+
+
+
+
+set( MBDEMOCOMPUTESHADER_HEADERS )
+set( MBDEMOCOMPUTESHADER_SOURCES demoComputeShader.cpp )
+set( MBDEMOCOMPUTESHADER_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoComputeShader )
