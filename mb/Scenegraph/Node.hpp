@@ -1,3 +1,22 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #ifndef __MB_NODE__
 #define __MB_NODE__
 
@@ -9,100 +28,22 @@
 #include "../Layer.hpp"
 
 #include "../Maths/Transform.hpp"
+#include "../Maths/Clock.hpp"
 
 #include <mb/api.h>
 #include <algorithm>
 #include <string>
+#include <memory>
 
 namespace mb
 {
-  class Quaternion;
-  class EulerAngles
-  {
-  public:
-    void setOnChangeCallback( const std::function<void( Quaternion )>& cb )
-    {
-      _cb = cb;
-    }
-    std::function<void( Quaternion )> _cb;
-  };
-
-
-  class Quaternion
-  {
-  public:
-
-    MB_API
-    Quaternion( float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 1.0f );
-
-    MB_API
-    Quaternion( const Quaternion& q );
-
-    MB_API
-    virtual ~Quaternion( void ){}
-
-    MB_API
-    Quaternion& operator=( const Quaternion& q );
-
-    MB_API
-    Quaternion& copy( const Quaternion& q );
-
-    MB_API
-    void setOnChangeCallback( const std::function<void( EulerAngles )>& cb )
-    {
-      _cb = cb;
-    }
-
-    MB_API
-    float x( void ) const { return this->_values[0]; }
-    MB_API
-    float y( void ) const { return this->_values[1]; }
-    MB_API
-    float z( void ) const { return this->_values[2]; }
-    MB_API
-    float w( void ) const { return this->_values[3]; }
-
-    MB_API
-    float x( const float& v ){ this->_values[0] = v; }
-    MB_API
-    float y( const float& v ){ this->_values[1] = v; }
-    MB_API
-    float z( const float& v ){ this->_values[2] = v; }
-    MB_API
-    float w( const float& v ){ this->_values[3] = v; }
-
-  protected:
-    std::array<float, 4> _values;
-    std::function<void( EulerAngles )> _cb;
-  };
-
-
-  class Transformation
-  {
-  public:
-    void computeFrom( const Transformation&, const Transformation& )
-    {
-      std::cout << "Computing transform" << std::endl;
-    }
-    void translate( const float&, const float&, const float& )
-    {
-    }
-  };
-
+  class Node;
+  typedef std::shared_ptr< Node > NodePtr;
   class Node
   {
   public:
     MB_API
-    Layer& layer( )
-    {
-      return _layer;
-    }
-  private:
-    Layer _layer;
-
-  public:
-    MB_API
-    Node( );
+    Node( void );
     MB_API
     Node( const std::string& name );
     MB_API
@@ -111,12 +52,12 @@ namespace mb
     std::string name( void ) const;
     MB_API
     void name( const std::string& name );
-    std::string tag;
   protected:
     Node* _parent;
     std::string _name;
 
   public:
+    std::string tag;
     MB_API
     void perform( Visitor &visitor );
     MB_API
@@ -130,6 +71,12 @@ namespace mb
     MB_API
     Node* parent( void );
 
+    template< class NodeType >
+    const Node* parent( void )
+    {
+      return static_cast< NodeType* >( _parent );
+    }
+
     template<class NodeClass>
     NodeClass* parent( void );
 
@@ -140,7 +87,7 @@ namespace mb
     MB_API
     void addComponent( Component* comp );
     MB_API
-    void updateComponents( const float& dt );
+    void updateComponents( const mb::Clock& clock );
     MB_API
     void detachAllComponents( void );
     MB_API
@@ -174,26 +121,26 @@ namespace mb
     std::unordered_multimap<std::string, Component*> _components;
 
   public:
-    void setLocal( const Transform &t )
-    {
-      _local = t;
-    }
     const Transform &getLocal( void ) const
     {
       return _local;
+    }
+    void setLocal( const Transform &t )
+    {
+      _local = t;
     }
     Transform &local( void )
     {
       return _local;
     }
 
-    void setWorld( const Transform &t )
-    {
-      _world = t;
-    }
     const Transform& getWorld( void ) const
     {
       return _world;
+    }
+    void setWorld( const Transform &t )
+    {
+      _world = t;
     }
     Transform& world( void )
     {
@@ -241,6 +188,14 @@ namespace mb
 
   private:
     bool _enabled = true;
+  public:
+    MB_API
+    Layer& layer( )
+    {
+      return _layer;
+    }
+  private:
+    Layer _layer;
   };
 
   #include "Node.inl"

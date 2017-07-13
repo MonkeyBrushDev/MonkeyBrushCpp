@@ -1,7 +1,28 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #ifndef __MB_SPHERE__
 #define __MB_SPHERE__
 
 #include "Vector3.hpp"
+#include "Vector4.hpp"
+#include "Plane.hpp"
 
 namespace mb
 {
@@ -20,14 +41,12 @@ namespace mb
       , _radius( sphere._radius )
     {
     }
-    /*
-    TODO: DEFINE VECTOR4
     Sphere( const Vector4& packedSphere )
-      : _center( Vector3( packedSphere.x( ), packedSphere.y( ), packedSphere.z( ) ) )
+      : _center( Vector3( packedSphere.x( ),
+                packedSphere.y( ), packedSphere.z( ) ) )
       , _radius( packedSphere.w( ) )
     {
-
-    }*/
+    }
     Sphere& operator= ( const Sphere& sp )
     {
       _center = sp._center;
@@ -54,6 +73,25 @@ namespace mb
       float dist = std::sqrt( ( x * x ) + ( y * y ) + ( z * z ) );
 
       return ( this->_radius + s._radius > dist );
+    }
+    MB_API
+    int intersectPlane( const Plane& p ) const
+    {
+      /*enum class Intersection {
+          Outside,
+          Inside,
+          Intersecting
+      }; TODO*/
+      float d = ( p.getNormal( ) * _center ) - p.getDistance( );
+      if ( d < -_radius )
+      {
+        return -1; // behind
+      }
+      else if ( d > _radius )
+      {
+        return 1; // front
+      }
+      return 0; // intersecting
     }
 
     bool operator==( const Sphere &sphere )

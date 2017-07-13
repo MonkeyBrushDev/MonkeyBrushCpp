@@ -4,66 +4,149 @@ include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-set( MBEXAMPLE01_HEADERS )
-set( MBEXAMPLE01_SOURCES example01.cpp )
-set( MBEXAMPLE01_LINK_LIBRARIES
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/routes.h.in
+  ${CMAKE_CURRENT_BINARY_DIR}/routes.h)
+
+
+set( MBDEMOMATERIALS_HEADERS
+  others/MatCapMaterial.hpp
+  others/AlienProceduralMaterial.hpp
+  others/GraniteProceduralMaterial.hpp
+  others/HatchingProceduralMaterial.hpp
+  others/FogShader.hpp
+)
+set( MBDEMOMATERIALS_SOURCES demoMaterials.cpp )
+set( MBDEMOMATERIALS_LINK_LIBRARIES
   mb
 )
-common_application( mbExample01 )
+common_application( mbDemoMaterials )
 
 
-set( MBEXAMPLECAR_HEADERS )
-set( MBEXAMPLECAR_SOURCES exampleCar.cpp )
-set( MBEXAMPLECAR_LINK_LIBRARIES
+set( MBDEMOMODELLOADER_HEADERS )
+set( MBDEMOMODELLOADER_SOURCES demoModelLoader.cpp )
+set( MBDEMOMODELLOADER_LINK_LIBRARIES
   mb
 )
-common_application( mbExampleCar )
+common_application( mbDemoModelLoader )
 
 
-set( MBEXAMPLE02_HEADERS )
-set( MBEXAMPLE02_SOURCES example02.cpp )
-set( MBEXAMPLE02_LINK_LIBRARIES
+set( MBDEMOPLANETS_HEADERS )
+set( MBDEMOPLANETS_SOURCES demoPlanets.cpp )
+set( MBDEMOPLANETS_LINK_LIBRARIES
   mb
 )
-common_application( mbExample02 )
+common_application( mbDemoPlanets )
 
 
-set( MBEXAMPLEGROUP_HEADERS )
-set( MBEXAMPLEGROUP_SOURCES exampleGroup.cpp )
-set( MBEXAMPLEGROUP_LINK_LIBRARIES
+set( MBDEMOEARTH_HEADERS )
+set( MBDEMOEARTH_SOURCES demoEarth.cpp )
+set( MBDEMOEARTH_LINK_LIBRARIES
   mb
 )
-common_application( mbExampleGroup )
+common_application( mbDemoEarth )
 
 
-set( MBTESTS_HEADERS )
-set( MBTESTS_SOURCES tests.cpp )
-set( MBTESTS_LINK_LIBRARIES
+set( MBDEMOFOG_HEADERS
+  others/FogShader.hpp
+)
+set( MBDEMOFOG_SOURCES demoFog.cpp )
+set( MBDEMOFOG_LINK_LIBRARIES
   mb
 )
-common_application( mbTests )
+common_application( mbDemoFog )
 
 
-set( MBEXAMPLEPOSTPROCESS_HEADERS )
-set( MBEXAMPLEPOSTPROCESS_SOURCES examplePostProcess.cpp )
-set( MBEXAMPLEPOSTPROCESS_LINK_LIBRARIES
+set( MBDEMOMULTICUBES_HEADERS )
+set( MBDEMOMULTICUBES_SOURCES demoMultiCubes.cpp )
+set( MBDEMOMULTICUBES_LINK_LIBRARIES
   mb
 )
-common_application( mbExamplePostProcess )
+common_application( mbDemoMultiCubes )
 
 
-set( MBEXAMPLEOFFSCREEN_HEADERS )
-set( MBEXAMPLEOFFSCREEN_SOURCES exampleOffScreen.cpp )
-set( MBEXAMPLEOFFSCREEN_LINK_LIBRARIES
+set( MBDEMONORMALMAPPING_HEADERS )
+set( MBDEMONORMALMAPPING_SOURCES demoNormalMapping.cpp )
+set( MBDEMONORMALMAPPING_LINK_LIBRARIES
   mb
 )
-common_application( mbExampleOffScreen )
+common_application( mbDemoNormalMapping )
 
 
-#set( MBEXAMPLERAWTRIANGLE_HEADERS )
-#set( MBEXAMPLERAWTRIANGLE_SOURCES exampleRawTriangle.cpp )
-#set( MBEXAMPLERAWTRIANGLE_LINK_LIBRARIES
-#  mb
-#)
-#common_application( mbExampleRawTriangle )
+## TODO: FAIL set( MBDEMOBUTTERFLIES_HEADERS )
+## TODO: FAIL set( MBDEMOBUTTERFLIES_SOURCES demoButterflies.cpp )
+## TODO: FAIL set( MBDEMOBUTTERFLIES_LINK_LIBRARIES
+## TODO: FAIL   mb
+## TODO: FAIL )
+## TODO: FAIL common_application( mbDemoButterflies )
+
+
+
+set( MBDEMOPOSTPROCESS_HEADERS )
+set( MBDEMOPOSTPROCESS_SOURCES demoPostProcess.cpp )
+set( MBDEMOPOSTPROCESS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoPostProcess )
+
+
+
+set( MBDEMOINTERPOLATIONS_HEADERS )
+set( MBDEMOINTERPOLATIONS_SOURCES demoInterpolations.cpp )
+set( MBDEMOINTERPOLATIONS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoInterpolations )
+
+
+
+
+set( MBDEMOHEIGHTMAP_HEADERS )
+set( MBDEMOHEIGHTMAP_SOURCES demoHeightMap.cpp )
+set( MBDEMOHEIGHTMAP_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoHeightMap )
+
+
+
+
+set( MBDEMOSPHERICALHARMONICS_HEADERS )
+set( MBDEMOSPHERICALHARMONICS_SOURCES demoSphericalHarmonics.cpp )
+set( MBDEMOSPHERICALHARMONICS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoSphericalHarmonics )
+
+
+
+
+
+set( MBDEMOPBR_HEADERS )
+set( MBDEMOPBR_SOURCES demoPbr.cpp )
+set( MBDEMOPBR_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoPbr )
+
+
+
+
+
+set( MBDEMOCLONE_HEADERS )
+set( MBDEMOCLONE_SOURCES demoClone.cpp )
+set( MBDEMOCLONE_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoClone )
+
+
+
+
+set( MBDEMOS_HEADERS )
+set( MBDEMOS_SOURCES demos.cpp )
+set( MBDEMOS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemos )
 

@@ -1,3 +1,22 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #include "Program.hpp"
 #include <fstream>
 #include <iostream>
@@ -6,6 +25,8 @@
 
 #include "ResourceShader.hpp"
 #include "../Utils/StringUtils.hpp"
+
+#include "../Utils/FileSystem.hpp"
 
 #include <limits>       // std::numeric_limits
 
@@ -69,13 +90,6 @@ namespace mb
 #ifdef MB_SUBPROGRAMS
 		_subprograms.clear();
 #endif
-		_shaders.clear();
-
-#ifdef MB_OCC_QUERY
-		// Occlusion query object
-		// TODO: You need to call this after OpenGL context creation
-		//glGenQueries(1, &_occQuery);
-#endif
 	}
 
 	Program::~Program(void)
@@ -127,6 +141,7 @@ namespace mb
 
     std::smatch match;
     std::string returnValue = std::string( sourceCode );
+    //std::cout << "RET: " << returnValue << std::endl;
     while ( std::regex_search( returnValue, match, rgx ) )
     {
       std::string includeFile = match[ 1 ];
@@ -176,9 +191,8 @@ namespace mb
       }
       else
       {
-        // TODO: Load from file
-        //mb::ResourceShader::loadShader( )
-        return __processShader( returnValue );
+       std::string filePath = mb::FileSystem::getInstance()->getPathForResource( std::string("shaders/") + includeFile );
+        mb::ResourceShader::loadShader( includeFile, filePath );
       }
     }
     return returnValue;
@@ -205,6 +219,11 @@ namespace mb
 			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
 			GLchar* infoLog = new GLchar[infoLogLength];
 			glGetShaderInfoLog(shader, infoLogLength, nullptr, infoLog);
+      std::cout
+        << "----------------------------- " << std::endl <<
+        str << std::endl <<
+        "----------------------------- " << 
+        std::endl;
 			std::cerr << "Compile log: " << infoLog << std::endl;
 			delete[] infoLog;
 			return false;
@@ -842,25 +861,6 @@ namespace mb
 	void Program::setOuterLevel(float level)
 	{
 		glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, &level);
-	}
-#endif
-
-#ifdef MB_OCC_QUERY
-	bool Program::occlusionQuery(std::function<void()> renderFunc)
-	{
-		// Disable writing to the color buffer and depth buffer.
-		// We just wanna check if they would be rendered, not actually render them
-		glColorMask(false, false, false, false);
-		glDepthMask(GL_FALSE);
-		glBeginQuery(GL_SAMPLES_PASSED, _occQuery);
-		renderFunc();
-		glEndQuery(GL_SAMPLES_PASSED);
-		int samplesPassed = 0;
-		glGetQueryObjectiv(_occQuery, GL_QUERY_RESULT, &samplesPassed);
-		// Re-enable writing to color buffer and depth buffer
-		glColorMask(true, true, true, true);
-		glDepthMask(GL_TRUE);
-		return samplesPassed > 0;
 	}
 #endif
 

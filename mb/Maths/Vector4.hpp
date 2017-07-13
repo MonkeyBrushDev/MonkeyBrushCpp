@@ -1,3 +1,22 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #ifndef __MB_VECTOR4__
 #define __MB_VECTOR4__
 
@@ -30,6 +49,11 @@ namespace mb
       _data[ 1 ] = y;
       _data[ 2 ] = z;
       _data[ 3 ] = w;
+    }
+
+    float* data( void )
+    {
+      return _data.data( );
     }
 
 		float operator[]( unsigned int i ) const { return _data[ i ]; }
@@ -122,6 +146,13 @@ namespace mb
     {
       return u * v;
     }
+    /*friend float operator*( const Vector4& u, const Vector4& v )
+    {
+      return u._data[ 0 ] * v._data[ 0 ] +
+           u._data[ 1 ] * v._data[ 1 ] +
+           u._data[ 2 ] * v._data[ 2 ] +
+           u._data[ 3 ] * v._data[ 3 ];
+    }*/
     friend Vector4& operator*=( Vector4& u, float v )
     {
       u._data[ 0 ] *= v;

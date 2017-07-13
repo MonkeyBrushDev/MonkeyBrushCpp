@@ -1,3 +1,22 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #include "UpdateWorldState.hpp"
 
 #include "../Scenegraph/Node.hpp"
@@ -9,13 +28,11 @@ namespace mb
   {
     if ( node->hasParent( ) )
     {
-      // Compute world model of current node from parent
-      node->world( ).computeFrom( node->parent( )->getWorld( ), node->getLocal( ) );
+      node->world( ).computeFrom( node->parent( )->getWorld( ), node->getLocal( ) ); // Compute world model of current node from parent
     }
     else
     {
-      // World model of current node as local matrix
-      node->setWorld( node->getLocal( ) );
+      node->setWorld( node->getLocal( ) ); // World model of current node as local matrix
     }
     // TODO: Compute world bound for current node to contain to himself
   }
@@ -28,7 +45,7 @@ namespace mb
     if ( group->hasNodes( ) )
     {
       bool first = true;
-      group->forEachNode( [&] ( Node */*node*/ )
+      group->forEachNode( [&] ( Node* )
       {
         if ( first )
         {
@@ -38,6 +55,7 @@ namespace mb
         else
         {
           // TODO: Expand world bound for current group to contain current node
+          //group->worldBound()->expand( node->getWorldBound( ) );
         }
       } );
     }

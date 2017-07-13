@@ -1,9 +1,31 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #ifndef __MB_VECTOR3__
 #define __MB_VECTOR3__
 
 #include <array>
 #include "Mathf.hpp"
 #include <cmath>
+#include "Vector4.hpp"
+#include <iomanip>
+#include <iostream>
 
 namespace mb
 {
@@ -13,6 +35,13 @@ namespace mb
     Vector3( void )
       : Vector3( 0.0f )
     {
+    }
+    Vector3( const Vector4& v )
+    {
+      for ( unsigned int i = 0; i < 3; ++i )
+      {
+        _data[ i ] = v[ i ];
+      }
     }
     explicit Vector3( float v )
     {
@@ -32,8 +61,16 @@ namespace mb
       _data[ 2 ] = z;
     }
 
-		float operator[]( unsigned int i ) const { return _data[ i ]; }
-		float &operator[]( unsigned int i ) { return _data[ i ]; }
+    float* data( void )
+    {
+      return _data.data( );
+    }
+
+    MB_API
+    std::array<float, 3> values( void ) const { return _data; }
+
+    float operator[]( unsigned int i ) const { return _data[ i ]; }
+    float &operator[]( unsigned int i ) { return _data[ i ]; }
 
     float x( void ) const { return _data[ 0 ]; }
     float y( void ) const { return _data[ 1 ]; }
@@ -42,6 +79,17 @@ namespace mb
     float& y( void ) { return _data[ 1 ]; }
     float& z( void ) { return _data[ 2 ]; }
   public:
+    float getSquaredMagnitude( void ) const
+    {
+      //return ( *this ) * ( *this );
+      return this->_data[ 0 ] * this->_data[ 0 ] +
+        this->_data[ 1 ] * this->_data[ 1 ] +
+        this->_data[ 2 ] * this->_data[ 2 ];
+    }
+    float getMagnitude( void ) const
+    {
+      return std::sqrt( getSquaredMagnitude( ) );
+    }
     bool operator==( const Vector3& v ) const
     {
       return std::equal( _data.begin( ), _data.end( ), v._data.begin( ) );
@@ -56,6 +104,14 @@ namespace mb
       std::copy( std::begin( u._data ), std::end( u._data ), std::begin( _data ) );
       return *this;
     }
+    friend Vector3 operator-( const Vector3& u )
+    {
+      Vector3 result;
+      result._data[ 0 ] = -u._data[ 0 ];
+      result._data[ 1 ] = -u._data[ 1 ];
+      result._data[ 2 ] = -u._data[ 2 ];
+      return result;
+    }
     friend Vector3 operator+( const Vector3& u, const Vector3& v )
     {
       return Vector3(
@@ -63,13 +119,6 @@ namespace mb
         u.y( ) + v.y( ),
         u.z( ) + v.z( )
       );
-    }
-    friend Vector3& operator+=( Vector3& u, const Vector3& v )
-    {
-      u._data[ 0 ] += v._data[ 0 ];
-      u._data[ 1 ] += v._data[ 1 ];
-      u._data[ 2 ] += v._data[ 2 ];
-      return u;
     }
     friend Vector3 operator-( const Vector3& u, const Vector3& v )
     {
@@ -79,28 +128,6 @@ namespace mb
         u.z( ) - v.z( )
       );
     }
-    friend Vector3& operator-=( Vector3& u, const Vector3& v )
-    {
-      u._data[ 0 ] -= v._data[ 0 ];
-      u._data[ 1 ] -= v._data[ 1 ];
-      u._data[ 2 ] -= v._data[ 2 ];
-      return u;
-    }
-    friend Vector3 operator*( const Vector3& u, const Vector3& v )
-    {
-      return Vector3(
-        u.x( ) * v.x( ),
-        u.y( ) * v.y( ),
-        u.z( ) * v.z( )
-      );
-    }
-    friend Vector3& operator*=( Vector3& u, const Vector3& v )
-    {
-      u._data[ 0 ] *= v._data[ 0 ];
-      u._data[ 1 ] *= v._data[ 1 ];
-      u._data[ 2 ] *= v._data[ 2 ];
-      return u;
-    }
     friend Vector3 operator*( const Vector3& u, float v )
     {
       return Vector3(
@@ -109,16 +136,9 @@ namespace mb
         u.z( ) * v
       );
     }
-    friend Vector3 operator*( float v, const Vector3& u )
+    friend Vector3 operator*( float u, const Vector3& v )
     {
-      return u * v;
-    }
-    friend Vector3& operator*=( Vector3& u, float v )
-    {
-      u._data[ 0 ] *= v;
-      u._data[ 1 ] *= v;
-      u._data[ 2 ] *= v;
-      return u;
+      return v * u;
     }
     friend Vector3 operator/( const Vector3& u, float v )
     {
@@ -130,6 +150,40 @@ namespace mb
         u.z( ) * invV
       );
     }
+    friend float operator*( const Vector3& u, const Vector3& v )
+    {
+      return u._data[ 0 ] * v._data[ 0 ] +
+        u._data[ 1 ] * v._data[ 1 ] +
+        u._data[ 2 ] * v._data[ 2 ];
+    }
+    friend Vector3& operator+=( Vector3& u, const Vector3& v )
+    {
+      u._data[ 0 ] += v._data[ 0 ];
+      u._data[ 1 ] += v._data[ 1 ];
+      u._data[ 2 ] += v._data[ 2 ];
+      return u;
+    }
+    friend Vector3& operator-=( Vector3& u, const Vector3& v )
+    {
+      u._data[ 0 ] -= v._data[ 0 ];
+      u._data[ 1 ] -= v._data[ 1 ];
+      u._data[ 2 ] -= v._data[ 2 ];
+      return u;
+    }
+    friend Vector3& operator*=( Vector3& u, float v )
+    {
+      u._data[ 0 ] *= v;
+      u._data[ 1 ] *= v;
+      u._data[ 2 ] *= v;
+      return u;
+    }
+    friend Vector3& operator*=( float v, Vector3& u )
+    {
+      u._data[ 0 ] *= v;
+      u._data[ 1 ] *= v;
+      u._data[ 2 ] *= v;
+      return u;
+    }
     friend Vector3& operator/=( Vector3& u, float v )
     {
       float invV = 1.0f / v;
@@ -138,6 +192,19 @@ namespace mb
       u._data[ 1 ] *= invV;
       u._data[ 2 ] *= invV;
       return u;
+    }
+    /// Cross product
+    friend Vector3 operator^( const Vector3& u, const Vector3& v )
+    {
+      return Vector3(
+        u._data[ 1 ] * v._data[ 2 ] - u._data[ 2 ] * v._data[ 1 ],
+        u._data[ 2 ] * v._data[ 0 ] - u._data[ 0 ] * v._data[ 2 ],
+        u._data[ 0 ] * v._data[ 1 ] - u._data[ 1 ] * v._data[ 0 ]
+      );
+    }
+    static Vector3 cross( const Vector3&u, const Vector3& v )
+    {
+      return u ^ v;
     }
     float length( void ) const
     {
@@ -151,6 +218,10 @@ namespace mb
         z = this->z( );
 
       return ( x * x + y * y + z * z );
+    }
+    void times( float v )
+    {
+      *this = *this * v;
     }
     Vector3 getNormalized( void ) const
     {
@@ -185,16 +256,44 @@ namespace mb
     static float angle( const Vector3& from, const Vector3& to )
     {
       return std::acos(Mathf::clamp(Vector3::dot(
-          from.getNormalized( ), to.getNormalized( ) ), -1.0f, 1.0f)) * 57.29578f;
+          from.getNormalized( ), to.getNormalized( ) ),
+          -1.0f, 1.0f)) * 57.29578f;
     }
-    static const Vector3 zero;
-    static const Vector3 one;
-    static const Vector3 forward;
-    static const Vector3 back;
-    static const Vector3 up;
-    static const Vector3 down;
-    static const Vector3 left;
-    static const Vector3 right;
+
+    friend std::ostream& operator<<( std::ostream &out, const Vector3& v )
+    {
+      out << std::setiosflags( std::ios::fixed | std::ios::showpoint )
+        << std::setprecision( 2 );
+      out << "(" << v[ 0 ];
+      for ( unsigned int i = 1; i < 3; ++i )
+      {
+        out << ", " << v[ i ];
+      }
+      out << ")";
+      return out;
+    }
+    MB_API
+    static const Vector3 ZERO;
+    MB_API
+    static const Vector3 ONE;
+    MB_API
+    static const Vector3 FORWARD;
+    MB_API
+    static const Vector3 BACK;
+    MB_API
+    static const Vector3 UP;
+    MB_API
+    static const Vector3 DOWN;
+    MB_API
+    static const Vector3 LEFT;
+    MB_API
+    static const Vector3 RIGHT;
+    MB_API
+    static const Vector3 X_AXIS;
+    MB_API
+    static const Vector3 Y_AXIS;
+    MB_API
+    static const Vector3 Z_AXIS;
   protected:
     std::array< float, 3 > _data;
   };

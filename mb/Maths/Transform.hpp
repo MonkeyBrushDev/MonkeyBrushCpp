@@ -1,7 +1,29 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #ifndef __MB_TRANSFORM__
 #define __MB_TRANSFORM__
 
 #include "Vector3.hpp"
+#include "Matrix3.hpp"
+#include "Matrix4.hpp"
+#include "Quaternion.hpp"
 
 namespace mb
 {
@@ -21,44 +43,109 @@ namespace mb
   };
   class Transform
   {
-  public:
+  protected:
     RotationOrder rotationOrder = RotationOrder::OrderXYZ;
     Vector3 _eulerAngles;
     Vector3 _position;
     Vector3 _scale;
-
+    Quaternion _rotate;
+  public:
+    /*Transform& fromMatrix( const mb:Matrix4& m )
+    {
+      Matrox4f
+    }
+    Transform( const mb::Matrix4& m )
+    {
+      *this = fromMatrix( m );
+    }*/
     Transform( void )
     {
-      _position = Vector3( 0.0f );
-      _scale = Vector3( 1.0f );
+      _position = Vector3::ZERO;
+      _scale = Vector3::ONE;
       _isIdentity = true;
     }
-
-    /*Vector3 getRight( void )
+    const Quaternion& getRotation( void ) const
     {
-      return this->getRotation( ) * Vector3::right;
+      return _rotate;
     }
-    void setRight( const Vector3& v )
+    Quaternion& rotate( void )
+    {
+      _isIdentity = false;
+      return _rotate;
+    }
+    void setRotation( const Quaternion& q )
+    {
+      _rotate = q;
+      _isIdentity = false;
+    }
+    void setRotation( const Vector3& axis, float angle )
+    {
+      _rotate.fromAxisAngle( axis, angle );
+      _isIdentity = false;
+    }
+
+    Matrix4 computeModel( void ) const
+    {
+      Matrix4 result;
+      if ( !_isIdentity )
+      {
+        result.compose(
+          this->getPosition( ),
+          this->getRotation( ),
+          this->getScale( )
+        );
+      }
+      return result;
+    }
+    Vector3 getRight( void ) const
+    {
+      //return this->getRotation( ) * Vector3::RIGHT;
+
+      Vector3 input = Vector3::RIGHT;
+      Vector3 aux = Vector3::ZERO;
+      for( unsigned int i = 0; i < 3; ++i )
+      {
+        aux[ i ] = _scale[ i ] * input[ i ];
+      }
+      return _rotate * aux;
+    }
+    /*void setRight( const Vector3& v )
     {
       setRotation( Quaternion::fromRotation( Vector3::right, v ) );
+    }*/
+    Vector3 getUp( void ) const
+    {
+      Vector3 input = Vector3::UP;
+      Vector3 aux = Vector3::ZERO;
+      for( unsigned int i = 0; i < 3; ++i )
+      {
+        aux[ i ] = _scale[ i ] * input[ i ];
+      }
+      return _rotate * aux;
+      //return this->getRotation( ) * Vector3::UP;
     }
+    /*void setUp( const Vector3& v )
+    {
+      setRotation( Quaternion::fromRotation( Vector3::UP, v ) );
+    }*/
 
-    Vector3 getUp( void )
+    Vector3 computeDirection( void ) const
     {
-      return this->getRotation( ) * Vector3::up;
+      Vector3 input(0.0f, 0.0f, -1.0f);
+      Vector3 aux = Vector3::ZERO;
+      for( unsigned int i = 0; i < 3; ++i )
+      {
+        aux[ i ] = _scale[ i ] * input[ i ];
+      }
+      return _rotate * aux;
     }
-    void setUp( const Vector3& v )
+    Vector3 getForward( void ) const
     {
-      setRotation( Quaternion::fromRotation( Vector3::up, v ) );
+      return this->getRotation( ) * Vector3::FORWARD;
     }
-
-    Vector3 getForward( void )
+    /*void setForward( const Vector3& v )
     {
-      return this->getRotation( ) * Vector3::forward;
-    }
-    void setForward( const Vector3& v )
-    {
-      setRotation( Quaternion::fromRotation( Vector3::forward, v ) );
+      setRotation( Quaternion::fromRotation( Vector3::FORWARD, v ) );
     }
 
     Vector3 transformDirection( const Vector3& direction )
@@ -98,7 +185,7 @@ namespace mb
     }
     void rotate( const Vector3& eulerAngles, Space relativeTo = Space::Self )
     {
-      Quaternion rhs = Quaternion::fromEuler( 
+      Quaternion rhs = Quaternion::fromEuler(
         eulerAngles.x( ), eulerAngles.y( ), eulerAngles.z( ) );
       if ( relativeTo == Space::Self )
       {
@@ -119,8 +206,8 @@ namespace mb
     Transform& operator= ( const Transform& t2 )
     {
       _position = t2._position;
+      _rotate = t2._rotate;
       _scale = t2._scale;
-      // TODO: Complete others variables
       _isIdentity = t2._isIdentity;
       return *this;
     }
@@ -133,6 +220,10 @@ namespace mb
       setPosition( getPosition( ) + pos );
     }
     const Vector3& getPosition( void ) const
+    {
+      return _position;
+    }
+    Vector3& position( )
     {
       return _position;
     }
@@ -160,6 +251,10 @@ namespace mb
     {
       return _scale;
     }
+    void setScale( float v )
+    {
+      setScale( v, v, v );
+    }
     void setScale( const Vector3& sc )
     {
       _scale = sc;
@@ -171,6 +266,13 @@ namespace mb
       _scale[ 1 ] = y;
       _scale[ 2 ] = z;
       _isIdentity = false;
+    }
+    void makeIdentity( void )
+    {
+      _position = Vector3::ZERO;
+      _rotate.makeIdentity( );
+      _scale = Vector3::ONE;
+      _isIdentity = true;
     }
     void computeFrom( const Transform& t1, const Transform& t2 )
     {
@@ -184,8 +286,18 @@ namespace mb
       }
       else
       {
-        // TODO: Complete others variables
-        _scale = t1._scale * t2._scale;
+        Vector3 aux = Vector3::ZERO;
+        for( unsigned int i = 0; i < 3; ++i )
+        {
+          aux[ i ] = t1._scale[ i ] * t2._position[ i ];
+        }
+
+        _position = t1._position + t1._rotate * aux;
+        _rotate = t1._rotate * t2._rotate;
+        for( unsigned int i = 0; i < 3; ++i )
+        {
+          _scale[ i ] = t1._scale[ i ] * t2._scale[ i ];
+        }
         _isIdentity = false;
       }
     }
@@ -193,8 +305,29 @@ namespace mb
     {
       Vector3 dir = target - getPosition( );
       dir.normalize( );
-      // _rotate.lookAt( dir, up );
+      _rotate.lookAt( dir, up );
     }
+
+    Transform& fromMatrix( const mb::Matrix4& m )
+    {
+      mb::Matrix3 viewRotation;
+      viewRotation[ 0 ] = m[ 0 ];
+      viewRotation[ 1 ] = m[ 1 ];
+      viewRotation[ 2 ] = m[ 2 ];
+      viewRotation[ 3 ] = m[ 4 ];
+      viewRotation[ 4 ] = m[ 5 ];
+      viewRotation[ 5 ] = m[ 6 ];
+      viewRotation[ 6 ] = m[ 8 ];
+      viewRotation[ 7 ] = m[ 9 ];
+      viewRotation[ 8 ] = m[ 10 ];
+
+      rotate( ).fromRotationMatrix( viewRotation );
+      setPosition( m[ 12 ], m[ 13 ], m[ 14 ] );
+      setScale( mb::Vector3::ONE );
+
+      return *this;
+    }
+
   protected:
     // OPTIMIZATION: If identity, discard multiplication on global matrices generation!!
     bool _isIdentity;

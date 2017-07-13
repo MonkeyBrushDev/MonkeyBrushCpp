@@ -1,8 +1,27 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #include "Keyboard.hpp"
 
 namespace mb
 {
-  Keyboard::~Keyboard() { };
+  Keyboard::~Keyboard( ) { }
 
   void GLFWKeyboard::onKeyUp(int code)
   {
@@ -17,10 +36,12 @@ namespace mb
     int code = ConvertFromKey(k);
     return _isKeyPressed[code];
   }
-  bool GLFWKeyboard::keyRelease(const Key& /*k*/)
+  bool GLFWKeyboard::keyRelease(const Key& k)
   {
+    int code = ConvertFromKey( k );
+    return _isKeyPressed[code];
     //int code = ConvertFromKey(k);
-    return false; //_current[code] && _previous[code];
+    //return true; // TODO _current[code] && _previous[code];
   }
   bool GLFWKeyboard::singleKeyPress(const Key& k)
   {
@@ -31,8 +52,8 @@ namespace mb
   {
     for (unsigned i = 0; i < GLFW_KEY_LAST; ++i)
     {
-            _isKeyClicked[i] = (!_keyPreviusState[i]) && _isKeyPressed[i];
-            _keyPreviusState[i] = _isKeyPressed[i];
+      _isKeyClicked[i] = (!_keyPreviousState[i]) && _isKeyPressed[i];
+      _keyPreviousState[i] = _isKeyPressed[i];
     }
   }
   int GLFWKeyboard::ConvertFromKey(Keyboard::Key k)

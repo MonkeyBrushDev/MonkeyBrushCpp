@@ -1,3 +1,22 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #ifndef __MB_PLANE__
 #define __MB_PLANE__
 
@@ -9,6 +28,8 @@ namespace mb
 {
   class Plane
   {
+  public:
+    Plane( void ) { }
     Plane( const Vector3 &normal, float distance, bool forceNormalize = true )
     {
       setNormal( normal, forceNormalize );
@@ -19,12 +40,19 @@ namespace mb
       setNormal( Vector3( v.x( ), v.y( ), v.z( ) ) );
       setDistance( v.w( ) );
     }
+    Plane( const Vector3& normal, const Vector3& point, bool forceNormalize = true )
+    {
+      setNormal( normal, forceNormalize );
+      setDistance( _normal * point );
+    }
 
     Plane( const Plane &plane )
-      : _normal( plane._normal ),
-      _distance( plane._distance )
+      : _normal( plane._normal )
+      , _distance( plane._distance )
     {
     }
+
+    virtual ~Plane( void ) { }
 
     Plane& operator=( const Plane &plane )
     {

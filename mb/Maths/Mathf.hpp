@@ -1,3 +1,22 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #ifndef __MB_MATHF__
 #define __MB_MATHF__
 
@@ -154,7 +173,8 @@ namespace mb
     * Convert current color from gamma to linear range.
     */
     MB_API
-    static float gammaToLinearSpace( const float& v, const float& gammaFactor = 2.2f )
+    static float gammaToLinearSpace( const float& v,
+      const float& gammaFactor = 2.2f )
     {
       return std::pow( v, gammaFactor );
     }
@@ -162,7 +182,8 @@ namespace mb
     * Convert current color from linear to gamma range.
     */
     MB_API
-    static float linearToGammaSpace( const float& v, const float& gammaFactor = 2.2f )
+    static float linearToGammaSpace( const float& v,
+      const float& gammaFactor = 2.2f )
     {
       float invGamma = ( gammaFactor > 0.0f ) ? ( 1.0f / gammaFactor ) : 1.0f;
       return std::pow( v, invGamma );
@@ -171,13 +192,16 @@ namespace mb
     MB_API
     static bool approximately( float a, float b )
     {
-      /*return std::abs(b - a) < Mathf.Max(1e-06f * std::max(std::abs(a), std::abs(b)),
-        0.00001 * 8f);*/
       return std::fabs(a - b) < 0.00001f;
     }
 
+    // compute euclidian modulo of m % n
+    // https://en.wikipedia.org/wiki/Modulo_operation
     MB_API
-    static unsigned int euclideanModulo(int /*m*/, unsigned int /*n*/);
+    static unsigned int euclideanModulo( unsigned int m, unsigned int n )
+    {
+      return ( ( n % m ) + m ) % m;
+    }
     MB_API
     static const float PI_2;
     MB_API
@@ -188,6 +212,29 @@ namespace mb
     static const float Deg2Rad;
     MB_API
     static const float Rad2Deg;
+
+    /*MB_API
+    static float distance( const mb::Vector3& u, const mb::Vector3& v )
+    {
+      return std::sqrt( distanceSq( u, v ) );
+    }
+    MB_API
+    static float distanceSq( const mb::Vector3& u, const mb::Vector3& v )
+    {
+      return ( v - u ).getSquaredMagnitude( );
+    }
+    MB_API
+    static float distance( const mb::Ray& r, const mb::Vector3& p )
+    {
+      return std::sqrt( distanceSq( r, p ) );
+    }
+    MB_API
+    static float distanceSq( const mb::Ray& r, const mb::Vector3& p )
+    {
+      mb::Vector3 v0 = p - r.getOrigin( );
+      float v1 = v0 * r.getDirection( );
+      return ( v0 * v0 - v1 * v1 / ( r.getDirection( ).getSquaredMagnitude( ) ) );
+    }*/
 	};
 }
 

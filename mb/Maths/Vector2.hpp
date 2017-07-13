@@ -1,7 +1,30 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #ifndef __MB_VECTOR2__
 #define __MB_VECTOR2__
 
 #include <array>
+#include <mb/api.h>
+#include <cmath>
+#include <iomanip>
+#include <iostream>
 
 namespace mb
 {
@@ -27,6 +50,11 @@ namespace mb
     {
       _data[ 0 ] = x;
       _data[ 1 ] = y;
+    }
+
+    float* data( void )
+    {
+      return _data.data( );
     }
 
 		float operator[]( unsigned int i ) const { return _data[ i ]; }
@@ -149,6 +177,19 @@ namespace mb
     {
       *this /= length( );
       return *this;
+    }
+
+    friend std::ostream& operator<<( std::ostream &out, const Vector2& v )
+    {
+      out << std::setiosflags( std::ios::fixed | std::ios::showpoint )
+        << std::setprecision( 2 );
+      out << "(" << v[ 0 ];
+      for ( unsigned int i = 1; i < 2; ++i )
+      {
+        out << ", " << v[ i ];
+      }
+      out << ")";
+      return out;
     }
   protected:
     std::array< float, 2 > _data;

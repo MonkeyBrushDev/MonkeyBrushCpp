@@ -1,170 +1,59 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
 #ifndef __MB_BOUNDING_VOLUME__
 #define __MB_BOUNDING_VOLUME__
+
+#include <mb/api.h>
+
+#include "../Maths/Vector3.hpp"
+#include "../Maths/Plane.hpp"
+#include <vector>
 
 namespace mb
 {
   class BoundingVolume
   {
-  };
-
-  /*struct vec3
-  {
-    float x;
-    float y;
-    float z;
-  };
-  class BoundingVolume
-  {
   public:
     virtual ~BoundingVolume( void ) { }
-    virtual const vec3 center( void ) const = 0;
-    virtual float radius( void ) const = 0;
-    virtual BoundingVolume* clone( void ) const { return nullptr; }
-    const vec3& min( void ) const { return _min; }
-    const vec3& max( void ) const { return _max; }
+    virtual BoundingVolume* clone( void ) = 0;
+    virtual const Vector3& getCenter( void ) const = 0;
+    virtual float getRadius( void ) const = 0;
+    MB_API
+    const Vector3& getMin( void ) const { return _min; }
+    MB_API
+    const Vector3& getMax( void ) const { return _max; }
   protected:
-    void min( const vec3& min ) { _min = min; }
-    void min( const vec3& max ) { _max = max; }
-    BoundingVolume( void ) { }
-  private:
-    vec3 _min;
-    vec3 _max;
+    void setMin( const Vector3& min ) { _min = min; }
+    void setMax( const Vector3& max ) { _max = max; }
   public:
-    virtual void computeFrom( const BoundingVolume* v ) = 0;
-    virtual void computeFrom( const BoundingVolume* v, const Transform& tf ) = 0;
-    virtual void computeFrom( const vec3& min, const vec3& max ) = 0;
+    virtual void computeFrom( const BoundingVolume *volume ) = 0;
+    virtual bool contains( const Vector3& point ) = 0;
+    virtual void expand( const Vector3& point ) = 0;
+    // TODO: Use Vector3* points, unsigned int size ??
+    virtual void expand( const std::vector<Vector3>& points ) = 0;
+    virtual void expand( const BoundingVolume *other ) = 0;
 
-    virtual bool contains( const vec3& point ) const = 0;
-
-    virtual bool testIntersection( const BoundingVolume* o ) const = 0;
-    virtual bool testIntersection( const Sphere& o ) const = 0;
-    virtual bool testIntersection( const Plane& o ) const = 0;
+    virtual int intersectPlane( const Plane& plane ) const = 0;
+  private:
+    Vector3 _min;
+    Vector3 _max;
   };
-
-  class SphereBoundingVolume: public BoundingVolume
-  {
-  public:
-    SphereBoundingVolume( void )
-      : _sphere( vec3( 0.0f, 0.0f, 0.0f ), 1.0f )
-    {
-    }
-    SphereBoundingVolume( const vec3& center, const float& radius )
-      : _sphere ( center, radius )
-    {
-    }
-    explicit SphereBoundingVolume( const Sphere& sphere )
-      : _sphere ( sphere )
-    {
-    }
-    virtual ~SphereBoundingVolume( void )
-    {
-    }
-    virtual const vec3& center( void ) const override
-    {
-      return _sphere.center( );
-    }
-    virtual float radius( void ) const override
-    {
-      return _sphere.radius( );
-    }
-  private:
-    Sphere _sphere;
-  public:
-    virtual void computeFrom( const BoundingVolume* v ) override
-    {
-      computeFrom( v->center( ) + v->min( ), v->center( ) + v->max( ) );
-    }
-    virtual void computeFrom( const BoundingVolume* v, const Transform& tf )
-    {
-      vec3 newCenter;
-      tf.applyToPoint( v->center(), newCenter );
-      _sphere.center( newCenter );
-      _sphere.radius( v->radius() * tf.scale() );
-
-      setMin( -radius() * vec3( 1.0f, 1.0f, 1.0f ) );
-      setMax( +radius() * vec3( 1.0f, 1.0f, 1.0f ) );
-    }
-    virtual void computeFrom( const vec3&, const vec3& )
-    {
-
-    }
-    virtual bool contains( const vec3& point ) const
-    {
-
-    }
-
-    virtual bool testIntersection( const BoundingVolume* o ) const
-    {
-      return o->testIntersection( _plane );
-    }
-    virtual bool testIntersection( const Sphere& o ) const
-    {
-      return Instersection::test( _sphere, o );
-    }
-    virtual bool testIntersection( const Plane& o ) const
-    {
-      return 0;
-    }
-  };
-
-  class PlaneBoundingVolume: public BoundingVolume
-  {
-  public:
-    PlaneBoundingVolume( void )
-      : _center( 0.0f, 0.0f, 0.0f )
-      , _plane( Plane( 0.0f, 1.0f, 0.0f, 0.0f ))
-    {
-    }
-    explicit PlaneBoundingVolume( const Plane& p )
-      : _center( 0.0f, 0.0f, 0.0f )
-      , _plane( p )
-    {
-    }
-    virtual ~PlaneBoundingVolume( void )
-    {
-    }
-    virtual const vec3& center( void ) const override
-    {
-      return _center;
-    }
-    virtual float radius( void ) const override
-    {
-      return 0.0f;
-    }
-  private:
-    vec3 _center;
-    Plane _plane;
-  public:
-    virtual void computeFrom( const BoundingVolume* ) override
-    {
-
-    }
-    virtual void computeFrom( const BoundingVolume*, const Transform& )
-    {
-
-    }
-    virtual void computeFrom( const vec3&, const vec3& )
-    {
-
-    }
-    virtual bool contains( const vec3& ) const
-    {
-      return false;
-    }
-
-    virtual bool testIntersection( const BoundingVolume* o ) const
-    {
-      return o->testIntersection( _plane );
-    }
-    virtual bool testIntersection( const Sphere& o ) const
-    {
-
-    }
-    virtual bool testIntersection( const Plane& o ) const
-    {
-      return 0;
-    }
-  };*/
 }
 
 #endif /* __MB_BOUNDING_VOLUME__ */

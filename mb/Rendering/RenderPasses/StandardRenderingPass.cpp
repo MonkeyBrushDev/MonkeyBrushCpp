@@ -1,3 +1,22 @@
+/**
+ * Copyright (c) 2017, Monkey Brush
+ * All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
+
 #include "StandardRenderingPass.hpp"
 
 namespace mb
@@ -11,54 +30,90 @@ namespace mb
 
   void StandardRenderingPass::renderOpaqueObjects( Renderer* renderer, BatchQueuePtr bq, Camera* /*c*/ )
   {
-    auto renderables = bq->renderables( BatchQueue::RenderableType::OPAQUE );
+    auto renderables = bq->renderables( mb::BatchQueue::RenderableType::OPAQUE );
     if ( renderables.empty( ) )
     {
       return;
     }
-    std::cout << "Render OpaqueObjects" << std::endl;
-    /*rq->each( renderables, {
-      auto mat = r->material;
-      mat->set( "projection", ... );
-      mat->set( "view", ... );
-      // if (isShadowEnabled( )) { }
-      // if (isLightEnabled( )) { bindEachLight( ); }
+//    std::cout << "Render OpaqueObjects" << std::endl;
+    mb::Matrix4 projection = bq->getProjectionMatrix( );
+    mb::Matrix4 view = bq->getViewMatrix( );
 
-      renderStandardGeometry( renderer, renderable->geometry, material, renderable->modelTransform );
 
-      // if (isLightEnabled( )) { unbindEachLight( ); }
-      // if (isShadowEnabled( )) { }
+    unsigned int numLights = bq->_lights.size( );
 
-    });*/
-    for ( auto& renderable : renderables )
+    for( Renderable& renderable: renderables )
     {
-      // TODO: set projection and view
+      auto material = renderable.material;
+      if ( !material ) continue;
+      material->uniform( MB_PROJ_MATRIX )->value( projection );
+      material->uniform( MB_VIEW_MATRIX )->value( view );
 
-      renderStandardGeometry( renderer, renderable );
+      // BIND LIGHTS
+      // TODO: NOT BEST OPTION
+      if ( material->hasUniform( "mb_NumLights" ) )
+      {
+        material->uniform( "mb_NumLights" )->value( numLights );
+
+        for ( unsigned int i = 0; i < numLights && i < 5; ++i )
+        {
+          std::string lightPosName = std::string( "mb_LightPosition[" ) +
+            std::to_string( i ) + std::string( "]" );
+          mb::Vector3 lightPos = bq->_lights[ i ]->getPosition( );
+          mb::Vector4 lp = mb::Vector4( lightPos.x( ), lightPos.y( ), lightPos.z( ), 1.0 );
+          material->uniform( lightPosName )->value( lp );
+
+          std::string lightColorName = std::string( "mb_LightColor[" ) +
+            std::to_string( i ) + std::string( "]" );
+          mb::Color cc = bq->_lights[ i ]->getColor( );
+          material->uniform( lightColorName )->value( mb::Vector3( cc.r( ), cc.g( ), cc.b( ) ) );
+        }
+      }
+
+      renderStandardGeometry(renderer, renderable, material);
+      // TODO: UNBIND LIGHTS
     }
   }
   void StandardRenderingPass::renderTransparentObjects( Renderer* renderer,
                                                         BatchQueuePtr bq, Camera* /*c*/ )
   {
-    auto renderables = bq->renderables( BatchQueue::RenderableType::TRANSPARENT );
+    auto renderables = bq->renderables( mb::BatchQueue::RenderableType::TRANSPARENT );
     if ( renderables.empty( ) )
     {
       return;
     }
-    std::cout << "Render TransparentObjects" << std::endl;
+    //std::cout << "Render TransparentObjects" << std::endl;
+    mb::Matrix4 projection = bq->getProjectionMatrix();
+    mb::Matrix4 view = bq->getViewMatrix();
     for ( auto& renderable : renderables )
     {
-      // TODO: set projection and view
+      auto material = renderable.material;
+      if ( !material ) continue;
 
-      renderStandardGeometry( renderer, renderable );
+      material->uniform( MB_PROJ_MATRIX )->value( projection );
+      material->uniform( MB_VIEW_MATRIX )->value( view );
+
+      renderStandardGeometry( renderer, renderable, material );
     }
   }
-  void StandardRenderingPass::renderStandardGeometry( Renderer* /*renderer*/, Renderable* renderable )
+  void StandardRenderingPass::renderStandardGeometry( Renderer* r, Renderable& renderable,
+    MaterialPtr m )
   {
-    renderable->geom->forEachPrimitive( [] ( Primitive *pr )
+    m->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
+    // TODO: MOVE TO ANOTHER ZONE Material::use( Renderer* )
+
+    auto state = m->getState( );
+    r->setBlendingState( &state.getBlending( ) );
+    r->setDepthState( &state.getDepth( ) );
+    r->setCullState( &state.getCulling( ) );
+    r->setStencilState( &state.getStencil( ) );
+    r->setWireframeState( &state.getWireframe( ) );
+
+    m->use( );
+    renderable.geometry->forEachPrimitive( [m] ( Primitive *pr )
     {
-      //std::cout << "Draw primitive" << std::endl;
       pr->render( );
     } );
+    //m->unuse( );
   }
 }
