@@ -43,7 +43,13 @@ namespace mb
 
     glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE );
     glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
+
+
+#ifndef NDEBUG
+    // DEBUG
     glfwWindowHint( GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE );
+    // DEBUG
+#endif
 
 
     this->_handle = glfwCreateWindow( _params.width, _params.height, _params.title, nullptr, nullptr );
@@ -108,6 +114,22 @@ namespace mb
   		" Renderer: ", (char*)glGetString(GL_RENDERER));
 
   	mb::Log::debug("GLEW initialized");
+
+
+#ifndef NDEBUG
+    // DEBUG
+    GLint flags;
+    glGetIntegerv( GL_CONTEXT_FLAGS, &flags );
+    if ( flags & GL_CONTEXT_FLAG_DEBUG_BIT )
+    {
+      glEnable( GL_DEBUG_OUTPUT );
+      glEnable( GL_DEBUG_OUTPUT_SYNCHRONOUS );
+      glDebugMessageCallback( glDebugOutput, nullptr );
+      glDebugMessageControl( GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE );
+    }
+    // DEBUG
+#endif
+
 
     Input::initialize( );
     mb::Log::debug("Input initialized");

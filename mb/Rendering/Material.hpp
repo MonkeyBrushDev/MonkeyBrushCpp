@@ -69,6 +69,10 @@ namespace mb
       , _value( other._value )
     {
     }
+    Uniform* clone( void )
+    {
+      return new Uniform( *this );
+    }
     MB_API
     any value( void ) const
     {
@@ -197,7 +201,7 @@ namespace mb
     void state( const PipelineState &ps );
 
 
-    virtual Material* clone( void )
+    virtual Material* clone( void ) const
     {
       Material* m2 = new Material( );
       //std::copy(this->_uniforms.begin(), this->_uniforms.end(),
@@ -206,17 +210,17 @@ namespace mb
       //m2->_uniforms = this->_uniforms; TODO: PROBLEM WITH DEEP COPY OF POINTER
       for (auto& kv: this->_uniforms)
       {
-        m2->addUniform(kv.first, kv.second);
+        m2->addUniform( kv.first, UniformPtr( kv.second->clone( ) ) );
       }
 
-      m2->_state = this->_state;
+      m2->_state = this->_state;  // TODO: FAIL TO CLONE
       m2->program = this->program;
 
       return m2;
     }
 
 
-    mb::Program* program;
+    std::shared_ptr< mb::Program > program;
   protected:
     unsigned int texId;
     TUniforms _uniforms;

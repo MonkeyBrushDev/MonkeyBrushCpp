@@ -29,11 +29,11 @@ namespace mb
     this->displayFPS = true;
     this->displayMouse = true;
     this->debugWindowEvents = true;
+    this->maxVersion = 4;
     this->minVersion = 3;
-    this->maxVersion = 3;
     this->resizable = true;
     this->depthBufferBit = 24;
-    this->multiSample = 4;
+    this->multiSample = 0;
     this->title = "Foo title";
   }
 }

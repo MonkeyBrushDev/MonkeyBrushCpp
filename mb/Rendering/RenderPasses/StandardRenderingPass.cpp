@@ -103,17 +103,17 @@ namespace mb
     // TODO: MOVE TO ANOTHER ZONE Material::use( Renderer* )
 
     auto state = m->getState( );
-    r->setBlendingState( state.getBlending( ) );
-    r->setDepthState( state.getDepth( ) );
-    r->setCullState( state.getCulling( ) );
-    r->setStencilState( state.getStencil( ) );
-    r->setWireframeState( state.getWireframe( ) );
+    r->setBlendingState( &state.getBlending( ) );
+    r->setDepthState( &state.getDepth( ) );
+    r->setCullState( &state.getCulling( ) );
+    r->setStencilState( &state.getStencil( ) );
+    r->setWireframeState( &state.getWireframe( ) );
 
     m->use( );
     renderable.geometry->forEachPrimitive( [m] ( Primitive *pr )
     {
       pr->render( );
     } );
-    m->unuse( );
+    //m->unuse( );
   }
 }

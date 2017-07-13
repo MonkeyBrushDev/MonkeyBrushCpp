@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -30,7 +30,7 @@
 
 namespace mb
 {
-  Texture::Texture(unsigned int w, unsigned int h, FormatTexture /*format*/,
+  Texture::Texture(unsigned int w, unsigned int h, FormatTexture format,
     bool linear, unsigned int target )
     : _wrapMode( WrapMode::CLAMP_TO_EDGE )
     , _minFilter( linear? FilterMode::LINEAR : FilterMode::NEAREST )
@@ -39,8 +39,25 @@ namespace mb
     , _height( h )
     //, _anisoLevel( 0 )
     , _target( target )
+    , _data( nullptr )
   {
     glGenTextures( 1, &_handler );
+
+    switch ( format )
+    {
+      case FormatTexture::RGB:
+        _format = GL_RGB;
+        break;
+      case FormatTexture::RGBA:
+        _format = GL_RGBA;
+        break;
+      case FormatTexture::RGBA16F:
+        _format = GL_RGBA16F;
+        break;
+      case FormatTexture::RGBA32F:
+        _format = GL_RGBA32F;
+        break;
+    }
   }
   void Texture::bind( int slot )
   {
@@ -86,7 +103,7 @@ namespace mb
     glTexImage1D(
       this->_target,
       0, // level
-      GL_RGBA,    // internalFormat
+      _format,    // internalFormat
       this->getWidth( ),
       0, // border
       GL_RGBA, // format
@@ -121,12 +138,12 @@ namespace mb
     glTexImage2D(
       this->_target,
       0, // level
-      GL_RGBA,    // internalFormat
+      _format,    // internalFormat
       this->getWidth( ),
       this->getHeight( ),
       0, // border
       GL_RGBA, // format
-      GL_UNSIGNED_BYTE, // type
+      GL_FLOAT, //GL_UNSIGNED_BYTE, // type
       _data
     );
 
@@ -180,6 +197,12 @@ namespace mb
     tex->loadImageTexture( fileName );
     tex->apply();
     return tex;
+  }
+
+  void Texture2D::bindToImageUnit( unsigned int unit, unsigned int access,
+    unsigned int format, int level, bool layered, int layer )
+  {
+    glBindImageTexture( unit, _handler, level, layered, layer, access, format );
   }
 }
 
@@ -250,7 +273,7 @@ namespace mb
     glTexImage3D(
       this->_target,
       0, // level
-      GL_RGBA,    // internalFormat
+      _format,    // internalFormat
       this->getWidth( ),
       this->getHeight( ),
       this->getDepth( ),

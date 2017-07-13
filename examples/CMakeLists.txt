@@ -107,3 +107,54 @@ set( MBDEMOCOMPUTESHADER_LINK_LIBRARIES
   mb
 )
 common_application( mbDemoComputeShader )
+
+
+
+set( MBDEMOHEIGHTMAP_HEADERS )
+set( MBDEMOHEIGHTMAP_SOURCES demoHeightMap.cpp )
+set( MBDEMOHEIGHTMAP_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoHeightMap )
+
+
+
+
+set( MBDEMOSPHERICALHARMONICS_HEADERS )
+set( MBDEMOSPHERICALHARMONICS_SOURCES demoSphericalHarmonics.cpp )
+set( MBDEMOSPHERICALHARMONICS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoSphericalHarmonics )
+
+
+
+
+
+set( MBDEMOPBR_HEADERS )
+set( MBDEMOPBR_SOURCES demoPbr.cpp )
+set( MBDEMOPBR_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoPbr )
+
+
+
+
+
+set( MBDEMOCLONE_HEADERS )
+set( MBDEMOCLONE_SOURCES demoClone.cpp )
+set( MBDEMOCLONE_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoClone )
+
+
+
+
+set( MBDEMOS_HEADERS )
+set( MBDEMOS_SOURCES demos.cpp )
+set( MBDEMOS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemos )

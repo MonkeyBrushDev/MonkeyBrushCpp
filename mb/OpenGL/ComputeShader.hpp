@@ -36,7 +36,7 @@
           unsigned int threadGroupsZ );
         //void dispatchIndirect( ??? );
       //protected:
-        mb::Program* _program;  // TODO: Move to std::shared_ptr
+        mb::Program* program;  // TODO: Move to std::shared_ptr
       };
     }
   }

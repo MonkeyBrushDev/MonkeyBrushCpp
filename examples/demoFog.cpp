@@ -29,7 +29,7 @@ mb::Material* createFogMaterial( )
 {
   mb::Material* customMaterial = new mb::Material( );
 
-  customMaterial->program = new mb::Program( );
+  customMaterial->program = std::make_shared< mb::Program >( );
   customMaterial->program->loadVertexShaderFromText( VS_FOG_SHADER );
   customMaterial->program->loadFragmentShaderFromText( FS_FOG_SHADER );
   customMaterial->program->compileAndLink( );
@@ -65,9 +65,7 @@ mb::Group* createScene( void )
   auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
   camera->local( ).translate( 0.0f, 0.0f, 10.0f );
 
-  auto node = generateGeom( mb::Color::GREY );
-
-  scene->addChild( node );
+  scene->addChild( generateGeom( mb::Color::GREY ) );
 
   camera->addComponent( new mb::FreeCameraComponent( ) );
   scene->addChild( camera );

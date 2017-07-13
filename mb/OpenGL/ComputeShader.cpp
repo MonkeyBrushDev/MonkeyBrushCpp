@@ -16,24 +16,23 @@
       }
       ComputeShader::ComputeShader( const std::string& shaderSrc )
       {
-        _program = new mb::Program( );
-        _program->loadComputeShaderFromText( shaderSrc );
-        _program->compileAndLink( );
-        _program->autocatching( );
-
-        _program->unuse( );
+        program = new mb::Program( );
+        program->loadComputeShaderFromText( shaderSrc );
+        program->compileAndLink( );
+        program->autocatching( );
       }
       ComputeShader::~ComputeShader( )
       {
-        delete _program;
+        delete program;
       }
       void ComputeShader::dispatch( unsigned int threadGroupsX,
         unsigned int threadGroupsY, unsigned int threadGroupsZ )
       {
-        _program->use( );
+        program->use( );
         glDispatchCompute( threadGroupsX, threadGroupsY, threadGroupsZ );
-        glMemoryBarrier( GL_SHADER_STORAGE_BARRIER_BIT );
-        _program->unuse( );
+        //glMemoryBarrier( GL_SHADER_STORAGE_BARRIER_BIT );
+        glMemoryBarrier( GL_SHADER_IMAGE_ACCESS_BARRIER_BIT );
+        //program->unuse( );
       }
     }
   }

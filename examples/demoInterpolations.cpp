@@ -29,7 +29,7 @@ mb::Material* createFogMaterial( )
 {
   mb::Material* customMaterial = new mb::Material( );
 
-  customMaterial->program = new mb::Program( );
+  customMaterial->program = std::make_shared< mb::Program >( );
   customMaterial->program->loadVertexShaderFromText( VS_FOG_SHADER );
   customMaterial->program->loadFragmentShaderFromText( FS_FOG_SHADER );
   customMaterial->program->compileAndLink( );
@@ -94,7 +94,7 @@ mb::Geometry* generateGeom( const mb::Color& )
 {
   auto geom = new mb::Geometry( );
 
-  geom->addPrimitive( new mb::CubePrimitive( ) );
+  geom->addPrimitive( new mb::SpherePrimitive( 5.0f, 25, 25 ) );
 
   mb::Material* customMaterial = createFogMaterial( );
 
