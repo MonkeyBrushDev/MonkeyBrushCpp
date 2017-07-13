@@ -1,0 +1,679 @@
+[
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/version.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt/mb/version.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt/mb/version.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Application.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Application.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Application.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Boundings/BoxBoundingVolume.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Boundings/BoxBoundingVolume.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Boundings/BoxBoundingVolume.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Boundings/SphereBoundingVolume.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Boundings/SphereBoundingVolume.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Boundings/SphereBoundingVolume.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Components/BillboardComponent.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/BillboardComponent.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/BillboardComponent.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Components/Component.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/Component.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/Component.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Components/FreeCameraComponent.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/FreeCameraComponent.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/FreeCameraComponent.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Components/LambdaComponent.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/LambdaComponent.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/LambdaComponent.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Components/MaterialComponent.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/MaterialComponent.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/MaterialComponent.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Components/MeshRenderer.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/MeshRenderer.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/MeshRenderer.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Components/RotateComponent.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/RotateComponent.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Components/RotateComponent.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Io/GLFWWindow2.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Io/GLFWWindow2.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Io/GLFWWindow2.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Io/Input.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Io/Input.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Io/Input.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Io/Keyboard.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Io/Keyboard.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Io/Keyboard.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Io/Mouse.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Io/Mouse.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Io/Mouse.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Io/Window.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Io/Window.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Io/Window.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Layer.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Layer.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Layer.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/BasicMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/BasicMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/BasicMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/ColorMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/ColorMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/ColorMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/FlatColorMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/FlatColorMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/FlatColorMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/FontMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/FontMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/FontMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/NormalMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/NormalMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/NormalMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/PointMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/PointMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/PointMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/PostProcessMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/PostProcessMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/PostProcessMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/StandardMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/StandardMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/StandardMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/ToonGradientMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/ToonGradientMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/ToonGradientMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/ToonMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/ToonMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/ToonMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Materials/UVMaterial.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/UVMaterial.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Materials/UVMaterial.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Clock.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Clock.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Clock.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Color.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Color.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Color.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Curves.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Curves.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Curves.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Frustum.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Frustum.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Frustum.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Interpolation.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Interpolation.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Interpolation.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Mathf.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Mathf.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Mathf.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Matrix4.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Matrix4.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Matrix4.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Quaternion.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Quaternion.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Quaternion.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Random.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Random.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Random.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Ray.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Ray.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Ray.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Spherical.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Spherical.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Spherical.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Maths/Vector3.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Vector3.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Maths/Vector3.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/OpenGL/OpenGLMapping.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/OpenGL/OpenGLMapping.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/OpenGL/OpenGLMapping.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/OpenGL/OpenGLRenderer.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/OpenGL/OpenGLRenderer.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/OpenGL/OpenGLRenderer.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/OpenGL/Program.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/OpenGL/Program.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/OpenGL/Program.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/OpenGL/ResourceShader.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/OpenGL/ResourceShader.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/OpenGL/ResourceShader.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Primitives/CapsulePrimitive.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/CapsulePrimitive.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/CapsulePrimitive.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Primitives/CubePrimitive.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/CubePrimitive.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/CubePrimitive.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Primitives/MeshPrimitive.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/MeshPrimitive.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/MeshPrimitive.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Primitives/PlanePrimitive.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/PlanePrimitive.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/PlanePrimitive.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Primitives/PointPrimitive.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/PointPrimitive.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/PointPrimitive.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Primitives/PolyhedronPrimitive.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/PolyhedronPrimitive.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/PolyhedronPrimitive.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Primitives/Primitive.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/Primitive.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/Primitive.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Primitives/SpherePrimitive.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/SpherePrimitive.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/SpherePrimitive.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Primitives/TorusPrimitive.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/TorusPrimitive.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Primitives/TorusPrimitive.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/BatchQueue.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/BatchQueue.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/BatchQueue.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/ImageEffects/GreyImageEffect.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/ImageEffects/GreyImageEffect.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/ImageEffects/GreyImageEffect.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/ImageEffects/ImageEffect.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/ImageEffects/ImageEffect.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/ImageEffects/ImageEffect.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/ImageEffects/SepiaImageEffect.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/ImageEffects/SepiaImageEffect.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/ImageEffects/SepiaImageEffect.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/Material.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/Material.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/Material.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/RenderBuffer.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/RenderBuffer.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/RenderBuffer.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/RenderPasses/OffscreenRenderingPass.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/RenderPasses/OffscreenRenderingPass.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/RenderPasses/OffscreenRenderingPass.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/RenderPasses/PostRenderingPass.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/RenderPasses/PostRenderingPass.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/RenderPasses/PostRenderingPass.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/RenderPasses/RenderingPass.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/RenderPasses/RenderingPass.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/RenderPasses/RenderingPass.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/RenderPasses/StandardRenderingPass.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/RenderPasses/StandardRenderingPass.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/RenderPasses/StandardRenderingPass.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/Renderer.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/Renderer.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/Renderer.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Rendering/Texture.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/Texture.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Rendering/Texture.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Scenegraph/Camera.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Camera.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Camera.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Scenegraph/Geometry.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Geometry.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Geometry.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Scenegraph/Group.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Group.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Group.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Scenegraph/Light.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Light.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Light.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Scenegraph/LodNode.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/LodNode.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/LodNode.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Scenegraph/Node.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Node.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Node.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Scenegraph/Scene.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Scene.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Scene.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Scenegraph/Switch.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Switch.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Scenegraph/Switch.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/State/StateMachine.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/State/StateMachine.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/State/StateMachine.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Utils/Easing.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Utils/Easing.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Utils/Easing.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Utils/JobScheduler.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Utils/JobScheduler.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Utils/JobScheduler.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Utils/Log.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Utils/Log.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Utils/Log.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/ChildrenCounterVisitor.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/ChildrenCounterVisitor.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/ChildrenCounterVisitor.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/ComputeBatchQueue.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/ComputeBatchQueue.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/ComputeBatchQueue.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/DebugRenderVisitor.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/DebugRenderVisitor.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/DebugRenderVisitor.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/DumpVisitor.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/DumpVisitor.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/DumpVisitor.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/FetchCameras.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/FetchCameras.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/FetchCameras.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/FetchLights.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/FetchLights.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/FetchLights.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/FindNodes.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/FindNodes.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/FindNodes.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/LambdaVisitor.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/LambdaVisitor.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/LambdaVisitor.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/PickingVisitor.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/PickingVisitor.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/PickingVisitor.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/PrintNameVisitor.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/PrintNameVisitor.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/PrintNameVisitor.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/StartComponents.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/StartComponents.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/StartComponents.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/UpdateComponents.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/UpdateComponents.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/UpdateComponents.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/UpdateWorldState.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/UpdateWorldState.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/UpdateWorldState.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_DSO_NAME=\\\"libmb.so.1.0.2\\\" -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SHARED -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -Dmb_EXPORTS -isystem /usr/include/libdrm -I../ -Iinclude -I.  -g -fPIC   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o mb/CMakeFiles/mb.dir/Visitors/Visitor.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/Visitor.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/mb/Visitors/Visitor.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoClone.dir/demoClone.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoClone.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoClone.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemos.dir/demos.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demos.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demos.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoPbr.dir/demoPbr.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoPbr.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoPbr.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoHeightMap.dir/demoHeightMap.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoHeightMap.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoHeightMap.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoFog.dir/demoFog.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoFog.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoFog.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoModelLoader.dir/demoModelLoader.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoModelLoader.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoModelLoader.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoEarth.dir/demoEarth.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoEarth.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoEarth.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoPlanets.dir/demoPlanets.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoPlanets.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoPlanets.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoNormalMapping.dir/demoNormalMapping.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoNormalMapping.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoNormalMapping.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoMaterials.dir/demoMaterials.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoMaterials.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoMaterials.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoMultiCubes.dir/demoMultiCubes.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoMultiCubes.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoMultiCubes.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoPostProcess.dir/demoPostProcess.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoPostProcess.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoPostProcess.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoSphericalHarmonics.dir/demoSphericalHarmonics.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoSphericalHarmonics.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoSphericalHarmonics.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -Iexamples -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o examples/CMakeFiles/mbDemoInterpolations.dir/demoInterpolations.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoInterpolations.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/examples/demoInterpolations.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBOOST_TEST_DYN_LINK -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o tests/CMakeFiles/GroupTest.dir/GroupTest.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/GroupTest.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/GroupTest.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBOOST_TEST_DYN_LINK -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o tests/CMakeFiles/LayerTest.dir/LayerTest.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/LayerTest.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/LayerTest.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBOOST_TEST_DYN_LINK -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o tests/CMakeFiles/QuaternionTest.dir/QuaternionTest.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/QuaternionTest.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/QuaternionTest.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBOOST_TEST_DYN_LINK -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o tests/CMakeFiles/NodeTest.dir/NodeTest.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/NodeTest.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/NodeTest.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBOOST_TEST_DYN_LINK -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o tests/CMakeFiles/VectorTest.dir/VectorTest.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/VectorTest.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/VectorTest.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBOOST_TEST_DYN_LINK -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o tests/CMakeFiles/CameraTest.dir/CameraTest.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/CameraTest.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/CameraTest.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBOOST_TEST_DYN_LINK -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o tests/CMakeFiles/SwitchTest.dir/SwitchTest.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/SwitchTest.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/SwitchTest.cpp"
+},
+
+{
+  "directory": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/BuildToQt",
+  "command": "/usr/bin/g++   -DBOOST_ALL_NO_LIB -DBOOST_TEST_DYN_LINK -DBoost_NO_BOOST_CMAKE -DDEBUG -DLinux=1 -DMB_COMPUTE_SHADERS=1 -DMB_GEOMETRY_SHADERS=1 -DMB_LITTLEENDIAN=1 -DMB_OCC_QUERY=1 -DMB_SUBPROGRAMS=1 -DMB_TESSELATION_SHADERS=1 -DMB_TRANSFORM_FEEDBACK=1 -DMB_USE_BOOST=1 -DMB_USE_CXX11=1 -DMB_USE_FREEIMAGE=1 -DMB_USE_GLEW=1 -DMB_USE_GLFW3=1 -DMB_USE_OPENGL=1 -DUSE_PYTHON3=1 -DWARN_DEPRECATED -isystem /usr/include/libdrm -Iinclude -I../ -I.  -g -fPIE   -Wnon-virtual-dtor -Wsign-promo -Wvla -fno-strict-aliasing -Wall -Wextra -Winvalid-pch -Winit-self -Wno-unknown-pragmas -Wshadow -Werror -fmax-errors=5 -std=gnu++11 -o tests/CMakeFiles/TransformTest.dir/TransformTest.cpp.o -c /home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/TransformTest.cpp",
+  "file": "/home/rjarillo/Documentos/Personal/ElMotorcico/MonkeyBrushCpp/tests/TransformTest.cpp"
+}
+]

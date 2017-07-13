@@ -26,31 +26,31 @@ namespace mb
   SpherePrimitive::SpherePrimitive( float radius, unsigned int width, unsigned int height )
   {
     // -- Creating geometry of the sphere -- //
-    unsigned int faces = ( 1 + height ) * ( 1 + width );
-    unsigned int nv = 3 * height * width * 2;
+    //unsigned int faces = ( 1 + height ) * ( 1 + width );
+    //unsigned int nv = 3 * height * width * 2;
 
     // Generating the vertex data...
-    unsigned int NVIDX = 0;
-    unsigned int NNIDX = 0;
-    unsigned int NTIDX = 0;
+    //unsigned int NVIDX = 0;
+    //unsigned int NNIDX = 0;
+    //unsigned int NTIDX = 0;
     unsigned int IDX = 0;
 
     std::vector< std::vector< unsigned int > > grid;
     float u, v;
     Vector3 vertex;
 
-    for ( unsigned int i = 0; i <= height; ++i )
+    for ( unsigned int iy = 0; iy <= height; ++iy )
     {
       std::vector< unsigned int> idxs;
-      v = ( float ) i / ( float ) height;
+      v = ( float ) iy / ( float ) height;
 
-      for ( unsigned int j = 0; j <= width; ++j )
+      for ( unsigned int ix = 0; ix <= width; ++ix )
       {
-        u = ( float ) j / ( float ) width;
+        u = ( float ) ix / ( float ) width;
 
-        float x = ( -radius * cos( u * Mathf::TWO_PI ) * sin( v * Mathf::TWO_PI ) );
-        float y = ( radius * cos( v * Mathf::TWO_PI ) );
-        float z = ( radius * sin( u * Mathf::TWO_PI ) * sin( v * Mathf::TWO_PI ) );
+        float x = ( -radius * cos( u * Mathf::TWO_PI ) * sin( v * Mathf::PI ) );
+        float y = ( radius * cos( v * Mathf::PI ) );
+        float z = ( radius * sin( u * Mathf::TWO_PI ) * sin( v * Mathf::PI ) );
 
         vertex = Vector3( x, y, z );
         vertices.push_back( vertex );
@@ -58,7 +58,7 @@ namespace mb
         vertex.normalize( );
         normals.push_back( vertex );
 
-        texCoords.push_back( Vector2( u, 1.0f - v ) ); // (u,v)
+        texCoords.push_back( Vector2( u, /*1.0f - */v ) ); // (u,v)
 
         idxs.push_back( IDX++ );
       }
@@ -66,14 +66,14 @@ namespace mb
     }
 
     //Sorting of indices...(for triangles-strip)
-    for ( unsigned int i = 0; i < height; ++i )
+    for ( unsigned int iy = 0; iy < height; ++iy )
     {
-      for ( unsigned int j = 0; j < width; ++j )
+      for ( unsigned int ix = 0; ix < width; ++ix )
       {
-        unsigned int a = grid[ i ][ j + 1 ];
-        unsigned int b = grid[ i ][ j ];
-        unsigned int c = grid[ i + 1 ][ j ];
-        unsigned int d = grid[ i + 1 ][ j + 1 ];
+        unsigned int a = grid[ iy ][ ix + 1 ];
+        unsigned int b = grid[ iy ][ ix ];
+        unsigned int c = grid[ iy + 1 ][ ix ];
+        unsigned int d = grid[ iy + 1 ][ ix + 1 ];
 
         indices.push_back( a );
         indices.push_back( b );

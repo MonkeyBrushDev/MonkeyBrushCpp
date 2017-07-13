@@ -28,14 +28,9 @@ public:
   GraniteProceduralMaterial( void )
   : Material( )
   {
-    this->addUniform( MB_PROJ_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    this->addUniform( MB_VIEW_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    this->addUniform( MB_MODEL_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
+    this->addStandardUniforms( );
 
-    program = new mb::Program( );
+    program = std::make_shared< mb::Program >( );
     program->loadVertexShaderFromText( R"(
       #version 330 core
       layout (location = 0) in vec3 position;
@@ -43,14 +38,14 @@ public:
 
       out vec3 outPosition;
 
-      uniform mat4 mb_MatrixM;
-      uniform mat4 mb_MatrixV;
-      uniform mat4 mb_MatrixP;
+      uniform mat4 MB_MATRIXM;
+      uniform mat4 MB_MATRIXV;
+      uniform mat4 MB_MATRIXP;
 
       void main()
       {
-        gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(position, 1.0);
-        outPosition = vec3(mb_MatrixM * vec4(position, 1.0));
+        gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(position, 1.0);
+        outPosition = vec3(MB_MATRIXM * vec4(position, 1.0));
       })" );
     program->loadFragmentShaderFromText( R"(
       #version 330 core

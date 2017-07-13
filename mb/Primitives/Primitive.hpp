@@ -49,6 +49,8 @@ namespace mb
     Primitive::Type getType( void ) const;
     MB_API
     virtual void render( void );
+
+    virtual ~Primitive( void ) { }
   protected:
     Primitive::Type _type;
 

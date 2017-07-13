@@ -85,7 +85,7 @@ namespace mb
 
     mb::PipelineState& state = materials->first()->state();
 
-    if( state.getBlending()->isEnabled( ) )
+    if( state.getBlending( ).isEnabled( ) )
     {
       renderType = RenderableType::TRANSPARENT;
     }
@@ -114,7 +114,7 @@ namespace mb
     }
     else
     {
-      // Order by material
+      // Order by material (TODO: FAIL!)
       auto it = queue->begin( );
       auto mat1 = materials->first();
       while( it != queue->end( ) )

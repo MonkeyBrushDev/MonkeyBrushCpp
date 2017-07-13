@@ -33,18 +33,13 @@ public:
   MatCapMaterial( void )
   : Material( )
   {
-    this->addUniform( MB_PROJ_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    this->addUniform( MB_VIEW_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
-    this->addUniform( MB_MODEL_MATRIX,
-      std::make_shared< mb::Matrix4Uniform >( ) );
+    this->addStandardUniforms( );
 
     _matcapMap = std::make_shared< mb::TextureUniform >( );
 
     this->addUniform( matcapMapUnifName, _matcapMap );
 
-    program = new mb::Program( );
+    program = std::make_shared< mb::Program >( );
     program->loadVertexShaderFromText( R"(
       #version 330 core
       layout (location = 0) in vec3 position;
@@ -52,17 +47,17 @@ public:
 
       out vec2 uvCap;
 
-      uniform mat4 mb_MatrixM;
-      uniform mat4 mb_MatrixV;
-      uniform mat4 mb_MatrixP;
+      uniform mat4 MB_MATRIXM;
+      uniform mat4 MB_MATRIXV;
+      uniform mat4 MB_MATRIXP;
 
       #import<MatCap.glsl>
 
       void main()
       {
-        vec3 viewPos = -transpose(mat3(mb_MatrixV)) * mb_MatrixV[3].xyz;
-        gl_Position = mb_MatrixP * mb_MatrixV * mb_MatrixM * vec4(position, 1.0f);
-        mat3 normalMatrix = mat3(inverse(transpose(mb_MatrixV * mb_MatrixM)));
+        vec3 viewPos = -transpose(mat3(MB_MATRIXV)) * MB_MATRIXV[3].xyz;
+        gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(position, 1.0f);
+        mat3 normalMatrix = mat3(inverse(transpose(MB_MATRIXV * MB_MATRIXM)));
         uvCap = matcap(viewPos, normalize(normalMatrix * normal));
       })" );
     program->loadFragmentShaderFromText( R"(

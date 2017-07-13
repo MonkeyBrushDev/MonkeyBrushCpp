@@ -53,11 +53,11 @@ namespace mb
       _shininess = std::make_shared< mb::FloatUniform >( 64.0f );
       _bumpScale = std::make_shared< mb::FloatUniform >( 0.5f );
 
-      this->addUniform( colorMapUnifName, _colorMap );
-      this->addUniform( colorUnifName, _diffuse );
-      this->addUniform( shininessUnifName, _shininess );
-      this->addUniform( bumpMapUnifName, _bumpMap );
-      this->addUniform( bumpScaleUnifName, _bumpScale );
+      this->addUniform( "DiffuseTexture", _colorMap );
+      this->addUniform( "DiffuseColor", _diffuse );
+      this->addUniform( "ShininessValue", _shininess );
+      this->addUniform( "BumpTexture", _bumpMap );
+      this->addUniform( "BumpScale", _bumpScale );
 
       program = new mb::Program( );
       program->loadVertexShaderFromText(R"(
@@ -167,13 +167,6 @@ namespace mb
     mb::UniformPtr _colorMap;
     mb::UniformPtr _bumpMap;
     mb::UniformPtr _bumpScale;
-
-  private:
-    const char* colorMapUnifName = "DiffuseTexture";
-    const char* colorUnifName = "DiffuseColor";
-    const char* shininessUnifName = "ShininessValue";
-    const char* bumpMapUnifName = "BumpTexture";
-    const char* bumpScaleUnifName = "BumpScale";
   };
 }
 

@@ -36,18 +36,13 @@ namespace mb
     FlatColorMaterial( void )
     : Material( )
     {
-      this->addUniform( MB_PROJ_MATRIX,
-        std::make_shared< mb::Matrix4Uniform >( ) );
-      this->addUniform( MB_VIEW_MATRIX,
-        std::make_shared< mb::Matrix4Uniform >( ) );
-      this->addUniform( MB_MODEL_MATRIX,
-        std::make_shared< mb::Matrix4Uniform >( ) );
+      this->addStandardUniforms( );
 
       _diffuse = std::make_shared< mb::Vector4Uniform >( Vector4( 1.0f ) );
 
-      this->addUniform( colorUnifName, _diffuse );
+      this->addUniform( "DiffuseColor", _diffuse );
 
-      program = new mb::Program( );
+      program = std::make_shared< mb::Program >( );
       program->loadVertexShaderFromText( R"(
         #version 330 core
         layout (location = 0) in vec3 attrPosition;
@@ -56,19 +51,19 @@ namespace mb
         out vec3 outPosition;
         flat out vec3 outNormal;
 
-        uniform mat4 mb_MatrixM;
-        uniform mat4 mb_MatrixV;
-        uniform mat4 mb_MatrixP;
+        uniform mat4 MB_MATRIXM;
+        uniform mat4 MB_MATRIXV;
+        uniform mat4 MB_MATRIXP;
 
         void main( void )
       {
         vec3 normal = vec3( attrNormal );
-        mat3 normalMatrix = mat3( inverse( transpose( mb_MatrixV * mb_MatrixM ) ) );
+        mat3 normalMatrix = mat3( inverse( transpose( MB_MATRIXV * MB_MATRIXM ) ) );
         vec3 transformedNormal = normalMatrix * normal;
         vec3 position = vec3( attrPosition );
-        outPosition = vec3( mb_MatrixV * mb_MatrixM * vec4( position, 1.0 ) );
+        outPosition = vec3( MB_MATRIXV * MB_MATRIXM * vec4( position, 1.0 ) );
         outNormal = normalize( attrNormal );
-        gl_Position = mb_MatrixP * vec4( outPosition, 1.0 );
+        gl_Position = MB_MATRIXP * vec4( outPosition, 1.0 );
       })" );
       program->loadFragmentShaderFromText( R"(
         #version 330 core
@@ -104,8 +99,6 @@ namespace mb
     }
   protected:
     mb::UniformPtr _diffuse;
-  private:
-    const char* colorUnifName = "DiffuseColor";
   };
 }
 

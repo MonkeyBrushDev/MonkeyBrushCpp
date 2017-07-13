@@ -46,10 +46,10 @@ namespace mb
       _colorMap = std::make_shared< mb::TextureUniform >( );
       _diffuse = std::make_shared< mb::Vector4Uniform >( mb::Vector4( 1.0f ) );
 
-      this->addUniform( colorMapUnifName, _colorMap );
-      this->addUniform( colorUnifName, _diffuse );
+      this->addUniform( "DiffuseTexture", _colorMap );
+      this->addUniform( "DiffuseColor", _diffuse );
 
-      program = new mb::Program( );
+      program = std::make_shared< mb::Program >( );
       program->loadVertexShaderFromText( R"(
         #version 330 core
         layout (location = 0) in vec3 position;
@@ -96,9 +96,6 @@ namespace mb
   protected:
     mb::UniformPtr _diffuse;
     mb::UniformPtr _colorMap;
-  private:
-    const char* colorMapUnifName = "DiffuseTexture";
-    const char* colorUnifName = "DiffuseColor";
   };
 }
 

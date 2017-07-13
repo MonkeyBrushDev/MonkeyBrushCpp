@@ -38,6 +38,17 @@ namespace mb
       {
         _enabled = value;
       }
+      RenderState( const RenderState & rs )
+        : _enabled( rs._enabled )
+      {
+      }
+      virtual RenderState* clone( ) const
+      {
+        return new RenderState( *this );
+      }
+      virtual ~RenderState( void )
+      {
+      }
     protected:
       RenderState( bool enabled = true )
         : /*NonCopyable( )
@@ -46,7 +57,14 @@ namespace mb
       }
       bool _enabled;
     };
-
+    /*class ScissorState: public RenderState
+    {
+    public:
+      ScissorState( bool enabled = false )
+        : RenderState( enabled )
+      {
+      }
+    };*/
     class ColorMaskState : public RenderState
     {
     public:
@@ -80,7 +98,7 @@ namespace mb
     class BlendingState : public RenderState
     {
     public:
-      enum class SourceFunc
+      enum class SourceFunc : short
       {
         ZERO,
         ONE,
@@ -94,7 +112,7 @@ namespace mb
         ONE_MINUS_DST_ALPHA,
         SRC_ALPHA_SATURATE
       };
-      enum class DstFunc
+      enum class DstFunc : short
       {
         ZERO,
         ONE,
@@ -115,6 +133,70 @@ namespace mb
       }
 		  SourceFunc getSourceFunc( void ) const { return _srcBlendFunc; }
 		  void setSrcBlendFunc( SourceFunc value ) { _srcBlendFunc = value; }
+
+      enum class Type : short
+      {
+        None = 0,
+        Normal,
+        Additive,
+        Substractive,
+        Multiply
+      };
+
+      void setBlendType( const BlendingState::Type& t )
+      {
+        // TODO: Unused
+        if ( t != BlendingState::Type::None )
+        {
+          setEnabled( true );
+          switch( t )
+          {
+            case BlendingState::Type::Normal:
+              /*if ( premultipliedAlpha ) {
+                gl.blendEquationSeparate( gl.FUNC_ADD, gl.FUNC_ADD );
+                gl.blendFuncSeparate( gl.ONE, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA );
+              } else {
+                gl.blendEquationSeparate( gl.FUNC_ADD, gl.FUNC_ADD );
+                gl.blendFuncSeparate( gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA );
+              }*/
+              break;
+            case BlendingState::Type::Additive:
+              /*
+              if ( premultipliedAlpha ) {
+                glBlendEquationSeparate( GL_FUNC_ADD, GL_FUNC_ADD );
+                glBlendFuncSeparate( GL_ONE, GL_ONE, GL_ONE, GL_ONE );
+              } else {
+                glBlendEquation( GL_FUNC_ADD );
+                glBlendFunc( GL_SRC_ALPHA, GL_ONE );
+              }*/
+              break;
+            case BlendingState::Type::Substractive:
+              /*if ( premultipliedAlpha ) {
+                gl.blendEquationSeparate( gl.FUNC_ADD, gl.FUNC_ADD );
+                gl.blendFuncSeparate( gl.ZERO, gl.ZERO, gl.ONE_MINUS_SRC_COLOR, gl.ONE_MINUS_SRC_ALPHA );
+              } else {
+                gl.blendEquation( gl.FUNC_ADD );
+                gl.blendFunc( gl.ZERO, gl.ONE_MINUS_SRC_COLOR );
+              }*/
+              break;
+            case BlendingState::Type::Multiply:
+              /*if ( premultipliedAlpha ) {
+                gl.blendEquationSeparate( gl.FUNC_ADD, gl.FUNC_ADD );
+                gl.blendFuncSeparate( gl.ZERO, gl.SRC_COLOR, gl.ZERO, gl.SRC_ALPHA );
+              } else {
+                gl.blendEquation( gl.FUNC_ADD );
+                gl.blendFunc( gl.ZERO, gl.SRC_COLOR );
+              }*/
+              break;
+            default:
+              break;
+          }
+        }
+        else
+        {
+          setEnabled( false );
+        }
+      }
 
 		  DstFunc getDstFunc( void ) const { return _dstBlendFunc; }
 		  void setDstBlendFunc( DstFunc value ) { _dstBlendFunc = value; }
@@ -153,7 +235,8 @@ namespace mb
     class DepthState : public RenderState
     {
     public:
-      enum class CompareFunc {
+      enum class CompareFunc : short
+      {
         NEVER,
         LESS,
         EQUAL,
@@ -180,11 +263,11 @@ namespace mb
     class StencilState: public RenderState
     {
     public:
-      enum class CompareMode
+      enum class CompareMode : short
       {
         NEVER, LESS, EQUAL, LEQUAL, GREATER, NOT_EQUAL, GEQUAL, ALWAYS
       };
-      enum class OperationType
+      enum class OperationType : short
       {
         KEEP, ZERO, REPLACE, INCREMTN, DECREMENT, INVERT
       };
@@ -220,11 +303,20 @@ namespace mb
     MB_API
     PipelineState( void )
     {
-      _cullingState = new CullFaceState( );
-      _blendingState = new BlendingState( );
-      _depthState = new DepthState( );
-      _stencilState = new StencilState( );
-      _wireState = new WireFrameState( );
+      //_cullingState = new CullFaceState( );
+      //_blendingState = new BlendingState( );
+      //_depthState = new DepthState( );
+      //_stencilState = new StencilState( );
+      //_wireState = new WireFrameState( );
+    }
+    MB_API
+    PipelineState( const mb::PipelineState& ps )
+      : _cullingState( ps._cullingState )
+      , _blendingState( ps._blendingState )
+      , _depthState( ps._depthState )
+      , _stencilState( ps._stencilState )
+      , _wireState( ps._wireState )
+    {
     }
     MB_API
     ~PipelineState( void )
@@ -237,32 +329,32 @@ namespace mb
     }
     // TODO: Complete
     MB_API
-    CullFaceState* culling( void ) { return _cullingState; }
+    CullFaceState& culling( void ) { return _cullingState; }
     MB_API
-    BlendingState* blending( void ) { return _blendingState; }
+    BlendingState& blending( void ) { return _blendingState; }
     MB_API
-    DepthState* depth( void ) { return _depthState; }
+    DepthState& depth( void ) { return _depthState; }
     MB_API
-    StencilState* stencil( void ) { return _stencilState; }
+    StencilState& stencil( void ) { return _stencilState; }
     MB_API
-    WireFrameState* wireframe( void ) { return _wireState; }
+    WireFrameState& wireframe( void ) { return _wireState; }
 
     MB_API
-    const CullFaceState* getCulling( void ) { return _cullingState; }
+    const CullFaceState& getCulling( void ) { return _cullingState; }
     MB_API
-    const BlendingState* getBlending( void ) { return _blendingState; }
+    const BlendingState& getBlending( void ) { return _blendingState; }
     MB_API
-    const DepthState* getDepth( void ) { return _depthState; }
+    const DepthState& getDepth( void ) { return _depthState; }
     MB_API
-    const StencilState* getStencil( void ) { return _stencilState; }
+    const StencilState& getStencil( void ) { return _stencilState; }
     MB_API
-    const WireFrameState* getWireframe( void ) { return _wireState; }
+    const WireFrameState& getWireframe( void ) { return _wireState; }
   protected:
-    CullFaceState* _cullingState;
-    BlendingState* _blendingState;
-    DepthState* _depthState;
-    StencilState* _stencilState;
-    WireFrameState* _wireState;
+    CullFaceState _cullingState;
+    BlendingState _blendingState;
+    DepthState _depthState;
+    StencilState _stencilState;
+    WireFrameState _wireState;
   };
 }
 

@@ -20,10 +20,10 @@
 #ifndef __MB_MATERIAL__
 #define __MB_MATERIAL__
 
-#define MB_MODEL_MATRIX "mb_MatrixM"
-#define MB_VIEW_MATRIX "mb_MatrixV"
-#define MB_VIEWPROJ_MATRIX "mb_MatrixVP"  // Unused
-#define MB_PROJ_MATRIX "mb_MatrixP"
+#define MB_MODEL_MATRIX "MB_MATRIXM"
+#define MB_VIEW_MATRIX "MB_MATRIXV"
+#define MB_VIEWPROJ_MATRIX "MB_MATRIXVP"  // Unused
+#define MB_PROJ_MATRIX "MB_MATRIXP"
 
 #include <memory>
 #include <unordered_map>
@@ -68,6 +68,10 @@ namespace mb
       : _type( other._type )
       , _value( other._value )
     {
+    }
+    Uniform* clone( void )
+    {
+      return new Uniform( *this );
     }
     MB_API
     any value( void ) const
@@ -197,7 +201,7 @@ namespace mb
     void state( const PipelineState &ps );
 
 
-    virtual Material* clone( void )
+    virtual Material* clone( void ) const
     {
       Material* m2 = new Material( );
       //std::copy(this->_uniforms.begin(), this->_uniforms.end(),
@@ -206,21 +210,29 @@ namespace mb
       //m2->_uniforms = this->_uniforms; TODO: PROBLEM WITH DEEP COPY OF POINTER
       for (auto& kv: this->_uniforms)
       {
-        m2->addUniform(kv.first, kv.second);
+        m2->addUniform( kv.first, UniformPtr( kv.second->clone( ) ) );
       }
 
-      m2->_state = this->_state;
+      m2->_state = this->_state;  // TODO: FAIL TO CLONE
       m2->program = this->program;
 
       return m2;
     }
 
 
-    mb::Program* program;
+    std::shared_ptr< mb::Program > program;
   protected:
     unsigned int texId;
     TUniforms _uniforms;
     PipelineState _state;
+
+  public:
+    void addStandardUniforms( void )
+    {
+      addUniform( MB_PROJ_MATRIX, std::make_shared< mb::Matrix4Uniform >( ) );
+      addUniform( MB_VIEW_MATRIX, std::make_shared< mb::Matrix4Uniform >( ) );
+      addUniform( MB_MODEL_MATRIX, std::make_shared< mb::Matrix4Uniform >( ) );
+    }
   };
 
   typedef std::shared_ptr< Material > MaterialPtr;
