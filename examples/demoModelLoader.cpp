@@ -66,8 +66,8 @@ mb::Group* createScene( const std::string& objFile, const std::string& /*texFile
   mb::FlatColorMaterial* customMaterial = new mb::FlatColorMaterial( );
   customMaterial->setColor( mb::Color::YELLOW );
 
-  customMaterial->state( ).wireframe( )->setEnabled( true );
-  customMaterial->state( ).culling( )->setEnabled( false );
+  customMaterial->state( ).wireframe( ).setEnabled( true );
+  customMaterial->state( ).culling( ).setEnabled( false );
 
   geom->local( ).setScale( 0.5f );
 

@@ -27,7 +27,7 @@ mb::Material* createMaterial( )
 {
   mb::Material* customMaterial = new mb::Material( );
 
-  customMaterial->program = new mb::Program( );
+  customMaterial->program = std::make_shared< mb::Program >( );
   customMaterial->program->loadVertexShaderFromText( R"(
         #version 430
         layout(location = 0) in vec3 position;
@@ -88,7 +88,7 @@ mb::Material* createMaterial( )
 
   customMaterial->addStandardUniforms( );
 
-  customMaterial->state( ).culling( )->setEnabled( false );
+  customMaterial->state( ).culling( ).setEnabled( false );
 
   return customMaterial;
 }

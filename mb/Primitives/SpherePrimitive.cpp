@@ -58,7 +58,7 @@ namespace mb
         vertex.normalize( );
         normals.push_back( vertex );
 
-        texCoords.push_back( Vector2( u, 1.0f - v ) ); // (u,v)
+        texCoords.push_back( Vector2( u, /*1.0f - */v ) ); // (u,v)
 
         idxs.push_back( IDX++ );
       }

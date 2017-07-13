@@ -68,9 +68,11 @@ public:
       in vec2 outUV;
       uniform sampler2D tex;
       out vec4 fragColor;
+      uniform vec4 color;
       void main( void )
       {
-        fragColor = texture(tex, outUV);
+        fragColor = color;
+        fragColor.rgb *= texture(tex, outUV).rgb;
       };)";
     program->loadFromText( vsShader, fsShader );
     program->compileAndLink( );
@@ -79,7 +81,12 @@ public:
     this->addStandardUniforms( );
 
     this->addUniform( "tex", std::make_shared< mb::TextureUniform >( ) );
+    this->addUniform( "color", std::make_shared< mb::Vector4Uniform >( mb::Vector4( 1.0f ) ) );
     this->addUniform( "amount", std::make_shared< mb::FloatUniform >( 1.0f ) );
+    }
+  HeightMapMaterial* clone( void )
+  {
+    return static_cast<HeightMapMaterial*>( Material::clone( ) );
   }
 };
 
@@ -115,21 +122,25 @@ protected:
   mb::MaterialPtr _material;
 };
 
-mb::Geometry* generateGeom( const mb::Color& )
+HeightMapMaterial* material = nullptr;
+
+mb::Geometry* generateGeom( const std::string& texName, const mb::Color& c, bool enableWire )
 {
   auto geom = new mb::Geometry( );
 
   geom->local( ).setRotation( mb::Vector3::X_AXIS, -45.0f );
 
-  geom->addPrimitive( new mb::PlanePrimitive( 26.0f, 20.0f, 200, 200 ) );
+  geom->addPrimitive( new mb::PlanePrimitive( 5.0f, 5.0f, 50, 50 ) );
 
-  mb::Material* customMaterial = new HeightMapMaterial( );
+  mb::Material* customMaterial = material->clone( );
+  customMaterial->state( ).wireframe( ).setEnabled( enableWire );
+  customMaterial->state( ).blending( ).setEnabled( true );
 
-  //customMaterial->state( ).culling( ).setEnabled( false );
-  //customMaterial->state( ).wireframe( )->setEnabled( true );
+  mb::Color cc( c.r( ), c.g( ), c.b( ), 0.5f );
 
-  mb::Texture2D* Tex = mb::Texture2D::loadFromImage( "heightmap.jpg" );
+  mb::Texture2D* Tex = mb::Texture2D::loadFromImage( texName );
   customMaterial->uniform( "tex" )->value( Tex );
+  customMaterial->uniform( "color" )->value( cc );
 
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
@@ -142,12 +153,18 @@ mb::Geometry* generateGeom( const mb::Color& )
 
 mb::Group* createScene( void )
 {
+  material = new HeightMapMaterial( );
   auto scene = new mb::Group( "scene" );
 
   auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
   camera->local( ).translate( 0.0f, 0.0f, 10.0f );
 
-  scene->addChild( generateGeom( mb::Color::GREY ) );
+  mb::Geometry* geom1 = generateGeom( "heightmap.jpg", mb::Color::GREEN, false );
+  geom1->local().setPosition(-5.0f, 0.0f, 0.0f);
+  mb::Geometry* geom2 = generateGeom( "DisplacementMap.png", mb::Color::BROWN, true );
+  geom1->local().setPosition(5.0f, 0.0f, 0.0f);
+  scene->addChild( geom1 );
+  scene->addChild( geom2 );
 
   camera->addComponent( new mb::FreeCameraComponent( ) );
   scene->addChild( camera );
