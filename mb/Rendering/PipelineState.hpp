@@ -38,6 +38,17 @@ namespace mb
       {
         _enabled = value;
       }
+      RenderState( const RenderState & rs )
+        : _enabled( rs._enabled )
+      {
+      }
+      virtual RenderState* clone( ) const
+      {
+        return new RenderState( *this );
+      }
+      virtual ~RenderState( void )
+      {
+      }
     protected:
       RenderState( bool enabled = true )
         : /*NonCopyable( )
@@ -292,11 +303,20 @@ namespace mb
     MB_API
     PipelineState( void )
     {
-      _cullingState = new CullFaceState( );
-      _blendingState = new BlendingState( );
-      _depthState = new DepthState( );
-      _stencilState = new StencilState( );
-      _wireState = new WireFrameState( );
+      //_cullingState = new CullFaceState( );
+      //_blendingState = new BlendingState( );
+      //_depthState = new DepthState( );
+      //_stencilState = new StencilState( );
+      //_wireState = new WireFrameState( );
+    }
+    MB_API
+    PipelineState( const mb::PipelineState& ps )
+      : _cullingState( ps._cullingState )
+      , _blendingState( ps._blendingState )
+      , _depthState( ps._depthState )
+      , _stencilState( ps._stencilState )
+      , _wireState( ps._wireState )
+    {
     }
     MB_API
     ~PipelineState( void )
@@ -309,32 +329,32 @@ namespace mb
     }
     // TODO: Complete
     MB_API
-    CullFaceState* culling( void ) { return _cullingState; }
+    CullFaceState& culling( void ) { return _cullingState; }
     MB_API
-    BlendingState* blending( void ) { return _blendingState; }
+    BlendingState& blending( void ) { return _blendingState; }
     MB_API
-    DepthState* depth( void ) { return _depthState; }
+    DepthState& depth( void ) { return _depthState; }
     MB_API
-    StencilState* stencil( void ) { return _stencilState; }
+    StencilState& stencil( void ) { return _stencilState; }
     MB_API
-    WireFrameState* wireframe( void ) { return _wireState; }
+    WireFrameState& wireframe( void ) { return _wireState; }
 
     MB_API
-    const CullFaceState* getCulling( void ) { return _cullingState; }
+    const CullFaceState& getCulling( void ) { return _cullingState; }
     MB_API
-    const BlendingState* getBlending( void ) { return _blendingState; }
+    const BlendingState& getBlending( void ) { return _blendingState; }
     MB_API
-    const DepthState* getDepth( void ) { return _depthState; }
+    const DepthState& getDepth( void ) { return _depthState; }
     MB_API
-    const StencilState* getStencil( void ) { return _stencilState; }
+    const StencilState& getStencil( void ) { return _stencilState; }
     MB_API
-    const WireFrameState* getWireframe( void ) { return _wireState; }
+    const WireFrameState& getWireframe( void ) { return _wireState; }
   protected:
-    CullFaceState* _cullingState;
-    BlendingState* _blendingState;
-    DepthState* _depthState;
-    StencilState* _stencilState;
-    WireFrameState* _wireState;
+    CullFaceState _cullingState;
+    BlendingState _blendingState;
+    DepthState _depthState;
+    StencilState _stencilState;
+    WireFrameState _wireState;
   };
 }
 

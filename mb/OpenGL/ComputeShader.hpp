@@ -3,6 +3,7 @@
 
 #include <mb/api.h>
 #include "Program.hpp"
+#include "../Rendering/Material.hpp"
 
 #ifdef MB_COMPUTE_SHADERS
   namespace mb
@@ -29,14 +30,43 @@
       {
       public:
         MB_API
+        ComputeShader( const ComputeShader& cs )
+          : program(cs.program )
+        {
+          for ( auto& kv : cs._uniforms )
+          {
+            this->addUniform( kv.first, UniformPtr( kv.second->clone( ) ) );
+          }
+
+          program = cs.program;
+        }
+        MB_API
         ComputeShader( const std::string& shaderSrc );
         MB_API
         virtual ~ComputeShader( void );
+        MB_API
         void dispatch( unsigned int threadGroupsX, unsigned int threadGroupsY,
           unsigned int threadGroupsZ );
+        MB_API
+        TUniforms& uniforms( void );
+        MB_API
+        UniformPtr& uniform( const std::string& name );
+        MB_API
+        void addUniform( const std::string& name, UniformPtr u );
+        MB_API
+        bool hasUniform( const std::string& name );
+        MB_API
+        UniformPtr operator[ ]( const std::string& name );
+        MB_API
+        virtual ComputeShader* clone( void ) const
+        {
+          return new ComputeShader( *this );
+        }
         //void dispatchIndirect( ??? );
-      //protected:
-        mb::Program* _program;  // TODO: Move to std::shared_ptr
+      protected:
+        std::shared_ptr< mb::Program > program;
+        unsigned int texId;
+        TUniforms _uniforms;
       };
     }
   }

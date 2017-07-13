@@ -65,6 +65,7 @@ namespace mb
   }
   void OpenGLRenderer::endRender( void )
   {
+    // TODO: RESTORE OPENGL PIPELINE STATE
     Renderer::endRender( );
   }
   void OpenGLRenderer::setViewport( const Viewport& viewport )
