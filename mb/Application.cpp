@@ -67,10 +67,10 @@ namespace mb
   int Application::run( void )
   {
     bool fail = false;
-    while ( !fail )
-    {
+    //while ( !fail )
+    //{
       fail = !update( );
-    }
+    //}
     return 0;
   }
   bool Application::update( void )
@@ -103,8 +103,8 @@ namespace mb
     _renderer->beginRender( );
 
     // CLEAR COLOR (MODE TO ANOTHER ZONE) NOT BEST OPTION (ONLY MAIN CAMERA??)
-    auto clearColor = Camera::getMainCamera( )->getClearColor( );
-    glClearColor( clearColor.r(), clearColor.g(), clearColor.b(), clearColor.a() );
+    //auto clearColor = Camera::getMainCamera( )->getClearColor( );
+    //glClearColor( clearColor.r(), clearColor.g(), clearColor.b(), clearColor.a() );
 
     _renderer->clearBuffers( );
     if ( !bqCollection.empty( ) )

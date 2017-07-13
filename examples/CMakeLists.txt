@@ -97,3 +97,35 @@ set( MBDEMOINTERPOLATIONS_LINK_LIBRARIES
   mb
 )
 common_application( mbDemoInterpolations )
+
+
+
+
+set( MBDEMOHEIGHTMAP_HEADERS )
+set( MBDEMOHEIGHTMAP_SOURCES demoHeightMap.cpp )
+set( MBDEMOHEIGHTMAP_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoHeightMap )
+
+
+
+
+set( MBDEMOSPHERICALHARMONICS_HEADERS )
+set( MBDEMOSPHERICALHARMONICS_SOURCES demoSphericalHarmonics.cpp )
+set( MBDEMOSPHERICALHARMONICS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoSphericalHarmonics )
+
+
+
+
+
+set( MBDEMOPBR_HEADERS )
+set( MBDEMOPBR_SOURCES demoPbr.cpp )
+set( MBDEMOPBR_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoPbr )
+
