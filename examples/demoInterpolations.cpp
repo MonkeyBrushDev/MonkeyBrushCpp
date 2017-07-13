@@ -94,7 +94,7 @@ mb::Geometry* generateGeom( const mb::Color& )
 {
   auto geom = new mb::Geometry( );
 
-  geom->addPrimitive( new mb::CubePrimitive( ) );
+  geom->addPrimitive( new mb::SpherePrimitive( 5.0f, 25, 25 ) );
 
   mb::Material* customMaterial = createFogMaterial( );
 

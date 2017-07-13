@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -23,7 +23,7 @@ namespace mb
 {
   namespace interpolations
   {
-    const float linear( const float& p0, const float& p1,
+    /*const float linear( const float& p0, const float& p1,
       const float& t )
     {
       return ( p1 - p0 ) * t + p0;
@@ -62,6 +62,6 @@ namespace mb
         t3 = t * t2;
       return ( 2.0f * p1 - 2.0f * p2 + v0 + v1 ) * t3 +
         ( -3.0f * p1 + 3.0f * p2 - 2.0f * v0 - v1 ) * t2 + v0 * t + p1;
-    }
+    }*/
   }
 }

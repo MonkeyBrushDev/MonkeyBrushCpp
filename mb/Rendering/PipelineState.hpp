@@ -46,6 +46,9 @@ namespace mb
       {
         return new RenderState( *this );
       }
+      virtual ~RenderState( void )
+      {
+      }
     protected:
       RenderState( bool enabled = true )
         : /*NonCopyable( )
