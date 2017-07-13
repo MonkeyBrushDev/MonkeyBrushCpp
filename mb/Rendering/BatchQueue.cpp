@@ -85,7 +85,7 @@ namespace mb
 
     mb::PipelineState& state = materials->first()->state();
 
-    if( state.getBlending()->isEnabled( ) )
+    if( state.getBlending( ).isEnabled( ) )
     {
       renderType = RenderableType::TRANSPARENT;
     }

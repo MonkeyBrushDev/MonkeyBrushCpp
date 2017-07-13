@@ -24,187 +24,6 @@
 #include <routes.h>
 
 // TODO: ADD SPECULAR AND NORMAL TEXTURE TO EARTH
-/*
-mb::Program* createProgram( )
-{
-  mb::Program* program = new mb::Program( );
-  program->loadVertexShaderFromText( R"(
-    #version 330 core
-    layout (location = 0) in vec3 position;
-    layout (location = 1) in vec3 normal;
-    layout (location = 2) in vec2 texCoord;
-
-    uniform mat4 MB_MATRIXM;
-    uniform mat4 MB_MATRIXV;
-    uniform mat4 MB_MATRIXP;
-
-    out vec3 outPosition;
-    out vec3 Normal;
-        out vec2 TexCoord;
-
-    void main()
-    {
-      gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(position, 1.0);
-      mat3 normalMatrix = mat3(transpose(inverse( MB_MATRIXM )));
-      Normal = normalMatrix * normal;
-      outPosition = vec3( MB_MATRIXM * vec4( position, 1.0 ) );
-      TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
-    })" );
-  program->loadFragmentShaderFromText( R"(
-    #version 330 core
-    out vec4 fragColor;
-
-    in vec3 outPosition;
-    in vec3 Normal;
-    in vec2 TexCoord;
-
-    uniform sampler2D _MainTex;
-
-    uniform int mb_NumLights;
-
-    #define MAX_LIGHTS 5
-
-    // view-space vertex light positions (position,1),
-    //    or (-direction,0) for directional lights.
-    uniform vec4 mb_LightPosition[ MAX_LIGHTS ];
-
-    uniform vec3 mb_LightColor[ MAX_LIGHTS ];
-
-    // x = cos(spotAngle/2) or -1 for non-spot
-    // y = 1/cos(spotAngle/4) or 1 for non-spot
-    // z = quadratic attenuation
-    // w = range*range
-    uniform vec4 mb_LightAtt[ MAX_LIGHTS ];
-
-    struct SurfaceOutput
-    {
-      vec3 Albedo;
-      vec3 Normal;
-      vec3 Emissiton;
-      float Specular;
-      float Gloss;
-      float Alpha;
-    };
-
-    uniform mat4 MB_MATRIXV;
-
-    void surf( out SurfaceOutput s );
-
-    //const vec3 _LightColor0 = vec3( 0.0, 1.0, 0.8 );
-    //const vec3 _LightPos0 = vec3( 2.0, 15.0, 15.0 );
-
-    vec4 LightingPhong( in SurfaceOutput s, in vec3 _LightPos0, in vec3 _LightColor0 )
-    {
-      vec3 lightPosition = _LightPos0;
-      vec3 viewPos = -transpose(mat3(MB_MATRIXV)) * MB_MATRIXV[3].xyz;
-
-      // Ambient
-      vec3 ambient = vec3(0.4);
-
-      // Diffuse
-      vec3 lightDir = normalize( lightPosition - outPosition );
-      float diff = max( dot( s.Normal, lightDir ), 0.0 );
-      vec3 diffuse = diff * _LightColor0;
-
-      // Specular
-      vec3 viewDir = normalize( viewPos - outPosition );
-      vec3 h = normalize( lightDir + viewDir );
-
-      vec3 reflectDir = reflect(-lightDir, s.Normal);
-      float spec = pow(max(dot(viewDir, reflectDir), 0.0), 8.0);
-      vec3 specular = vec3(0.3) * spec;
-
-#ifdef RIM_LIGHTING // TODO
-  // Rim Lighting
-  //vec3 rim = pow( 1.0 - saturate( dot( viewDirection, normalDirection ) ), _RimPower );
-  //vec3 rimLighting = att * _LightColor0.rgb * saturate( dot( normalDirection, lightDir ) ) * rim * _RimColor.rgb;
-#endif
-  // TODO (CRISTIAN) https://gist.github.com/patriciogonzalezvivo/3a81453a24a542aabc63
-
-      return vec4(
-        ( ambient + diffuse + specular ) * s.Albedo,
-        1.0
-      );
-    }
-
-    vec4 LightingBlinnPhong( in SurfaceOutput s )
-    {
-      vec3 _LightPos0 = mb_LightPosition[ 0 ].xyz;
-      vec3 lightPosition = _LightPos0;
-      vec3 viewPos = -transpose(mat3(MB_MATRIXV)) * MB_MATRIXV[3].xyz;
-
-      // Ambient
-      vec3 ambient = vec3(0.4);
-
-      // Diffuse
-      vec3 lightDir = normalize( lightPosition - outPosition );
-      float diff = max( dot( s.Normal, lightDir ), 0.0 );
-      vec3 diffuse = diff * _LightColor0;
-
-      // Specular
-      vec3 viewDir = normalize( viewPos - outPosition );
-      vec3 h = normalize( lightDir + viewDir );
-      float spec = pow(max(dot(s.Normal, h), 0.0), 32.0);
-      vec3 specular = vec3(0.3) * spec;
-
-      return vec4(
-        ( ambient + diffuse + specular ) * s.Albedo,
-        1.0
-      );
-    }
-
-    vec4 LightingLambert( in SurfaceOutput s )
-    {
-      vec3 _LightPos0 = mb_LightPosition[ 0 ].xyz;
-      vec3 lightPosition = _LightPos0;
-      vec3 viewPos = -transpose(mat3(MB_MATRIXV)) * MB_MATRIXV[3].xyz;
-
-      vec3 lightDir = normalize(lightPosition - outPosition);
-
-      vec3 ambient = vec3(0.4);
-
-      float diff = max( dot( s.Normal, lightDir ), 0.0 );
-      vec3 diffuse = diff * _LightColor0;
-
-      return vec4(
-        ( ambient + diffuse ) * s.Albedo,
-        1.0
-      );
-    }
-
-    void main( )
-    {
-      SurfaceOutput s;
-      surf( s );
-      fragColor = vec4( vec3( 0.0 ), 1.0 );
-      for (int i = 0; i < MAX_LIGHTS; ++i )
-      {
-        if ( i >= mb_NumLights ) break;
-
-        if ( mb_LightPosition[ i ].w == 0.0 )
-        {
-          // DirectionalLight( mb_LightPosition[ i ].xyz, )
-        } else
-        {
-          // PointLight
-        }
-        //fragColor.rgb += mb_LightColor[ i ].rgb;
-        fragColor += LightingPhong( s, mb_LightPosition[ i ].xyz, mb_LightColor[ i ].rgb );
-      }
-    }
-
-    const vec3 color = vec3( 1.0, 0.5, 0.9 );
-
-    void surf( out SurfaceOutput s )
-    {
-      s.Albedo = texture(_MainTex, TexCoord).rgb; //color;
-      s.Normal = Normal;
-    })" );
-  program->compileAndLink( );
-  program->autocatching( );
-
-  return program;
-}*/
 
 mb::Geometry* generateGeom( const mb::Color& c, const std::string& tex )
 {
@@ -261,7 +80,7 @@ mb::Group* createScene( void )
 
   auto node2 = generateGeom( mb::Color::WHITE, "earth/earth_clouds.png" );
   node2->getComponent<mb::MaterialComponent>( )->
-    first( )->state().blending()->setEnabled(true);
+    first( )->state( ).blending( ).setEnabled( true );
   node2->local( ).setScale( 1.005f );
   node2->addComponent( new RotationComponent( 1.25f * rotationSpeed ) );
   scene->addChild( node2 );
@@ -269,7 +88,6 @@ mb::Group* createScene( void )
 
   auto node3 = generateGeom( mb::Color::WHITE, "earth/space.png" );
   node3->local( ).setScale( 15.0f );
-  //node2->addComponent( new RotationComponent( 1.25f * rotationSpeed ) );
   scene->addChild( node3 );
 
   return scene;

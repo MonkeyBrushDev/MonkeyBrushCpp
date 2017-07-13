@@ -25,7 +25,7 @@ namespace mb
   {
     this->addStandardUniforms( );
 
-    program = new mb::Program( );
+    program = std::make_shared< mb::Program >( );
     std::string headers_defines;
     headers_defines += ( size_attenuation ? "#define SIZE_ATTENUATION\n" : "" );
     program->loadVertexShaderFromText(

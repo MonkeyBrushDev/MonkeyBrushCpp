@@ -30,7 +30,7 @@ public:
   {
     this->addStandardUniforms( );
 
-    program = new mb::Program( );
+    program = std::make_shared< mb::Program >( );
     program->loadVertexShaderFromText( R"(
       #version 330 core
       layout (location = 0) in vec3 position;

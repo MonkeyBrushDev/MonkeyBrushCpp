@@ -35,7 +35,7 @@ namespace mb
   PostProcessMaterial::PostProcessMaterial( const std::string& fragmentSource )
     : Material( )
   {
-    program = new mb::Program( );
+    program = std::make_shared< mb::Program >( );
     program->loadVertexShaderFromText( R"(
       #version 330
       layout( location = 0 ) in vec3 vertPosition;
