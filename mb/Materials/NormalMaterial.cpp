@@ -25,7 +25,7 @@ namespace mb
   {
     this->addStandardUniforms( );
 
-    program = new mb::Program( );
+    program = std::make_shared< mb::Program >( );
     std::string headers_defines;
     headers_defines += ( flat_shading ? "#define FLAT_SHADING\n" : "" );
     headers_defines += ( double_sided ? "#define DOUBLE_SIDED\n" : "" );

@@ -261,7 +261,7 @@ mb::Group* createScene( void )
 
   auto node2 = generateGeom( mb::Color::WHITE, "earth/earth_clouds.png" );
   node2->getComponent<mb::MaterialComponent>( )->
-    first( )->state().blending()->setEnabled(true);
+    first( )->state( ).blending( ).setEnabled( true );
   node2->local( ).setScale( 1.005f );
   node2->addComponent( new RotationComponent( 1.25f * rotationSpeed ) );
   scene->addChild( node2 );

@@ -129,3 +129,14 @@ set( MBDEMOPBR_LINK_LIBRARIES
 )
 common_application( mbDemoPbr )
 
+
+
+
+
+set( MBDEMOCLONE_HEADERS )
+set( MBDEMOCLONE_SOURCES demoClone.cpp )
+set( MBDEMOCLONE_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoClone )
+
