@@ -59,14 +59,16 @@ namespace mb
     std::cout << "DEFAULT FBO AT " << defaultFBO << std::endl;
   }
 
-  void OpenGLRenderer::beginRender( void )
+  void OpenGLRenderer::beginRender( BatchQueuePtr bq , RenderingPass *rp )
   {
-    Renderer::beginRender( );
+    Renderer::beginRender( bq, rp );
   }
+
   void OpenGLRenderer::endRender( void )
   {
     Renderer::endRender( );
   }
+
   void OpenGLRenderer::setViewport( const Viewport& viewport )
   {
     //std::cout << "CHANGE VIEWPORT" << std::endl;

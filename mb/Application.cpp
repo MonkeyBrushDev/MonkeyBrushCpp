@@ -64,6 +64,48 @@ namespace mb
       _simulationClock.reset( );
     }
   }
+
+  void Application::init( void )
+  {
+    std::vector< BatchQueuePtr > bqCollection;
+
+    for ( auto c : _cameras )
+    {
+      if ( c != nullptr && c->isEnabled( ) )
+      {
+        BatchQueuePtr bq = std::make_shared<BatchQueue>( );
+        ComputeBatchQueue cbq( c, bq );
+        _scene->perform( cbq );
+        bqCollection.push_back( bq );
+      }
+    }
+
+    if ( !bqCollection.empty( ) )
+    {
+      BatchQueuePtr mainQueue = nullptr;
+      std::for_each( bqCollection.begin( ), bqCollection.end( ),
+                     [ &] ( BatchQueuePtr bq )
+      {
+        if ( bq->getCamera( ) != Camera::getMainCamera( ) )
+        {
+            bq->getCamera( );
+          _renderer->beginRender( bq, bq->getCamera( )->renderPass( ) );
+
+        }
+        else
+        {
+          mainQueue = bq;
+        }
+      } );
+
+      if ( mainQueue != nullptr )
+      {
+        _renderer->beginRender( mainQueue, mainQueue->getCamera( )->renderPass( ) );
+      }
+    }
+
+  }
+
   int Application::run( void )
   {
     bool fail = false;
@@ -100,13 +142,13 @@ namespace mb
     // \\ UPDATE STEP
 
     // RENDER STEP
-    _renderer->beginRender( );
 
     // CLEAR COLOR (MODE TO ANOTHER ZONE) NOT BEST OPTION (ONLY MAIN CAMERA??)
     //auto clearColor = Camera::getMainCamera( )->getClearColor( );
     //glClearColor( clearColor.r(), clearColor.g(), clearColor.b(), clearColor.a() );
 
     _renderer->clearBuffers( );
+
     if ( !bqCollection.empty( ) )
     {
       BatchQueuePtr mainQueue = nullptr;

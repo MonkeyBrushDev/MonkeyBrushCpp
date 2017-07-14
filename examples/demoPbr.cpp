@@ -201,7 +201,9 @@ mb::Geometry* generateGeom( const mb::Color& )
 {
   auto geom = new mb::Geometry( );
 
-  geom->addPrimitive( new mb::SpherePrimitive( 5.0f, 15, 15 ) );
+  geom->addPrimitive( new mb::SpherePrimitive( 5.0f, 15, 15,
+                                               mb::Primitive::Type::TRIANGLES,
+                                               mb::Primitive::DRAW_ELEMENTS ) );
 
   mb::Material* customMaterial = createMaterial( );
 
@@ -241,6 +243,8 @@ int main( )
   mb::Application app;
 
   app.setSceneNode( createScene( ) );
+
+  app.init( ); // initialize settings to render the scene...
 
   while ( window->isRunning( ) )
   {

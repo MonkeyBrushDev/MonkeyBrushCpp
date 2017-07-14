@@ -168,6 +168,8 @@ int main( )
 
   app.setSceneNode( createScene( ) );
 
+  app.init( ); // initialize settings to render the scene...
+
   while ( window->isRunning( ) )
   {
     window->pollEvents( );

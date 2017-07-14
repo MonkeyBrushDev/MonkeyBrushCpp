@@ -23,7 +23,8 @@
 
 namespace mb
 {
-  CubePrimitive::CubePrimitive( float side )
+  CubePrimitive::CubePrimitive(float side , Type type, TDrawType typeDraw)
+  : Primitive( type, typeDraw )
   {
     float side2 = side / 2.0f;
 
@@ -60,6 +61,9 @@ namespace mb
     Vector3( side2,  side2, -side2 ),
     Vector3( -side2,  side2, -side2 )
   };
+
+  MAXPOINTS = vertices.size();
+
   // Normals
   normals = std::vector<Vector3> {
     // Front
@@ -136,45 +140,5 @@ namespace mb
     20, 21, 22, 20, 22, 23
   };
 
-    uint32_t VBO[ 4 ];
-    glGenVertexArrays( 1, &VAO );
-    glBindVertexArray( VAO );
-    glGenBuffers( 4, VBO );
-
-    glBindVertexArray( VAO );
-
-    //Vertices
-    glBindBuffer( GL_ARRAY_BUFFER, VBO[ 0 ] );
-    glBufferData( GL_ARRAY_BUFFER, sizeof( Vector3 ) *vertices.size( ), vertices.data( ), GL_STATIC_DRAW );
-    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, 0 );
-    glEnableVertexAttribArray( 0 );
-
-    //Normals
-    glBindBuffer( GL_ARRAY_BUFFER, VBO[ 1 ] );
-    glBufferData( GL_ARRAY_BUFFER, sizeof( Vector3 ) *normals.size( ), normals.data( ), GL_STATIC_DRAW );
-    glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 0, 0 );
-    glEnableVertexAttribArray( 1 );
-
-    //Texture coordinates
-    glBindBuffer( GL_ARRAY_BUFFER, VBO[ 2 ] );
-    glBufferData( GL_ARRAY_BUFFER, sizeof( Vector2 ) *texCoords.size( ), texCoords.data( ), GL_STATIC_DRAW );
-    glVertexAttribPointer( 2, 2, GL_FLOAT, GL_FALSE, 0, 0 );
-    glEnableVertexAttribArray( 2 );
-
-    //Strips
-    glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, VBO[ 3 ] );
-    glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof( GLushort ) *indices.size( ), indices.data( ), GL_STATIC_DRAW );
-
-    glBindVertexArray( 0 );
-  }
-
-  void CubePrimitive::render( void )
-  {
-    glBindVertexArray( VAO );
-
-    glDrawElements( GL_TRIANGLES, sizeof( GLushort ) *indices.size( ),
-      GL_UNSIGNED_SHORT, 0 );
-
-    glBindVertexArray( 0 );
   }
 }

@@ -39,8 +39,50 @@ namespace mb
   void Renderer::setViewport( const Viewport& )
   {
   }
-  void Renderer::beginRender( void )
+  void Renderer::beginRender( BatchQueuePtr bq, RenderingPass* rp )
   {
+    rp->beginRender( this, bq );
+  }
+  void Renderer::beginRenderToPrimitive( Primitive* p )
+  {
+
+      uint32_t VBO[ 4 ];
+      unsigned int VAO;
+      glGenVertexArrays( 1, &VAO );
+      glBindVertexArray( VAO );
+      glGenBuffers( 4, VBO );
+
+      glBindVertexArray( VAO );
+      p->setVAO( VAO );
+
+      //Vertices
+      glBindBuffer( GL_ARRAY_BUFFER, VBO[ 0 ] );
+      glBufferData( GL_ARRAY_BUFFER, sizeof( Vector3 ) *p->getVertices().size( ),
+                    p->getVertices().data( ), GL_STATIC_DRAW );
+      glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, 0 );
+      glEnableVertexAttribArray( 0 );
+
+      //Normals
+      glBindBuffer( GL_ARRAY_BUFFER, VBO[ 1 ] );
+      glBufferData( GL_ARRAY_BUFFER, sizeof( Vector3 ) *p->getNormals().size( ),
+                    p->getNormals().data( ), GL_STATIC_DRAW );
+      glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 0, 0 );
+      glEnableVertexAttribArray( 1 );
+
+      //Texture coordinates
+      glBindBuffer( GL_ARRAY_BUFFER, VBO[ 2 ] );
+      glBufferData( GL_ARRAY_BUFFER, sizeof( Vector2 ) *p->getTexCoords().size( ),
+                    p->getTexCoords().data( ), GL_STATIC_DRAW );
+      glVertexAttribPointer( 2, 2, GL_FLOAT, GL_FALSE, 0, 0 );
+      glEnableVertexAttribArray( 2 );
+
+      //Strips
+      glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, VBO[ 3 ] );
+      glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof( GLushort )
+                    *p->getIndices().size( ), p->getIndices().data( ), GL_STATIC_DRAW );
+
+      glBindVertexArray( 0 );
+
   }
   void Renderer::clearBuffers( void )
   {
@@ -52,6 +94,7 @@ namespace mb
   {
     rp->render( this, bq, bq->getCamera( ) );
   }
+
   /*void Renderer::bindFramebuffer( FBO* f )
   {
 
@@ -69,31 +112,35 @@ namespace mb
     if ( t == nullptr ) return;
   }
 
-  void Renderer::drawPrimitive( MaterialPtr, Primitive* )
+  void Renderer::drawPrimitive( /*MaterialPtr,*/ Primitive* p )
   {
-    /*Primitive::Type type_ = p->getType( );
-    unsigned int type = mb::gl::glOGLPrimitiveType[ ( short ) type_ ];
-    switch ( type_ )
-    {
-      case Primitive::Type::POINTS:
-        type = GL_POINTS;
-        break;
-      case Primitive::Type::LINES:
-        type = GL_LINES;
-        break;
-      case Primitive::Type::TRIANGLES:
-        type = GL_TRIANGLES;
-        break;
-      case Primitive::Type::TRIANGLE_FAN:
-        type = GL_TRIANGLE_FAN;
-        break;
-      case Primitive::Type::TRIANGLE_STRIP:
-        type = GL_TRIANGLE_STRIP;
-        break;
-    }*/
+    glBindVertexArray( p->getVAO() );
 
-    //glDrawElements( type, p->getNumIndex( ), GL_UNSIGNED_SHORT, 0 );
+    switch( p->getTypeDraw() )
+    {
+      case Primitive::DRAW_ARRAYS:
+
+        glDrawArrays( GL_POINTS, 0, p->getMaxPoints() );
+
+        break;
+       case Primitive::DRAW_ELEMENTS:
+
+         glDrawElements( ((GLenum)p->getType()),
+                         sizeof( GLushort ) *p->getIndices().size( ),
+           GL_UNSIGNED_SHORT, 0 );
+
+         break;
+       default:
+         glDrawElements( ((GLenum)p->getType()),
+                         sizeof( GLushort ) *p->getIndices().size( ),
+           GL_UNSIGNED_SHORT, 0 );
+
+         break;
+     }
+
+     glBindVertexArray( 0 );
   }
+
   //virtual void drawBuffer( MaterialPtr , ... )
   const Vector2 Renderer::getDepthRange( void )
   {

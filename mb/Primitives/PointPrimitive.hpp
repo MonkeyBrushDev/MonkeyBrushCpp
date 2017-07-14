@@ -24,15 +24,13 @@
 
 namespace mb
 {
-  class PointPrimitive: public Primitive
+  class PointCloudPrimitive: public Primitive
   {
   public:
     MB_API
-    PointPrimitive( const std::vector< Vector3 >& points );
+    PointCloudPrimitive( const std::vector< Vector3 >& points );
     MB_API
     virtual void render( void );
-  protected:
-    unsigned int MAXPOINTS;
   };
 }
 

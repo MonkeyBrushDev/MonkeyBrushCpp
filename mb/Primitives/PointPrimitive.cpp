@@ -23,11 +23,14 @@
 
 namespace mb
 {
-  PointPrimitive::PointPrimitive( const std::vector< Vector3 >& points )
+  PointCloudPrimitive::PointCloudPrimitive( const std::vector< Vector3 >& points )
   {
     vertices = points;
 
     MAXPOINTS = points.size( );
+
+    for( unsigned int i=0; i < vertices.size(); ++i )
+      indices.push_back( i );
 
     uint32_t VBO[ 1 ];
     glGenVertexArrays( 1, &VAO );
@@ -45,7 +48,7 @@ namespace mb
     glBindVertexArray( 0 );
   }
 
-  void PointPrimitive::render( void )
+  void PointCloudPrimitive::render( void )
   {
     glBindVertexArray( VAO );
 

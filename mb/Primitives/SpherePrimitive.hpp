@@ -28,9 +28,9 @@ namespace mb
   {
   public:
     MB_API
-    SpherePrimitive( float radius = 1.0f, unsigned int width = 10, unsigned int height = 10 );
-    MB_API
-    virtual void render( void );
+    SpherePrimitive( float radius = 1.0f, unsigned int width = 10, unsigned int height = 10,
+                     Primitive::Type type = Primitive::Type::TRIANGLES,
+                     Primitive::TDrawType typeDraw = Primitive::DRAW_ELEMENTS );
   };
 }
 
