@@ -39,12 +39,14 @@ namespace mb
       this->addStandardUniforms( );
 
       _colorMap = std::make_shared< mb::TextureUniform >( );
+      _normalMap = std::make_shared< mb::TextureUniform >( );
       _diffuse = std::make_shared< mb::Vector4Uniform >( mb::Vector4( 1.0f ) );
       _shininess = std::make_shared< mb::FloatUniform >( 64.0f );
 
       this->addUniform( "DiffuseTexture", _colorMap );
       this->addUniform( "DiffuseColor", _diffuse );
       this->addUniform( "ShininessValue", _shininess );
+      this->addUniform( "NormalTexture", _normalMap );
 
       program = std::make_shared< mb::Program >( );
       program->loadVertexShaderFromText( R"(
@@ -128,10 +130,17 @@ namespace mb
     {
       _colorMap->value( texture );
     }
+    MB_API
+    void setNormalMap( mb::Texture2D *texture )
+    {
+      _normalMap->value( texture );
+    }
+
   protected:
     mb::UniformPtr _diffuse;
     mb::UniformPtr _shininess;
     mb::UniformPtr _colorMap;
+    mb::UniformPtr _normalMap;
   };
 }
 
