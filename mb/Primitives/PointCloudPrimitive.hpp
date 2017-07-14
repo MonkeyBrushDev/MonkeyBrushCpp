@@ -28,9 +28,9 @@ namespace mb
   {
   public:
     MB_API
-    PointCloudPrimitive( const std::vector< Vector3 >& points );
-    MB_API
-    virtual void render( void );
+    PointCloudPrimitive( const std::vector< Vector3 >& points,
+                         Primitive::Type type = Primitive::Type::POINTS,
+                         Primitive::TDrawType typeDraw = Primitive::DRAW_ARRAYS );
   };
 }
 

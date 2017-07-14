@@ -28,9 +28,9 @@ namespace mb
   {
   public:
     MB_API
-    PolyhedronPrimitive( float radius, unsigned int subdivisions );
-    MB_API
-    virtual void render( void );
+    PolyhedronPrimitive( float radius, unsigned int subdivisions ,
+                         Primitive::Type type = Primitive::Type::TRIANGLES,
+                         Primitive::TDrawType typeDraw = Primitive::DRAW_ELEMENTS );
   protected:
     virtual void _createPolyhedron( std::vector< mb::Vector3 >& verts,
       std::vector<short>& el )

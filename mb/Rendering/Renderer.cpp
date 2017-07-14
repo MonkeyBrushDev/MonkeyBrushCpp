@@ -120,7 +120,7 @@ namespace mb
     {
       case Primitive::DRAW_ARRAYS:
 
-        glDrawArrays( GL_POINTS, 0, p->getMaxPoints() );
+        glDrawArrays( ((GLenum)p->getType()), 0, p->getMaxPoints() );
 
         break;
        case Primitive::DRAW_ELEMENTS:

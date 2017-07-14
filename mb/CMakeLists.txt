@@ -59,7 +59,7 @@ set( MB_PUBLIC_HEADERS
   Primitives/TorusPrimitive.hpp
   Primitives/MeshPrimitive.hpp
   Primitives/PolyhedronPrimitive.hpp
-  Primitives/PointPrimitive.hpp
+  Primitives/PointCloudPrimitive.hpp
 
 
   #Rendering/ImageEffects/BlurImageEffect.hpp
@@ -212,7 +212,7 @@ set( MB_SOURCES
   Primitives/TorusPrimitive.cpp
   Primitives/MeshPrimitive.cpp
   Primitives/PolyhedronPrimitive.cpp
-  Primitives/PointPrimitive.cpp
+  Primitives/PointCloudPrimitive.cpp
 
   Rendering/ImageEffects/ImageEffect.cpp
   Rendering/ImageEffects/GreyImageEffect.cpp
