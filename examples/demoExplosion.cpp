@@ -51,7 +51,6 @@ mb::Material* createMaterial( )
 {
   mb::Material* customMaterial = new mb::Material( );
 
-  customMaterial->program = std::make_shared< mb::Program >( );
   customMaterial->program->loadVertexShaderFromText( R"(
     #version 430
     layout(location = 0) in vec3 position;
@@ -82,15 +81,21 @@ mb::Material* createMaterial( )
     vec4 explode(vec4 position, vec3 normal)
     {
       float magnitude = 5.0f;
-      if (gl_PrimitiveIDIn % 2 == 0)
+      if (gl_PrimitiveIDIn % 3 == 0)
       {
         vec3 direction = normal * ((sin(time) + 1.0f) / 2.0f) * magnitude;
         color = vec3( 1.0, 0.0, 0.0 );
         return position + vec4(direction, 0.0f);
       }
-      else
+      else if (gl_PrimitiveIDIn % 3 == 1)
       {
         vec3 direction = normal * ((cos(time) + 1.0f) / 2.0f) * magnitude;
+        color = vec3( 0.0, 1.0, 0.0 );
+        return position + vec4(direction, 0.0f);
+      }
+      else
+      {
+        vec3 direction = normal * ((tan(time) + 1.0f) / 2.0f) * magnitude;
         color = vec3( 0.0, 0.0, 1.0 );
         return position + vec4(direction, 0.0f);
       }

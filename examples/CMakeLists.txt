@@ -158,3 +158,42 @@ set( MBDEMOEXPLOSION_LINK_LIBRARIES
   mb
 )
 common_application( mbDemoExplosion )
+
+
+
+
+
+set( MBDEMOSWAPTEXTURE_HEADERS )
+set( MBDEMOSWAPTEXTURE_SOURCES demoSwapTexture.cpp )
+set( MBDEMOSWAPTEXTURE_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoSwapTexture )
+
+
+
+set( MBDEMOBROWNIAN_HEADERS )
+set( MBDEMOBROWNIAN_SOURCES demoBrownian.cpp )
+set( MBDEMOBROWNIAN_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoBrownian )
+
+
+
+
+set( MBDEMOBLENDING_HEADERS )
+set( MBDEMOBLENDING_SOURCES demoBlending.cpp )
+set( MBDEMOBLENDING_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoBlending )
+
+
+
+set( MBDEMOWAYPOINTS_HEADERS )
+set( MBDEMOWAYPOINTS_SOURCES demoWaypoints.cpp )
+set( MBDEMOWAYPOINTS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoWaypoints )

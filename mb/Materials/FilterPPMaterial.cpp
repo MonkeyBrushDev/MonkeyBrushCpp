@@ -17,41 +17,32 @@
  *
  **/
 
-#include "UVMaterial.hpp"
+#include "FilterPPMaterial.hpp"
+
 namespace mb
 {
-  UVMaterial::UVMaterial( void )
-    : Material( )
+  FilterPPMaterial::FilterPPMaterial( void )
+    : mb::PostProcessMaterial( )
   {
-    this->addStandardUniforms( );
+    this->addUniform( "targetTex", std::make_shared< mb::TextureUniform > ( ) );
+    this->addUniform( "kernelMatrix", std::make_shared< mb::Matrix4Uniform >( ) );
 
-    program->loadVertexShaderFromText( R"(
-      #version 330 core
-      layout (location = 0) in vec3 position;
-      //layout (location = 1) in vec3 normal;
-      layout (location = 2) in vec2 texCoord;
+    program->loadFragmentShaderFromText(
+    R"(#version 330 core
+      // Samplers
+      in vec2 uv;
+      uniform sampler2D targetTex;
 
-      out vec2 TexCoord;
-
-      uniform mat4 MB_MATRIXM;
-      uniform mat4 MB_MATRIXV;
-      uniform mat4 MB_MATRIXP;
-
-      void main()
-      {
-        gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(position, 1.0f);
-        TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
-      })" );
-    program->loadFragmentShaderFromText( R"(
-      #version 330 core
-
-      in vec2 TexCoord;
+      uniform mat4 kernelMatrix;
 
       out vec4 fragColor;
 
-      void main( )
+      void main(void)
       {
-        fragColor = vec4( TexCoord.xy, 0.0, 1.0 );
+        vec3 baseColor = texture(targetTex, uv).rgb;
+        baseColor = (kernelMatrix * vec4(baseColor, 1.0)).rgb;
+
+        fragColor = vec4(baseColor, 1.0);
       })" );
     program->compileAndLink( );
     program->autocatching( );

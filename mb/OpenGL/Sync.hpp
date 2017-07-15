@@ -1,61 +1,55 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  **/
 
-#ifndef __MB_APPLICATION__
-#define __MB_APPLICATION__
+#ifndef __MB_SYNC__
+#define __MB_SYNC__
 
-#include <mb/api.h>
-#include "Scenegraph/Group.hpp"
-#include "Scenegraph/Camera.hpp"
-#include "Rendering/Renderer.hpp"
-#include "Maths/Clock.hpp"
-
-#include <unordered_map>
+#include "../Includes.hpp"
+#include <functional>
 
 namespace mb
 {
-  class Application
+  typedef std::shared_ptr<class Sync> SyncRef;
+  class Sync
   {
   public:
     MB_API
-    Application( void );
+    static SyncRef create(
+      GLenum condition = GL_SYNC_GPU_COMMANDS_COMPLETE,
+      GLbitfield flags = 0
+    );
     MB_API
-    virtual ~Application( void );
+    ~Sync( void );
     MB_API
-    void setSceneNode( Group* node );
+    GLenum clientWaitSync(
+      GLbitfield flags = GL_SYNC_FLUSH_COMMANDS_BIT,
+      GLuint64 timeoutNanoseconds = 0
+    );
     MB_API
-    virtual int run( void );
-    MB_API
-    virtual bool update( void );
+    void waitSync( GLbitfield flags = 0,
+      GLuint64 timeout = GL_TIMEOUT_IGNORED );
+    GLsync getObject( void ) { return _sync; }
 
-    MB_API
-    mb::Renderer* getRenderer( void ) const
-    {
-      return _renderer;
-    }
-    bool debug = false;
+    Sync( GLenum condition, GLbitfield flags );
   protected:
-    Clock _simulationClock;
-    Group* _scene; // Scene*
-    Renderer* _renderer;
-    std::vector<Camera*> _cameras;
+    GLsync _sync;
   };
 }
 
-#endif /* __MB_APPLICATION__ */
+#endif /* __MB_SYNC__ */

@@ -154,12 +154,18 @@ set( MB_PUBLIC_HEADERS
   Materials/PostProcessMaterial.hpp
   Materials/UVMaterial.hpp
   Materials/FlatColorMaterial.hpp
+  Materials/ToneMappingMaterial.hpp
+  Materials/FilterPPMaterial.hpp
+  Materials/BlackWhitePPMaterial.hpp
+  Materials/ColorCorrectionPPMaterial.hpp
 
   Utils/ObjLoader.hpp
 
   Utils/JobScheduler.hpp
 
   OpenGL/OpenGLMapping.hpp
+  OpenGL/Query.hpp
+  OpenGL/Sync.hpp
 )
 
 set( MB_HEADERS
@@ -292,10 +298,16 @@ set( MB_SOURCES
   Materials/PostProcessMaterial.cpp
   Materials/UVMaterial.cpp
   Materials/FlatColorMaterial.cpp
+  Materials/ToneMappingMaterial.cpp
+  Materials/FilterPPMaterial.cpp
+  Materials/BlackWhitePPMaterial.cpp
+  Materials/ColorCorrectionPPMaterial.cpp
 
   Utils/JobScheduler.cpp
 
   OpenGL/OpenGLMapping.cpp
+  OpenGL/Query.cpp
+  OpenGL/Sync.cpp
 )
 
 set( MB_LINK_LIBRARIES

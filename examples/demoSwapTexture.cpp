@@ -25,34 +25,54 @@
 
 #include "others/FogShader.hpp"
 
-mb::Material* createFogMaterial( )
+class SwapTextureController : public mb::Component
 {
-  mb::Material* customMaterial = new mb::Material( );
-
-  customMaterial->program->loadVertexShaderFromText( VS_FOG_SHADER );
-  customMaterial->program->loadFragmentShaderFromText( FS_FOG_SHADER );
-  customMaterial->program->compileAndLink( );
-  customMaterial->program->autocatching( );
-
-  customMaterial->addStandardUniforms( );
-  customMaterial->addUniform( "density",
-    std::make_shared< mb::FloatUniform >( 0.04f ) );
-
-  return customMaterial;
-}
+  IMPLEMENT_COMPONENT( SwapTextureController )
+public:
+  SwapTextureController( void )
+    : mb::Component( )
+    , _counter( 1.0f )
+  {
+      mb::Texture2D* Tex1 = mb::Texture2D::loadFromImage( "green_matcap.jpg" );
+      mb::Texture2D* Tex2 = mb::Texture2D::loadFromImage( "rubymatcap.jpg" );
+      cpp = new mb::CustomPingPong< mb::Texture *>( Tex1, Tex2 );
+  }
+  virtual void start( void ) override
+  {
+    _material = node( )->getComponent< mb::MaterialComponent >( )->first( );
+    _material->uniform( "DiffuseTexture" )->value( cpp->first( ) );
+  }
+  virtual void update( const mb::Clock& clock ) override
+  {
+    _counter -= clock.getDeltaTime( );
+    if ( _counter < 0.0f )
+    {
+      cpp->swap( );
+      _material->uniform( "DiffuseTexture" )->value( cpp->first( ) );
+      _counter = 1.0f;
+    }
+  }
+protected:
+  float _counter;
+  mb::CustomPingPong< mb::Texture *>* cpp;
+  mb::MaterialPtr _material;
+};
 
 mb::Geometry* generateGeom( const mb::Color& )
 {
   auto geom = new mb::Geometry( );
 
-  geom->addPrimitive( new mb::CubePrimitive( ) );
+  geom->addPrimitive( new mb::CubePrimitive( 5.0f ) );
 
-  mb::Material* customMaterial = createFogMaterial( );
+  mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
+  customMaterial->setColor( mb::Color::WHITE );
 
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
 
-  geom->addComponent( new mb::RotateComponent( mb::Vector3::ONE, 0.25f ) );
+  geom->addComponent( new mb::RotateComponent( mb::Vector3::Y_AXIS, 0.15f ) );
+
+  geom->addComponent( new SwapTextureController( ) );
 
   return geom;
 }
@@ -78,7 +98,7 @@ int main( )
 
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
-  window->setTitle( "Fog Demo" );
+  window->setTitle( "Swap texture Demo" );
 
   mb::Application app;
 

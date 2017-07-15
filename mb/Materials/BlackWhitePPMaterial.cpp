@@ -17,41 +17,29 @@
  *
  **/
 
-#include "UVMaterial.hpp"
+#include "BlackWhitePPMaterial.hpp"
+
 namespace mb
 {
-  UVMaterial::UVMaterial( void )
-    : Material( )
+  BlackWhitePPMaterial::BlackWhitePPMaterial( void )
+    : mb::PostProcessMaterial( )
   {
-    this->addStandardUniforms( );
+    this->addUniform( "targetTex", std::make_shared< mb::TextureUniform > ( ) );
 
-    program->loadVertexShaderFromText( R"(
-      #version 330 core
-      layout (location = 0) in vec3 position;
-      //layout (location = 1) in vec3 normal;
-      layout (location = 2) in vec2 texCoord;
+    program->loadFragmentShaderFromText(
+    R"(#version 330 core
+      // Samplers
+      in vec2 uv;
+      uniform sampler2D targetTex;
 
-      out vec2 TexCoord;
-
-      uniform mat4 MB_MATRIXM;
-      uniform mat4 MB_MATRIXV;
-      uniform mat4 MB_MATRIXP;
-
-      void main()
-      {
-        gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(position, 1.0f);
-        TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
-      })" );
-    program->loadFragmentShaderFromText( R"(
-      #version 330 core
-
-      in vec2 TexCoord;
+      uniform mat4 kernelMatrix;
 
       out vec4 fragColor;
 
-      void main( )
+      void main(void)
       {
-        fragColor = vec4( TexCoord.xy, 0.0, 1.0 );
+        float luminance = dot(texture(targetTex, uv).rgb, vec3(0.3, 0.59, 0.11));
+        fragColor = vec4(luminance, luminance, luminance, 1.0);
       })" );
     program->compileAndLink( );
     program->autocatching( );

@@ -200,25 +200,27 @@ namespace mb
     MB_API
     void state( const PipelineState &ps );
 
+    MB_API
+    Material( void )
+    {
+      program = std::make_shared< mb::Program >( );
+    }
+    MB_API
+    Material( const mb::Material& m )
+    {
+      for ( auto& kv : m._uniforms )
+      {
+        this->addUniform( kv.first, UniformPtr( kv.second->clone( ) ) );
+      }
+
+      this->_state = m._state;  // TODO: FAIL TO CLONE
+      this->program = m.program;
+    }
 
     virtual Material* clone( void ) const
     {
-      Material* m2 = new Material( );
-      //std::copy(this->_uniforms.begin(), this->_uniforms.end(),
-      //  std::inserter(m2->_uniforms, m2->_uniforms.end()) );
-
-      //m2->_uniforms = this->_uniforms; TODO: PROBLEM WITH DEEP COPY OF POINTER
-      for (auto& kv: this->_uniforms)
-      {
-        m2->addUniform( kv.first, UniformPtr( kv.second->clone( ) ) );
-      }
-
-      m2->_state = this->_state;  // TODO: FAIL TO CLONE
-      m2->program = this->program;
-
-      return m2;
+      return new Material( *this );
     }
-
 
     std::shared_ptr< mb::Program > program;
   protected:
