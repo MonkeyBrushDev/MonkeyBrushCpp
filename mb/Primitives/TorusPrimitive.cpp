@@ -21,5 +21,18 @@
 
 namespace mb
 {
+ TorusPrimitive::TorusPrimitive( float outerRadius, float innerRadius,
+                unsigned int sides, unsigned int rings, Primitive::Type type,
+                Primitive::TDrawType typeDraw )
+ : Primitive( type, typeDraw )
+ {
+    //TODO:
+//     int = sides * rings;
+//     int nv = sides * (rings + 1);
+
+
+
+
+ }
 
 }

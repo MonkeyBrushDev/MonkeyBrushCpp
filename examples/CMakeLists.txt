@@ -80,6 +80,13 @@ common_application( mbDemoNormalMapping )
 ## TODO: FAIL )
 ## TODO: FAIL common_application( mbDemoButterflies )
 
+set( MBDEMOBUTTERFLIES_HEADERS )
+set( MBDEMOBUTTERFLIES_SOURCES demoButterflies.cpp )
+set( MBDEMOBUTTERFLIES_LINK_LIBRARIES
+   mb
+)
+common_application( mbDemoButterflies )
+
 
 
 set( MBDEMOPOSTPROCESS_HEADERS )
