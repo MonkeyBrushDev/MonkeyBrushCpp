@@ -164,6 +164,7 @@ set( MB_PUBLIC_HEADERS
   Utils/JobScheduler.hpp
 
   OpenGL/OpenGLMapping.hpp
+  OpenGL/TransformFeedback.hpp
   OpenGL/Query.hpp
   OpenGL/Sync.hpp
 )
@@ -306,6 +307,7 @@ set( MB_SOURCES
   Utils/JobScheduler.cpp
 
   OpenGL/OpenGLMapping.cpp
+  OpenGL/TransformFeedback.cpp
   OpenGL/Query.cpp
   OpenGL/Sync.cpp
 )

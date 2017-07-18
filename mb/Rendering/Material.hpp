@@ -213,7 +213,7 @@ namespace mb
         this->addUniform( kv.first, UniformPtr( kv.second->clone( ) ) );
       }
 
-      this->_state = m._state;  // TODO: FAIL TO CLONE
+      this->_state = m._state;
       this->program = m.program;
     }
 

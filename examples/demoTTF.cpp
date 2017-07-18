@@ -20,38 +20,14 @@
 #include <mb/mb.h>
 #include <routes.h>
 
-GLuint createShader( const char* source, GLenum type )
-{
-  GLuint shader = glCreateShader( type );
-  glShaderSource( shader, 1, &source, nullptr );
-  glCompileShader( shader );
-  int status;
-  glGetShaderiv( shader, GL_COMPILE_STATUS, &status );
-  if ( status == GL_FALSE )
-  {
-    int infoLogLength;
-    glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &infoLogLength );
-    GLchar* infoLog = new GLchar[ infoLogLength ];
-    glGetShaderInfoLog( shader, infoLogLength, nullptr, infoLog );
-    std::cout
-      << "----------------------------- " << std::endl <<
-      source << std::endl <<
-      "----------------------------- " <<
-      std::endl;
-    std::cerr << "Compile log: " << infoLog << std::endl;
-    delete[ ] infoLog;
-    throw;
-  }
-  return shader;
-}
-
-int main( )
+int main( void )
 {
   mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 512, 512 ) );
   window->init( );
 
-  auto vShaderTransform = createShader( R"(
+  mb::Program p;
+  p.loadVertexShaderFromText( R"(
     #version 330
     layout(location = 0) in vec4 position;
     uniform mat4 MB_MATRIXM;
@@ -72,8 +48,8 @@ int main( )
       gl_Position = mvp * position;
       gl_Position = position;
       color = vec3(clamp(vec2(position), 0.0, 1.0), 0.0);
-    })", GL_VERTEX_SHADER );
-  auto fShaderTransform = createShader( R"(
+    })" );
+  p.loadFragmentShaderFromText( R"(
     #version 330
 
     in vec3 color;
@@ -82,15 +58,13 @@ int main( )
     void main( )
     {
       fragColor = vec4(color, 1.0);
-    })", GL_FRAGMENT_SHADER );
-  auto programTransform = glCreateProgram( );
-  glAttachShader( programTransform, vShaderTransform );
-  glAttachShader( programTransform, fShaderTransform );
-  const char* varyings [2] = { "gl_Position", "color" };
-  glTransformFeedbackVaryings( programTransform, 2, varyings, GL_SEPARATE_ATTRIBS );
-  glLinkProgram( programTransform );
+    })" );
+  p.create( );
+  const char* varyings[ 2 ] = { "gl_Position", "color" };
+  p.feedbackVarying( varyings, 2, GL_SEPARATE_ATTRIBS );
+  p.link( );
+  p.autocatching( );
 
-  int VERTEX_COUNT = 6;
   std::vector<mb::Vector4> positions = {
     mb::Vector4( -1.0f, -1.0f, 0.0f, 1.0f ),
     mb::Vector4( 1.0f, -1.0f, 0.0f, 1.0f ),
@@ -99,6 +73,7 @@ int main( )
     mb::Vector4( -1.0f, 1.0f, 0.0f, 1.0f ),
     mb::Vector4( -1.0f, -1.0f, 0.0f, 1.0f )
   };
+  unsigned int VERTEX_COUNT = positions.size( );
 
   GLuint buffers[ 3 ];
   glCreateBuffers( 3, buffers );
@@ -128,12 +103,11 @@ int main( )
   glBindVertexArray( 0 );
 
   // Init transform
-  GLuint tf;
-  glCreateTransformFeedbacks( 1, &tf );
-  glBindTransformFeedback( GL_TRANSFORM_FEEDBACK, tf );
+  mb::TransformFeedback ttf;
+  ttf.bind( );
   glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, 0, buffers[ 1 ] );
   glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, 1, buffers[ 2 ] );
-  glBindTransformFeedback( GL_TRANSFORM_FEEDBACK, 0 );
+  ttf.unbind( );
   glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, 0, 0 );
   glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, 1, 0 );
 
@@ -169,32 +143,24 @@ int main( )
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
     glEnable( GL_RASTERIZER_DISCARD );
-    glUseProgram( programTransform );
+    p.use( );
 
     glBindVertexArray( VAOS[ 0 ] );
-    glBindTransformFeedback( GL_TRANSFORM_FEEDBACK, tf );
+    ttf.bind( );
 
-    glBeginTransformFeedback( GL_TRIANGLES );
-    glDrawArraysInstanced( GL_TRIANGLES, 0, VERTEX_COUNT, 1 );
-    glEndTransformFeedback( );
-    glBindTransformFeedback( GL_TRANSFORM_FEEDBACK, 0 );
+    ttf.beginTriangles( );
+    glDrawArrays( GL_TRIANGLES, 0, VERTEX_COUNT );
+    ttf.end( );
+    ttf.unbind( );
 
     glDisable( GL_RASTERIZER_DISCARD );
 
-    std::vector<mb::Vector4> arrBuffer( positions.size( ) );
-    std::vector<mb::Vector3> arrBuffer2( positions.size( ) );
-    
-    //std::vector<float> arrBuffer( positions.size( ) * sizeof( mb::Vector4 ) );
-    //std::vector<float> arrBuffer2( positions.size( ) * sizeof( mb::Vector3 ) );
     glBindBuffer( GL_ARRAY_BUFFER, buffers[ 1 ] );
-    glGetBufferSubData( GL_ARRAY_BUFFER, 0, sizeof( mb::Vector4 ) * positions.size( ),
-      arrBuffer.data( ) );
-    glBindBuffer( GL_ARRAY_BUFFER, buffers[ 2 ] );
-    glGetBufferSubData( GL_ARRAY_BUFFER, 0, sizeof( mb::Vector3 ) * positions.size( ),
-      arrBuffer2.data( ) );
-    
-    //glBufferData( )
+    std::vector<mb::Vector4> arrBuffer = ttf.extractData<mb::Vector4>( positions.size( ) );
 
+    glBindBuffer( GL_ARRAY_BUFFER, buffers[ 2 ] );
+    std::vector<mb::Vector3> arrBuffer2 = ttf.extractData<mb::Vector3>( positions.size( ) );
+    
     window->swapBuffers( );
   }
 
