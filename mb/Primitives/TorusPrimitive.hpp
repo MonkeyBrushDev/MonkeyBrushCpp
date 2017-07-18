@@ -27,10 +27,11 @@ namespace mb
   class TorusPrimitive: public Primitive
   {
   public:
-      TorusPrimitive( float outerRadius = 1.0f, float innerRadius = 0.5f,
-                      unsigned int sides = 4, unsigned int rings = 10,
-                      Primitive::Type type = Primitive::Type::TRIANGLES,
-                      Primitive::TDrawType typeDraw = Primitive::DRAW_ELEMENTS );
+    MB_API
+    TorusPrimitive( float outerRadius = 1.0f, float innerRadius = 0.5f,
+                    unsigned int sides = 4, unsigned int rings = 10,
+                    Primitive::Type type = Primitive::Type::TRIANGLES,
+                    Primitive::TDrawType typeDraw = Primitive::DRAW_ELEMENTS );
 
   };
 }
