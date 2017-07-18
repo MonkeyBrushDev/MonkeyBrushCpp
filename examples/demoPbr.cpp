@@ -27,7 +27,6 @@ mb::Material* createMaterial( )
 {
   mb::Material* customMaterial = new mb::Material( );
 
-  customMaterial->program = std::make_shared< mb::Program >( );
   customMaterial->program->loadVertexShaderFromText( R"(
         #version 430
         layout(location = 0) in vec3 position;

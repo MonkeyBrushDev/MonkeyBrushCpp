@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -72,11 +72,11 @@ namespace mb
     glTransformFeedbackVaryings(prog->program(),
       varyings.size(), &varyings[0], bufferMode);
   }
-  std::vector<float> TransformFeedback::extractData(unsigned int numElems) const
+  /*std::vector<float> TransformFeedback::extractData(unsigned int numElems) const
   {
-    std::vector<float> feedback(numElems);
+    std::vector<T> feedback(numElems);
     glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0,
       sizeof(feedback), &feedback[0]);
     return feedback;
-  }
+  }*/
 }

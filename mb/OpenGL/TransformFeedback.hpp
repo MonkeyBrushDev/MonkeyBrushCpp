@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -82,8 +82,20 @@ namespace mb
     MB_API
     static void varyings(const mb::Program* prog,
       const std::vector<const char*>& varyings, unsigned int bufferMode);
+
+    template<typename T>
+    std::vector<T> extractData(unsigned int numElems) const
+    {
+      std::vector< T > arrBuffer( numElems );
+      glGetBufferSubData( GL_ARRAY_BUFFER, 0, sizeof( T ) * numElems, arrBuffer.data( ) );
+      return arrBuffer;
+    }
+
     MB_API
-    std::vector<float> extractData(unsigned int numElems) const;
+    inline unsigned int handler( void ) const
+    {
+      return _handler;
+    }
   //protected:
     unsigned int _handler;
   };
