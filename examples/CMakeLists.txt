@@ -73,12 +73,12 @@ set( MBDEMONORMALMAPPING_LINK_LIBRARIES
 common_application( mbDemoNormalMapping )
 
 
-## TODO: FAIL set( MBDEMOBUTTERFLIES_HEADERS )
-## TODO: FAIL set( MBDEMOBUTTERFLIES_SOURCES demoButterflies.cpp )
-## TODO: FAIL set( MBDEMOBUTTERFLIES_LINK_LIBRARIES
-## TODO: FAIL   mb
-## TODO: FAIL )
-## TODO: FAIL common_application( mbDemoButterflies )
+set( MBDEMOBUTTERFLIES_HEADERS )
+set( MBDEMOBUTTERFLIES_SOURCES demoButterflies.cpp )
+set( MBDEMOBUTTERFLIES_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoButterflies )
 
 
 
@@ -197,3 +197,28 @@ set( MBDEMOWAYPOINTS_LINK_LIBRARIES
   mb
 )
 common_application( mbDemoWaypoints )
+
+
+set( MBDEMOGRASS_HEADERS )
+set( MBDEMOGRASS_SOURCES demoGrass.cpp )
+set( MBDEMOGRASS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoGrass )
+
+
+
+set( MBDEMOMESHNORMALS_HEADERS )
+set( MBDEMOMESHNORMALS_SOURCES demoMeshNormals.cpp )
+set( MBDEMOMESHNORMALS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoMeshNormals )
+
+
+set( MBDEMOTTF_HEADERS )
+set( MBDEMOTTF_SOURCES demoTTF.cpp )
+set( MBDEMOTTF_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoTTF )

@@ -38,7 +38,7 @@ void main( )
   mb::ColorCorrectionPPMaterial pp;
 
   mb::Texture2D* t = mb::Texture2D::loadFromImage( "rubymatcap.jpg" );
-  mb::Texture2D* t2 = mb::Texture2D::loadFromImage( "inverted_lut.png" );
+  mb::Texture2D* t2 = mb::Texture2D::loadFromImage( "posterize_lut.png" );
 
   mb::Application app;
   app.setSceneNode( new mb::Group( "" ) );
