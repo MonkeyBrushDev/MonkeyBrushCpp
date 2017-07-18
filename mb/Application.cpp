@@ -46,20 +46,20 @@ namespace mb
 
     if ( _scene != nullptr )
     {
-      _scene->perform( UpdateWorldState( ) ); // Update state matrix for all scenegraph
+      _scene->perform( mb::UpdateWorldState( ) ); // Update state matrix for all scenegraph
 
-      FetchCameras fetchCameras;
+      mb::FetchCameras fetchCameras;
       _scene->perform( fetchCameras );
-      fetchCameras.forEachCameras( [ &] ( Camera* c )
+      fetchCameras.forEachCameras( [ &] ( mb::Camera* c )
       {
-        if ( Camera::getMainCamera( ) == nullptr || c->isMainCamera( ) )
+        if ( mb::Camera::getMainCamera( ) == nullptr || c->isMainCamera( ) )
         {
-          Camera::setMainCamera( c );
+          mb::Camera::setMainCamera( c );
         }
         _cameras.push_back( c );
       } );
 
-      _scene->perform( StartComponents( ) );
+      _scene->perform( mb::StartComponents( ) );
 
       _simulationClock.reset( );
     }
@@ -80,7 +80,7 @@ namespace mb
     _scene->perform( mb::UpdateComponents( _simulationClock ) );
     _scene->perform( mb::UpdateWorldState( ) );
 
-    std::vector< BatchQueuePtr > bqCollection;
+    std::vector< mb::BatchQueuePtr > bqCollection;
 
     std::vector< mb::Light* > lights;
     mb::FetchLights fl;
@@ -91,8 +91,8 @@ namespace mb
     {
       if ( c != nullptr && c->isEnabled( ) )
       {
-        BatchQueuePtr bq = std::make_shared<BatchQueue>( );
-        ComputeBatchQueue cbq( c, bq );
+        mb::BatchQueuePtr bq = std::make_shared<mb::BatchQueue>( );
+        mb::ComputeBatchQueue cbq( c, bq );
         _scene->perform( cbq );
         bqCollection.push_back( bq );
       }
@@ -109,11 +109,11 @@ namespace mb
     _renderer->clearBuffers( );
     if ( !bqCollection.empty( ) )
     {
-      BatchQueuePtr mainQueue = nullptr;
+      mb::BatchQueuePtr mainQueue = nullptr;
       std::for_each( bqCollection.begin( ),
-        bqCollection.end( ), [ &] ( BatchQueuePtr bq )
+        bqCollection.end( ), [ &] ( mb::BatchQueuePtr bq )
       {
-        if ( bq->getCamera( ) != Camera::getMainCamera( ) )
+        if ( bq->getCamera( ) != mb::Camera::getMainCamera( ) )
         {
           _renderer->render( bq, bq->getCamera( )->renderPass( ) );
         }

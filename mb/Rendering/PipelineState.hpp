@@ -143,6 +143,7 @@ namespace mb
         Multiply
       };
 
+      MB_API
       void setBlendType( const BlendingState::Type& t )
       {
         // TODO: Unused
@@ -152,6 +153,8 @@ namespace mb
           switch( t )
           {
             case BlendingState::Type::Normal:
+              setSrcBlendFunc( SourceFunc::SRC_ALPHA );
+              setDstBlendFunc( DstFunc::ONE_MINUS_SRC_ALPHA );
               /*if ( premultipliedAlpha ) {
                 gl.blendEquationSeparate( gl.FUNC_ADD, gl.FUNC_ADD );
                 gl.blendFuncSeparate( gl.ONE, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA );
@@ -161,6 +164,8 @@ namespace mb
               }*/
               break;
             case BlendingState::Type::Additive:
+              setSrcBlendFunc( SourceFunc::SRC_ALPHA );
+              setDstBlendFunc( DstFunc::ONE );
               /*
               if ( premultipliedAlpha ) {
                 glBlendEquationSeparate( GL_FUNC_ADD, GL_FUNC_ADD );
@@ -171,6 +176,8 @@ namespace mb
               }*/
               break;
             case BlendingState::Type::Substractive:
+              setSrcBlendFunc( SourceFunc::ZERO );
+              setDstBlendFunc( DstFunc::ONE_MINUS_SRC_ALPHA );
               /*if ( premultipliedAlpha ) {
                 gl.blendEquationSeparate( gl.FUNC_ADD, gl.FUNC_ADD );
                 gl.blendFuncSeparate( gl.ZERO, gl.ZERO, gl.ONE_MINUS_SRC_COLOR, gl.ONE_MINUS_SRC_ALPHA );
@@ -180,6 +187,8 @@ namespace mb
               }*/
               break;
             case BlendingState::Type::Multiply:
+              setSrcBlendFunc( SourceFunc::ZERO );
+              setDstBlendFunc( DstFunc::SRC_COLOR );
               /*if ( premultipliedAlpha ) {
                 gl.blendEquationSeparate( gl.FUNC_ADD, gl.FUNC_ADD );
                 gl.blendFuncSeparate( gl.ZERO, gl.SRC_COLOR, gl.ZERO, gl.SRC_ALPHA );

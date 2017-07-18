@@ -21,7 +21,7 @@
 namespace mb
 {
   PostProcessMaterial::PostProcessMaterial( void )
-    : PostProcessMaterial(
+    /*: PostProcessMaterial(
     R"(#version 330
     uniform vec3 color;
     out vec4 fragColor;
@@ -29,13 +29,21 @@ namespace mb
     void main( void )
     {
       fragColor = vec4( uv, 0.0, 1.0 );
-    })")
+    })")*/
   {
+    program->loadVertexShaderFromText( R"(
+      #version 330
+      layout( location = 0 ) in vec3 vertPosition;
+      out vec2 uv;
+      void main( void )
+      {
+        uv = vec2( vertPosition.xy * 0.5 ) + vec2( 0.5 );
+        gl_Position = vec4( vertPosition, 1.0 );
+      })" );
   }
   PostProcessMaterial::PostProcessMaterial( const std::string& fragmentSource )
     : Material( )
   {
-    program = std::make_shared< mb::Program >( );
     program->loadVertexShaderFromText( R"(
       #version 330
       layout( location = 0 ) in vec3 vertPosition;

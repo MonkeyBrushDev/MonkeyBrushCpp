@@ -73,12 +73,12 @@ set( MBDEMONORMALMAPPING_LINK_LIBRARIES
 common_application( mbDemoNormalMapping )
 
 
-## TODO: FAIL set( MBDEMOBUTTERFLIES_HEADERS )
-## TODO: FAIL set( MBDEMOBUTTERFLIES_SOURCES demoButterflies.cpp )
-## TODO: FAIL set( MBDEMOBUTTERFLIES_LINK_LIBRARIES
-## TODO: FAIL   mb
-## TODO: FAIL )
-## TODO: FAIL common_application( mbDemoButterflies )
+set( MBDEMOBUTTERFLIES_HEADERS )
+set( MBDEMOBUTTERFLIES_SOURCES demoButterflies.cpp )
+set( MBDEMOBUTTERFLIES_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoButterflies )
 
 
 
@@ -151,7 +151,6 @@ common_application( mbDemoClone )
 
 
 
-
 set( MBDEMOS_HEADERS )
 set( MBDEMOS_SOURCES demos.cpp )
 set( MBDEMOS_LINK_LIBRARIES
@@ -160,10 +159,73 @@ set( MBDEMOS_LINK_LIBRARIES
 common_application( mbDemos )
 
 
+set( MBDEMOEXPLOSION_HEADERS )
+set( MBDEMOEXPLOSION_SOURCES demoExplosion.cpp )
+set( MBDEMOEXPLOSION_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoExplosion )
 
-##set( MBDEMOFLOCK_HEADERS )
-##set( MBDEMOFLOCK_SOURCES demoFlock.cpp )
-##set( MBDEMOFLOCK_LINK_LIBRARIES
-##  mb
-##)
-##common_application( mbDemoFlock )
+
+
+
+
+set( MBDEMOSWAPTEXTURE_HEADERS )
+set( MBDEMOSWAPTEXTURE_SOURCES demoSwapTexture.cpp )
+set( MBDEMOSWAPTEXTURE_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoSwapTexture )
+
+
+
+set( MBDEMOBROWNIAN_HEADERS )
+set( MBDEMOBROWNIAN_SOURCES demoBrownian.cpp )
+set( MBDEMOBROWNIAN_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoBrownian )
+
+
+
+
+set( MBDEMOBLENDING_HEADERS )
+set( MBDEMOBLENDING_SOURCES demoBlending.cpp )
+set( MBDEMOBLENDING_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoBlending )
+
+
+
+set( MBDEMOWAYPOINTS_HEADERS )
+set( MBDEMOWAYPOINTS_SOURCES demoWaypoints.cpp )
+set( MBDEMOWAYPOINTS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoWaypoints )
+
+
+set( MBDEMOGRASS_HEADERS )
+set( MBDEMOGRASS_SOURCES demoGrass.cpp )
+set( MBDEMOGRASS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoGrass )
+
+
+
+set( MBDEMOMESHNORMALS_HEADERS )
+set( MBDEMOMESHNORMALS_SOURCES demoMeshNormals.cpp )
+set( MBDEMOMESHNORMALS_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoMeshNormals )
+
+
+set( MBDEMOTTF_HEADERS )
+set( MBDEMOTTF_SOURCES demoTTF.cpp )
+set( MBDEMOTTF_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoTTF )

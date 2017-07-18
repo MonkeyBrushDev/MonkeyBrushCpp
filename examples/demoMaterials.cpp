@@ -29,7 +29,6 @@ mb::Material* createFogMaterial( )
 {
   mb::Material* customMaterial = new mb::Material( );
 
-  customMaterial->program = std::make_shared< mb::Program >( );
   customMaterial->program->loadVertexShaderFromText( VS_FOG_SHADER );
   customMaterial->program->loadFragmentShaderFromText( FS_FOG_SHADER );
   customMaterial->program->compileAndLink( );
