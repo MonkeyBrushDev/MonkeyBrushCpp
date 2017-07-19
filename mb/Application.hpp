@@ -44,6 +44,11 @@ namespace mb
     MB_API
     virtual bool update( void );
 
+    MB_API
+    mb::Renderer* getRenderer( void ) const
+    {
+      return _renderer;
+    }
     bool debug = false;
   protected:
     Clock _simulationClock;
