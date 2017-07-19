@@ -21,14 +21,65 @@
 
 namespace mb
 {
-  void StandardRenderingPass::render( Renderer* renderer, BatchQueuePtr bq, Camera* c )
+
+
+  void StandardRenderingPass::beginRender( Renderer* renderer, BatchQueuePtr bq )
+  {
+    beginRenderOpaqueObjects( renderer, bq );
+    beginRenderTransparentObjects( renderer, bq );
+  }
+
+  void StandardRenderingPass::beginRenderOpaqueObjects( Renderer* renderer,
+                                                        BatchQueuePtr bq )
+  {
+    auto renderables = bq->renderables( mb::BatchQueue::RenderableType::OPAQUE );
+    if ( renderables.empty( ) )
+    {
+      return;
+    }
+
+    for( Renderable& renderable: renderables )
+    {
+      beginRenderStandard( renderer, renderable );
+    }
+
+  }
+
+  void StandardRenderingPass::beginRenderTransparentObjects( Renderer* renderer,
+                                                             BatchQueuePtr bq )
+  {
+    auto renderables = bq->renderables( mb::BatchQueue::RenderableType::TRANSPARENT );
+    if ( renderables.empty( ) )
+    {
+      return;
+    }
+
+    for( Renderable& renderable: renderables )
+    {
+      beginRenderStandard( renderer, renderable );
+    }
+  }
+
+  void StandardRenderingPass::beginRenderStandard( Renderer* r,
+                                                   Renderable& renderable )
+  {
+    renderable.geometry->forEachPrimitive( [&] ( Primitive *pr )
+    {
+      r->beginRenderToPrimitive( pr );
+    });
+
+  }
+
+  void StandardRenderingPass::render( Renderer* renderer,
+                                      BatchQueuePtr bq, Camera* c )
   {
     // computeShadows( )
     renderOpaqueObjects( renderer, bq, c );
     renderTransparentObjects( renderer, bq, c );
   }
 
-  void StandardRenderingPass::renderOpaqueObjects( Renderer* renderer, BatchQueuePtr bq, Camera* /*c*/ )
+  void StandardRenderingPass::renderOpaqueObjects( Renderer* renderer,
+                                                   BatchQueuePtr bq, Camera* /*c*/ )
   {
     auto renderables = bq->renderables( mb::BatchQueue::RenderableType::OPAQUE );
     if ( renderables.empty( ) )
@@ -96,8 +147,9 @@ namespace mb
       renderStandardGeometry( renderer, renderable, material );
     }
   }
-  void StandardRenderingPass::renderStandardGeometry( Renderer* r, Renderable& renderable,
-    MaterialPtr m )
+  void StandardRenderingPass::renderStandardGeometry( Renderer* r,
+                                                      Renderable& renderable,
+                                                      MaterialPtr m )
   {
     m->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
     // TODO: MOVE TO ANOTHER ZONE Material::use( Renderer* )
@@ -110,10 +162,11 @@ namespace mb
     r->setWireframeState( &state.getWireframe( ) );
 
     m->use( );
-    renderable.geometry->forEachPrimitive( [m] ( Primitive *pr )
+    renderable.geometry->forEachPrimitive( [&] ( Primitive *pr )
     {
-      pr->render( );
+      r->drawPrimitive( pr );
     } );
+
     //m->unuse( );
   }
 }

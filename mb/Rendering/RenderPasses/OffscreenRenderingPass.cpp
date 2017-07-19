@@ -36,7 +36,8 @@ namespace mb
   {
   }
 
-  void OffscreenRenderingPass::render( Renderer* renderer, BatchQueuePtr bq, Camera* cam )
+  void OffscreenRenderingPass::render( Renderer* renderer,
+                                       BatchQueuePtr bq, Camera* cam )
   {
     std::cout << "Bind FBO" << std::endl;
 

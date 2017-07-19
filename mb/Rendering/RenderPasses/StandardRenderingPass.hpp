@@ -30,12 +30,21 @@ namespace mb
   class StandardRenderingPass: public RenderingPass
   {
   public:
+
+    MB_API
+    void beginRender( Renderer* renderer, BatchQueuePtr bq );
     MB_API
     void render( Renderer* renderer, BatchQueuePtr bq, Camera* c );
+
   protected:
-    void renderOpaqueObjects( Renderer* renderer, BatchQueuePtr bq, Camera* c );
-    void renderTransparentObjects( Renderer* renderer, BatchQueuePtr bq, Camera* c );
-    void renderStandardGeometry( Renderer*, Renderable&, MaterialPtr );
+
+    void beginRenderOpaqueObjects( Renderer* renderer, BatchQueuePtr bq );
+    void beginRenderTransparentObjects( Renderer* renderer, BatchQueuePtr bq );
+    void beginRenderStandard( Renderer* r, Renderable& renderable );
+
+    void renderOpaqueObjects(Renderer* renderer, BatchQueuePtr bq, Camera* c );
+    void renderTransparentObjects(Renderer* renderer, BatchQueuePtr bq, Camera* c );
+    void renderStandardGeometry(Renderer*, Renderable&, MaterialPtr );
   };
 }
 

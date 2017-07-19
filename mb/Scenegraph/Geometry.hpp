@@ -56,6 +56,9 @@ namespace mb
     bool receiveShadows( void ) const { return _receiveShadows; }
     // TODO: Move to MeshRenderer
     void setReceiveShadows( bool value ) { _receiveShadows = value; }
+
+    std::vector< Primitive* > primitives( void ){ return _primitives; }
+
   protected:
     std::vector< Primitive* > _primitives;
 

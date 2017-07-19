@@ -31,9 +31,9 @@ namespace mb
   {
   public:
     MB_API
-    CubePrimitive( float side = 1.0f );
-    MB_API
-    virtual void render( void );
+    CubePrimitive( float side = 1.0f,
+                   Primitive::Type type = Primitive::Type::TRIANGLES,
+                   Primitive::TDrawType typeDraw = Primitive::DRAW_ELEMENTS );
   };
 }
 

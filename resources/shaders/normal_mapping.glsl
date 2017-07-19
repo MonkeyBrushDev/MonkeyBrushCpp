@@ -1,5 +1,5 @@
-#ifndef __NORMAL_MAPPING_INCLUDED__
-#define __NORMAL_MAPPING_INCLUDED__
+//#ifndef __NORMAL_MAPPING_INCLUDED__
+//#define __NORMAL_MAPPING_INCLUDED__
 
 vec3 perturb_normal(vec3 p, vec3 n)
 {
@@ -16,4 +16,4 @@ vec3 perturb_normal(vec3 p, vec3 n)
   return normalize(tsn * mapN);
 }
 
-#endif
+//#endif

@@ -21,14 +21,57 @@
 
 namespace mb
 {
-  Primitive::Primitive( Primitive::Type type )
+  Primitive::Primitive( Primitive::Type type, Primitive::TDrawType typeDraw )
     : _type( type )
+    , _typeDraw( typeDraw )
   {
   }
+
   Primitive::Type Primitive::getType( void ) const
   {
     return _type;
   }
+
+  Primitive::TDrawType Primitive::getTypeDraw( void ) const
+  {
+    return _typeDraw;
+  }
+
+  std::vector<Vector3> Primitive::getVertices( void ) const
+  {
+    return vertices;
+  }
+
+  std::vector<short> Primitive::getIndices( void ) const
+  {
+    return indices;
+  }
+
+  std::vector<Vector3> Primitive::getNormals( void ) const
+  {
+    return normals;
+  }
+
+  std::vector<Vector2> Primitive::getTexCoords( void ) const
+  {
+    return texCoords;
+  }
+
+  unsigned int Primitive::getMaxPoints( void ) const
+  {
+    return MAXPOINTS;
+  }
+
+  unsigned int Primitive::getVAO( void ) const
+  {
+    return VAO;
+  }
+
+  void Primitive::setVAO(  unsigned int VAO_ )
+  {
+    VAO = VAO_;
+  }
+
   void Primitive::render( void )
   {
     //std::cout << "\t-Primitive '" << name << "'" << std::endl;
