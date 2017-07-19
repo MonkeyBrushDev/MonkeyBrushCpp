@@ -24,19 +24,28 @@ namespace mb
 {
   TransformFeedback::TransformFeedback( void )
   {
-    glCreateTransformFeedbacks(1, &_handler);
+    glCreateTransformFeedbacks(1, &_id);
   }
   TransformFeedback::~TransformFeedback( void )
   {
-    glDeleteTransformFeedbacks(1, &_handler);
+    glDeleteTransformFeedbacks(1, &_id);
   }
   void TransformFeedback::bind( void )
   {
-    glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, _handler);
+    glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, _id);
   }
   void TransformFeedback::unbind( void )
   {
     glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, 0);
+  }
+  void TransformFeedback::setIndex( unsigned int index, Buffer* buffer )
+  {
+    auto exists = _bufferBases.find( index );
+    if ( exists == _bufferBases.end( ) )
+    {
+      _bufferBases.insert( std::pair<unsigned int, Buffer*>( index, buffer ) );
+      glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, index, buffer->getHandler( ) );
+    }
   }
   void TransformFeedback::begin(unsigned int mode)
   {

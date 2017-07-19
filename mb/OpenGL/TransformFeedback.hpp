@@ -23,6 +23,9 @@
 #include <mb/api.h>
 #include "Program.hpp"
 #include <vector>
+#include <map>
+
+#include "BufferObj.hpp"
 
 namespace mb
 {
@@ -92,12 +95,16 @@ namespace mb
     }
 
     MB_API
+    void setIndex( unsigned int index, Buffer* buffer );
+
+    MB_API
     inline unsigned int handler( void ) const
     {
-      return _handler;
+      return _id;
     }
-  //protected:
-    unsigned int _handler;
+  protected:
+    unsigned int _id;
+    std::map< unsigned int, Buffer* >	_bufferBases;
   };
 }
 

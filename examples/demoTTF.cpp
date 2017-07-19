@@ -46,7 +46,6 @@ int main( void )
       );
     
       gl_Position = mvp * position;
-      gl_Position = position;
       color = vec3(clamp(vec2(position), 0.0, 1.0), 0.0);
     })" );
   p.loadFragmentShaderFromText( R"(
@@ -65,6 +64,34 @@ int main( void )
   p.link( );
   p.autocatching( );
 
+  mb::Program p2;
+  p2.loadVertexShaderFromText( R"(
+    #version 330
+    layout(location = 0) in vec4 position;
+    layout(location = 1) in vec3 color;
+
+    out vec3 v_color;
+
+    void main( void )
+    {
+      gl_Position = position;
+      v_color = color;
+    })" );
+  p2.loadFragmentShaderFromText( R"(
+    #version 330
+    
+    in vec3 v_color;
+
+    out vec4 fragColor;
+
+    void main( void )
+    {
+      fragColor = vec4( v_color, 1.0 );
+    }
+  )" );
+  p2.compileAndLink( );
+  p2.autocatching( );
+
   std::vector<mb::Vector4> positions = {
     mb::Vector4( -1.0f, -1.0f, 0.0f, 1.0f ),
     mb::Vector4( 1.0f, -1.0f, 0.0f, 1.0f ),
@@ -75,55 +102,51 @@ int main( void )
   };
   unsigned int VERTEX_COUNT = positions.size( );
 
-  GLuint buffers[ 3 ];
-  glCreateBuffers( 3, buffers );
+  mb::Vbo buffer0( GL_ARRAY_BUFFER );
+  mb::Vbo buffer1( GL_ARRAY_BUFFER );
+  mb::Vbo buffer2( GL_ARRAY_BUFFER );
 
   // Transform buffer
-  glBindBuffer( GL_ARRAY_BUFFER, buffers[ 0 ] );
-  glBufferData( GL_ARRAY_BUFFER, sizeof( mb::Vector4 ) * positions.size( ), 
-    positions.data( ), GL_STATIC_DRAW );
+  buffer0.bind( );
+  buffer0.bufferData( sizeof( mb::Vector4 ) * positions.size( ), positions.data( ), GL_STATIC_DRAW );
 
   // Feedback empty buffers
-  glBindBuffer( GL_ARRAY_BUFFER, buffers[ 1 ] );
-  glBufferData( GL_ARRAY_BUFFER, positions.size( ) * sizeof( mb::Vector4 ), nullptr, GL_STATIC_COPY );
-  glBindBuffer( GL_ARRAY_BUFFER, 0 );
+  buffer1.bind( );
+  buffer1.bufferData( sizeof( mb::Vector4 ) * positions.size( ), nullptr, GL_STATIC_READ );
+  buffer1.unbind( );
 
-  glBindBuffer( GL_ARRAY_BUFFER, buffers[ 2 ] );
-  glBufferData( GL_ARRAY_BUFFER, positions.size( ) * sizeof( mb::Vector3 ), nullptr, GL_STATIC_COPY );
-  glBindBuffer( GL_ARRAY_BUFFER, 0 );
+  buffer2.bind( );
+  buffer2.bufferData( sizeof( mb::Vector3 ) * positions.size( ), nullptr, GL_STATIC_READ );
+  buffer2.unbind( );
 
 
   GLuint VAOS[2];
   glCreateVertexArrays( 2, VAOS );
   glBindVertexArray( VAOS[ 0 ] );
-  glBindBuffer( GL_ARRAY_BUFFER, buffers[ 0 ] );
+  buffer0.bind( );
   glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 0, 0 );
-  glBindBuffer( GL_ARRAY_BUFFER, 0 );
+  buffer0.unbind( );
   glEnableVertexAttribArray( 0 );
   glBindVertexArray( 0 );
 
   // Init transform
   mb::TransformFeedback ttf;
   ttf.bind( );
-  glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, 0, buffers[ 1 ] );
-  glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, 1, buffers[ 2 ] );
+  ttf.setIndex( 0, &buffer1 );
+  ttf.setIndex( 1, &buffer2 );
   ttf.unbind( );
-  glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, 0, 0 );
-  glBindBufferBase( GL_TRANSFORM_FEEDBACK_BUFFER, 1, 0 );
 
   // Init feedback VAO
   glBindVertexArray( VAOS[ 1 ] );
-  GLuint vertexPosLocationFeedback = 0; // set with GLSL layout qualifier
-  glBindBuffer( GL_ARRAY_BUFFER, buffers[ 1 ] );
-  glVertexAttribPointer( vertexPosLocationFeedback, 4, GL_FLOAT, false, 0, 0 );
-  glEnableVertexAttribArray( vertexPosLocationFeedback );
+  buffer1.bind( );
+  glVertexAttribPointer( 0, 4, GL_FLOAT, false, 0, 0 );
+  glEnableVertexAttribArray( 0 );
 
-  GLuint vertexColorLocationFeedback = 3; // set with GLSL layout qualifier
-  glBindBuffer( GL_ARRAY_BUFFER, buffers[ 2 ] );
-  glVertexAttribPointer( vertexColorLocationFeedback, 3, GL_FLOAT, false, 0, 0 );
-  glEnableVertexAttribArray( vertexColorLocationFeedback );
+  buffer2.bind( );
+  glVertexAttribPointer( 1, 3, GL_FLOAT, false, 0, 0 );
+  glEnableVertexAttribArray( 1 );
 
-  glBindBuffer( GL_ARRAY_BUFFER, 0 );
+  buffer2.unbind( );
   glBindVertexArray( 0 );
 
 
@@ -155,12 +178,20 @@ int main( void )
 
     glDisable( GL_RASTERIZER_DISCARD );
 
-    glBindBuffer( GL_ARRAY_BUFFER, buffers[ 1 ] );
-    std::vector<mb::Vector4> arrBuffer = ttf.extractData<mb::Vector4>( positions.size( ) );
+    buffer1.bind( );
+    std::vector<mb::Vector4> arrBuffer = 
+      ttf.extractData<mb::Vector4>( positions.size( ) );
 
-    glBindBuffer( GL_ARRAY_BUFFER, buffers[ 2 ] );
-    std::vector<mb::Vector3> arrBuffer2 = ttf.extractData<mb::Vector3>( positions.size( ) );
+    buffer2.bind( );
+    std::vector<mb::Vector3> arrBuffer2 = 
+      ttf.extractData<mb::Vector3>( positions.size( ) );
     
+    // Render
+    p2.use( );
+    glBindVertexArray( VAOS[ 1 ] );
+    glDrawArrays( GL_TRIANGLES, 0, VERTEX_COUNT );
+    glBindVertexArray( 0 );
+
     window->swapBuffers( );
   }
 

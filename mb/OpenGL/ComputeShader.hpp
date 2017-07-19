@@ -5,12 +5,15 @@
 #include "Program.hpp"
 #include "../Rendering/Material.hpp"
 
+#include "BufferObj.hpp"
+#include <map>
+
 #ifdef MB_COMPUTE_SHADERS
   namespace mb
   {
     namespace compute
     {
-      class ComputeBuffer
+      /*class ComputeBuffer
       {
       public:
         // count: num elements
@@ -25,7 +28,7 @@
         unsigned int _count;
         unsigned int _stride;
         void* _data;
-      };
+      };*/
       class ComputeShader
       {
       public:
@@ -63,10 +66,12 @@
           return new ComputeShader( *this );
         }
         //void dispatchIndirect( ??? );
-      protected:
+      //protected:
         std::shared_ptr< mb::Program > program;
         unsigned int texId;
         TUniforms _uniforms;
+
+        std::map<unsigned int, mb::Ssbo*> buffers;
       };
     }
   }

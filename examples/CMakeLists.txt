@@ -229,3 +229,30 @@ set( MBDEMOTTF_LINK_LIBRARIES
   mb
 )
 common_application( mbDemoTTF )
+
+
+
+set( MBDEMOGEOMETRYSHADER_HEADERS )
+set( MBDEMOGEOMETRYSHADER_SOURCES demoGeometryShader.cpp )
+set( MBDEMOGEOMETRYSHADER_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoGeometryShader )
+
+
+
+set( MBDEMOSSBO_HEADERS )
+set( MBDEMOSSBO_SOURCES demoSSbo.cpp )
+set( MBDEMOSSBO_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoSSbo )
+
+
+
+set( MBDEMOVERTEXDISPLACEMENT_HEADERS )
+set( MBDEMOVERTEXDISPLACEMENT_SOURCES demoVertexDisplacement.cpp )
+set( MBDEMOVERTEXDISPLACEMENT_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoVertexDisplacement )

@@ -6,14 +6,14 @@
   {
     namespace compute
     {
-      const void* ComputeBuffer::getData( void )
+      /*const void* ComputeBuffer::getData( void )
       {
         return _data;
       }
       void ComputeBuffer::setData( void* data )
       {
         _data = data;
-      }
+      }*/
       ComputeShader::ComputeShader( const std::string& shaderSrc )
       {
         program = std::make_shared<mb::Program >( );
