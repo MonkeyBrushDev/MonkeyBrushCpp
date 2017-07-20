@@ -90,6 +90,8 @@ namespace mb
 #ifdef MB_SUBPROGRAMS
 		_subprograms.clear();
 #endif
+
+    _isLinked = false;
 	}
 
 	Program::~Program(void)
@@ -222,7 +224,7 @@ namespace mb
       std::cout
         << "----------------------------- " << std::endl <<
         str << std::endl <<
-        "----------------------------- " << 
+        "----------------------------- " <<
         std::endl;
 			std::cerr << "Compile log: " << infoLog << std::endl;
 			delete[] infoLog;
@@ -270,6 +272,17 @@ namespace mb
 	{
 		return _loadFromText(source, GL_COMPUTE_SHADER);
 	}
+#endif
+
+#ifdef MB_TRANSFORM_FEEDBACK
+  void Program::feedbackVarying( const char** varyings, int num, int mode )
+  {
+    if (_isLinked)
+    {
+      throw "Call this function just before linked.";
+    }
+    glTransformFeedbackVaryings( _program, num, varyings, mode );
+  }
 #endif
 
 	bool Program::_load(const std::string& fileName, int type)
@@ -462,6 +475,7 @@ namespace mb
 			delete[] infoLog;
 			return false;
 		}
+    this->_isLinked = true;
 		return true;
 	}
 

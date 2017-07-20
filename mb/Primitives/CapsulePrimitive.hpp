@@ -26,6 +26,18 @@ namespace mb
 {
   class CapsulePrimitive: public Primitive
   {
+  public:
+      MB_API
+      CapsulePrimitive( float radius = 3.0f, float height = 10.0f /*radius/2.0f*/,
+                        int subHeight = 12, int numSegm = 12,
+                        Primitive::Type type = Primitive::Type::TRIANGLES,
+                        Primitive::TDrawType typeDraw = Primitive::DRAW_ELEMENTS );
+
+  protected:
+
+      MB_API
+      void calcNewRing( float radius, float height, int segments, float r, float y,
+                        float dy );
 
   };
 }

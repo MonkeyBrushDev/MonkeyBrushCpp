@@ -31,9 +31,9 @@ namespace mb
   {
   public:
     MB_API
-    MeshPrimitive( const std::string& fileName );
-    MB_API
-    virtual void render( void );
+    MeshPrimitive( const std::string& fileName,
+                   Primitive::Type type = Primitive::Type::TRIANGLES,
+                   Primitive::TDrawType typeDraw = Primitive::DRAW_ELEMENTS);
   };
 }
 

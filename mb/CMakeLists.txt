@@ -59,7 +59,9 @@ set( MB_PUBLIC_HEADERS
   Primitives/TorusPrimitive.hpp
   Primitives/MeshPrimitive.hpp
   Primitives/PolyhedronPrimitive.hpp
-  Primitives/PointPrimitive.hpp
+  Primitives/PointCloudPrimitive.hpp
+  Primitives/CylinderPrimitive.hpp
+  Primitives/ConePrimitive.hpp
 
 
   #Rendering/ImageEffects/BlurImageEffect.hpp
@@ -154,6 +156,10 @@ set( MB_PUBLIC_HEADERS
   Materials/PostProcessMaterial.hpp
   Materials/UVMaterial.hpp
   Materials/FlatColorMaterial.hpp
+  Materials/ToneMappingMaterial.hpp
+  Materials/FilterPPMaterial.hpp
+  Materials/BlackWhitePPMaterial.hpp
+  Materials/ColorCorrectionPPMaterial.hpp
 
   Utils/ObjLoader.hpp
 
@@ -161,6 +167,9 @@ set( MB_PUBLIC_HEADERS
 
   OpenGL/OpenGLMapping.hpp
   OpenGL/ComputeShader.hpp
+  OpenGL/TransformFeedback.hpp
+  OpenGL/Query.hpp
+  OpenGL/Sync.hpp
 )
 
 set( MB_HEADERS
@@ -213,7 +222,9 @@ set( MB_SOURCES
   Primitives/TorusPrimitive.cpp
   Primitives/MeshPrimitive.cpp
   Primitives/PolyhedronPrimitive.cpp
-  Primitives/PointPrimitive.cpp
+  Primitives/PointCloudPrimitive.cpp
+  Primitives/CylinderPrimitive.cpp
+  Primitives/ConePrimitive.cpp
 
   Rendering/ImageEffects/ImageEffect.cpp
   Rendering/ImageEffects/GreyImageEffect.cpp
@@ -293,11 +304,18 @@ set( MB_SOURCES
   Materials/PostProcessMaterial.cpp
   Materials/UVMaterial.cpp
   Materials/FlatColorMaterial.cpp
+  Materials/ToneMappingMaterial.cpp
+  Materials/FilterPPMaterial.cpp
+  Materials/BlackWhitePPMaterial.cpp
+  Materials/ColorCorrectionPPMaterial.cpp
 
   Utils/JobScheduler.cpp
 
   OpenGL/OpenGLMapping.cpp
   OpenGL/ComputeShader.cpp
+  OpenGL/TransformFeedback.cpp
+  OpenGL/Query.cpp
+  OpenGL/Sync.cpp
 )
 
 set( MB_LINK_LIBRARIES

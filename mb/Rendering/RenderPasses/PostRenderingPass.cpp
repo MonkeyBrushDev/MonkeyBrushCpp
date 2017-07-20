@@ -32,6 +32,11 @@ namespace mb
     _fbo = ++PostRenderingPass::FBOCOUNTER;
   }
 
+  void PostRenderingPass::beginRender( Renderer* renderer, BatchQueuePtr bq )
+  {
+    _sceneRenderingPass->beginRender( renderer, bq );
+  }
+
   void PostRenderingPass::render( Renderer* renderer, BatchQueuePtr bq, Camera* cam )
   {
     //renderer->bindFBO( _fbo );

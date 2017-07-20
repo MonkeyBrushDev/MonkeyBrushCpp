@@ -47,15 +47,19 @@ namespace mb
     {
       case FormatTexture::RGB:
         _format = GL_RGB;
+        _type = GL_UNSIGNED_BYTE;
         break;
       case FormatTexture::RGBA:
         _format = GL_RGBA;
+        _type = GL_UNSIGNED_BYTE;
         break;
       case FormatTexture::RGBA16F:
         _format = GL_RGBA16F;
+        _type = GL_FLOAT;
         break;
       case FormatTexture::RGBA32F:
         _format = GL_RGBA32F;
+        _type = GL_FLOAT;
         break;
     }
   }
@@ -107,7 +111,7 @@ namespace mb
       this->getWidth( ),
       0, // border
       GL_RGBA, // format
-      GL_UNSIGNED_BYTE, // type
+      _type, // type
       _data
     );
 
@@ -143,7 +147,7 @@ namespace mb
       this->getHeight( ),
       0, // border
       GL_RGBA, // format
-      GL_FLOAT, //GL_UNSIGNED_BYTE, // type
+      _type, // type
       _data
     );
 
@@ -279,7 +283,7 @@ namespace mb
       this->getDepth( ),
       0, // border
       GL_RGBA, // format
-      GL_UNSIGNED_BYTE, // type
+      _type, // type
       _data
     );
 

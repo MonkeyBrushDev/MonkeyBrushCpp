@@ -80,5 +80,34 @@ namespace mb
       root->local( ).setPosition( initPosition );
       root->local( ).setRotation( initRotation );
     }
+
+
+    // TODO: Ugly, dont working good :(
+    static float x_rot = 0.0f;
+    static float y_rot = 0.0f;
+    if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Left ) )
+    {
+      y_rot -= speed *clock.getDeltaTime( );
+      node( )->local( ).rotate( ).fromAxisAngle(
+        mb::Vector3::Y_AXIS, y_rot * mb::Mathf::TWO_PI );
+    }
+    else if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Right ) )
+    {
+      y_rot += speed *clock.getDeltaTime( );
+      node( )->local( ).rotate( ).fromAxisAngle(
+        mb::Vector3::Y_AXIS, y_rot * mb::Mathf::TWO_PI );
+    }
+    else if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Up ) )
+    {
+      x_rot += speed *clock.getDeltaTime( );
+      node( )->local( ).rotate( ).fromAxisAngle(
+        mb::Vector3::X_AXIS, x_rot * mb::Mathf::TWO_PI );
+    }
+    else if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Down ) )
+    {
+      x_rot -= speed *clock.getDeltaTime( );
+      node( )->local( ).rotate( ).fromAxisAngle(
+        mb::Vector3::X_AXIS, x_rot * mb::Mathf::TWO_PI );
+    }
   }
 }

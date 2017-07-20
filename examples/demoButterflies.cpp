@@ -52,27 +52,26 @@ public:
 
     mat->uniform( "time" )->value( ( float ) clock.getAccumTime( ) );
     mat->uniform( "up" )->value( 0.01f * ( float ) sin( clock.getAccumTime( ) ) );
-    mat->uniform( "beta" )->value( ( float ) mb::Mathf::degToRad( -60.0f ) );
+    mat->uniform( "beta" )->value( ( float ) mb::Mathf::degToRad( -45.0f ) );
   }
 };
 
-mb::Program* createProgram( )
+std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program )
 {
-  mb::Program* program = new mb::Program( );
   program->loadVertexShaderFromText( R"(
-    #version 430
-    layout (location = 0) in vec3 position;
+  #version 430
+  layout (location = 0) in vec3 position;
 
-    uniform float time;
-    uniform float up;
+  uniform float time;
+  uniform float up;
 
-    const vec3 vel = vec3( up, 0.1, 0.0 );
+  const vec3 vel = vec3( up, 0.1, 0.0 );
 
-    void main()
-    {
-      vec3 pos = position + vel * time; // x = x0 + dt * v;
-      gl_Position = vec4(pos, 1.0);
-    })" );
+  void main( )
+  {
+     vec3 pos = position + vel * time; // x = x0 + dt * v;
+     gl_Position = vec4(pos, 1.0);
+  })" );
   program->loadGeometryShaderFromText( R"(
     #version 430
     layout (points) in;
@@ -192,14 +191,14 @@ mb::Program* createProgram( )
   return program;
 }
 
-mb::Geometry* generateGeom( const mb::Color& )
+mb::Geometry* generateGeom( const mb::Color& c )
 {
   auto geom = new mb::Geometry( );
-
-  geom->addPrimitive( new mb::PointPrimitive( createPoints( ) ) );
+  geom->addPrimitive( new mb::PointCloudPrimitive( createPoints( ) ) );
 
   mb::Material* customMaterial = new mb::Material( );
-  customMaterial->program = createProgram( );
+  customMaterial->program = createProgram( customMaterial->program );
+
   customMaterial->addUniform( MB_PROJ_MATRIX,
     std::make_shared< mb::Matrix4Uniform >( ) );
   customMaterial->addUniform( MB_VIEW_MATRIX,
@@ -217,6 +216,8 @@ mb::Geometry* generateGeom( const mb::Color& )
   customMaterial->addUniform( "image",
     std::make_shared< mb::TextureUniform >( TexDiffuse ) );
 
+  customMaterial->state( ).culling( ).setEnabled( false );
+
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
 
@@ -229,8 +230,8 @@ mb::Group* createScene( void )
 {
   auto scene = new mb::Group( "scene" );
 
-  auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
-  camera->local( ).translate( 20.0f, 0.0f, 20.0f );
+  auto camera = new mb::Camera( 60.0f, 500 / 500, 0.01f, 1000.0f );
+  camera->local( ).translate( 0.0f, 0.0f, 25.0f );
 
   auto node = generateGeom( mb::Color::GREY );
 
@@ -242,128 +243,16 @@ mb::Group* createScene( void )
   return scene;
 }
 
-int main2( )
+int main( void )
 {
   mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
 
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
 
-  glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
-
-  mb::Group* _scene = createScene( );
-
-  _scene->perform( mb::UpdateWorldState( ) );
-
-  std::vector< mb::Camera* > _cameras;
-
-  mb::FetchCameras fetchCameras;
-  _scene->perform( fetchCameras );
-  fetchCameras.forEachCameras( [ &] ( mb::Camera* c )
-  {
-    if ( mb::Camera::getMainCamera( ) == nullptr || c->isMainCamera( ) )
-    {
-      mb::Camera::setMainCamera( c );
-    }
-    _cameras.push_back( c );
-  } );
-
-  _scene->perform( mb::StartComponents( ) );
+  window->setTitle( "Butterflies" );
 
   glEnable( GL_DEPTH_TEST );
-
-  mb::Clock clockTime;
-  clockTime.reset( );
-
-  while ( window->isRunning( ) )
-  {
-    window->pollEvents( );
-
-    if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Esc ) )
-    {
-      window->close( );
-      break;
-    }
-
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
-    clockTime.tick( );
-
-    _scene->perform( mb::UpdateComponents( clockTime ) );
-    _scene->perform( mb::UpdateWorldState( ) );
-    std::vector< mb::BatchQueuePtr > bqCollection;
-
-    for ( mb::Camera* c : _cameras )
-    {
-      if ( c != nullptr && c->isEnabled( ) )
-      {
-        mb::BatchQueuePtr bq = std::make_shared< mb::BatchQueue >( );
-        mb::ComputeBatchQueue cbq( c, bq );
-        _scene->perform( cbq );
-        bqCollection.push_back( bq );
-      }
-    };
-
-    if ( !bqCollection.empty( ) )
-    {
-      mb::BatchQueuePtr mainQueue = nullptr;
-      std::for_each( bqCollection.begin( ), bqCollection.end( ), [ &] ( mb::BatchQueuePtr bq )
-      {
-        if ( bq->getCamera( ) != mb::Camera::getMainCamera( ) )
-        {
-          std::cout << "OUTSCREEN" << std::endl;
-        }
-        else
-        {
-          mainQueue = bq;
-        }
-      } );
-
-      if ( mainQueue != nullptr )
-      {
-        auto renderables = mainQueue->renderables( mb::BatchQueue::RenderableType::OPAQUE );
-        if ( !renderables.empty( ) )
-        {
-          for ( mb::Renderable& renderable : renderables )
-          {
-
-            mb::MaterialComponent* mc = renderable.geometry->getComponent<mb::MaterialComponent>( );
-
-            auto mat = mc->first( );
-
-            mat->uniform( MB_PROJ_MATRIX )->value( mainQueue->getProjectionMatrix( ) );
-            mat->uniform( MB_VIEW_MATRIX )->value( mainQueue->getViewMatrix( ) );
-            mat->uniform( MB_MODEL_MATRIX )->value( renderable.modelTransform );
-
-            mat->use( );
-
-            renderable.geometry->forEachPrimitive( [] ( mb::Primitive*p )
-            {
-              p->render( );
-            } );
-
-            mat->unuse( );
-          }
-        }
-      }
-    }
-
-    window->swapBuffers( );
-  }
-
-  delete _scene;
-
-  return 0;
-}
-
-// TODO: FAIL!!!
-int main3( )
-{
-  mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
-
-  mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
-  window->init( );
-  window->setTitle( "Earth" );
 
   glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
 
@@ -372,6 +261,8 @@ int main3( )
   mb::Application app;
 
   app.setSceneNode( createScene( ) );
+
+  app.init( ); // initialize settings to render the scene...
 
   while ( window->isRunning( ) )
   {
@@ -390,9 +281,6 @@ int main3( )
     window->swapBuffers( );
   }
   return 0;
+
 }
 
-int main( )
-{
-  return main2( );
-}

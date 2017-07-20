@@ -77,10 +77,17 @@ mb::Group* createPlanet( float radius, const std::string& diffuse, float equator
   planetRotationPivot->addComponent( new RotationComponent( equatorialRotationSpeed ) );
   planetRotationPivot->addChild( geometry );
 
+#if 0
   mb::StandardMaterial* customMaterial = new mb::StandardMaterial( );
   customMaterial->setColorMap( mb::Texture2D::loadFromImage( diffuse ) );
   customMaterial->setNormalMap( mb::Texture2D::loadFromImage( "metal-floor-normal.jpg" ) );
   customMaterial->setColor( color );
+#else
+  mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
+  customMaterial->setColorMap( mb::Texture2D::loadFromImage( diffuse ) );
+  customMaterial->setNormalMap( mb::Texture2D::loadFromImage( "metal-floor-normal.jpg" ) );
+  customMaterial->setColor( color );
+#endif
 
   mb::MaterialComponent* mc = geometry->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
@@ -114,6 +121,7 @@ mb::Group* createScene( void )
   mb::Texture2D* chesterDiffuse = mb::Texture2D::loadFromImage( "metal-floor.jpg" );
   mb::Texture2D* chesterDNormal = mb::Texture2D::loadFromImage( "metal-floor-normal.jpg" );
 
+#if 0
   mb::StandardMaterial* customMaterial = new mb::StandardMaterial( );
   customMaterial->setColorMap( chesterDiffuse );
   customMaterial->setNormalMap( chesterDNormal );
@@ -123,6 +131,18 @@ mb::Group* createScene( void )
   customMaterial2->setColorMap( chesterDiffuse );
   customMaterial2->setNormalMap( chesterDNormal );
   customMaterial2->setColor( mb::Color::GOLD );
+
+#else
+  mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
+  customMaterial->setColorMap( chesterDiffuse );
+  customMaterial->setNormalMap( chesterDNormal );
+  customMaterial->setColor( mb::Color::GREEN );
+
+  mb::ColorMaterial* customMaterial2 = new mb::ColorMaterial( );
+  customMaterial2->setColorMap( chesterDiffuse );
+  customMaterial2->setNormalMap( chesterDNormal );
+  customMaterial2->setColor( mb::Color::GOLD );
+#endif
 
 
   std::vector< mb::Vector3 > cubePositions = {
@@ -175,7 +195,7 @@ mb::Group* createScene( void )
 
   scene->addChild( cubes );
 
-  auto earth = createPlanet( 0.5f, "earth.png", 0.05f, 0.5f, 0.1f, mb::Color::BLUE );
+  auto earth = createPlanet( 0.5f, "earth.png", 0.05f, 0.5f, 0.1f, mb::Color::WHITE );
   auto moon = createPlanet( 0.15f, "moon.png", 0.025f, 1.15f, 0.035f, mb::Color::BROWN );
 
   scene->addChild( earth );
@@ -195,6 +215,8 @@ int main( )
   mb::Application app;
 
   app.setSceneNode( createScene( ) );
+
+  app.init( ); // initialize settings to render the scene...
 
   while ( window->isRunning( ) )
   {

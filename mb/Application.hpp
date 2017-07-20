@@ -38,12 +38,19 @@ namespace mb
     MB_API
     virtual ~Application( void );
     MB_API
+    void init( void );
+    MB_API
     void setSceneNode( Group* node );
     MB_API
     virtual int run( void );
     MB_API
     virtual bool update( void );
 
+    MB_API
+    mb::Renderer* getRenderer( void ) const
+    {
+      return _renderer;
+    }
     bool debug = false;
   protected:
     Clock _simulationClock;

@@ -28,9 +28,11 @@ namespace mb
   {
   public:
     MB_API
-    PlanePrimitive( float width = 1.0f, float height = 1.0f, unsigned int widthSegments = 1, unsigned int heightSegments = 1 );
-    MB_API
-    virtual void render( void );
+    PlanePrimitive( float width = 1.0f, float height = 1.0f,
+                    unsigned int widthSegments = 1,
+                    unsigned int heightSegments = 1,
+                    Primitive::Type type = Primitive::Type::TRIANGLES,
+                    Primitive::TDrawType typeDraw = Primitive::DRAW_ELEMENTS );
   };
 }
 

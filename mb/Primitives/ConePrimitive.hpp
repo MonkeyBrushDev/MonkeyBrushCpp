@@ -26,7 +26,13 @@ namespace mb
 {
   class ConePrimitive: public Primitive
   {
-
+  public:
+      MB_API
+      ConePrimitive( float bottomRadius, float topRadius,
+                     float height, int radialSubDiv = 12, int heightSubDiv = 1,
+                     bool createTopBase = true, bool createBottomBase = true,
+                     Primitive::Type type = Primitive::Type::TRIANGLES,
+                     Primitive::TDrawType typeDraw = Primitive::DRAW_ELEMENTS );
   };
 }
 

@@ -43,6 +43,13 @@ namespace mb
 
     MB_API
     Program( void );
+
+    MB_API
+    inline bool isLinked( void ) const
+    {
+      return this->_isLinked;
+    }
+
     MB_API
     ~Program( void );
         /**
@@ -174,6 +181,10 @@ namespace mb
         */
         MB_API
         bool loadComputeShaderFromText(const std::string& source);
+#endif
+#ifdef MB_TRANSFORM_FEEDBACK
+        MB_API
+        void feedbackVarying( const char** varyings, int num, int mode );
 #endif
         /**
         * Method to compile a program
@@ -620,6 +631,7 @@ namespace mb
         std::multimap<int, SubProgram> _subprograms;
 #endif
         std::vector<unsigned int> _shaders;
+      bool _isLinked;
     };
 }
 

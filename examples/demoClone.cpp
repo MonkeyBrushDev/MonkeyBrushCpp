@@ -29,8 +29,6 @@ public:
   HeightMapMaterial( void )
     : mb::Material( )
   {
-    program = std::make_shared< mb::Program >( );
-
     const char* vsShader = R"(#version 330
       layout(location = 0) in vec3 position;
       layout(location = 1) in vec3 normal;
@@ -183,6 +181,8 @@ int main( )
   mb::Application app;
 
   app.setSceneNode( createScene( ) );
+
+  app.init( );
 
   while ( window->isRunning( ) )
   {

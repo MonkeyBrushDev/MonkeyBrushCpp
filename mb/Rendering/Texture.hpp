@@ -92,6 +92,7 @@ namespace mb
 
   public:
     unsigned int _format;
+    unsigned int _type;
   };
   class Texture1D: public Texture
   {
