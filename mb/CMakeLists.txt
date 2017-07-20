@@ -62,6 +62,7 @@ set( MB_PUBLIC_HEADERS
   Primitives/PointCloudPrimitive.hpp
   Primitives/CylinderPrimitive.hpp
   Primitives/ConePrimitive.hpp
+  Primitives/LathePrimitive.hpp
 
 
   #Rendering/ImageEffects/BlurImageEffect.hpp
@@ -224,6 +225,7 @@ set( MB_SOURCES
   Primitives/PointCloudPrimitive.cpp
   Primitives/CylinderPrimitive.cpp
   Primitives/ConePrimitive.cpp
+  Primitives/LathePrimitive.cpp
 
   Rendering/ImageEffects/ImageEffect.cpp
   Rendering/ImageEffects/GreyImageEffect.cpp
