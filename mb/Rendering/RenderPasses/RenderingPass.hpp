@@ -21,6 +21,7 @@
 #define __MB_RENDERING_PASS__
 
 #include <vector>
+#include "../Renderer.hpp"
 #include "../BatchQueue.hpp"
 #include "../ImageEffects/ImageEffect.hpp"
 
@@ -35,6 +36,8 @@ namespace mb
     MB_API
     virtual ~RenderingPass( ){}
 
+    MB_API
+    virtual void beginRender( Renderer* renderer, BatchQueuePtr bq ) = 0;
     MB_API
     virtual void render( Renderer* renderer, BatchQueuePtr bq, Camera* c ) = 0;
     MB_API

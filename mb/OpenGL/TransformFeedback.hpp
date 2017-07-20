@@ -27,6 +27,8 @@
 
 #include "BufferObj.hpp"
 
+#include <GL/glew.h>
+
 namespace mb
 {
   class TransformFeedback

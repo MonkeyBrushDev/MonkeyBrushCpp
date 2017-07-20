@@ -33,6 +33,7 @@ namespace mb
   class Primitive
   {
   public:
+
     enum class Type: short
     {
       POINTS = 0,
@@ -43,16 +44,45 @@ namespace mb
       TRIANGLE_FAN,
       TRIANGLE_STRIP
     };
+
+    typedef enum
+    {
+      DRAW_ELEMENTS = 0,
+      DRAW_ARRAYS
+    } TDrawType;
+
     MB_API
-    Primitive( Primitive::Type type = Primitive::Type::TRIANGLES );
+    Primitive( Primitive::Type type = Primitive::Type::TRIANGLES,
+               Primitive::TDrawType typeDraw = Primitive::DRAW_ELEMENTS );
+
     MB_API
     Primitive::Type getType( void ) const;
+    MB_API
+    Primitive::TDrawType getTypeDraw( void ) const;
+    MB_API
+    std::vector<Vector3> getVertices( void ) const;
+    MB_API
+    std::vector<short> getIndices( void ) const;
+    MB_API
+    std::vector<Vector3> getNormals( void ) const;
+    MB_API
+    std::vector<Vector2> getTexCoords( void ) const;
+
+    MB_API
+    unsigned int getMaxPoints( void ) const;
+    MB_API
+    unsigned int getVAO( void ) const;
+
+    MB_API
+    void setVAO(  unsigned int VAO_ );
+
     MB_API
     virtual void render( void );
 
     virtual ~Primitive( void ) { }
   protected:
     Primitive::Type _type;
+    Primitive::TDrawType _typeDraw;
 
 
   protected:
@@ -60,6 +90,8 @@ namespace mb
     std::vector<short> indices;
     std::vector<Vector3> normals;
     std::vector<Vector2> texCoords;
+
+    unsigned int MAXPOINTS;
 
     unsigned int VAO;
   };

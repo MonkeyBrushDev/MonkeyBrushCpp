@@ -39,7 +39,7 @@ namespace mb
   {
   public:
     OpenGLRenderer( void );
-    virtual void beginRender( void ) override;
+    virtual void beginRender( BatchQueuePtr bq, RenderingPass *rp ) override;
     virtual void clearBuffers( void ) override;
     virtual void endRender( void ) override;
 

@@ -59,19 +59,19 @@ public:
 std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program )
 {
   program->loadVertexShaderFromText( R"(
-    #version 430
-    layout (location = 0) in vec3 position;
+  #version 430
+  layout (location = 0) in vec3 position;
 
-    uniform float time;
-    uniform float up;
+  uniform float time;
+  uniform float up;
 
-    const vec3 vel = vec3( up, 0.1, 0.0 );
+  const vec3 vel = vec3( up, 0.1, 0.0 );
 
-    void main()
-    {
-      vec3 pos = position + vel * time; // x = x0 + dt * v;
-      gl_Position = vec4(pos, 1.0);
-    })" );
+  void main( )
+  {
+     vec3 pos = position + vel * time; // x = x0 + dt * v;
+     gl_Position = vec4(pos, 1.0);
+  })" );
   program->loadGeometryShaderFromText( R"(
     #version 430
     layout (points) in;
@@ -191,14 +191,14 @@ std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program
   return program;
 }
 
-mb::Geometry* generateGeom( const mb::Color& )
+mb::Geometry* generateGeom( const mb::Color& c )
 {
   auto geom = new mb::Geometry( );
-
-  geom->addPrimitive( new mb::PointPrimitive( createPoints( ) ) );
+  geom->addPrimitive( new mb::PointCloudPrimitive( createPoints( ) ) );
 
   mb::Material* customMaterial = new mb::Material( );
   customMaterial->program = createProgram( customMaterial->program );
+
   customMaterial->addUniform( MB_PROJ_MATRIX,
     std::make_shared< mb::Matrix4Uniform >( ) );
   customMaterial->addUniform( MB_VIEW_MATRIX,
@@ -249,7 +249,8 @@ int main( void )
 
   mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 500, 500 ) );
   window->init( );
-  window->setTitle( "Earth" );
+
+  window->setTitle( "Butterflies" );
 
   glEnable( GL_DEPTH_TEST );
 
@@ -260,6 +261,8 @@ int main( void )
   mb::Application app;
 
   app.setSceneNode( createScene( ) );
+
+  app.init( ); // initialize settings to render the scene...
 
   while ( window->isRunning( ) )
   {
@@ -278,4 +281,6 @@ int main( void )
     window->swapBuffers( );
   }
   return 0;
+
 }
+

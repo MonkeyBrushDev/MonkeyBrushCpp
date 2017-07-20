@@ -38,6 +38,8 @@ namespace mb
     MB_API
     virtual ~Application( void );
     MB_API
+    void init( void );
+    MB_API
     void setSceneNode( Group* node );
     MB_API
     virtual int run( void );

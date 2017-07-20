@@ -206,7 +206,7 @@ mb::Geometry* generateGeom( const mb::Color& )
 {
   auto geom = new mb::Geometry( );
 
-  geom->addPrimitive( new mb::PointPrimitive( createPoints( ) ) );
+  geom->addPrimitive( new mb::PointCloudPrimitive( createPoints( ) ) );
 
   mb::Material* customMaterial = new mb::Material( );
   customMaterial->program = createProgram( customMaterial->program );

@@ -106,6 +106,8 @@ int main( int argc, char* argv[] )
 
   app.setSceneNode( createScene( objFile, textureFile ) );
 
+  app.init();
+
   while ( window->isRunning( ) )
   {
     window->pollEvents( );

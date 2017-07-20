@@ -31,5 +31,7 @@
 glfw
 build
 Debug
+Debug*
+BuildToQt*
 BuildToQtCreator
 CMakeLists.txt.user

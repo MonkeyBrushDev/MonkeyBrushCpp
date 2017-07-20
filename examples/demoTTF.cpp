@@ -33,9 +33,9 @@ int main( void )
     uniform mat4 MB_MATRIXM;
     uniform mat4 MB_MATRIXV;
     uniform mat4 MB_MATRIXP;
-  
+
     out vec3 color;
-    
+
     void main( )
     {
       mat4 mvp = mat4(
@@ -44,7 +44,7 @@ int main( void )
         0.0, 0.0, 0.5, 0.0,
         0.0, 0.0, 0.0, 1.0
       );
-    
+
       gl_Position = mvp * position;
       color = vec3(clamp(vec2(position), 0.0, 1.0), 0.0);
     })" );
@@ -79,7 +79,7 @@ int main( void )
     })" );
   p2.loadFragmentShaderFromText( R"(
     #version 330
-    
+
     in vec3 v_color;
 
     out vec4 fragColor;
@@ -152,6 +152,7 @@ int main( void )
 
   mb::Application app;
   app.setSceneNode( new mb::Group( "" ) );
+  app.init( );
 
   while ( window->isRunning( ) )
   {
@@ -179,13 +180,13 @@ int main( void )
     glDisable( GL_RASTERIZER_DISCARD );
 
     buffer1.bind( );
-    std::vector<mb::Vector4> arrBuffer = 
+    std::vector<mb::Vector4> arrBuffer =
       ttf.extractData<mb::Vector4>( positions.size( ) );
 
     buffer2.bind( );
-    std::vector<mb::Vector3> arrBuffer2 = 
+    std::vector<mb::Vector3> arrBuffer2 =
       ttf.extractData<mb::Vector3>( positions.size( ) );
-    
+
     // Render
     p2.use( );
     glBindVertexArray( VAOS[ 1 ] );

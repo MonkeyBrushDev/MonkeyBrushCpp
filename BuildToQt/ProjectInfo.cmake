@@ -1,0 +1,7 @@
+set(MB_MATURITY "EP")
+set(MB_DESCRIPTION "mb")
+set(MB_GIT_ROOT_URL "https://github.com/MonkeyBrushDev/MonkeyBrushCpp.git")
+set(MB_PACKAGE_URL "")
+set(MB_CI_URL "https://travis-ci.org/MonkeyBrushDev/MonkeyBrushCpp")
+set(MB_CI_PNG "https://travis-ci.org/MonkeyBrushDev/MonkeyBrushCpp.png")
+set(MB_ISSUES_URL "https://github.com/MonkeyBrushDev/MonkeyBrushCpp/issues")

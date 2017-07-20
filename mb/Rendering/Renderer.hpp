@@ -38,13 +38,18 @@ namespace mb
 
   class Renderer
   {
+
   protected:
+
     Renderer( void );
+
   public:
+
     virtual ~Renderer( void );
 
     virtual void setViewport( const Viewport& );
-    virtual void beginRender( void );
+    virtual void beginRender( BatchQueuePtr bq, RenderingPass *rp );
+    virtual void beginRenderToPrimitive( Primitive* p );
     virtual void clearBuffers( void );
     virtual void endRender( void );
 
@@ -58,7 +63,7 @@ namespace mb
     virtual void bindTexture( Texture* t );
     virtual void unbindTexture( Texture* t );
 
-    virtual void drawPrimitive( MaterialPtr, Primitive* p );
+    virtual void drawPrimitive( Primitive* p );
     //virtual void drawBuffer( MaterialPtr , ... )
     virtual void drawScreenQuad( /*MaterialPtr*/ ) = 0;
 

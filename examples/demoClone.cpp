@@ -182,6 +182,8 @@ int main( )
 
   app.setSceneNode( createScene( ) );
 
+  app.init( );
+
   while ( window->isRunning( ) )
   {
     window->pollEvents( );
