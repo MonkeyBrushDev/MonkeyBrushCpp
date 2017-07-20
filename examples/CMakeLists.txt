@@ -254,3 +254,13 @@ set( MBDEMOVERTEXDISPLACEMENT_LINK_LIBRARIES
   mb
 )
 common_application( mbDemoVertexDisplacement )
+
+
+
+
+set( MBDEMO3DTEXTURE_HEADERS )
+set( MBDEMO3DTEXTURE_SOURCES demo3DTexture.cpp )
+set( MBDEMO3DTEXTURE_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemo3DTexture )

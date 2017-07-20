@@ -66,7 +66,7 @@ namespace mb
     MB_API
     void unbind( void );
     MB_API
-    virtual void loadRawTexture( unsigned char* data )
+    virtual void loadRawTexture( /*unsigned char* data*/ void* data )
     {
       _data = data;
     }
@@ -88,7 +88,8 @@ namespace mb
     // unsigned int _anisoLevel; // unused
     unsigned int _target;
     unsigned int _handler;
-    unsigned char* _data;
+    //unsigned char* _data;
+    void* _data;
 
   public:
     unsigned int _format;
