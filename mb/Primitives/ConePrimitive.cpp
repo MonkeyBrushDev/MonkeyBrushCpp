@@ -24,83 +24,86 @@
 namespace mb
 {
   ConePrimitive::ConePrimitive( float bottomRadius, float topRadius,
-                                float height, int radialSubDiv, int heightSubDiv,
-                                bool createTopBase, bool createBottomBase,
-                                Primitive::Type type,
-                                Primitive::TDrawType typeDraw )
-  : Primitive( type, typeDraw )
+    float height, unsigned int radialSubDiv, unsigned int heightSubDiv,
+    bool createTopBase, bool createBottomBase,
+    Primitive::Type type,
+    Primitive::TDrawType typeDraw )
+    : Primitive( type, typeDraw )
   {
-      if( radialSubDiv < 3 )
+    if ( radialSubDiv < 3 )
+    {
+      throw RuntimeException( "radialSubDiv must be 3 or greater" );
+    }
+
+    if ( heightSubDiv < 1 )
+    {
+      throw RuntimeException( "heightSubDiv must be 1 or greater" );
+    }
+
+    const unsigned int extra = ( createTopBase ? 2 : 0 ) + ( createBottomBase ? 2 : 0 );
+    const unsigned int vertsAroundEdge = radialSubDiv + 1;
+
+    const float slantH = atan2( bottomRadius - topRadius, height );
+    const float cSlantH = cos( slantH );
+    const float sSlantH = sin( slantH );
+
+    const unsigned int start = createTopBase ? -2 : 0;
+    const unsigned int end = heightSubDiv + ( createBottomBase ? 2 : 0 );
+
+    for ( unsigned int yy = start; yy <= end; ++yy )
+    {
+      float v = yy / ( float ) heightSubDiv;
+      float y = height * v;
+      float ringRadius;
+      if ( yy < 0 )
       {
-          throw RuntimeException( "radialSubDiv must be 3 or greater" );
+        y = 0.0f;
+        v = 1.0f;
+        ringRadius = bottomRadius;
       }
-
-      if( heightSubDiv < 1 )
+      else if ( yy > heightSubDiv )
       {
-          throw RuntimeException( "heightSubDiv must be 1 or greater" );
+        y = height;
+        v = 1.0f;
+        ringRadius = topRadius;
       }
-
-      const int extra = (createTopBase ? 2 : 0) + (createBottomBase ? 2 : 0);
-      const int vertsAroundEdge = radialSubDiv + 1;
-
-      const float slantH = atan2(bottomRadius - topRadius, height);
-      const float cSlantH = cos(slantH);
-      const float sSlantH = sin(slantH);
-
-      const int start = createTopBase ? -2 : 0;
-      const int end = heightSubDiv + (createBottomBase ? 2 : 0);
-
-      for( int yy = start; yy <= end; ++yy )
+      else
       {
-          float v = yy / (float)heightSubDiv;
-          float y = height * v;
-          float ringRadius;
-          if( yy < 0 )
-          {
-              y = 0.0f;
-              v = 1.0f;
-              ringRadius = bottomRadius;
-          } else if( yy > heightSubDiv )
-          {
-              y = height;
-              v = 1.0f;
-              ringRadius = topRadius;
-          } else {
-              ringRadius = bottomRadius +
-                      (topRadius - bottomRadius) * (yy /(float)heightSubDiv);
-          }
-          if( y == -2 || yy == heightSubDiv + 2 )
-          {
-              ringRadius = 0.0f;
-              v = 0.0f;
-          }
-          y -= height / 2.0f;
-
-          for( unsigned int ii = 0; ii < vertsAroundEdge; ++ii )
-          {
-            float sn = sin( ii * Mathf::PI * 2.0f / (float)radialSubDiv);
-            float cs = cos( ii * Mathf::PI * 2.0f / (float)radialSubDiv );
-
-            vertices.push_back( Vector3( sn * ringRadius, y, cs * ringRadius ));
-            normals.push_back(Vector3((yy < 0 || yy > heightSubDiv) ? 0.0f : (sn * cSlantH),
-                                      (yy < 0) ? -1.0f : ((yy > heightSubDiv) ? 1.0f : sSlantH),
-                                      (yy < 0 || yy > heightSubDiv) ? 0.0f : (cs * cSlantH)));
-            texCoords.push_back(Vector2( (ii / (float)radialSubDiv), 1.0f - v ));
-          }
+        ringRadius = bottomRadius +
+          ( topRadius - bottomRadius ) * ( yy / ( float ) heightSubDiv );
       }
+      if ( y == -2 || yy == heightSubDiv + 2 )
+      {
+        ringRadius = 0.0f;
+        v = 0.0f;
+      }
+      y -= height / 2.0f;
 
-      for( unsigned int yy = 0; yy < heightSubDiv + extra; ++yy )
-          for( unsigned int ii = 0; ii < radialSubDiv; ++ii )
-          {
-            indices.push_back( vertsAroundEdge * (yy + 0) + 0 + ii );
-            indices.push_back( vertsAroundEdge * (yy + 0) + 1 + ii );
-            indices.push_back( vertsAroundEdge * (yy + 1) + 1 + ii );
+      for ( unsigned int ii = 0; ii < vertsAroundEdge; ++ii )
+      {
+        float sn = sin( ii * Mathf::PI * 2.0f / ( float ) radialSubDiv );
+        float cs = cos( ii * Mathf::PI * 2.0f / ( float ) radialSubDiv );
 
-            indices.push_back( vertsAroundEdge * (yy + 0) + 0 + ii );
-            indices.push_back( vertsAroundEdge * (yy + 1) + 1 + ii );
-            indices.push_back( vertsAroundEdge * (yy + 1) + 0 + ii );
-          }
+        vertices.push_back( Vector3( sn * ringRadius, y, cs * ringRadius ) );
+        normals.push_back( Vector3( ( yy < 0 || yy > heightSubDiv ) ? 0.0f : ( sn * cSlantH ),
+          ( yy < 0 ) ? -1.0f : ( ( yy > heightSubDiv ) ? 1.0f : sSlantH ),
+          ( yy < 0 || yy > heightSubDiv ) ? 0.0f : ( cs * cSlantH ) ) );
+        texCoords.push_back( Vector2( ( ii / ( float ) radialSubDiv ), 1.0f - v ) );
+      }
+    }
 
-      MAXPOINTS = vertices.size();
+    for ( unsigned int yy = 0; yy < heightSubDiv + extra; ++yy )
+    for ( unsigned int ii = 0; ii < radialSubDiv; ++ii )
+    {
+      indices.push_back( vertsAroundEdge * ( yy + 0 ) + 0 + ii );
+      indices.push_back( vertsAroundEdge * ( yy + 0 ) + 1 + ii );
+      indices.push_back( vertsAroundEdge * ( yy + 1 ) + 1 + ii );
+
+      indices.push_back( vertsAroundEdge * ( yy + 0 ) + 0 + ii );
+      indices.push_back( vertsAroundEdge * ( yy + 1 ) + 1 + ii );
+      indices.push_back( vertsAroundEdge * ( yy + 1 ) + 0 + ii );
+    }
+
+    MAXPOINTS = vertices.size( );
   }
 }
