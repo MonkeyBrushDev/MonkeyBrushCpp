@@ -1,15 +1,21 @@
 #include <mb/mb.h>
 
-int main( )
+class TimeComponent : public mb::Component
 {
-  mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 512, 512 ) );
-  window->init( );
-
-  const char* shader_str = R"(
+  IMPLEMENT_COMPONENT( TimeComponent )
+public:
+  TimeComponent( void )
+    : _time( 0.0f )
+  { }
+  virtual void start( void )
+  {
+    const char* shader_str = R"(
 #version 430
 layout (local_size_x = 32, local_size_y = 32, local_size_z = 1) in;
 layout (rgba16f, binding = 0) uniform image2D img_output;
 layout (rgba16f, binding = 1) uniform image2D img_output2;
+
+uniform float time;
 
 void main () {
   vec4 pixel = vec4 (0.0, 0.0, 0.0, 1.0);
@@ -23,7 +29,7 @@ void main () {
   vec3 ray_o = vec3 (x * max_x, y * max_y, 0.0);
   vec3 ray_d = vec3 (0.0, 0.0, -1.0); // ortho
 
-  vec3 sphere_c = vec3 (0.0, 0.0, -10.0);
+  vec3 sphere_c = vec3 (0.0, sin(time), -10.0);
   float sphere_r = 1.0;
 
   vec3 omc = ray_o - sphere_c;
@@ -41,7 +47,26 @@ void main () {
   imageStore (img_output2, pixel_coords, pixel);
 })";
 
-  mb::compute::ComputeShader computeShader(shader_str);
+    computeShader = new mb::compute::ComputeShader( shader_str );
+    computeShader->addUniform( "time", std::make_shared< mb::FloatUniform >( 0.0f ) );
+  }
+  virtual void update( const mb::Clock& clock )
+  {
+    _time += clock.getDeltaTime( );
+
+    computeShader->uniform( "time" )->value( _time );
+
+    computeShader->dispatch( 16, 16, 1 );
+  }
+protected:
+  mb::compute::ComputeShader* computeShader;
+  float _time;
+};
+
+int main( )
+{
+  mb::Window* window = new mb::GLFWWindow2( mb::WindowParams( 512, 512 ) );
+  window->init( );
 
   // texture handle and dimensions
   int tex_w = 512, tex_h = 512;
@@ -85,10 +110,17 @@ void main( )
   ppm.addUniform( "targetTex", std::make_shared< mb::TextureUniform >( tt ) );
   ppm.addUniform( "targetTex2", std::make_shared< mb::TextureUniform >( tt2 ) );
 
-  mb::Renderer* r = new mb::OpenGLRenderer( );
+  mb::Group* scene = new mb::Group( "Scene" );
+  scene->addComponent( new TimeComponent( ) );
+
+  mb::Application app;
+  app.setSceneNode( scene );
+  app.init( );
 
   mb::Clock clockTime;
   clockTime.reset( );
+
+  float time = 0.0f;
 
   while ( window->isRunning( ) )
   {
@@ -99,14 +131,15 @@ void main( )
       window->close( );
       break;
     }
+
     clockTime.tick( );
 
-    computeShader.dispatch( 16, 16, 1);
+    app.update( );
 
-    glClear (GL_COLOR_BUFFER_BIT);
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
     ppm.use( );
 
-    r->drawScreenQuad( );
+    app.getRenderer( )->drawScreenQuad( );
 
     window->swapBuffers( );
   }

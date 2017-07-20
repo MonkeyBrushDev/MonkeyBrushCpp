@@ -157,8 +157,6 @@ set( MBDEMOS_LINK_LIBRARIES
 common_application( mbDemos )
 
 
-
-
 set( MBDEMOEXPLOSION_HEADERS )
 set( MBDEMOEXPLOSION_SOURCES demoExplosion.cpp )
 set( MBDEMOEXPLOSION_LINK_LIBRARIES

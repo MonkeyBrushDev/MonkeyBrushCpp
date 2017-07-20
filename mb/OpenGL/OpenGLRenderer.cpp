@@ -66,6 +66,7 @@ namespace mb
 
   void OpenGLRenderer::endRender( void )
   {
+    // TODO: RESTORE OPENGL PIPELINE STATE
     Renderer::endRender( );
   }
 
