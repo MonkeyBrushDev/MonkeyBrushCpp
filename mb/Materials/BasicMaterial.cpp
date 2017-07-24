@@ -58,11 +58,11 @@ namespace mb
       out vec4 fragColor;
 
       uniform vec4 DiffuseColor;
-      uniform mat4 view;
+      uniform mat4 MB_MATRIXV;
 
       void main()
       {
-        vec3 viewPos = -transpose(mat3(view)) * view[3].xyz;
+        vec3 viewPos = -transpose(mat3(MB_MATRIXV)) * MB_MATRIXV[3].xyz;
         vec3 L = normalize(viewPos - outPosition);
         vec3 N = normalize( Normal );
         float dif = dot( N, L );

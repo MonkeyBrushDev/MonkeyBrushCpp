@@ -264,3 +264,13 @@ set( MBDEMO3DTEXTURE_LINK_LIBRARIES
   mb
 )
 common_application( mbDemo3DTexture )
+
+
+
+
+set( MBDEMONORMALMATERIAL_HEADERS )
+set( MBDEMONORMALMATERIAL_SOURCES demoNormalMaterial.cpp )
+set( MBDEMONORMALMATERIAL_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoNormalMaterial )

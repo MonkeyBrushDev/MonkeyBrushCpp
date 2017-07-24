@@ -34,11 +34,21 @@ namespace mb
     };
     enum class FilterMode: short
     {
-      LINEAR, NEAREST
+      NONE, // NEAREST
+      BILINEAR, // LINEAR
+      TRILINEAR // LINEAR_MIPMAP_LINEAR
     };
     enum class FormatTexture: short
     {
-      RGB, RGBA, RGBA16F, RGBA32F
+      R8,      // RED      ubyte
+      R16F,    // RED      float
+      RG8,     // RG       ubyte
+      RG32F,   // RG       float
+      RGB,     // RGB      ubyte
+      RGBA,    // RGBA     ubyte
+      RGB16F,  // RGB      float
+      RGBA16F, // RGBA     float
+      RGBA32F  // RGBA     float
     };
     MB_API
     WrapMode getWrapMode( void ) const { return _wrapMode; }
@@ -76,6 +86,10 @@ namespace mb
     virtual void apply( void ) = 0;
     MB_API
     inline unsigned int handler( void ) { return _handler; }
+
+    MB_API
+    void bindToImageUnit( unsigned int unit, unsigned int access,
+      unsigned int format = 0, int level = 0, bool layered = false, int layer = 0 );
   protected:
     Texture(unsigned int w, unsigned int h, FormatTexture format,
       bool linear, unsigned int target ); // TODO: bool mipmap
@@ -91,8 +105,19 @@ namespace mb
     //unsigned char* _data;
     void* _data;
 
-  public:
+    unsigned int _type;
+    unsigned int _internalFormat;
     unsigned int _format;
+
+    /*unsigned int getFilter( const FilterMode& fm ) const
+    {
+      unsigned int oglFilters[ 3 ] =
+      {
+        GL_NEAREST,
+        GL_LINEAR,
+        GL_LINEAR_MIPMAP_LINEAR
+      };
+    }*/
   };
   class Texture1D: public Texture
   {
@@ -122,10 +147,6 @@ namespace mb
     virtual void apply( void ); // bool updateMipMaps = true
     MB_API
     static mb::Texture2D* loadFromImage( const std::string& fileName );
-
-    MB_API
-    void bindToImageUnit( unsigned int unit, unsigned int access,
-      unsigned int format = 0, int level = 0, bool layered = false, int layer = 0 );
   protected:
     Texture2D( void ) : Texture2D( 0, 0 ) { }
   };

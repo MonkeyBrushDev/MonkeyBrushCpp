@@ -37,6 +37,8 @@ mb::Material* createFogMaterial( )
   customMaterial->addStandardUniforms( );
   customMaterial->addUniform( "density",
     std::make_shared< mb::FloatUniform >( 0.04f ) );
+  customMaterial->addUniform( "fogColor",
+    std::make_shared< mb::Vector3Uniform>( mb::Vector3( 0.2f, 0.3f, 0.3f ) ) );
 
   return customMaterial;
 }

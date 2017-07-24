@@ -13,8 +13,8 @@ namespace mb
   Buffer::Buffer( GLenum target, unsigned int allocSize,
     const void* data, GLenum usage )
     : _id( 0 )
-    , _target( target )
     , _size( allocSize )
+    , _target( target )
     , _usage( usage )
   {
     glCreateBuffers( 1, &_id );
@@ -93,7 +93,7 @@ namespace mb
     glBindBufferBase( _target, _base, 0 );
     _base = 0;
   }
-  void Ssbo::bufferStorage( unsigned int size, const void* data, 
+  void Ssbo::bufferStorage( unsigned int size, const void* data,
       GLbitfield flags ) const
   {
     glBufferStorage( _target, size, data, flags );

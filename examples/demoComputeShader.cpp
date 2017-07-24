@@ -1,5 +1,7 @@
 #include <mb/mb.h>
 
+mb::Texture2D *tt, *tt2;
+
 class TimeComponent : public mb::Component
 {
   IMPLEMENT_COMPONENT( TimeComponent )
@@ -13,7 +15,6 @@ public:
 #version 430
 layout (local_size_x = 32, local_size_y = 32, local_size_z = 1) in;
 layout (rgba16f, binding = 0) uniform image2D img_output;
-layout (rgba16f, binding = 1) uniform image2D img_output2;
 
 uniform float time;
 
@@ -43,23 +44,43 @@ void main () {
   }
 
   imageStore (img_output, pixel_coords, pixel);
+})";
+    const char* shader2_str = R"(
+#version 430
+layout (local_size_x = 32, local_size_y = 32, local_size_z = 1) in;
+layout (rgba16f, binding = 0) uniform image2D img_output2;
+
+uniform float time;
+
+void main () {
+  vec4 pixel = vec4 (0.0, 0.0, 0.0, 1.0);
+  ivec2 pixel_coords = ivec2 (gl_GlobalInvocationID.xy);
+
   pixel = vec4( gl_WorkGroupID / vec3 ( gl_NumWorkGroups ), 1.0 );
   imageStore (img_output2, pixel_coords, pixel);
 })";
 
     computeShader = new mb::compute::ComputeShader( shader_str );
     computeShader->addUniform( "time", std::make_shared< mb::FloatUniform >( 0.0f ) );
+    //computeShader->addUniform( "img_output", std::make_shared< mb::TextureUniform >( tt ) );
+
+    computeShader2 = new mb::compute::ComputeShader( shader2_str );
+    //computeShader2->addUniform( "img_output2", std::make_shared< mb::TextureUniform >( tt2 ) );
   }
   virtual void update( const mb::Clock& clock )
   {
     _time += clock.getDeltaTime( );
-
     computeShader->uniform( "time" )->value( _time );
-    
+
+    tt->bindToImageUnit( 0, GL_WRITE_ONLY/*, GL_RGBA16F*/ );
     computeShader->dispatch( 16, 16, 1 );
+
+    tt2->bindToImageUnit( 0, GL_WRITE_ONLY/*, GL_RGBA16F*/ );
+    computeShader2->dispatch( 16, 16, 1 );
   }
 protected:
   mb::compute::ComputeShader* computeShader;
+  mb::compute::ComputeShader* computeShader2;
   float _time;
 };
 
@@ -70,20 +91,20 @@ int main( )
 
   // texture handle and dimensions
   int tex_w = 512, tex_h = 512;
-  mb::Texture2D* tt = new mb::Texture2D( tex_w, tex_h,
+  /*mb::Texture2D* */tt = new mb::Texture2D( tex_w, tex_h,
     mb::Texture::FormatTexture::RGBA16F, true );
   {
     tt->bind( );
     tt->apply( );
-    tt->bindToImageUnit( 0, GL_WRITE_ONLY, GL_RGBA16F );
+    //tt->bindToImageUnit( 0, GL_WRITE_ONLY, GL_RGBA16F );
   }
 
-  mb::Texture2D* tt2 = new mb::Texture2D( tex_w, tex_h,
+  /*mb::Texture2D* */tt2 = new mb::Texture2D( tex_w, tex_h,
     mb::Texture::FormatTexture::RGBA16F, true );
   {
     tt2->bind( );
     tt2->apply( );
-    tt2->bindToImageUnit( 1, GL_WRITE_ONLY, GL_RGBA16F );
+    //tt2->bindToImageUnit( 1, GL_WRITE_ONLY, GL_RGBA16F );
   }
 
   mb::PostProcessMaterial ppm(R"(
@@ -115,11 +136,10 @@ void main( )
 
   mb::Application app;
   app.setSceneNode( scene );
+  app.init( );
 
   mb::Clock clockTime;
   clockTime.reset( );
-
-  float time = 0.0f;
 
   while ( window->isRunning( ) )
   {
@@ -130,7 +150,7 @@ void main( )
       window->close( );
       break;
     }
-    
+
     clockTime.tick( );
 
     app.update( );

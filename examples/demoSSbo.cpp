@@ -1,10 +1,10 @@
 #include <mb/mb.h>
 
-class TimeComponent : public mb::Component
+class SsboSortComponent : public mb::Component
 {
-  IMPLEMENT_COMPONENT( TimeComponent )
+  IMPLEMENT_COMPONENT( SsboSortComponent )
 public:
-  TimeComponent( void )
+  SsboSortComponent( void )
   { }
   virtual void start( void )
   {
@@ -40,10 +40,10 @@ void main ( )
     computeShader = new mb::compute::ComputeShader( shader_str );
 
 
-    GLuint ssbo;
-    glGenBuffers( 1, &ssbo );
-    glBindBufferBase( GL_SHADER_STORAGE_BUFFER, 0, ssbo );
-    
+    GLuint gssbo;
+    glGenBuffers( 1, &gssbo );
+    glBindBufferBase( GL_SHADER_STORAGE_BUFFER, 0, gssbo );
+
     std::vector<float> arr = { 2.0f, 4.0f, 6.0f, 8.0f, 0.0f, 1.0f, 3.0f, 5.0f, 7.0f, 9.0f };
 
     glBufferData( GL_SHADER_STORAGE_BUFFER, arr.size( ) * sizeof( float ), arr.data( ), GL_DYNAMIC_DRAW );
@@ -51,7 +51,7 @@ void main ( )
     //ssbo = new mb::Ssbo( 10, arr.data( ), GL_STATIC_DRAW );
     //ssbo->bindBase( 0 );
   }
-  virtual void update( const mb::Clock& clock )
+  virtual void update( const mb::Clock& )
   {
     //computeShader->dispatch( 10, 1, 1 );
     computeShader->program->use( );
@@ -75,15 +75,13 @@ int main( )
   window->init( );
 
   mb::Group* scene = new mb::Group( "Scene" );
-  scene->addComponent( new TimeComponent( ) );
+  scene->addComponent( new SsboSortComponent( ) );
 
   mb::Application app;
   app.setSceneNode( scene );
 
   mb::Clock clockTime;
   clockTime.reset( );
-
-  float time = 0.0f;
 
   while ( window->isRunning( ) )
   {

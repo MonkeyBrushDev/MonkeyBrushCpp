@@ -1,21 +1,21 @@
 /**
- * Copyright (c) 2017, Monkey Brush
- * All rights reserved.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- **/
+* Copyright (c) 2017, Monkey Brush
+* All rights reserved.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*
+**/
 
 #include <iostream>
 #include <string>
@@ -107,47 +107,45 @@ std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program
   return program;
 }
 
-mb::Group* createScene( const std::string& objFile, const std::string& /*texFile*/ )
+mb::Group* createScene( const std::string& objFile )
 {
   auto scene = new mb::Group( "scene" );
 
   auto camera = new mb::Camera( 75.0f, 500 / 500, 0.03f, 1000.0f );
-  camera->local( ).translate( 0.0f, 10.0f, 50.0f );
+  camera->local( ).translate( 0.0f, 20.0f, 50.0f );
 
   camera->addComponent( new mb::FreeCameraComponent( ) );
   scene->addChild( camera );
 
 
-  // LOAD MODEL
+  // LOAD MODEL FLAT
   {
     auto geom = new mb::Geometry( );
     geom->addPrimitive( new mb::MeshPrimitive( objFile ) );
 
-    mb::FlatColorMaterial* customMaterial = new mb::FlatColorMaterial( );
-    customMaterial->setColor( mb::Color::YELLOW );
+    mb::Material* customMaterial = new mb::NormalMaterial( true );
 
-    customMaterial->state( ).wireframe( ).setEnabled( true );
     customMaterial->state( ).culling( ).setEnabled( false );
 
     geom->local( ).setScale( 0.5f );
+    geom->local( ).translate( -15.0f, 0.0f, 0.0f );
 
     mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
     mc->addMaterial( mb::MaterialPtr( customMaterial ) );
 
     scene->addChild( geom );
   }
-  // LOAD MODEL
+  // LOAD MODEL SMOOTH
   {
     auto geom = new mb::Geometry( );
     geom->addPrimitive( new mb::MeshPrimitive( objFile ) );
 
-    mb::Material* customMaterial = new mb::Material( );
-    customMaterial->program = createProgram( customMaterial->program );
-    customMaterial->addStandardUniforms( );
+    mb::Material* customMaterial = new mb::NormalMaterial( false );
 
     customMaterial->state( ).culling( ).setEnabled( false );
 
     geom->local( ).setScale( 0.5f );
+    geom->local( ).translate( 15.0f, 0.0f, 0.0f );
 
     mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
     mc->addMaterial( mb::MaterialPtr( customMaterial ) );
@@ -158,7 +156,7 @@ mb::Group* createScene( const std::string& objFile, const std::string& /*texFile
   return scene;
 }
 
-int main( int argc, char* argv[] )
+int main( int argc, char* argv[ ] )
 {
   mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
 
@@ -169,19 +167,16 @@ int main( int argc, char* argv[] )
   mb::Application app;
 
   std::string objFile;
-  std::string textureFile;
-  if ( argc >= 3 )
+  if ( argc >= 2 )
   {
     objFile = std::string( argv[ 1 ] );
-    textureFile = std::string( argv[ 2 ] );
   }
   else
   {
     objFile = std::string( "objects/Pikachu/pikachu.obj_" );
-    textureFile = std::string( "objects/Pikachu/pikachu.png" );
   }
 
-  app.setSceneNode( createScene( objFile, textureFile ) );
+  app.setSceneNode( createScene( objFile ) );
   app.init( );
 
   while ( window->isRunning( ) )

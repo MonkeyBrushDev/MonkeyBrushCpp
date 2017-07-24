@@ -23,8 +23,6 @@
 #include <mb/mb.h>
 #include <routes.h>
 
-#include "others/FogShader.hpp"
-
 class SwapTextureController : public mb::Component
 {
   IMPLEMENT_COMPONENT( SwapTextureController )
@@ -103,6 +101,7 @@ int main( )
   mb::Application app;
 
   app.setSceneNode( createScene( ) );
+  app.init( );
 
   while ( window->isRunning( ) )
   {

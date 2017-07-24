@@ -44,16 +44,18 @@ class ButterfliesUpdaterComponent : public mb::Component
 {
   IMPLEMENT_COMPONENT( ButterfliesUpdaterComponent )
 public:
+  virtual void start( void ) override
+  {
+    _material = node( )->getComponent< mb::MaterialComponent >( )->first( );
+  }
   virtual void update( const mb::Clock& clock )
   {
-    mb::MaterialComponent* mc = node( )->getComponent<mb::MaterialComponent>( );
-
-    auto mat = mc->first( );
-
-    mat->uniform( "time" )->value( ( float ) clock.getAccumTime( ) );
-    mat->uniform( "up" )->value( 0.01f * ( float ) sin( clock.getAccumTime( ) ) );
-    mat->uniform( "beta" )->value( ( float ) mb::Mathf::degToRad( -45.0f ) );
+    _material->uniform( "time" )->value( ( float ) clock.getAccumTime( ) );
+    _material->uniform( "up" )->value( 0.01f * ( float ) sin( clock.getAccumTime( ) ) );
+    _material->uniform( "beta" )->value( ( float ) mb::Mathf::degToRad( -45.0f ) );
   }
+protected:
+  mb::MaterialPtr _material;
 };
 
 std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program )
@@ -191,7 +193,7 @@ std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program
   return program;
 }
 
-mb::Geometry* generateGeom( const mb::Color& c )
+mb::Geometry* generateGeom( void )
 {
   auto geom = new mb::Geometry( );
   geom->addPrimitive( new mb::PointCloudPrimitive( createPoints( ) ) );
@@ -199,12 +201,7 @@ mb::Geometry* generateGeom( const mb::Color& c )
   mb::Material* customMaterial = new mb::Material( );
   customMaterial->program = createProgram( customMaterial->program );
 
-  customMaterial->addUniform( MB_PROJ_MATRIX,
-    std::make_shared< mb::Matrix4Uniform >( ) );
-  customMaterial->addUniform( MB_VIEW_MATRIX,
-    std::make_shared< mb::Matrix4Uniform >( ) );
-  customMaterial->addUniform( MB_MODEL_MATRIX,
-    std::make_shared< mb::Matrix4Uniform >( ) );
+  customMaterial->addStandardUniforms( );
   customMaterial->addUniform( "time",
     std::make_shared< mb::FloatUniform >( ) );
   customMaterial->addUniform( "up",
@@ -231,9 +228,9 @@ mb::Group* createScene( void )
   auto scene = new mb::Group( "scene" );
 
   auto camera = new mb::Camera( 60.0f, 500 / 500, 0.01f, 1000.0f );
-  camera->local( ).translate( 0.0f, 0.0f, 25.0f );
+  camera->local( ).translate( 25.0f, 0.0f, 25.0f );
 
-  auto node = generateGeom( mb::Color::GREY );
+  auto node = generateGeom( );
 
   scene->addChild( node );
 
@@ -251,12 +248,6 @@ int main( void )
   window->init( );
 
   window->setTitle( "Butterflies" );
-
-  glEnable( GL_DEPTH_TEST );
-
-  glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
-
-  glEnable( GL_DEPTH_TEST );
 
   mb::Application app;
 
