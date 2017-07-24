@@ -120,8 +120,6 @@ void main( )
   mb::Clock clockTime;
   clockTime.reset( );
 
-  float time = 0.0f;
-
   while ( window->isRunning( ) )
   {
     window->pollEvents( );

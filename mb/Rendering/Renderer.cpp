@@ -46,16 +46,16 @@ namespace mb
   void Renderer::beginRenderToPrimitive( Primitive* p )
   {
      unsigned int nVBOs = 0;
-     if( !p->getVertices().empty() )      nVBOs++;
-     if( !p->getNormals().empty() > 0 )   nVBOs++;
-     if( !p->getTexCoords().empty() > 0 ) nVBOs++;
-     if( !p->getIndices().empty() > 0 )   nVBOs++;
+     if( !p->getVertices().empty() )  ++nVBOs;
+     if( !p->getNormals().empty() )   ++nVBOs;
+     if( !p->getTexCoords().empty() ) ++nVBOs;
+     if( !p->getIndices().empty() )   ++nVBOs;
 
-      uint32_t VBO[ nVBOs/*4*/ ];
+      std::vector<uint32_t> VBO( nVBOs/*4*/ );
       unsigned int VAO;
       glGenVertexArrays( 1, &VAO );
       glBindVertexArray( VAO );
-      glGenBuffers( 4, VBO );
+      glGenBuffers( 4, VBO.data( ) );
 
       glBindVertexArray( VAO );
       p->setVAO( VAO );
