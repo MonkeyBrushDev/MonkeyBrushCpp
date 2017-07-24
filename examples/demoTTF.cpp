@@ -33,9 +33,9 @@ int main( void )
     uniform mat4 MB_MATRIXM;
     uniform mat4 MB_MATRIXV;
     uniform mat4 MB_MATRIXP;
-  
+
     out vec3 color;
-    
+
     void main( )
     {
       mat4 mvp = mat4(
@@ -44,7 +44,7 @@ int main( void )
         0.0, 0.0, 0.5, 0.0,
         0.0, 0.0, 0.0, 1.0
       );
-    
+
       gl_Position = mvp * position;
       gl_Position = position;
       color = vec3(clamp(vec2(position), 0.0, 1.0), 0.0);
@@ -80,7 +80,7 @@ int main( void )
 
   // Transform buffer
   glBindBuffer( GL_ARRAY_BUFFER, buffers[ 0 ] );
-  glBufferData( GL_ARRAY_BUFFER, sizeof( mb::Vector4 ) * positions.size( ), 
+  glBufferData( GL_ARRAY_BUFFER, sizeof( mb::Vector4 ) * positions.size( ),
     positions.data( ), GL_STATIC_DRAW );
 
   // Feedback empty buffers
@@ -129,6 +129,7 @@ int main( void )
 
   mb::Application app;
   app.setSceneNode( new mb::Group( "" ) );
+  app.init( );
 
   while ( window->isRunning( ) )
   {
@@ -160,7 +161,7 @@ int main( void )
 
     glBindBuffer( GL_ARRAY_BUFFER, buffers[ 2 ] );
     std::vector<mb::Vector3> arrBuffer2 = ttf.extractData<mb::Vector3>( positions.size( ) );
-    
+
     window->swapBuffers( );
   }
 

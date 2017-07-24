@@ -40,14 +40,15 @@ namespace mb
     };
     enum class FormatTexture: short
     {
-      R8,     // RED      ubyte
-      R16F,   // RED      float
-      RG8,    // RG       ubyte
-      RG32F,  // RG       float
-      RGB,    // RGB      ubyte
-      RGBA,   // RGBA     ubyte
-      RGB16F, // RGB      float
-      RGBA32F // RGBA     float
+      R8,      // RED      ubyte
+      R16F,    // RED      float
+      RG8,     // RG       ubyte
+      RG32F,   // RG       float
+      RGB,     // RGB      ubyte
+      RGBA,    // RGBA     ubyte
+      RGB16F,  // RGB      float
+      RGBA16F, // RGBA     float
+      RGBA32F  // RGBA     float
     };
     MB_API
     WrapMode getWrapMode( void ) const { return _wrapMode; }
@@ -83,6 +84,8 @@ namespace mb
     virtual ~Texture( void );
     MB_API
     virtual void apply( void ) = 0;
+    MB_API
+    inline unsigned int handler( void ) { return _handler; }
   protected:
     Texture(unsigned int w, unsigned int h, FormatTexture format,
       bool linear, unsigned int target ); // TODO: bool mipmap
@@ -96,8 +99,6 @@ namespace mb
     unsigned int _target;
     unsigned int _handler;
     unsigned char* _data;
-
-
 
     unsigned int _type;
     unsigned int _internalFormat;
@@ -141,6 +142,10 @@ namespace mb
     virtual void apply( void ); // bool updateMipMaps = true
     MB_API
     static mb::Texture2D* loadFromImage( const std::string& fileName );
+
+    MB_API
+    void bindToImageUnit( unsigned int unit, unsigned int access,
+      unsigned int format = 0, int level = 0, bool layered = false, int layer = 0 );
   protected:
     Texture2D( void ) : Texture2D( 0, 0 ) { }
   };

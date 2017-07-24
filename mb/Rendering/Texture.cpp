@@ -39,51 +39,56 @@ namespace mb
     , _height( h )
     //, _anisoLevel( 0 )
     , _target( target )
+    , _data( nullptr )
   {
     glGenTextures( 1, &_handler );
-
 
     switch( format )
     {
       case FormatTexture::R8:
-        _type = GL_RED;
+        _type = GL_UNSIGNED_BYTE;
         _internalFormat = GL_R8;
-        _format = GL_UNSIGNED_BYTE;
+        _format = GL_RED;
         break;
       case FormatTexture::R16F:
-        _type = GL_RED;
+        _type = GL_UNSIGNED_BYTE;
         _internalFormat = GL_R16F;
-        _format = GL_UNSIGNED_BYTE;
+        _format = GL_RED;
         break;
       case FormatTexture::RG8:
-        _type = GL_RG;
+        _type = GL_UNSIGNED_BYTE;
         _internalFormat = GL_RG8;
-        _format = GL_UNSIGNED_BYTE;
+        _format = GL_RG;
         break;
       case FormatTexture::RG32F:
-        _type = GL_RG;
+        _type = GL_FLOAT;
         _internalFormat = GL_RG32F;
-        _format = GL_FLOAT;
+        _format = GL_RG;
         break;
       case FormatTexture::RGB:
-        _type = GL_RGB;
+        _type = GL_UNSIGNED_BYTE;
         _internalFormat = GL_RGB;
-        _format = GL_UNSIGNED_BYTE;
+        _format = GL_RGB;
         break;
       case FormatTexture::RGBA:
-        _type = GL_RGBA;
+        _type = GL_UNSIGNED_BYTE;
         _internalFormat = GL_RGBA;
-        _format = GL_UNSIGNED_BYTE;
+        _format = GL_RGBA;
         break;
       case FormatTexture::RGB16F:
-        _type = GL_RGB;
+        _type = GL_FLOAT;
         _internalFormat = GL_RGB16F;
-        _format = GL_FLOAT;
+        _format = GL_RGB;
+        break;
+      case FormatTexture::RGBA16F:
+        _type = GL_FLOAT;
+        _internalFormat = GL_RGBA16F;
+        _format = GL_RGBA;
         break;
       case FormatTexture::RGBA32F:
-        _type = GL_RGBA;
+        _type = GL_FLOAT;
         _internalFormat = GL_RGBA32F;
-        _format = GL_FLOAT;
+        _format = GL_RGBA;
         break;
     }
   }
@@ -233,6 +238,12 @@ namespace mb
     tex->loadImageTexture( fileName );
     tex->apply();
     return tex;
+  }
+
+  void Texture2D::bindToImageUnit( unsigned int unit, unsigned int access,
+    unsigned int format, int level, bool layered, int layer )
+  {
+    glBindImageTexture( unit, _handler, level, layered, layer, access, format );
   }
 }
 

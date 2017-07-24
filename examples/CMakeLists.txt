@@ -99,6 +99,15 @@ common_application( mbDemoInterpolations )
 
 
 
+set( MBDEMOCOMPUTESHADER_HEADERS )
+set( MBDEMOCOMPUTESHADER_SOURCES demoComputeShader.cpp )
+set( MBDEMOCOMPUTESHADER_LINK_LIBRARIES
+  mb
+)
+common_application( mbDemoComputeShader )
+
+
+
 set( MBDEMOHEIGHTMAP_HEADERS )
 set( MBDEMOHEIGHTMAP_SOURCES demoHeightMap.cpp )
 set( MBDEMOHEIGHTMAP_LINK_LIBRARIES
@@ -146,8 +155,6 @@ set( MBDEMOS_LINK_LIBRARIES
   mb
 )
 common_application( mbDemos )
-
-
 
 
 set( MBDEMOEXPLOSION_HEADERS )

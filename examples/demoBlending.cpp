@@ -111,6 +111,7 @@ int main( )
   mb::Application app;
 
   app.setSceneNode( createScene( ) );
+  app.init( );
 
   while ( window->isRunning( ) )
   {

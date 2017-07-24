@@ -28,8 +28,7 @@
 mb::Geometry* generateGeom( const mb::Color& c, const std::string& tex )
 {
   auto geom = new mb::Geometry( );
-//  geom->addPrimitive( new mb::SpherePrimitive( 5.0f, 100, 50 ) );
-  geom->addPrimitive( new mb::TorusPrimitive(  ) );
+  geom->addPrimitive( new mb::SpherePrimitive( 5.0f, 100, 50 ) );
 
 
   mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
