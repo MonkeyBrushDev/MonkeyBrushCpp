@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2017, Monkey Brush
  * All rights reserved.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -47,10 +47,10 @@ namespace mb
     const float cSlantH = cos( slantH );
     const float sSlantH = sin( slantH );
 
-    const unsigned int start = createTopBase ? -2 : 0;
-    const unsigned int end = heightSubDiv + ( createBottomBase ? 2 : 0 );
+    const int start = createTopBase ? -2 : 0;
+    const int end = heightSubDiv + ( createBottomBase ? 2 : 0 );
 
-    for ( unsigned int yy = start; yy <= end; ++yy )
+    for ( int yy = start; yy <= end; ++yy )
     {
       float v = yy / ( float ) heightSubDiv;
       float y = height * v;
@@ -61,7 +61,7 @@ namespace mb
         v = 1.0f;
         ringRadius = bottomRadius;
       }
-      else if ( yy > heightSubDiv )
+      else if ( yy > (int)heightSubDiv )
       {
         y = height;
         v = 1.0f;
@@ -72,7 +72,7 @@ namespace mb
         ringRadius = bottomRadius +
           ( topRadius - bottomRadius ) * ( yy / ( float ) heightSubDiv );
       }
-      if ( y == -2 || yy == heightSubDiv + 2 )
+      if ( y == -2 || yy == (int)heightSubDiv + 2 )
       {
         ringRadius = 0.0f;
         v = 0.0f;
@@ -85,9 +85,9 @@ namespace mb
         float cs = cos( ii * Mathf::PI * 2.0f / ( float ) radialSubDiv );
 
         vertices.push_back( Vector3( sn * ringRadius, y, cs * ringRadius ) );
-        normals.push_back( Vector3( ( yy < 0 || yy > heightSubDiv ) ? 0.0f : ( sn * cSlantH ),
-          ( yy < 0 ) ? -1.0f : ( ( yy > heightSubDiv ) ? 1.0f : sSlantH ),
-          ( yy < 0 || yy > heightSubDiv ) ? 0.0f : ( cs * cSlantH ) ) );
+        normals.push_back( Vector3( ( yy < 0 || yy > (int)heightSubDiv ) ? 0.0f : ( sn * cSlantH ),
+          ( yy < 0 ) ? -1.0f : ( ( yy > (int)heightSubDiv ) ? 1.0f : sSlantH ),
+          ( yy < 0 || yy > (int)heightSubDiv ) ? 0.0f : ( cs * cSlantH ) ) );
         texCoords.push_back( Vector2( ( ii / ( float ) radialSubDiv ), 1.0f - v ) );
       }
     }

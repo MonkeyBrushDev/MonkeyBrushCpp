@@ -42,7 +42,7 @@ protected:
   float _time;
 };
 
-mb::Group* createScene( const std::string& objFile, const std::string& /*texFile*/ )
+mb::Group* createScene( const std::string& objFile, const std::string& texFile )
 {
   auto scene = new mb::Group( "scene" );
 
@@ -57,17 +57,17 @@ mb::Group* createScene( const std::string& objFile, const std::string& /*texFile
   auto geom = new mb::Geometry( );
   geom->addPrimitive( new mb::MeshPrimitive( objFile ) );
 
-  /*mb::Texture2D* diffuse = mb::Texture2D::loadFromImage( texFile );
+  mb::Texture2D* diffuse = mb::Texture2D::loadFromImage( texFile );
 
   mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
   customMaterial->setColor( mb::Color::WHITE );
-  customMaterial->setColorMap( diffuse );*/
+  customMaterial->setColorMap( diffuse );
 
-  mb::FlatColorMaterial* customMaterial = new mb::FlatColorMaterial( );
+  /*mb::FlatColorMaterial* customMaterial = new mb::FlatColorMaterial( );
   customMaterial->setColor( mb::Color::YELLOW );
 
   customMaterial->state( ).wireframe( ).setEnabled( true );
-  customMaterial->state( ).culling( ).setEnabled( false );
+  customMaterial->state( ).culling( ).setEnabled( false );*/
 
   geom->local( ).setScale( 0.5f );
 
@@ -100,8 +100,8 @@ int main( int argc, char* argv[] )
   }
   else
   {
-    objFile = std::string( "objects/Pikachu/pikachu.obj_" );
-    textureFile = std::string( "objects/Pikachu/pikachu.png" );
+    objFile = std::string( "objects/Tank/tank.obj_" );
+    textureFile = std::string( "objects/Tank/tank.jpg" );
   }
 
   app.setSceneNode( createScene( objFile, textureFile ) );

@@ -45,14 +45,16 @@ class TimeUpdaterComponent : public mb::Component
 {
   IMPLEMENT_COMPONENT( TimeUpdaterComponent )
 public:
+  virtual void start( void ) override
+  {
+    _material = node( )->getComponent< mb::MaterialComponent >( )->first( );
+  }
   virtual void update( const mb::Clock& clock )
   {
-    mb::MaterialComponent* mc = node( )->getComponent<mb::MaterialComponent>( );
-
-    auto mat = mc->first( );
-
-    mat->uniform( "time" )->value( ( float ) clock.getAccumTime( ) );
+    _material->value( ( float ) clock.getAccumTime( ) );
   }
+protected:
+  mb::MaterialPtr _material;
 };
 
 std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program )
@@ -88,7 +90,7 @@ std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program
       float x = axis.x;
       float y = axis.y;
       float z = axis.z;
-    
+
       return mat4(
               oc * x * x + c,  oc * x * y - z * s,  oc * z * x + y * s,  0.0,
           oc * x * y + z * s,      oc * y * y + c,  oc * y * z - x * s,  0.0,
@@ -107,14 +109,14 @@ std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program
     void main( void )
     {
       mat4 mvp = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM;
-    
+
       vec3 grassFieldPos = gl_in[0].gl_Position.xyz;
 
-      const float rad = radians( 45.0 );
-      const float sin45 = sin( rad );
-      const float cos45 = cos( rad );
+      /*const */float rad = radians( 45.0 );
+      /*const */float sin45 = sin( rad );
+      /*const */float cos45 = cos( rad );
 
-      const vec3 baseDir[3]=vec3[3](
+      /*const */vec3 baseDir[3]=vec3[3](
         vec3(1.0, 0.0, 0.0),
         vec3(float(cos45), 0.0f, float(sin45)),
         vec3(float(cos45), 0.0f, float(sin45))
@@ -125,10 +127,10 @@ std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program
         // Grass patch top left vertex
         vec3 baseDirRotated = (
            rotationMatrix(
-              vec3(0.0, 1.0, 0.0), sin(time * 0.7) * 0.1) 
+              vec3(0.0, 1.0, 0.0), sin(time * 0.7) * 0.1)
           * vec4(baseDir[i], 1.0)).xyz;
-        
-        float WindPower = 0.5 + 
+
+        float WindPower = 0.5 +
           sin(grassFieldPos.x / 30.0 +
           grassFieldPos.z / 30.0 +
           time * (1.2 + WindStrength / 20.0) );
@@ -140,36 +142,36 @@ std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program
         {
           WindPower = WindPower * 0.3;
         }
-		
+
         WindPower *= WindStrength;
 
-        vec3 grassTL = grassFieldPos - baseDirRotated * GrassPatchSize * 0.5 
+        vec3 grassTL = grassFieldPos - baseDirRotated * GrassPatchSize * 0.5
           + WindDirection * WindPower;
-        grassTL.y += GrassPatchHeight;   
+        grassTL.y += GrassPatchHeight;
         gl_Position = mvp * vec4(grassTL, 1.0);
         texCoord = vec2(0.0, 1.0);
         EmitVertex();
-        
+
         // Grass patch bottom left vertex
-        vec3 grassBL = grassFieldPos - baseDir[i] * GrassPatchSize * 0.5;  
+        vec3 grassBL = grassFieldPos - baseDir[i] * GrassPatchSize * 0.5;
         gl_Position = mvp * vec4(grassBL, 1.0);
         texCoord = vec2(0.0, 0.0);
         EmitVertex();
-                                       
+
         // Grass patch top right vertex
-        vec3 grassTR = grassFieldPos + baseDirRotated * GrassPatchSize * 0.5  
+        vec3 grassTR = grassFieldPos + baseDirRotated * GrassPatchSize * 0.5
           + WindDirection * WindPower;
-        grassTR.y += GrassPatchHeight;  
+        grassTR.y += GrassPatchHeight;
         gl_Position = mvp * vec4(grassTR, 1.0);
         texCoord = vec2(1.0, 1.0);
         EmitVertex();
-        
+
         // Grass patch bottom right vertex
-        vec3 grassBR = grassFieldPos + baseDir[i] * GrassPatchSize * 0.5;  
+        vec3 grassBR = grassFieldPos + baseDir[i] * GrassPatchSize * 0.5;
         gl_Position = mvp * vec4(grassBR, 1.0);
         texCoord = vec2(1.0, 0.0);
         EmitVertex();
-        
+
         EndPrimitive();
       }
     })" );
@@ -187,13 +189,13 @@ std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program
     void main( void )
     {
       vec4 vTexColor = texture(grassTex, texCoord);
-      float fNewAlpha = vTexColor.a * fAlphaMultiplier;    
-           
+      float fNewAlpha = vTexColor.a * fAlphaMultiplier;
+
       if(fNewAlpha < fAlphaTest) discard;
-	
+
       if(fNewAlpha > 1.0f)
-      fNewAlpha = 1.0f;	
-		
+      fNewAlpha = 1.0f;
+
       fragColor = vec4(vTexColor.xyz, fNewAlpha);
     })" );
   program->compileAndLink( );
@@ -210,12 +212,7 @@ mb::Geometry* generateGeom( const mb::Color& )
 
   mb::Material* customMaterial = new mb::Material( );
   customMaterial->program = createProgram( customMaterial->program );
-  customMaterial->addUniform( MB_PROJ_MATRIX,
-    std::make_shared< mb::Matrix4Uniform >( ) );
-  customMaterial->addUniform( MB_VIEW_MATRIX,
-    std::make_shared< mb::Matrix4Uniform >( ) );
-  customMaterial->addUniform( MB_MODEL_MATRIX,
-    std::make_shared< mb::Matrix4Uniform >( ) );
+  customMaterial->addStandardUniforms( );
   customMaterial->addUniform( "time",
     std::make_shared< mb::FloatUniform >( ) );
 
@@ -223,7 +220,7 @@ mb::Geometry* generateGeom( const mb::Color& )
   customMaterial->addUniform( "grassTex",
     std::make_shared< mb::TextureUniform >( TexDiffuse ) );
 
-  //customMaterial->state( ).culling( ).setEnabled( false );
+  customMaterial->state( ).culling( ).setEnabled( false );
 
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
@@ -258,15 +255,10 @@ int main( void )
   window->init( );
   window->setTitle( "Earth" );
 
-  glEnable( GL_DEPTH_TEST );
-
-  glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
-
-  glEnable( GL_DEPTH_TEST );
-
   mb::Application app;
 
   app.setSceneNode( createScene( ) );
+  app.init( );
 
   while ( window->isRunning( ) )
   {

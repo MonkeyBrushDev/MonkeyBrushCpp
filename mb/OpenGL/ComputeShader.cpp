@@ -49,6 +49,11 @@
       void ComputeShader::dispatch( unsigned int threadGroupsX,
         unsigned int threadGroupsY, unsigned int threadGroupsZ )
       {
+        program->use( );
+        glDispatchCompute( threadGroupsX, threadGroupsY, threadGroupsZ );
+        //glMemoryBarrier( GL_SHADER_STORAGE_BARRIER_BIT );
+        glMemoryBarrier( GL_SHADER_IMAGE_ACCESS_BARRIER_BIT );
+        //program->unuse( );
         texId = 0;
         program->use( );
         for ( const auto& uniform : _uniforms )
@@ -101,15 +106,16 @@
           {
             mb::Texture* tex = uniform.second->value( ).cast< mb::Texture* >( );
             if ( tex == nullptr ) continue;
-            tex->bind( texId );
-            this->program->sendUniformi( uniform.first, texId );
+            //tex->bind( texId );
+            tex->bindToImageUnit( texId, GL_WRITE_ONLY/*, GL_RGBA16F*/ );
+            //this->program->sendUniformi( uniform.first, texId );
             ++texId;
             // TODO: UNBIND TEXTURES IN UNUSE METHOD
           }
         }
         glDispatchCompute( threadGroupsX, threadGroupsY, threadGroupsZ );
         //glMemoryBarrier( GL_SHADER_STORAGE_BARRIER_BIT );
-        glMemoryBarrier( GL_SHADER_IMAGE_ACCESS_BARRIER_BIT );
+        glMemoryBarrier( GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT );
       }
     }
   }

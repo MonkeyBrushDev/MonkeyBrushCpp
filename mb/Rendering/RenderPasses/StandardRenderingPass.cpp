@@ -18,6 +18,8 @@
  **/
 
 #include "StandardRenderingPass.hpp"
+#include "../../Maths/Color.hpp"
+#include "../../Includes.hpp"
 
 namespace mb
 {
@@ -73,6 +75,10 @@ namespace mb
   void StandardRenderingPass::render( Renderer* renderer,
                                       BatchQueuePtr bq, Camera* c )
   {
+    // Clear window (HARDCODED) TODO
+    const mb::Color& cc = c->getClearColor( );
+    glClearColor( cc.r( ), cc.g( ), cc.b( ), cc.a( ) );
+
     // computeShadows( )
     renderOpaqueObjects( renderer, bq, c );
     renderTransparentObjects( renderer, bq, c );

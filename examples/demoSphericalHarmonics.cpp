@@ -28,60 +28,58 @@ mb::Material* createMaterial( )
   mb::Material* customMaterial = new mb::Material( );
 
   customMaterial->program->loadVertexShaderFromText( R"(
-        #version 430
-        layout(location = 0) in vec3 position;
-        layout(location = 1) in vec3 normal;
-        out vec3 outPosition;
-        flat out vec3 outNormal;
+    #version 430
+    layout(location = 0) in vec3 position;
+    layout(location = 1) in vec3 normal;
+    out vec3 outPosition;
+    flat out vec3 outNormal;
 
-        uniform mat4 MB_MATRIXP;
-        uniform mat4 MB_MATRIXV;
-        uniform mat4 MB_MATRIXM;
+    uniform mat4 MB_MATRIXP;
+    uniform mat4 MB_MATRIXV;
+    uniform mat4 MB_MATRIXM;
 
-        void main( void )
-        {
-          outPosition = vec3(MB_MATRIXM * vec4(position, 1.0));
-          gl_Position = MB_MATRIXP * MB_MATRIXV * vec4(outPosition, 1.0);
-          mat3 normalMatrix = mat3(inverse(transpose(MB_MATRIXM)));
-          outNormal = normalize(normalMatrix * normal);
-        }
-      )" );
+    void main( void )
+    {
+      outPosition = vec3(MB_MATRIXM * vec4(position, 1.0));
+      gl_Position = MB_MATRIXP * MB_MATRIXV * vec4(outPosition, 1.0);
+      mat3 normalMatrix = mat3(inverse(transpose(MB_MATRIXM)));
+      outNormal = normalize(normalMatrix * normal);
+    })" );
   customMaterial->program->loadFragmentShaderFromText( R"(
-        #version 430
-        in vec3 outPosition;
-        flat in vec3 outNormal;
-        out vec4 fragColor;
-        const float invGamma = 1.0/2.2;
-        const mat4 mSH_R = mat4(
-          0.0151426,  0.0441249, -0.0200723, 0.040842,
-          0.0441249, -0.0151426,  0.0147908, 0.161876, -
-          0.0200723,  0.0147908,  0.0476559, 0.016715,
-          0.040842,   0.161876,   0.016715,  0.394388
-        );
-        const mat4 mSH_G = mat4(
-            0.0158047, -0.0553513, -0.0183098, -0.0649404,
-          -0.0553513, -0.0158047,  0.0294534,  0.147578,
-          -0.0183098,  0.0294534, -0.0211293,  0.030445,
-          -0.0649404,  0.147578,   0.030445,   0.381122
-        );
-        const mat4 mSH_B = mat4(
-          -0.00060538, -0.143711,   -0.0279153, -0.15276,
-          -0.143711,    0.00060538,  0.0364631,  0.183909,
-          -0.0279153,   0.0364631,  -0.0566425,  0.0386598,
-          -0.15276,     0.183909,    0.0386598,  0.419227
-        );
-        void main( void )
-        {
-          vec4 nor = vec4(normalize(outNormal),1.0);
-          vec3 col = vec3(
-            dot(nor, (mSH_R * nor)),
-            dot(nor, (mSH_G * nor)),
-            dot(nor, (mSH_B * nor))
-          );
-          //Gamma correction
-          fragColor = vec4(pow(col.xyz, vec3(invGamma)),1.0);
-        }
-      )" );
+    #version 430
+    in vec3 outPosition;
+    flat in vec3 outNormal;
+    out vec4 fragColor;
+    const float invGamma = 1.0/2.2;
+    const mat4 mSH_R = mat4(
+      0.0151426,  0.0441249, -0.0200723, 0.040842,
+      0.0441249, -0.0151426,  0.0147908, 0.161876, -
+      0.0200723,  0.0147908,  0.0476559, 0.016715,
+      0.040842,   0.161876,   0.016715,  0.394388
+    );
+    const mat4 mSH_G = mat4(
+       0.0158047, -0.0553513, -0.0183098, -0.0649404,
+      -0.0553513, -0.0158047,  0.0294534,   0.147578,
+      -0.0183098,  0.0294534, -0.0211293,   0.030445,
+      -0.0649404,   0.147578,   0.030445,   0.381122
+    );
+    const mat4 mSH_B = mat4(
+      -0.00060538, -0.143711,   -0.0279153, -0.15276,
+      -0.143711,    0.00060538,  0.0364631,  0.183909,
+      -0.0279153,   0.0364631,  -0.0566425,  0.0386598,
+      -0.15276,     0.183909,    0.0386598,  0.419227
+    );
+    void main( void )
+    {
+      vec4 nor = vec4(normalize(outNormal),1.0);
+      vec3 col = vec3(
+        dot(nor, (mSH_R * nor)),
+        dot(nor, (mSH_G * nor)),
+        dot(nor, (mSH_B * nor))
+      );
+      //Gamma correction
+      fragColor = vec4(pow(col.xyz, vec3(invGamma)),1.0);
+    })" );
   customMaterial->program->compileAndLink( );
   customMaterial->program->autocatching( );
 

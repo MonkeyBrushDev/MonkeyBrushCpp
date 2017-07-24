@@ -25,11 +25,10 @@
 
 // TODO: ADD SPECULAR AND NORMAL TEXTURE TO EARTH
 
-mb::Geometry* generateGeom( const mb::Color& c, const std::string& tex )
+mb::Geometry* generateGeom( const mb::Color& c, const std::string& tex, bool cullFace = true )
 {
   auto geom = new mb::Geometry( );
-//  geom->addPrimitive( new mb::SpherePrimitive( 5.0f, 100, 50 ) );
-  geom->addPrimitive( new mb::TorusPrimitive(  ) );
+  geom->addPrimitive( new mb::SpherePrimitive( 5.0f, 100, 50 ) );
 
 
   mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
@@ -40,6 +39,8 @@ mb::Geometry* generateGeom( const mb::Color& c, const std::string& tex )
 
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
+
+  customMaterial->state( ).culling( ).setEnabled( cullFace );
 
   //geom->addComponent( new mb::RotateComponent( mb::Vector3::ONE, 0.15f ) );
 
@@ -88,9 +89,10 @@ mb::Group* createScene( void )
   scene->addChild( node2 );
 
 
-  auto node3 = generateGeom( mb::Color::WHITE, "earth/space.png" );
+  auto node3 = generateGeom( mb::Color::WHITE, "earth/space.png", false );
   node3->local( ).setScale( 15.0f );
   scene->addChild( node3 );
+  node3->addComponent( new RotationComponent( 0.33f * rotationSpeed ) );
 
   return scene;
 }

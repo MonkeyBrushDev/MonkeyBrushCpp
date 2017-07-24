@@ -25,25 +25,7 @@
 
 #include <chrono>
 
-class ToggleDepthTest : public mb::Component
-{
-  IMPLEMENT_COMPONENT( ToggleDepthTest )
-public:
-  virtual void update( const mb::Clock& ) override
-  {
-    if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Plus ) )
-    {
-      std::cout << "ENABLE" << std::endl;
-      glEnable( GL_DEPTH_TEST );
-    }
-    else  if ( mb::Input::isKeyPressed( mb::Keyboard::Key::Minus ) )
-    {
-      glDisable( GL_DEPTH_TEST );
-      std::cout << "DISABLE" << std::endl;
-    }
-    // std::cout << mb::Input::MouseX( ) << ", " << mb::Input::MouseY( ) << std::endl;
-  }
-};
+#define EARTH_NM
 
 class RotationComponent : public mb::Component
 {
@@ -77,10 +59,11 @@ mb::Group* createPlanet( float radius, const std::string& diffuse, float equator
   planetRotationPivot->addComponent( new RotationComponent( equatorialRotationSpeed ) );
   planetRotationPivot->addChild( geometry );
 
-#if 0
+#ifdef EARTH_NM
   mb::StandardMaterial* customMaterial = new mb::StandardMaterial( );
   customMaterial->setColorMap( mb::Texture2D::loadFromImage( diffuse ) );
-  customMaterial->setNormalMap( mb::Texture2D::loadFromImage( "metal-floor-normal.jpg" ) );
+  customMaterial->setNormalMap( mb::Texture2D::loadFromImage( "earth/earth_normal.jpg" ) );
+  customMaterial->setNormalScale( 2.5f );
   customMaterial->setColor( color );
 #else
   mb::ColorMaterial* customMaterial = new mb::ColorMaterial( );
@@ -111,7 +94,6 @@ mb::Group* createScene( void )
   camera->local( ).translate( 0.0f, 0.0f, 8.0f );
 
   camera->addComponent( new mb::FreeCameraComponent( ) );
-  camera->addComponent( new ToggleDepthTest( ) );
   scene->addChild( camera );
 
   auto cubes = new mb::Group( "Cubes" );
@@ -195,7 +177,7 @@ mb::Group* createScene( void )
 
   scene->addChild( cubes );
 
-  auto earth = createPlanet( 0.5f, "earth.png", 0.05f, 0.5f, 0.1f, mb::Color::BLUE );
+  auto earth = createPlanet( 0.5f, "earth.png", 0.05f, 0.5f, 0.1f, mb::Color::WHITE );
   auto moon = createPlanet( 0.15f, "moon.png", 0.025f, 1.15f, 0.035f, mb::Color::BROWN );
 
   scene->addChild( earth );

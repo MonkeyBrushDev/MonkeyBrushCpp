@@ -129,7 +129,7 @@ mb::Group* createScene( void )
   return scene;
 }
 
-int main( )
+int main( void )
 {
   mb::FileSystem::getInstance( )->setBaseDirectory( MB_EXAMPLES_RESOURCES_ROUTE );
 

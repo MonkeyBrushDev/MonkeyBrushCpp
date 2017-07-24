@@ -132,18 +132,22 @@ mb::Geometry* generateGeom( const mb::Color& )
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
 
+  customMaterial->state( ).culling( ).setEnabled( false );
+
   geom->addComponent( new HeightMapController( 5.0f ) );
   //geom->addComponent( new mb::RotateComponent( mb::Vector3::ONE, 0.25f ) );
 
   return geom;
 }
 
+mb::Camera* camera;
+
 mb::Group* createScene( void )
 {
   auto scene = new mb::Group( "scene" );
 
-  auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
-  camera->local( ).translate( 0.0f, 0.0f, 10.0f );
+  camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
+  camera->local( ).translate( 0.4f, 0.6f, 25.0f );
 
   scene->addChild( generateGeom( mb::Color::GREY ) );
 

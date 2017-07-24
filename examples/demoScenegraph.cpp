@@ -23,40 +23,42 @@
 #include <mb/mb.h>
 #include <routes.h>
 
-#include "others/FogShader.hpp"
-
-mb::Material* createFogMaterial( )
+mb::Group* generateCubeGeom( const mb::Color& c )
 {
-  mb::Material* customMaterial = new mb::Material( );
-
-  customMaterial->program->loadVertexShaderFromText( VS_FOG_SHADER );
-  customMaterial->program->loadFragmentShaderFromText( FS_FOG_SHADER );
-  customMaterial->program->compileAndLink( );
-  customMaterial->program->autocatching( );
-
-  customMaterial->addStandardUniforms( );
-  customMaterial->addUniform( "density",
-    std::make_shared< mb::FloatUniform >( 0.04f ) );
-  customMaterial->addUniform( "fogColor",
-    std::make_shared< mb::Vector3Uniform>( mb::Vector3( 0.2f, 0.3f, 0.3f ) ) );
-
-  return customMaterial;
-}
-
-mb::Geometry* generateGeom( const mb::Color& )
-{
+  mb::Group* g = new mb::Group( "" );
   auto geom = new mb::Geometry( );
 
   geom->addPrimitive( new mb::CubePrimitive( ) );
 
-  mb::Material* customMaterial = createFogMaterial( );
+  mb::BasicMaterial* customMaterial = new mb::BasicMaterial( );
+  customMaterial->setColor( c );
 
   mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
   mc->addMaterial( mb::MaterialPtr( customMaterial ) );
 
   geom->addComponent( new mb::RotateComponent( mb::Vector3::ONE, 0.25f ) );
 
-  return geom;
+  g->addChild( geom );
+  return g;
+}
+
+mb::Group* generateSphereGeom( const mb::Color& c )
+{
+  mb::Group* g = new mb::Group( "" );
+  auto geom = new mb::Geometry( );
+
+  geom->addPrimitive( new mb::SpherePrimitive( ) );
+
+  mb::BasicMaterial* customMaterial = new mb::BasicMaterial( );
+  customMaterial->setColor( c );
+
+  mb::MaterialComponent* mc = geom->getComponent<mb::MaterialComponent>( );
+  mc->addMaterial( mb::MaterialPtr( customMaterial ) );
+
+  geom->addComponent( new mb::RotateComponent( mb::Vector3::ONE, 0.25f ) );
+
+  g->addChild( geom );
+  return g;
 }
 
 mb::Group* createScene( void )
@@ -64,9 +66,25 @@ mb::Group* createScene( void )
   auto scene = new mb::Group( "scene" );
 
   auto camera = new mb::Camera( 45.0f, 500 / 500, 0.01f, 1000.0f );
-  camera->local( ).translate( 0.0f, 0.0f, 10.0f );
+  camera->local( ).setPosition( 0.0f, 0.0f, 50.0f );
 
-  scene->addChild( generateGeom( mb::Color::GREY ) );
+  auto base = generateSphereGeom( mb::Color::RED );
+  base->local( ).setScale( 1.5f );
+
+  for ( int i = -1; i < 2; i+= 2 )
+  {
+    auto cube = generateCubeGeom( mb::Color::GREY );
+    cube->local( ).setPosition( mb::Vector3( 10.0f * i, 0.0f, 0.0f ) );
+    for (unsigned int j = 0; j < 2; ++j )
+    {
+      auto sp = generateSphereGeom( mb::Color::BLUE );
+      sp->local( ).setPosition( mb::Vector3( 0.0f, -5.0f * j, 0.0f ) );
+      cube->addChild( sp );
+    }
+    base->addChild( cube );
+  }
+
+  scene->addChild( base );
 
   camera->addComponent( new mb::FreeCameraComponent( ) );
   scene->addChild( camera );
