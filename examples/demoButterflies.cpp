@@ -191,7 +191,7 @@ std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program
   return program;
 }
 
-mb::Geometry* generateGeom( const mb::Color& c )
+mb::Geometry* generateGeom( void )
 {
   auto geom = new mb::Geometry( );
   geom->addPrimitive( new mb::PointCloudPrimitive( createPoints( ) ) );
@@ -233,7 +233,7 @@ mb::Group* createScene( void )
   auto camera = new mb::Camera( 60.0f, 500 / 500, 0.01f, 1000.0f );
   camera->local( ).translate( 0.0f, 0.0f, 25.0f );
 
-  auto node = generateGeom( mb::Color::GREY );
+  auto node = generateGeom( );
 
   scene->addChild( node );
 
