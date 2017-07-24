@@ -49,6 +49,11 @@
       void ComputeShader::dispatch( unsigned int threadGroupsX,
         unsigned int threadGroupsY, unsigned int threadGroupsZ )
       {
+        program->use( );
+        glDispatchCompute( threadGroupsX, threadGroupsY, threadGroupsZ );
+        //glMemoryBarrier( GL_SHADER_STORAGE_BARRIER_BIT );
+        glMemoryBarrier( GL_SHADER_IMAGE_ACCESS_BARRIER_BIT );
+        //program->unuse( );
         texId = 0;
         program->use( );
         for ( const auto& uniform : _uniforms )
@@ -109,7 +114,7 @@
         }
         glDispatchCompute( threadGroupsX, threadGroupsY, threadGroupsZ );
         //glMemoryBarrier( GL_SHADER_STORAGE_BARRIER_BIT );
-        glMemoryBarrier( GL_SHADER_IMAGE_ACCESS_BARRIER_BIT );
+        glMemoryBarrier( GL_SHADER_IMAGE_ACCESS_BARRIER_BIT | GL_SHADER_STORAGE_BARRIER_BIT );
       }
     }
   }

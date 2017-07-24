@@ -195,7 +195,7 @@ mb::Group* createScene( void )
 
   scene->addChild( cubes );
 
-  auto earth = createPlanet( 0.5f, "earth.png", 0.05f, 0.5f, 0.1f, mb::Color::BLUE );
+  auto earth = createPlanet( 0.5f, "earth.png", 0.05f, 0.5f, 0.1f, mb::Color::WHITE );
   auto moon = createPlanet( 0.15f, "moon.png", 0.025f, 1.15f, 0.035f, mb::Color::BROWN );
 
   scene->addChild( earth );

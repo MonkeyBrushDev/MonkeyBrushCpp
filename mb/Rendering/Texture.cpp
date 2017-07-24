@@ -33,7 +33,7 @@ namespace mb
   Texture::Texture(unsigned int w, unsigned int h, FormatTexture format,
     bool linear, unsigned int target )
     : _wrapMode( WrapMode::CLAMP_TO_EDGE )
-    , _minFilter( linear? FilterMode::LINEAR : FilterMode::NEAREST )
+    , _minFilter( linear? FilterMode::BILINEAR : FilterMode::NONE )
     , _magFilter( _minFilter )
     , _width( w )
     , _height( h )
@@ -43,19 +43,52 @@ namespace mb
   {
     glGenTextures( 1, &_handler );
 
-    switch ( format )
+    switch( format )
     {
+      case FormatTexture::R8:
+        _type = GL_UNSIGNED_BYTE;
+        _internalFormat = GL_R8;
+        _format = GL_RED;
+        break;
+      case FormatTexture::R16F:
+        _type = GL_UNSIGNED_BYTE;
+        _internalFormat = GL_R16F;
+        _format = GL_RED;
+        break;
+      case FormatTexture::RG8:
+        _type = GL_UNSIGNED_BYTE;
+        _internalFormat = GL_RG8;
+        _format = GL_RG;
+        break;
+      case FormatTexture::RG32F:
+        _type = GL_FLOAT;
+        _internalFormat = GL_RG32F;
+        _format = GL_RG;
+        break;
       case FormatTexture::RGB:
+        _type = GL_UNSIGNED_BYTE;
+        _internalFormat = GL_RGB;
         _format = GL_RGB;
         break;
       case FormatTexture::RGBA:
+        _type = GL_UNSIGNED_BYTE;
+        _internalFormat = GL_RGBA;
         _format = GL_RGBA;
         break;
+      case FormatTexture::RGB16F:
+        _type = GL_FLOAT;
+        _internalFormat = GL_RGB16F;
+        _format = GL_RGB;
+        break;
       case FormatTexture::RGBA16F:
-        _format = GL_RGBA16F;
+        _type = GL_FLOAT;
+        _internalFormat = GL_RGBA16F;
+        _format = GL_RGBA;
         break;
       case FormatTexture::RGBA32F:
-        _format = GL_RGBA32F;
+        _type = GL_FLOAT;
+        _internalFormat = GL_RGBA32F;
+        _format = GL_RGBA;
         break;
     }
   }
@@ -95,19 +128,23 @@ namespace mb
   void Texture1D::apply( void )
   {
     this->bind( );
-    glTexParameteri( _target, GL_TEXTURE_WRAP_S, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
-    glTexParameteri( _target, GL_TEXTURE_WRAP_T, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
-    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER, getMinFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
-    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER, getMagFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_S,
+      getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_T,
+      getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER,
+      getMinFilter( ) == FilterMode::BILINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER,
+      getMagFilter( ) == FilterMode::BILINEAR ? GL_LINEAR : GL_NEAREST );
 
     glTexImage1D(
       this->_target,
       0, // level
-      _format,    // internalFormat
+      _internalFormat,    // internalFormat
       this->getWidth( ),
       0, // border
-      GL_RGBA, // format
-      GL_UNSIGNED_BYTE, // type
+      _format, // format
+      _type, // type
       _data
     );
 
@@ -138,19 +175,23 @@ namespace mb
     glTexImage2D(
       this->_target,
       0, // level
-      _format,    // internalFormat
+      _internalFormat,    // internalFormat
       this->getWidth( ),
       this->getHeight( ),
       0, // border
-      GL_RGBA, // format
-      GL_UNSIGNED_BYTE, // TODO (CS): GL_FLOAT, //GL_UNSIGNED_BYTE, // type
+      _format, // format
+      _type, // type
       _data
     );
 
-    glTexParameteri( _target, GL_TEXTURE_WRAP_S, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
-    glTexParameteri( _target, GL_TEXTURE_WRAP_T, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
-    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER, getMinFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
-    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER, getMagFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_S,
+      getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_T,
+      getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER,
+      getMinFilter( ) == FilterMode::BILINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER,
+      getMagFilter( ) == FilterMode::BILINEAR ? GL_LINEAR : GL_NEAREST );
 
     this->unbind( );
   }
@@ -222,11 +263,16 @@ namespace mb
   void Texture2DArray::apply( void ) // bool updateMipMaps = true
   {
     this->bind( );
-    glTexParameteri( _target, GL_TEXTURE_WRAP_S, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
-    glTexParameteri( _target, GL_TEXTURE_WRAP_T, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
-    glTexParameteri( _target, GL_TEXTURE_WRAP_R, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
-    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER, getMinFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
-    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER, getMagFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_S,
+      getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_T,
+      getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_R,
+      getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER,
+      getMinFilter( ) == FilterMode::BILINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER,
+      getMagFilter( ) == FilterMode::BILINEAR ? GL_LINEAR : GL_NEAREST );
 
     /*
     TODO
@@ -264,22 +310,27 @@ namespace mb
   void Texture3D::apply( void ) // bool updateMipMaps = true
   {
     this->bind( );
-    glTexParameteri( _target, GL_TEXTURE_WRAP_S, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
-    glTexParameteri( _target, GL_TEXTURE_WRAP_T, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
-    glTexParameteri( _target, GL_TEXTURE_WRAP_R, getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
-    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER, getMinFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
-    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER, getMagFilter( ) == FilterMode::LINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_S,
+      getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_T,
+      getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_WRAP_R,
+      getWrapMode( ) == WrapMode::CLAMP_TO_EDGE ? GL_CLAMP_TO_EDGE : GL_REPEAT );
+    glTexParameteri( _target, GL_TEXTURE_MIN_FILTER,
+      getMinFilter( ) == FilterMode::BILINEAR ? GL_LINEAR : GL_NEAREST );
+    glTexParameteri( _target, GL_TEXTURE_MAG_FILTER,
+      getMagFilter( ) == FilterMode::BILINEAR ? GL_LINEAR : GL_NEAREST );
 
     glTexImage3D(
       this->_target,
       0, // level
-      _format,    // internalFormat
+      _internalFormat,    // internalFormat
       this->getWidth( ),
       this->getHeight( ),
       this->getDepth( ),
       0, // border
-      GL_RGBA, // format
-      GL_UNSIGNED_BYTE, // type
+      _format, // format
+      _type, // type
       _data
     );
 

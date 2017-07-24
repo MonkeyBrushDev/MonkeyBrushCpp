@@ -55,7 +55,7 @@ void main () {
     _time += clock.getDeltaTime( );
 
     computeShader->uniform( "time" )->value( _time );
-    
+
     computeShader->dispatch( 16, 16, 1 );
   }
 protected:
@@ -115,11 +115,10 @@ void main( )
 
   mb::Application app;
   app.setSceneNode( scene );
+  app.init( );
 
   mb::Clock clockTime;
   clockTime.reset( );
-
-  float time = 0.0f;
 
   while ( window->isRunning( ) )
   {
@@ -130,7 +129,7 @@ void main( )
       window->close( );
       break;
     }
-    
+
     clockTime.tick( );
 
     app.update( );

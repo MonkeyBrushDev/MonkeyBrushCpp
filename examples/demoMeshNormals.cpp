@@ -59,7 +59,7 @@ std::shared_ptr<mb::Program> createProgram( std::shared_ptr<mb::Program> program
 
     void main()
     {
-      gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(aPos, 1.0); 
+      gl_Position = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM * vec4(aPos, 1.0);
       mat3 normalMatrix = mat3(transpose(inverse(MB_MATRIXV * MB_MATRIXM)));
       vs_out.normal = normalize(vec3(MB_MATRIXP * vec4(normalMatrix * aNormal, 1.0)));
     })" );
@@ -144,7 +144,7 @@ mb::Group* createScene( const std::string& objFile, const std::string& /*texFile
     mb::Material* customMaterial = new mb::Material( );
     customMaterial->program = createProgram( customMaterial->program );
     customMaterial->addStandardUniforms( );
-    
+
     customMaterial->state( ).culling( ).setEnabled( false );
 
     geom->local( ).setScale( 0.5f );
@@ -182,6 +182,7 @@ int main( int argc, char* argv[] )
   }
 
   app.setSceneNode( createScene( objFile, textureFile ) );
+  app.init( );
 
   while ( window->isRunning( ) )
   {
