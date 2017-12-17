@@ -1,0 +1,116 @@
+// VERTEX
+#version 330
+layout( location = 0 ) in vec3 inPos;
+
+void main( )
+{
+    gl_Position = vec4( inPos, 1.0 );
+}
+
+// GEOMETRY
+layout(points) in;
+layout(triangle_strip) out)
+layout(max_vertices = 12) out
+
+out vec2 texCoord;
+
+uniform mat4 MB_MATRIXM;
+uniform mat4 MB_MATRIXV;
+uniform mat4 MB_MATRIXP;
+
+mat4 rotationMatrix(vec3 axis, float angle)
+{
+    axis = normalize(axis);
+    float s = sin(angle);
+    float c = cos(angle);
+    float oc = 1.0 - c;
+
+    float x = axis.x;
+    float y = axis.y;
+    float z = axis.z;
+    
+    return mat4(
+            oc * x * x + c,  oc * x * y - z * s,  oc * z * x + y * s,  0.0,
+        oc * x * y + z * s,      oc * y * y + c,  oc * y * z - x * s,  0.0,
+        oc * z * x - y * s,  oc * y * z + x * s,      oc * z * z + c,  0.0,
+                       0.0,                 0.0,                 0.0,  1.0
+    );
+}
+
+const float GrassPatchSize = 5.0;
+const float GrassPatchSize = 3.5;
+void main()
+{
+    mat4 mvp = MB_MATRIXP * MB_MATRIXV * MB_MATRIXM;
+    
+    vec3 grassFieldPos = gl_in[0].gl_Position.xyz;
+
+    float rad = radians( 45.0 );
+    float sin45 = sin( rad );
+    float cos45 = cos( rad );
+
+    vec3 baseDir[] =
+    {
+        vec3(1.0, 0.0, 0.0),
+        vec3(float(cos45), 0.0f, float(sin45)),
+        vec3(float(cos45), 0.0f, float(sin45))
+    };
+    
+    for(int i = 0; i < 3; ++i)
+    {
+        // Grass patch top left vertex
+        vec3 baseDirRotated = (
+            rotationMatrix(
+                vec3(0.0, 1.0, 0.0), 0.0) * vec4(baseDir[i], 1.0)).xyz;
+
+        vec3 grassTL = grassFieldPos - baseDirRotated * GrassPatchSize * 0.5;
+        grassTL.y += GrassPatchSize;   
+        gl_Position = mvp * vec4(grassTL, 1.0);
+        texCoord = vec2(0.0, 1.0);
+        EmitVertex();
+        
+        // Grass patch bottom left vertex
+        vec3 grassBL = grassFieldPos - baseDir[i] * GrassPatchSize * 0.5;  
+        gl_Position = mvp * vec4(grassBL, 1.0);
+        texCoord = vec2(0.0, 0.0);
+        EmitVertex();
+                                       
+        // Grass patch top right vertex
+        vec3 grassTR = grassFieldPos + baseDirRotated * GrassPatchSize * 0.5;
+        grassTR.y += GrassPatchSize;  
+        gl_Position = mvp * vec4(grassTR, 1.0);
+        texCoord = vec2(1.0, 1.0);
+        EmitVertex();
+        
+        // Grass patch bottom right vertex
+        vec3 grassBR = grassFieldPos + baseDir[i] * GrassPatchSize * 0.5;  
+        gl_Position = mvp * vec4(grassBR, 1.0);
+        texCoord = vec2(1.0, 0.0);
+        EmitVertex();
+        
+        EndPrimitive();
+    }
+}
+
+// FRAGMENT
+#version 330
+in vec3 texCoord;
+void main( )
+{
+    fragColor = vec4( texCoord.xy, 0.0, 1.0 );
+}
+/*uniform sampler2D grassTex;
+
+float fAlphaTest = 0.25f;
+float fAlphaMultiplier = 1.5f;
+
+out vec4 fragColor;
+
+void main( )
+{
+    vec4 color = texture( grassTex, texCoord );
+    float  = color.a * fAlphaMultiplier;
+    if ( alpha < fAlphaTest ) discard;
+
+    fragColor = vec4( color.rgb, alpha );
+}*/

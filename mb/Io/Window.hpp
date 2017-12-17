@@ -20,6 +20,10 @@
 #ifndef __MB_WINDOW__
 #define __MB_WINDOW__
 
+
+#include <FreeImage.h>
+#include "../Includes.hpp"
+
 #include <mb/api.h>
 
 namespace mb
@@ -54,6 +58,20 @@ namespace mb
     virtual void setTitle(const char* title) = 0;
 
     virtual void* getWindow() = 0;
+
+    // TODO: MOVE TO ANOTHER ZONE
+    void saveToImage( const std::string& file )
+    {
+      BYTE* pixels = new BYTE[ 3 * _params.width * _params.height ];
+      glReadPixels( 0, 0, _params.width, _params.height, GL_RGB, GL_UNSIGNED_BYTE, pixels );
+      // Convert to FreeImage format & save to file
+      FIBITMAP* image = FreeImage_ConvertFromRawBits( pixels, _params.width, 
+        _params.height, 3 * _params.width, 24, 0x0000FF, 0xFF0000, 0x00FF00, false );
+      FreeImage_Save( FIF_BMP, image, file.c_str( ), 0 ); // Free resources
+      FreeImage_Unload( image );
+      delete[ ] pixels;
+
+    }
   protected:
     WindowParams _params;
   };

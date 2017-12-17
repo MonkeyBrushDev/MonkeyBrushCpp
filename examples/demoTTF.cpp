@@ -108,15 +108,18 @@ int main( void )
 
   // Transform buffer
   buffer0.bind( );
-  buffer0.bufferData( sizeof( mb::Vector4 ) * positions.size( ), positions.data( ), GL_STATIC_DRAW );
+  buffer0.bufferData( sizeof( mb::Vector4 ) * positions.size( ), 
+    positions.data( ), GL_STATIC_DRAW );
 
   // Feedback empty buffers
   buffer1.bind( );
-  buffer1.bufferData( sizeof( mb::Vector4 ) * positions.size( ), nullptr, GL_STATIC_READ );
+  buffer1.bufferData( sizeof( mb::Vector4 ) * positions.size( ), 
+    nullptr, GL_STATIC_READ );
   buffer1.unbind( );
 
   buffer2.bind( );
-  buffer2.bufferData( sizeof( mb::Vector3 ) * positions.size( ), nullptr, GL_STATIC_READ );
+  buffer2.bufferData( sizeof( mb::Vector3 ) * positions.size( ), 
+    nullptr, GL_STATIC_READ );
   buffer2.unbind( );
 
 

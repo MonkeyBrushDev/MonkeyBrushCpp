@@ -172,6 +172,7 @@ set( MB_PUBLIC_HEADERS
   OpenGL/TransformFeedback.hpp
   OpenGL/Query.hpp
   OpenGL/Sync.hpp
+  OpenGL/RenderTarget.hpp
 )
 
 set( MB_HEADERS
@@ -320,6 +321,7 @@ set( MB_SOURCES
   OpenGL/TransformFeedback.cpp
   OpenGL/Query.cpp
   OpenGL/Sync.cpp
+  OpenGL/RenderTarget.cpp
 )
 
 set( MB_LINK_LIBRARIES
@@ -327,7 +329,6 @@ set( MB_LINK_LIBRARIES
   ${GLEW_LIBRARIES}
   ${FREEIMAGE_LIBRARIES}
   ${GLFW3_LIBRARIES}
-  ${GLM_LIBRARIES}
 )
 
 common_library( mb )

@@ -50,9 +50,9 @@ public:
   }
   virtual void update( const mb::Clock& clock )
   {
-    _material->value( ( float ) clock.getAccumTime( ) );
-    _material->value( 0.01f * ( float ) sin( clock.getAccumTime( ) ) );
-    _material->value( ( float ) mb::Mathf::degToRad( -45.0f ) );
+    _material->uniform( "time" )->value( ( float ) clock.getAccumTime( ) );
+    _material->uniform( "up" )->value( 0.01f * ( float ) sin( clock.getAccumTime( ) ) );
+    _material->uniform( "beta" )->value( ( float ) mb::Mathf::degToRad( -45.0f ) );
   }
 protected:
   mb::MaterialPtr _material;

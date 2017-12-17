@@ -1,0 +1,3 @@
+Great, the geometry looks correct, but what's going on with the texture? The problem is that the origin of texture coordinates in Vulkan is the top-left corner, whereas the OBJ format assumes the bottom-left corner. Solve this by flipping the vertical component of the texture coordinates:
+  attrib.texcoords[2 * index.texcoord_index + 0],
+  1.0f - attrib.texcoords[2 * index.texcoord_index + 1]

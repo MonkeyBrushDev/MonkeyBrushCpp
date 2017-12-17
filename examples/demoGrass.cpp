@@ -51,7 +51,7 @@ public:
   }
   virtual void update( const mb::Clock& clock )
   {
-    _material->value( ( float ) clock.getAccumTime( ) );
+    _material->uniform( "time" )->value( ( float ) clock.getAccumTime( ) );
   }
 protected:
   mb::MaterialPtr _material;
